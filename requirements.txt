@@ -1,6 +1,6 @@
 Modulet e Nodes
 cd client-app > npm install
-
+gresa
 
 Database
 user: .
