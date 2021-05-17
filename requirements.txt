@@ -5,3 +5,4 @@ Database
 user: .
 name: hms
 
+Nese ka error: cd api > dotnet restore
