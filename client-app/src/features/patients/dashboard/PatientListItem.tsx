@@ -1,13 +1,18 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Icon, Item, Segment } from 'semantic-ui-react';
 import { Patient } from '../../../app/models/patient';
+import { useStore } from '../../../app/stores/store';
 
 interface Props {
     patient: Patient;
 }
 
-export default function PatientListItem({patient}: Props){
+export default observer(function PatientListItem({ patient }: Props) {
+    const { patientStore } = useStore();
+    const { deletePatient, loading } = patientStore;
+
     return (
         <Segment.Group>
             <Segment>
@@ -22,14 +27,20 @@ export default function PatientListItem({patient}: Props){
                 </Item.Group>
             </Segment>
             <Segment clearing>
-                <Button 
+                <Button
                     as={Link}
                     to={`/patients/${patient.id}`}
                     color='teal'
                     floated='right'
                     content='View'
                 />
+                <Button
+                    onClick={() => deletePatient(patient.id)}
+                    color='red'
+                    floated='right'
+                    content='Delete'
+                />
             </Segment>
         </Segment.Group>
     )
-}
+})

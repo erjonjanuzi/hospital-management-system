@@ -14,28 +14,7 @@ export default class PatientStore {
     }
 
     get patients() {
-        return [
-            {
-                "id": "e0363e9c-1dc6-40fb-b56e-08d9194df289",
-                "firstName": "Engjell",
-                "lastName": "Avdiu"
-            },
-            {
-                "id": "0bf249b7-426d-4aae-91c5-08d91d3ca8d4",
-                "firstName": "Erjon Updated Test",
-                "lastName": "Januzi"
-            },
-            {
-                "id": "9ceb3c7f-4710-4657-9f85-2480abe4a644",
-                "firstName": "test",
-                "lastName": "test"
-            },
-            {
-                "id": "35a7cd7c-0bff-479b-b50a-346b00566690",
-                "firstName": "test2",
-                "lastName": "test2"
-            }
-        ];
+        return Array.from(this.patientRegistry.values());
     }
 
     loadPatients = async() => {
