@@ -31,8 +31,8 @@ const requests = {
 const Patients = {
     list: () => requests.get<Patient[]>('/patients'),
     details: (id: string) => requests.get<Patient>(`/patients/${id}`),
-    create: (patient: Patient) => requests.post<void>('patients', patient),
-    update: (patient: Patient) => requests.put<void>(`/patients/${patient.id}`, patient),
+    create: (patient: Patient) => axios.post<void>('patients', patient),
+    update: (patient: Patient) => axios.put<void>(`/patients/${patient.id}`, patient),
     delete: (id: string) => axios.delete<void>(`/patients/${id}`)
 }
 

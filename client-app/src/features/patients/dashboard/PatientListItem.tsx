@@ -15,7 +15,7 @@ export default function PatientListItem({patient}: Props){
                     <Item>
                         <Item.Content>
                             <Item.Header as={Link} to={`/patients/${patient.id}`}>
-                                {patient.firstName} {patient.lastName}
+                                {patient.firstName} {patient.lastName} {patient.id}
                             </Item.Header>
                         </Item.Content>
                     </Item>

@@ -1,6 +1,10 @@
 Modulet e Nodes
-cd client-app > npm install
-gresa
+
+Error - Module not found: Can't resolve '//Moduli\\' in '//PATHI\\'
+Fix - cd client-app > npm install
+
+
+
 
 Database
 user: .
