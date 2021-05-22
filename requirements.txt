@@ -7,3 +7,5 @@ user: .
 name: hms
 
 Nese ka error: cd api > dotnet restore
+
+****mediatr.microsoft.dependencyinjection install nuget package in Application folder
