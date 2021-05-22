@@ -13,7 +13,7 @@ export default observer(function PatientDashboard() {
         if (patientRegistry.size <= 1) loadPatients();
     }, [patientRegistry.size, loadPatients])
 
-    //if (patientStore.loadingInitial) return <LoadingComponent content='Loading app' />
+    if (patientStore.loadingInitial) return <LoadingComponent content='Loading app' />
 
     return (
         <Grid>

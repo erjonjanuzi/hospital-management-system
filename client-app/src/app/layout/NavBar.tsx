@@ -11,6 +11,7 @@ export default function NavBar() {
                     HMS
                 </Menu.Item>
                 <Menu.Item as={NavLink} to='/patients' name='Patients' />
+                <Menu.Item as={NavLink} to='/errors' name='Errors' />
                 <Menu.Item>
                     <Button as={NavLink} to='/createPatient' positive content='Create Patient' />
                 </Menu.Item>

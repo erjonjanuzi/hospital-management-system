@@ -7,23 +7,22 @@ import { useStore } from '../../../app/stores/store';
 import PatientDetailedInfo from './PatientDetailedInfo';
 
 export default observer(function PatientDetails() {
-    const {patientStore} = useStore();
-    const {selectedPatient: patient, loadPatient, loadingInitial} = patientStore;
-    const {id} = useParams<{id: string}>();
+    const { patientStore } = useStore();
+    const { selectedPatient: patient, loadPatient, loadingInitial } = patientStore;
+    const { id } = useParams<{ id: string }>();
 
     useEffect(() => {
-        console.log('po mrrin ktu');
         if (id) {
-            loadPatient(id); 
+            loadPatient(id);
         };
     }, [id, loadPatient]);
 
-    if (!patient) console.log("nuk ka objekt" + patient);
+    if (loadingInitial || !patient) return <LoadingComponent />;
 
     return (
         <Grid>
             <Grid.Column width={10}>
-                <PatientDetailedInfo patient={patient!} />
+                <PatientDetailedInfo patient={patient} />
             </Grid.Column>
             <Grid.Column width={6}>
             </Grid.Column>

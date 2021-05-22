@@ -2,16 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
 import './app/layout/style.css';
-import { BrowserRouter } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.min.css';
+import { Router } from 'react-router-dom';
 import App from './app/layout/App';
 import reportWebVitals from './reportWebVitals';
+import {createBrowserHistory} from 'history';
+import { store, StoreContext } from './app/stores/store';
+
+export const history = createBrowserHistory();
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
+  <StoreContext.Provider value={store}>
+    <Router history={history}>
       <App />
-    </BrowserRouter>
-  </React.StrictMode>,
+    </Router>
+  </StoreContext.Provider>,
   document.getElementById('root')
 );
 
