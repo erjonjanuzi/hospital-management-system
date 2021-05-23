@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
+    [Authorize]
     public class PatientsController : BaseApiController
     {
         [HttpGet]
