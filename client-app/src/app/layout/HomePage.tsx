@@ -28,14 +28,14 @@ export default observer(function HomePage() {
                     {userStore.isLoggedIn ? (
                         <Segment style={{ backgroundColor: 'white' }}>
                             <Header as='h3' content={'You are already logged in'} />
-                            <Button as={Link} to='/patients' size='huge' primary >
+                            <Button as={Link} to={`/${user?.role.toLowerCase()}`} size='huge' primary >
                                 Continue!
                             </Button>
                         </Segment>
                     ) : (
                         !register &&
                         <>
-                            <Segment style={{ minHeight: '60vh' }}>
+                            <Segment>
                                 <Grid >
                                     <Grid.Column width='6' style={{ padding: 0 }}>
                                         <Image src='/assets/doctor.png' />
@@ -61,7 +61,7 @@ export default observer(function HomePage() {
                         </>
                         || register &&
                         <>
-                            <Segment style={{ minHeight: '60vh', minWidth: '30vw', padding: '0 20px' }}>
+                            <Segment style={{ minWidth: '30vw', padding: '0 20px' }}>
                                 <Grid >
                                     <Grid.Column width='16'>
                                         <div style={{ margin: '50px 0' }}>

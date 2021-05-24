@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import { Route, Router, Switch, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { Container } from 'semantic-ui-react';
+import AdminDashboard from '../../features/admin/dashboard/AdminDashboard';
+import DoctorDashboard from '../../features/doctor/dashboard/DoctorDashboard';
 import NotFound from '../../features/errors/NotFound';
 import ServerError from '../../features/errors/ServerError';
 import TestErrors from '../../features/errors/TestError';
@@ -15,6 +17,7 @@ import { useStore } from '../stores/store';
 import HomePage from './HomePage';
 import LoadingComponent from './LoadingComponent';
 import NavBar from './NavBar';
+import PrivateRoute from './PrivateRoute';
 import './style.css';
 
 function App() {
@@ -40,18 +43,16 @@ function App() {
         path={'/(.+)'}
         render={() => (
           <>
-            <NavBar />
-            <Container style={{ marginTop: '7em' }}>
               <Switch>
-                <Route exact path='/patients' component={PatientDashboard} />
-                <Route path='/patients/:id' component={PatientDetails} />
+                <PrivateRoute exact path='/admin' component={AdminDashboard} />
+                <PrivateRoute exact path='/doctor' component={DoctorDashboard} />
+                <PrivateRoute exact path='/patient' component={PatientDashboard} />
                 <Route key={location.key} path={['/createPatient', '/manage/:id']} component={PatientForm} />
                 <Route path='/errors' component={TestErrors} />
                 <Route path='/server-error' component={ServerError} />
                 <Route path='/login' component={LoginForm} />
                 <Route component={NotFound} />
               </Switch>
-            </Container>
           </>
         )}
       />
