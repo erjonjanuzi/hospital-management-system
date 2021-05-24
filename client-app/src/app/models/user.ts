@@ -1,7 +1,8 @@
 export interface User {
     username: string;
     displayName: string;
-    token: string
+    token: string;
+    role: string;
 }
 
 export interface UserFormValues {
@@ -9,4 +10,5 @@ export interface UserFormValues {
     password: string;
     displayName?: string;
     username?: string;
+    role?: string;
 }

@@ -17,5 +17,7 @@ namespace API.DTO
 
         [Required]
         public string Username { get; set; }
+        [Required]
+        public string Role { get; set; }
     }
 }

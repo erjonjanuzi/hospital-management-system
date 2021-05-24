@@ -19,7 +19,7 @@ export default function NavBar() {
                     <Button as={NavLink} to='/createPatient' positive content='Create Patient' />
                 </Menu.Item>
                 <Menu.Item position='right'>
-                    <Dropdown pointing='top left' text={user?.displayName}>
+                    <Dropdown pointing='top left' text={user?.role + " " + user?.displayName}>
                         <Dropdown.Menu>
                             <Dropdown.Item as={Link} to={`/profile/${user?.username}`} 
                                 text='My Profile' icon='user' />

@@ -6,10 +6,9 @@ using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
-
 namespace API.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class PatientsController : BaseApiController
     {
         [HttpGet]

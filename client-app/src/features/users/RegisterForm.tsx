@@ -28,6 +28,7 @@ export default observer(function RegisterForm() {
                     <MyTextInput name='username' placeholder='Username' />
                     <MyTextInput name='email' placeholder='Email' />
                     <MyTextInput name='password' placeholder='Password' type='password' />
+                    <MyTextInput name='role' placeholder='Role' />
                     <ErrorMessage 
                         name='error' render={() => 
                         <ValidationErrors errors={errors.error} />}

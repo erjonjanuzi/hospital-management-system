@@ -41,9 +41,9 @@ namespace API.Controllers
 
             return Unauthorized();
         }
-
+        
         [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<UserDto>> RegisterAdmin(RegisterDto registerDto)
         {
             if (await userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
             {
@@ -56,12 +56,27 @@ namespace API.Controllers
                 return ValidationProblem();
             }
 
-            var user = new AppUser
+            AppUser user = null;
+
+            if (string.Equals(registerDto.Role, "Admin"))
             {
-                DisplayName = registerDto.DisplayName,
-                Email = registerDto.Email,
-                UserName = registerDto.Username
-            };
+                user = new Admin
+                {
+                    DisplayName = registerDto.DisplayName,
+                    Email = registerDto.Email,
+                    UserName = registerDto.Username,
+                    Role = registerDto.Role
+                };
+            } else if (string.Equals(registerDto.Role, "Doctor"))
+            {
+                user = new Doctor
+                {
+                    DisplayName = registerDto.DisplayName,
+                    Email = registerDto.Email,
+                    UserName = registerDto.Username,
+                    Role = registerDto.Role
+                };
+            }
 
             var result = await userManager.CreateAsync(user, registerDto.Password);
 
@@ -72,6 +87,7 @@ namespace API.Controllers
 
             return BadRequest("Problem registering user");
         }
+
 
         [Authorize]
         [HttpGet]
@@ -88,7 +104,8 @@ namespace API.Controllers
             {
                 DisplayName = user.DisplayName,
                 Token = tokenService.CreateToken(user),
-                Username = user.UserName
+                Username = user.UserName,
+                Role = user.Role
             };
         }
     }

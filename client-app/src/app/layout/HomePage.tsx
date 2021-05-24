@@ -9,6 +9,9 @@ import { useStore } from '../stores/store';
 export default observer(function HomePage() {
     const { userStore, modalStore } = useStore();
 
+    const { user } = userStore;
+
+
     return (
         <Segment inverted textAlign='center' vertical className='masthead'>
             <Container text>
@@ -19,6 +22,7 @@ export default observer(function HomePage() {
                 {userStore.isLoggedIn ? (
                     <>
                         <Header as='h2' inverted content='Welcome to HMS' />
+                        <Header content={user?.role} />
                         <Button as={Link} to='/patients' size='huge' inverted>
                             Take me to the HMS!
                         </Button>
