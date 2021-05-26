@@ -1,15 +1,6 @@
 Modulet e Nodes
-
-Error - Module not found: Can't resolve '//Moduli\\' in '//PATHI\\'
-Fix - cd client-app > npm install
-
-
-
+cd client-app > npm install
 
 Database
 user: .
-name: hms
-
-Nese ka error: cd api > dotnet restore
-
-****mediatr.microsoft.dependencyinjection install nuget package in Application folder
+name:

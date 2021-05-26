@@ -25,8 +25,8 @@ export default observer( function NavBar() {
             <Menu.Item as={Link} to='/admin/appointments'>
                 Appointments
             </Menu.Item>
-            <Menu.Item>
-                test
+            <Menu.Item as={Link} to='/admin/departments'> 
+                departments
             </Menu.Item>
             <Menu.Item as={Link} content='Logout' onClick={logout} text='Logout' icon='power' />
         </Menu>

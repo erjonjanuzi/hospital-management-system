@@ -20,6 +20,7 @@ import NavBar from '../../features/admin/dashboard/NavBar';
 import PrivateRoute from './PrivateRoute';
 import './style.css';
 import AdminAppointmentPage from '../../features/admin/appointments/AdminAppointmentPage';
+import DepartmentsPage from '../../features/admin/departments/DepartmentsPage';
 
 function App() {
   const location = useLocation();
@@ -49,8 +50,13 @@ function App() {
               <Switch>
                 <PrivateRoute exact path='/admin' component={AdminDashboard} />
                 <PrivateRoute path='/admin/appointments' component={AdminAppointmentPage} />
+                <PrivateRoute path='/admin/departments' component={DepartmentsPage} />
+
                 <PrivateRoute exact path='/doctor' component={DoctorDashboard} />
                 <PrivateRoute exact path='/patient' component={PatientDashboard} />
+                
+              
+
 
 
                 <Route key={location.key} path={['/createPatient', '/manage/:id']} component={PatientForm} />
