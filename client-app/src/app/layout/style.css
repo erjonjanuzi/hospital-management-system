@@ -20,3 +20,11 @@ body {
 .sidebar-logo-header h2 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.ui.grid{
+  background-color: white;
+  border-radius: 10px;
+}
+.ui.grid > .header{
+  background-color: aqua;
+}

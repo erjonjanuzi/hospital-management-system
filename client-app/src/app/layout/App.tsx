@@ -23,6 +23,7 @@ import AdminAppointmentPage from '../../features/admin/appointments/AdminAppoint
 import DepartmentsPage from '../../features/admin/departments/DepartmentsPage';
 import Gresa from '../../features/doctor/AppointmetsPatient';
 import AppointmetsPatient from '../../features/doctor/AppointmetsPatient';
+import PatientProfile from '../../features/patients/my-profile/PatientProfile';
 
 function App() {
   const location = useLocation();
@@ -55,7 +56,8 @@ function App() {
                 <PrivateRoute path='/admin/departments' component={DepartmentsPage} />
 
                 <PrivateRoute exact path='/doctor' component={DoctorDashboard} />
-                <PrivateRoute exact path='/patient' component={PatientDashboard} />
+                <PrivateRoute exact path='/doctor/patientprofile' component={PatientProfile} />
+                {/* <PrivateRoute exact path='/patient' component={PatientDashboard} /> */}
                 
               
 
