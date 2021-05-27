@@ -10,6 +10,7 @@ import {
   Input,
   Menu,
   Modal,
+  Pagination,
   Progress,
   Segment,
   Table,
@@ -348,7 +349,17 @@ export default function AppointmetsPatient() {
             </Table.Cell>
           </Table.Row>
         </Table.Body>
+    
       </Table>
+    <Pagination 
+    boundaryRange={0}
+    defaultActivePage={1}
+    ellipsisItem={null}
+    firstItem={null}
+    lastItem={null}
+    siblingRange={1}
+    totalPages={10}
+  />
     </Container>
   );
 }
