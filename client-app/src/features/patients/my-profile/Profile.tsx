@@ -24,7 +24,8 @@ export default observer(function profile(){
             <Grid.Column  width='12'>
             <div>
                 <Container textAlign='justified'>
-                <b>Personal Information</b>
+                <b>Personal Information</b> 
+                {/* test */}
                 <Divider hidden/>
                 <List>
                     <List.Item>
