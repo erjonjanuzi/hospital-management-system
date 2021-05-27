@@ -54,6 +54,9 @@ export default observer(function NavBar() {
       <Menu.Item as={Link} to="/doctor/PatientProfile">
       Patient Profile
       </Menu.Item>
+      <Menu.Item as={Link} to="/doctor/RegisterPatient">
+      RegisterPatient
+      </Menu.Item>
       <Menu.Item
         as={Link}
         content="Logout"

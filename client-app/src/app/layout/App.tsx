@@ -24,6 +24,7 @@ import DepartmentsPage from '../../features/admin/departments/DepartmentsPage';
 import Gresa from '../../features/doctor/AppointmetsPatient';
 import AppointmetsPatient from '../../features/doctor/AppointmetsPatient';
 import PatientProfile from '../../features/patients/my-profile/PatientProfile';
+import RegisterPatient from '../../features/doctor/RegisterPatient';
 
 function App() {
   const location = useLocation();
@@ -62,6 +63,9 @@ function App() {
               
 
                 <PrivateRoute exact path='/doctor/AppointmetsPatient' component={AppointmetsPatient} />
+                <PrivateRoute exact path='/doctor/RegisterPatient' component={RegisterPatient} />
+
+
 
 
                 <Route key={location.key} path={['/createPatient', '/manage/:id']} component={PatientForm} />
