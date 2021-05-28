@@ -23,12 +23,10 @@ import AdminAppointmentPage from '../../features/admin/appointments/AdminAppoint
 import DepartmentsPage from '../../features/admin/departments/DepartmentsPage';
 import Gresa from '../../features/doctor/AppointmetsPatient';
 import AppointmetsPatient from '../../features/doctor/AppointmetsPatient';
-<<<<<<< Updated upstream
 import PatientProfile from '../../features/patients/my-profile/PatientProfile';
 import RegisterPatient from '../../features/doctor/RegisterPatient';
-=======
 import AdminAccountsTable from '../../features/admin/accounts/AdminAccountsTable';
->>>>>>> Stashed changes
+
 
 function App() {
   const location = useLocation();
