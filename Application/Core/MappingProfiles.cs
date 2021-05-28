@@ -8,6 +8,7 @@ namespace Application.Core
         public MappingProfiles()
         {
             CreateMap<Patient, Patient>();
+            CreateMap<AppUser, AppUser>();
         }
     }
 }

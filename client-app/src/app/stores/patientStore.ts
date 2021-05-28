@@ -16,7 +16,7 @@ export default class PatientStore {
     get patients() {
         return Array.from(this.patientRegistry.values());
     }
-
+        
     loadPatients = async() => {
         try {
             const patients = await agent.Patients.list();

@@ -42,6 +42,9 @@ export default observer(function NavBar() {
       <Menu.Item as={Link} to="/admin">
         Dashboard
       </Menu.Item>
+      <Menu.Item as={Link} to="/admin/accounts">
+        Account Management
+      </Menu.Item>
       <Menu.Item as={Link} to="/admin/appointments">
         Appointments
       </Menu.Item>

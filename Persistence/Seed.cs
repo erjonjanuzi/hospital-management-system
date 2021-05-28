@@ -15,8 +15,18 @@ namespace Persistence
             {
                 var users = new List<AppUser>
                 {
-                    new Admin{DisplayName = "Erjon", UserName = "erjon", Email = "erjon@test.com", Role = "Admin"},
-                    new Doctor{DisplayName = "Engjell", UserName = "engjell", Email = "engjell@test.com", Role = "Doctor"}
+                    new Admin{
+                        FirstName = "Erjon",
+                        LastName = "Januzi",
+                    },
+                    new Doctor{
+                        FirstName = "Engjell",
+                        LastName = "Avdiu",
+                    },
+                    new PatientUser{
+                        FirstName = "Andis",
+                        LastName = "Bajrami",
+                    }
                 };
 
                 foreach (var user in users)
