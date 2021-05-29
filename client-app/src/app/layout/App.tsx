@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import React, { Fragment, useEffect } from 'react';
-import { Route, Router, Switch, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { Container, Grid, Modal, Segment } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import AdminDashboard from '../../features/admin/dashboard/AdminDashboard';
 import DoctorDashboard from '../../features/doctor/dashboard/DoctorDashboard';
 import NotFound from '../../features/errors/NotFound';

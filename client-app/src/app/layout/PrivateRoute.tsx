@@ -12,7 +12,7 @@ export default function PrivateRoute({component: Component, ...rest}: Props) {
     return (
         <Route 
             {...rest}
-            render={(props) => isLoggedIn && user?.role.toLowerCase() == pathname.split('/')[1] ? <Component {...props} /> : <Redirect to={`/${user?.role.toLowerCase()}`} />}
+            render={(props) => isLoggedIn && user?.role.toLowerCase() === pathname.split('/')[1] ? <Component {...props} /> : <Redirect to={`/${user?.role.toLowerCase()}`} />}
         />
     )
 }

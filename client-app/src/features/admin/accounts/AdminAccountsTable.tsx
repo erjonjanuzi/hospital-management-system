@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react-lite';
-import { useEffect, useState } from 'react';
-import { Button, Confirm, Header, Segment, Table } from 'semantic-ui-react';
+import { useEffect } from 'react';
+import { Button, Header, Segment, Table } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 import ViewAccount from './ViewAccount';
 
 export default observer(function AdminAccountsTable() {
     const { accountManagementStore, modalStore } = useStore();
-    const { accounts, accountRegistry, loadAccounts, deleteAccount, selectedAccount } = accountManagementStore;
+    const { accounts, accountRegistry, loadAccounts, deleteAccount } = accountManagementStore;
 
     useEffect(() => {
         if (accountRegistry.size <= 1) loadAccounts();

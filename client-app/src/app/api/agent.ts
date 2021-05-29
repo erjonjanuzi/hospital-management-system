@@ -3,7 +3,7 @@ import { history } from '../..';
 import { toast } from "react-toastify";
 import { Patient } from "../models/patient";
 import { store } from "../stores/store";
-import { User, UserFormValues, AccountDto, UpdateUser } from "../models/user";
+import { User, UserFormValues, AccountDto } from "../models/user";
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {

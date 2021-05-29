@@ -1,6 +1,6 @@
 import React from "react"
-import { Button, Checkbox, Container, Dropdown, Form, Icon, Input, Menu, Progress, Segment, Table } from "semantic-ui-react"
-import {useStore}  from "../../app/stores/store";
+import { Button, Checkbox, Container, Dropdown, Form, Input, Menu, Progress, Segment } from "semantic-ui-react"
+
 
 const options = [
   { key: 'm', text: 'Male', value: 'male' },

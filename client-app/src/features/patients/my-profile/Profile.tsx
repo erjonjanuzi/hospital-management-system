@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { Card, Container, Divider, Grid, Icon, Image, List, Segment } from 'semantic-ui-react'
+import { Card, Container, Divider, Grid, Icon, Image, List } from 'semantic-ui-react'
 
 export default observer(function profile(){
     return(

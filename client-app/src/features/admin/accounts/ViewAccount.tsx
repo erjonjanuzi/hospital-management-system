@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
-import { Button, Divider, Header, Item, Label, Modal, Segment } from 'semantic-ui-react';
+import { Button, Divider, Header, Item, Modal } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 
 interface Props {

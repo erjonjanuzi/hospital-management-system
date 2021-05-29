@@ -1,15 +1,9 @@
-import { render } from "@testing-library/react";
 import { observer } from "mobx-react-lite";
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import {
-  Button,
-  Container,
-  Dropdown,
   Image,
-  Item,
-  Menu,
-  Tab,
+  Menu
 } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 
@@ -67,7 +61,6 @@ export default observer(function NavBar() {
       AppointmentsP
       </Menu.Item>
       <Menu.Item as={Link} to="/doctor/PatientProfile">
-      <h3></h3>
       Patient Profile
       </Menu.Item>
       <Menu.Item as={Link} to="/doctor/RegisterPatient">
