@@ -22,6 +22,7 @@ import AppointmetsPatient from '../../features/doctor/AppointmetsPatient';
 import PatientProfile from '../../features/patients/my-profile/PatientProfile';
 import RegisterPatient from '../../features/doctor/RegisterPatient';
 import AdminAccountsTable from '../../features/admin/accounts/AdminAccountsTable';
+import Diagnosis from '../../features/doctor/Diagnosis';
 
 
 function App() {
@@ -50,19 +51,20 @@ function App() {
             <NavBar />
             <Container fluid style={{padding: '20px 20px 0 22vw'}}>
               <Switch>
-                <PrivateRoute exact path='/admin' component={AdminDashboard} />
+                <PrivateRoute exact path='/admin/dashboard' component={AdminDashboard} />
                 <PrivateRoute path='/admin/accounts' component={AdminAccountsTable} />
                 <PrivateRoute path='/admin/appointments' component={AdminAppointmentPage} />
                 <PrivateRoute path='/admin/departments' component={DepartmentsPage} />
 
-                <PrivateRoute exact path='/doctor' component={DoctorDashboard} />
-                <PrivateRoute exact path='/doctor/patientprofile' component={PatientProfile} />
+                <PrivateRoute exact path='/doctor/dashboard' component={DoctorDashboard} />
+                <PrivateRoute exact path='/doctor/patient-profile' component={PatientProfile} />
                 {/* <PrivateRoute exact path='/patient' component={PatientDashboard} /> */}
                 
               
 
-                <PrivateRoute exact path='/doctor/AppointmetsPatient' component={AppointmetsPatient} />
-                <PrivateRoute exact path='/doctor/RegisterPatient' component={RegisterPatient} />
+                <PrivateRoute exact path='/doctor/appointmets-patient' component={AppointmetsPatient} />
+                <PrivateRoute exact path='/doctor/register-patient' component={RegisterPatient} />
+                <PrivateRoute exact path='/doctor/diagnosis' component={Diagnosis} />
 
 
 

@@ -1,5 +1,6 @@
 import React from "react"
-import { Button, Checkbox, Container, Dropdown, Form, Input, Menu, Progress, Segment } from "semantic-ui-react"
+import { Button, Container, Form, Segment } from "semantic-ui-react"
+import Breadcrumbs from "../patients/my-profile/Breadcrumbs"
 
 
 const options = [
@@ -13,30 +14,7 @@ export default function RegisterPatient() {
 
     <Container>
 
-    <Menu pointing style={{ borderRadius: "10px", padding: "10px" }}>
-        <Menu.Item name="dashboard" />
-        <Menu.Item name="appointments" />
-        <Menu.Menu position="right">
-          <Menu.Item>
-            <Input icon="search" placeholder="Search..." />
-          </Menu.Item>
-          <Menu.Item style={{ color: "black", backgroundColor: "#3BBCA6" }} name="Set new appointment" />
-        </Menu.Menu>
-      </Menu>
-
-      <Segment>
-        All Appointments
-        <Progress percent={40} size="tiny" />
-        <Checkbox label="See all" />
-        <Dropdown
-          position="right"
-          style={{ left: "70%" }}
-          options={[]}
-          search
-          selection
-          placeholder="Sort by..."
-        />
-      </Segment>
+    <Breadcrumbs></Breadcrumbs>
 
        <Form>
          <Segment>

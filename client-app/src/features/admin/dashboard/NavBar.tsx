@@ -41,7 +41,7 @@ export default observer(function NavBar() {
 
       {user?.role=== 'Admin' &&(
         <>
-        <Menu.Item as={Link} to="/admin">
+        <Menu.Item as={Link} to="/admin/dashboard">
         Dashboard
         </Menu.Item>
 
@@ -62,20 +62,24 @@ export default observer(function NavBar() {
       {user?.role=== 'Doctor' &&(
         <>
         <Menu.Item as={Link} 
-          to="/doctor">
+          to="/doctor/dashboard">
           Dashboard
         </Menu.Item>
 
-        <Menu.Item as={Link} to="/doctor/AppointmetsPatient">
+        <Menu.Item as={Link} to="/doctor/appointmets-patient">
          AppointmentsP
         </Menu.Item>
 
-        <Menu.Item as={Link} to="/doctor/PatientProfile">
+        <Menu.Item as={Link} to="/doctor/patient-profile">
          Patient Profile
         </Menu.Item>
 
-        <Menu.Item as={Link} to="/doctor/RegisterPatient">
-         RegisterPatient
+        <Menu.Item as={Link} to="/doctor/register-patient">
+         Register Patient
+        </Menu.Item>
+
+        <Menu.Item as={Link} to="/doctor/diagnosis">
+         Patient's Diagnosis
         </Menu.Item>
         </>
       )}

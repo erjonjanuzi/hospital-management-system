@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Tab } from 'semantic-ui-react';
+import { Divider, Tab } from 'semantic-ui-react';
+import Breadcrumbs from '../../patients/my-profile/Breadcrumbs';
 
 export default observer(function DoctorDashboard() {
 
@@ -11,10 +12,15 @@ export default observer(function DoctorDashboard() {
     ]
 
     return (
+        <>
+        <Breadcrumbs></Breadcrumbs>
+
+        <Divider hidden />
         <Tab 
             menu={{fluid: true, vertical: true}}
             menuPosition='left'
             panes={panes}
         />
+        </>
     )
 })

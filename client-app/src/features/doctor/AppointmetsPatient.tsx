@@ -7,29 +7,19 @@ import {
   Header,
   Icon,
   Image,
-  Input,
-  Menu,
   Modal,
   Pagination,
   Progress,
   Segment,
   Table,
 } from "semantic-ui-react";
+import Breadcrumbs from "../patients/my-profile/Breadcrumbs";
 
 export default function AppointmetsPatient() {
   const [open, setOpen] = React.useState(false);
   return (
     <Container>
-      <Menu pointing style={{ borderRadius: "10px", padding: "10px" }}>
-        <Menu.Item name="dashboard" />
-        <Menu.Item name="appointments" />
-        <Menu.Menu position="right">
-          <Menu.Item>
-            <Input icon="search" placeholder="Search..." />
-          </Menu.Item>
-          <Menu.Item style={{ color: "black", backgroundColor: "#3BBCA6" }} name="Set new appointment" />
-        </Menu.Menu>
-      </Menu>
+      <Breadcrumbs></Breadcrumbs>
       <Segment>
         All Appointments
         <Progress percent={40} size="tiny" />
