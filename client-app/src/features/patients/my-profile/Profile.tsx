@@ -2,7 +2,28 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Card, Container, Divider, Grid, Icon, Image, List } from 'semantic-ui-react'
 
+
 export default observer(function profile(){
+    const staticPatient = {
+        // personal information
+        fullName: "Engjëll Avdiu",
+        date: "21 April 2001",
+        gender: "Male",
+        phoneNumber: "+383 (0)49 466 692",
+
+        // medical information
+        medicalId: "192047219",
+        height: "188 cm",
+        bloodType: "0(poz)",
+        medicalCon: "High Blood Pressure",
+
+        //billing information
+        firstName: "Engjëll",
+        lastName: "Avdiu",
+        address: "Str. Ferat Dragaj, Mitrovice, 40000",
+        state: "Kosovo"
+
+    }
     return(
         <>
    
@@ -29,19 +50,20 @@ export default observer(function profile(){
                 <Divider hidden/>
                 <List>
                     <List.Item>
-                        <List.Header>Full Name:</List.Header>Engjëll Avdiu
+                        <List.Header>Full Name:</List.Header>
+                        {staticPatient.fullName}
                     </List.Item>
                     <List.Item>
                         <List.Header>Date of birth:</List.Header>
-                        21 April 2001
+                        {staticPatient.date}
                     </List.Item>
                     <List.Item>
                         <List.Header>Gender:</List.Header>
-                        Male
+                        {staticPatient.gender}
                     </List.Item>
                     <List.Item>
                         <List.Header>Phone Number</List.Header>
-                        +383 (0)49 466 692
+                        {staticPatient.phoneNumber}
                     </List.Item>
                 </List>
                 <Divider hidden/>
@@ -53,19 +75,20 @@ export default observer(function profile(){
                 <Divider hidden/>
                 <List>
                     <List.Item>
-                        <List.Header>MedicalID:</List.Header>192047219
+                        <List.Header>MedicalID:</List.Header>
+                        {staticPatient.medicalId}
                     </List.Item>
                     <List.Item>
                         <List.Header>Height:</List.Header>
-                        188cm
+                        {staticPatient.height}
                     </List.Item>
                     <List.Item>
                         <List.Header>Blood Type:</List.Header>
-                        0(poz)
+                        {staticPatient.bloodType}
                     </List.Item>
                     <List.Item>
                         <List.Header>Medical Conditions:</List.Header>
-                        Smut
+                        {staticPatient.medicalCon}
                     </List.Item>
                 </List>
                 <Divider/>
@@ -75,19 +98,20 @@ export default observer(function profile(){
                 <Divider hidden/>
                 <List>
                     <List.Item>
-                        <List.Header>First Name</List.Header>Engjëll
+                        <List.Header>First Name</List.Header>
+                        {staticPatient.firstName}
                     </List.Item>
                     <List.Item>
                         <List.Header>Last Name</List.Header>
-                        Avdiu
+                        {staticPatient.lastName}
                     </List.Item>
                     <List.Item>
                         <List.Header>Address</List.Header>
-                        Str. Ferat Dragaj, Mitrovice, 40000
+                        {staticPatient.address}
                     </List.Item>
                     <List.Item>
                         <List.Header>State</List.Header>
-                        Kosovo
+                        {staticPatient.state}
                     </List.Item>
                 </List>
                 <Divider/>

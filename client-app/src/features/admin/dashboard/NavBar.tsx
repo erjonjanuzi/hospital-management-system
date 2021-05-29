@@ -13,6 +13,7 @@ export default observer(function NavBar() {
   const {
     userStore: { user,logout },
   } = useStore();
+  console.log("displayname: "+user?.displayName)
   
   return ( 
     <Menu
