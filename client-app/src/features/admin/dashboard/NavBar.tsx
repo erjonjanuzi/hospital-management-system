@@ -2,6 +2,7 @@ import { observer } from "mobx-react-lite";
 import React from "react";
 import { Link } from "react-router-dom";
 import {
+  Divider,
   Image,
   Menu
 } from "semantic-ui-react";
@@ -15,13 +16,23 @@ export default observer(function NavBar() {
   } = useStore();
   console.log("displayname: "+user?.displayName)
   
+  const menuItemStyle = {
+    color: "white", 
+    backgroundColor: "#3BBCA6",
+    borderRadius: "30px", 
+    textAlign: "center", 
+    width: "15vw"
+  }
+
   return ( 
     <Menu
       vertical={true}
+      
       fixed="left"
       style={{ marginRight: "50px", minWidth: "20vw" }}
     >
-      <Menu.Item style={{ padding: "0px" }}>
+      <Menu.Item 
+        style={{ padding: "0px" }}>
         <div className="sidebar-logo-header">
           <img src="/assets/logo.png" alt="logo" />
           <h2 style={{ margin: "0", padding: 0 }}>MEDCARE Hospital</h2>
@@ -41,51 +52,75 @@ export default observer(function NavBar() {
 
       {user?.role=== 'Admin' &&(
         <>
-        <Menu.Item as={Link} to="/admin/dashboard">
+        <Divider hidden />
+        <Menu.Item as={Link} to="/admin/dashboard"
+        style={menuItemStyle}>
         Dashboard
         </Menu.Item>
+        <Divider hidden />
 
-        <Menu.Item as={Link} to="/admin/accounts">
+        <Menu.Item as={Link} to="/admin/accounts"
+        style={menuItemStyle}>
           Account Management
         </Menu.Item>
+        <Divider hidden />
 
-        <Menu.Item as={Link} to="/admin/appointments">
+        <Menu.Item as={Link} to="/admin/appointments"
+        style={menuItemStyle}>
           Appointments
         </Menu.Item>
+        <Divider hidden />
 
-        <Menu.Item as={Link} to="/admin/departments">
+        <Menu.Item as={Link} to="/admin/departments"
+        style={menuItemStyle}>
           departments
         </Menu.Item>
+        <Divider hidden />
         </>
       )}
       
       {user?.role=== 'Doctor' &&(
         <>
+        <Divider hidden />
         <Menu.Item as={Link} 
-          to="/doctor/dashboard">
+          style={menuItemStyle}
+          to="/doctor/dashboard"
+          >
           Dashboard
+          
         </Menu.Item>
+        <Divider hidden />
 
-        <Menu.Item as={Link} to="/doctor/appointmets-patient">
+        <Menu.Item as={Link} to="/doctor/appointmets-patient"
+        style={menuItemStyle}>
          AppointmentsP
         </Menu.Item>
+        <Divider hidden />
 
-        <Menu.Item as={Link} to="/doctor/patient-profile">
+        <Menu.Item as={Link} to="/doctor/patient-profile"
+        style={menuItemStyle}>
          Patient Profile
         </Menu.Item>
+        <Divider hidden />
 
-        <Menu.Item as={Link} to="/doctor/register-patient">
+        <Menu.Item as={Link} to="/doctor/register-patient"
+        style={menuItemStyle}>
          Register Patient
         </Menu.Item>
+        <Divider hidden />
 
-        <Menu.Item as={Link} to="/doctor/diagnosis">
+        <Menu.Item as={Link} to="/doctor/diagnosis"
+        style={menuItemStyle}>
          Patient's Diagnosis
         </Menu.Item>
+        <Divider hidden />
         </>
       )}
      
+     <Divider hidden />
       <Menu.Item
         as={Link}
+        style={{textAlign: "center"}}
         content="Logout"
         onClick={logout}
         text="Logout"
