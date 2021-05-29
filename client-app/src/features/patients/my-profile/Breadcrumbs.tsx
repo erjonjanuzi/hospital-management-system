@@ -2,7 +2,8 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Input, Menu } from 'semantic-ui-react'
 
-export default observer(function SidePanel(){
+
+export default observer(function breadcrumbs(){
     
     return(
         <Menu pointing style={{ borderRadius: "10px", padding: "10px" }}>

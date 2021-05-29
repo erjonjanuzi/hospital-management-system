@@ -1,3 +1,4 @@
+import { render } from "@testing-library/react";
 import { observer } from "mobx-react-lite";
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
@@ -12,12 +13,14 @@ import {
 } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 
+
+
 export default observer(function NavBar() {
   const {
-    userStore: { user, logout },
+    userStore: { user,logout },
   } = useStore();
-
-  return (
+  
+  return ( 
     <Menu
       vertical={true}
       fixed="left"
@@ -39,6 +42,15 @@ export default observer(function NavBar() {
         <Image src="/assets/user.png" size="tiny" circular />
         <h3 style={{ margin: "0 10px", padding: 0 }}>{user?.displayName}</h3>
       </Menu.Item>
+      
+      <Menu.Item as={Link} 
+
+        to="/admin">
+        Dashboard
+        {user?.role}
+      </Menu.Item>
+
+
       <Menu.Item as={Link} to="/admin">
         Dashboard
       </Menu.Item>
@@ -55,6 +67,7 @@ export default observer(function NavBar() {
       AppointmentsP
       </Menu.Item>
       <Menu.Item as={Link} to="/doctor/PatientProfile">
+      <h3></h3>
       Patient Profile
       </Menu.Item>
       <Menu.Item as={Link} to="/doctor/RegisterPatient">
