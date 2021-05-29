@@ -34,38 +34,51 @@ export default observer(function NavBar() {
         }}
       >
         <Image src="/assets/user.png" size="tiny" circular />
-        <h3 style={{ margin: "0 10px", padding: 0 }}>{user?.displayName}</h3>
+        <h3 style={{ margin: "0 10px", padding: 0 }}>{user?.username}</h3>
       </Menu.Item>
       
-      <Menu.Item as={Link} 
 
-        to="/admin">
+      {user?.role=== 'Admin' &&(
+        <>
+        <Menu.Item as={Link} to="/admin">
         Dashboard
-        {user?.role}
-      </Menu.Item>
+        </Menu.Item>
 
+        <Menu.Item as={Link} to="/admin/accounts">
+          Account Management
+        </Menu.Item>
 
-      <Menu.Item as={Link} to="/admin">
-        Dashboard
-      </Menu.Item>
-      <Menu.Item as={Link} to="/admin/accounts">
-        Account Management
-      </Menu.Item>
-      <Menu.Item as={Link} to="/admin/appointments">
-        Appointments
-      </Menu.Item>
-      <Menu.Item as={Link} to="/admin/departments">
-        departments
-      </Menu.Item>
-      <Menu.Item as={Link} to="/doctor/AppointmetsPatient">
-      AppointmentsP
-      </Menu.Item>
-      <Menu.Item as={Link} to="/doctor/PatientProfile">
-      Patient Profile
-      </Menu.Item>
-      <Menu.Item as={Link} to="/doctor/RegisterPatient">
-      RegisterPatient
-      </Menu.Item>
+        <Menu.Item as={Link} to="/admin/appointments">
+          Appointments
+        </Menu.Item>
+
+        <Menu.Item as={Link} to="/admin/departments">
+          departments
+        </Menu.Item>
+        </>
+      )}
+      
+      {user?.role=== 'Doctor' &&(
+        <>
+        <Menu.Item as={Link} 
+          to="/doctor">
+          Dashboard
+        </Menu.Item>
+
+        <Menu.Item as={Link} to="/doctor/AppointmetsPatient">
+         AppointmentsP
+        </Menu.Item>
+
+        <Menu.Item as={Link} to="/doctor/PatientProfile">
+         Patient Profile
+        </Menu.Item>
+
+        <Menu.Item as={Link} to="/doctor/RegisterPatient">
+         RegisterPatient
+        </Menu.Item>
+        </>
+      )}
+     
       <Menu.Item
         as={Link}
         content="Logout"
