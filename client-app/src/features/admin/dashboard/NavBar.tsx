@@ -29,15 +29,18 @@ export default observer(function NavBar() {
       vertical={true}
       
       fixed="left"
-      style={{ marginRight: "50px", minWidth: "20vw" }}
+      style={{ marginRight: "50px", minWidth: "20vw"}}
     >
-      <Menu.Item 
-        style={{ padding: "0px" }}>
-        <div className="sidebar-logo-header">
-          <img src="/assets/logo.png" alt="logo" />
-          <h2 style={{ margin: "0", padding: 0 }}>MEDCARE Hospital</h2>
-        </div>
-      </Menu.Item>
+      <>
+        <Menu.Item 
+          style={{ padding: "0px", height: '15%' }}>
+          <div className="sidebar-logo-header">
+            <img src="/assets/logo.png" alt="logo" />
+            <h2 style={{ margin: "0", padding: 0 }}>MEDCARE Hospital</h2>
+          </div>
+        </Menu.Item>
+      </>
+
       <Menu.Item
         style={{
           display: "flex",

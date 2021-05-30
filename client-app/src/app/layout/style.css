@@ -31,5 +31,5 @@ body {
 
 .ui.vertical.menu {
   display: flex;
-  justify-content: center;
+  align-items: center;
 }
