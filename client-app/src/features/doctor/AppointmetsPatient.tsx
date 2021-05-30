@@ -1,4 +1,5 @@
-import React from "react";
+import { observer } from "mobx-react-lite";
+import React, { useEffect } from "react";
 import {
   Button,
   Checkbox,
@@ -7,16 +8,19 @@ import {
   Header,
   Icon,
   Image,
-  Modal,
   Pagination,
   Progress,
   Segment,
   Table,
 } from "semantic-ui-react";
+import { useStore } from "../../app/stores/store";
 import Breadcrumbs from "../patients/my-profile/Breadcrumbs";
+import ViewAppointments from "./dashboard/ViewAppointments";
 
-export default function AppointmetsPatient() {
+export default observer(function AppointmetsPatient() {
   const [open, setOpen] = React.useState(false);
+  const { accountManagementStore, modalStore } = useStore();
+
   return (
     <Container>
       <Breadcrumbs></Breadcrumbs>
@@ -105,45 +109,15 @@ export default function AppointmetsPatient() {
               <Icon link name="trash alternate outline" />
             </Table.Cell>
             <Table.Cell>
-              <Modal
-                onClose={() => setOpen(false)}
-                onOpen={() => setOpen(true)}
-                open={open}
-                trigger={<Button>View</Button>}
-              >
-                <Modal.Header>CAN THE TITLE CHANGE????</Modal.Header>
-                <Modal.Content image>
-                  <Image
-                    size="medium"
-                    src="https://react.semantic-ui.com/images/avatar/large/rachel.png"
-                    wrapped
-                  />
-                  <Modal.Description>
-                    <Header>Default Profile Image</Header>
-                    <p>Your appointment is set to be held next week.</p>
-                    <p>
-                      The correct date: Thursday, June 17, 2021 Time: 02:30 PM
-                    </p>
-                    <p>Doctor: Joana Smith</p>
-                    <p>Is it okay to use this photo?</p>
-                  </Modal.Description>
-                </Modal.Content>
-                <Modal.Actions>
-                  <Button color="black" onClick={() => setOpen(false)}>
-                    No
-                  </Button>
-                  <Button
-                    content="Yes, that's correct"
-                    labelPosition="right"
-                    icon="checkmark"
-                    onClick={() => setOpen(false)}
-                    positive
-                  />
-                </Modal.Actions>
-              </Modal>
+              <Button
+                content="View"
+                basic
+                color="grey"
+                onClick={() => modalStore.openModal(<ViewAppointments />)}
+              />
             </Table.Cell>
           </Table.Row>
-
+          {/* ------------------------------------ */}
           <Table.Row>
             <Table.Cell>
               <Checkbox label="05 Jun 2021" />{" "}
@@ -173,41 +147,12 @@ export default function AppointmetsPatient() {
               <Icon link name="trash alternate outline" />
             </Table.Cell>
             <Table.Cell>
-              <Modal
-                onClose={() => setOpen(false)}
-                onOpen={() => setOpen(true)}
-                open={open}
-                trigger={<Button>View</Button>}
-              >
-                <Modal.Header>Select a Photo</Modal.Header>
-                <Modal.Content image>
-                  <Image
-                    size="medium"
-                    src="https://react.semantic-ui.com/images/avatar/large/rachel.png"
-                    wrapped
-                  />
-                  <Modal.Description>
-                    <Header>Default Profile Image</Header>
-                    <p>
-                      We've found the following gravatar image associated with
-                      your e-mail address.
-                    </p>
-                    <p>Is it okay to use this photo?</p>
-                  </Modal.Description>
-                </Modal.Content>
-                <Modal.Actions>
-                  <Button color="black" onClick={() => setOpen(false)}>
-                    Nope
-                  </Button>
-                  <Button
-                    content="Yep, that's me"
-                    labelPosition="right"
-                    icon="checkmark"
-                    onClick={() => setOpen(false)}
-                    positive
-                  />
-                </Modal.Actions>
-              </Modal>
+              <Button
+                content="View"
+                basic
+                color="grey"
+                onClick={() => modalStore.openModal(<ViewAppointments />)}
+              />
             </Table.Cell>
           </Table.Row>
 
@@ -237,43 +182,16 @@ export default function AppointmetsPatient() {
               <Icon link name="trash alternate outline" />
             </Table.Cell>
             <Table.Cell>
-              <Modal
-                onClose={() => setOpen(false)}
-                onOpen={() => setOpen(true)}
-                open={open}
-                trigger={<Button>View</Button>}
-              >
-                <Modal.Header>Select a Photo</Modal.Header>
-                <Modal.Content image>
-                  <Image
-                    size="medium"
-                    src="https://react.semantic-ui.com/images/avatar/large/rachel.png"
-                    wrapped
-                  />
-                  <Modal.Description>
-                    <Header>Default Profile Image</Header>
-                    <p>
-                      We've found the following gravatar image associated with
-                      your e-mail address.
-                    </p>
-                    <p>Is it okay to use this photo?</p>
-                  </Modal.Description>
-                </Modal.Content>
-                <Modal.Actions>
-                  <Button color="black" onClick={() => setOpen(false)}>
-                    Nope
-                  </Button>
-                  <Button
-                    content="Yep, that's me"
-                    labelPosition="right"
-                    icon="checkmark"
-                    onClick={() => setOpen(false)}
-                    positive
-                  />
-                </Modal.Actions>
-              </Modal>
+              <Button
+                content="View"
+                basic
+                color="grey"
+                onClick={() => modalStore.openModal(<ViewAppointments />)}
+              />
             </Table.Cell>
           </Table.Row>
+
+          {/* -------------------------------- */}
 
           <Table.Row>
             <Table.Cell>
@@ -301,55 +219,25 @@ export default function AppointmetsPatient() {
               <Icon link name="trash alternate outline" />
             </Table.Cell>
             <Table.Cell>
-              <Modal
-                onClose={() => setOpen(false)}
-                onOpen={() => setOpen(true)}
-                open={open}
-                trigger={<Button>View</Button>}
-              >
-                <Modal.Header>Select a Photo</Modal.Header>
-                <Modal.Content image>
-                  <Image
-                    size="medium"
-                    src="https://react.semantic-ui.com/images/avatar/large/rachel.png"
-                    wrapped
-                  />
-                  <Modal.Description>
-                    <Header>Default Profile Image</Header>
-                    <p>
-                      We've found the following gravatar image associated with
-                      your e-mail address.
-                    </p>
-                    <p>Is it okay to use this photo?</p>
-                  </Modal.Description>
-                </Modal.Content>
-                <Modal.Actions>
-                  <Button color="black" onClick={() => setOpen(false)}>
-                    Nope
-                  </Button>
-                  <Button
-                    content="Yep, that's me"
-                    labelPosition="right"
-                    icon="checkmark"
-                    onClick={() => setOpen(false)}
-                    positive
-                  />
-                </Modal.Actions>
-              </Modal>
+              <Button
+                content="View"
+                basic
+                color="grey"
+                onClick={() => modalStore.openModal(<ViewAppointments />)}
+              />
             </Table.Cell>
           </Table.Row>
         </Table.Body>
-    
       </Table>
-    <Pagination 
-    boundaryRange={0}
-    defaultActivePage={1}
-    ellipsisItem={null}
-    firstItem={null}
-    lastItem={null}
-    siblingRange={1}
-    totalPages={10}
-  />
+      <Pagination
+        boundaryRange={0}
+        defaultActivePage={1}
+        ellipsisItem={null}
+        firstItem={null}
+        lastItem={null}
+        siblingRange={1}
+        totalPages={10}
+      />
     </Container>
   );
-}
+});
