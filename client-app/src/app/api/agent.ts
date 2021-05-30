@@ -3,7 +3,7 @@ import { history } from '../..';
 import { toast } from "react-toastify";
 import { Patient } from "../models/patient";
 import { store } from "../stores/store";
-import { User, UserFormValues, AccountDto } from "../models/user";
+import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/user";
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -82,7 +82,8 @@ const AccountsManager = {
     list: () => requests.get<AccountDto[]>('/account/all'),
     details: (id: string) => requests.get<AccountDto>(`/account/user/${id}`),
     delete: (id: string) => axios.delete<void>(`/account/${id}`),
-    update: (user: AccountDto) => axios.put<void>(`/account/${user.id}`, user)
+    update: (user: AccountDto) => axios.put<void>(`/account/${user.id}`, user),
+    register: (user: AccountFormValues) => requests.post('/account/register', user),
 }
 
 const agent = {

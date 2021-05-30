@@ -3,7 +3,7 @@ import React from 'react';
 import { Form, Label } from 'semantic-ui-react';
 
 interface Props {
-    placeholder: string;
+    placeholder?: string;
     name: string;
     type?: string;
     label?: string;
@@ -17,7 +17,7 @@ export default function MyTextInput(props: Props) {
             <label>{props.label}</label>
             <input {...field} {...props} />
             {meta.touched && meta.error ? (
-                <Label basic color='red'>{meta.error}</Label>
+                <Label style={{marginTop: '5px'}} basic color='red'>{meta.error}</Label>
             ) : null}
         </Form.Field>
     )

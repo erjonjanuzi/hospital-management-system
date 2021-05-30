@@ -41,7 +41,7 @@ function App() {
 
   return (
     <>
-      <ToastContainer position='bottom-right' hideProgressBar />
+      <ToastContainer position='top-right' hideProgressBar />
       <ModalContainer />
       <Route exact path='/' component={HomePage} />
       <Route

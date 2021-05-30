@@ -1,6 +1,8 @@
 import { makeAutoObservable, runInAction } from "mobx";
+import { toast } from "react-toastify";
 import agent from "../api/agent";
-import { AccountDto } from "../models/user";
+import { AccountDto, AccountFormValues } from "../models/user";
+import { store } from "./store";
 
 export default class AccountManagementStore {
     accountRegistry = new Map<string, AccountDto>();
@@ -72,11 +74,37 @@ export default class AccountManagementStore {
                 this.accountRegistry.delete(id);
                 this.loading = false;
             })
+            toast.info('User deleted successfully');
         } catch(error) {
             console.log(error);
             runInAction(() => {
                 this.loading = false;
             })
+        }
+    }
+
+    register = async (creds: AccountFormValues) => {
+        try {
+            await agent.AccountsManager.register(creds);
+            runInAction(() => {
+                this.loadAccounts();
+            })
+            toast.success('User added successfully');
+            store.modalStore.closeModal();
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    update = async (creds: AccountDto) => {
+        try {
+            await agent.AccountsManager.update(creds);
+            runInAction(() => {
+                this.loadAccounts();
+            })
+            store.modalStore.closeModal();
+        } catch (error) {
+            throw error;
         }
     }
 }

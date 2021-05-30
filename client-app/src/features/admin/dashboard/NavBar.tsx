@@ -53,7 +53,7 @@ export default observer(function NavBar() {
       </Menu.Item>
       
 
-      {user?.role=== 'Admin' &&(
+      {user?.role === 'admin' &&(
         <>
         <Divider hidden />
         <Menu.Item as={Link} to="/admin/dashboard"
@@ -82,7 +82,7 @@ export default observer(function NavBar() {
         </>
       )}
       
-      {user?.role=== 'Doctor' &&(
+      {user?.role=== 'doctor' &&(
         <>
         <Divider hidden />
         <Menu.Item as={Link} 

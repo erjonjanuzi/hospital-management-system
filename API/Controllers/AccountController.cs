@@ -45,31 +45,66 @@ namespace API.Controllers
 
             return Unauthorized();
         }
-        
-        [HttpPost("admin/register")]
-        public async Task<ActionResult<UserDto>> Register(Admin admin)
+
+        [HttpPost("register")]
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-            if (await userManager.Users.AnyAsync(x => x.Email == admin.Email))
+            if (await userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
             {
-                ModelState.AddModelError("email", "Email taken");
+                ModelState.AddModelError("email", "Email is taken");
                 return ValidationProblem();
             }
-            if (await userManager.Users.AnyAsync(x => x.UserName == admin.UserName))
+            if (await userManager.Users.AnyAsync(x => x.UserName == registerDto.Username))
             {
-                ModelState.AddModelError("username", "Username taken");
+                ModelState.AddModelError("username", "Username is taken");
                 return ValidationProblem();
             }
 
-            Admin user = new Admin {
+            AppUser user = null;
+
+            if (registerDto.Role.ToLower().Equals("admin"))
+            {
+                user = new Admin
+                {
+                    FirstName = registerDto.FirstName,
+                    LastName = registerDto.LastName,
+                    UserName = registerDto.Username,
+                    Email = registerDto.Email,
+                    PasswordHash = registerDto.PasswordHash,
+                    RegisteredSince = DateTime.Now
+                };
+            } else if (registerDto.Role.ToLower().Equals("doctor"))
+            {
+                user = new Doctor
+                {
+                    FirstName = registerDto.FirstName,
+                    LastName = registerDto.LastName,
+                    UserName = registerDto.Username,
+                    Email = registerDto.Email,
+                    PasswordHash = registerDto.PasswordHash,
+                    RegisteredSince = DateTime.Now
+                };
+            } else {
+                user = new PatientUser
+                {
+                    FirstName = registerDto.FirstName,
+                    LastName = registerDto.LastName,
+                    UserName = registerDto.Username,
+                    Email = registerDto.Email,
+                    PasswordHash = registerDto.PasswordHash,
+                    RegisteredSince = DateTime.Now
+                };
+            }
+            /*Admin user = new Admin {
                 FirstName = admin.FirstName,
                 LastName = admin.LastName,
                 UserName = admin.UserName,
                 Email = admin.Email,
                 PasswordHash = admin.PasswordHash,
                 RegisteredSince = DateTime.Now
-            };
+            };*/
 
-            var result = await userManager.CreateAsync(user, admin.PasswordHash);
+            var result = await userManager.CreateAsync(user, registerDto.PasswordHash);
 
             if (result.Succeeded)
             {
@@ -112,35 +147,36 @@ namespace API.Controllers
         [HttpGet("user/{id}")]
         public async Task<ActionResult<AppUser>> GetUser(string id)
         {
-            return HandleResult(await Mediator.Send(new Details.Query{Id = id}));
+            return HandleResult(await Mediator.Send(new Details.Query { Id = id }));
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
-            return HandleResult(await Mediator.Send(new Delete.Command{Id = id}));
+            return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
         }
-        
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditUser(string id, [FromBody] UpdateDto updateDto)
+        public async Task<IActionResult> EditUser(string id, UserDto userDto)
         {
             var existingUser = await userManager.FindByIdAsync(id);
 
-            if (await userManager.FindByEmailAsync(updateDto.Email) != null)
-                return BadRequest("email exists");
+            if (!userDto.Email.Equals(existingUser.Email) && await userManager.FindByEmailAsync(userDto.Email) != null)
+                return BadRequest("Email exists");
+            if (!userDto.Username.Equals(existingUser.UserName) && await userManager.Users.AnyAsync(x => x.UserName == userDto.Username))
+                return BadRequest("Username exists");
 
-            existingUser.FirstName = updateDto.FirstName;
-            existingUser.LastName = updateDto.LastName;
-            if (updateDto.Username != null)
-                existingUser.UserName = updateDto.Username;
-            existingUser.Email = updateDto.Email;
+            existingUser.FirstName = userDto.FirstName;
+            existingUser.LastName = userDto.LastName;
+            existingUser.UserName = userDto.Username;
+            existingUser.Email = userDto.Email;
 
             var result = await userManager.UpdateAsync(existingUser);
 
             if (result.Succeeded)
                 return Ok("user updated");
-            
-            return BadRequest(updateDto);
+
+            return BadRequest(userDto);
         }
 
     }
