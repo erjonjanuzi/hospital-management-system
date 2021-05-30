@@ -1,13 +1,21 @@
 import React from 'react';
 import { Item, Segment } from 'semantic-ui-react';
-import { Button, Card, Image } from 'semantic-ui-react'
+import { Button, Card, Image ,Modal,Header,Divider} from 'semantic-ui-react'
+import { useStore } from '../../../app/stores/store';
+import ViewDepartment from '../departments/ViewDepartment';
 
 
-export default function DepartmentsPage() {
+
+export default function DepartmentsPage(){
+  const { accountManagementStore, modalStore } = useStore();
+
+const [open, setOpen] = React.useState(false); 
     return (
+      
+      
         <Segment style={{minHeight: '100vh'}}>
             <Item>
-          
+       
  
   <Card.Group>
     <Card>
@@ -26,12 +34,14 @@ export default function DepartmentsPage() {
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='green'>
-            View all
-          </Button>
-         
-        </div>
+      <div className='ui two buttons'>
+      <Button   
+                content="View"
+                basic
+                color="green"
+                onClick={() => modalStore.openModal(<ViewDepartment />)}
+              />
+              </div>
       </Card.Content>
     </Card>
 
@@ -50,12 +60,14 @@ export default function DepartmentsPage() {
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='green'>
-            View all
-          </Button>
-         
-        </div>
+      <div className='ui two buttons'>
+      <Button   
+                content="View"
+                basic
+                color="green"
+                onClick={() => modalStore.openModal(<ViewDepartment />)}
+              />
+              </div>
       </Card.Content>
     </Card>
 
@@ -74,13 +86,14 @@ export default function DepartmentsPage() {
         tract, liver, colon, and other major parts of the human body.         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='green'>
-            View all
-          </Button>
-         
-          
-        </div>
+      <div className='ui two buttons'>
+      <Button   
+                content="View"
+                basic
+                color="green"
+                onClick={() => modalStore.openModal(<ViewDepartment />)}
+              />
+              </div>
       </Card.Content>
     </Card>
 
@@ -98,12 +111,14 @@ export default function DepartmentsPage() {
         heart diseases such as myocardial infarcts and angina.        </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='green'>
-            View all
-          </Button>
-         
-        </div>
+      <div className='ui two buttons'>
+      <Button   
+                content="View"
+                basic
+                color="green"
+                onClick={() => modalStore.openModal(<ViewDepartment />)}
+              />
+              </div>
       </Card.Content>
     </Card>
 
@@ -121,12 +136,14 @@ export default function DepartmentsPage() {
          conditions of children and adults with skin disease.        </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='green'>
-            View all
-          </Button>
-        
-        </div>
+      <div className='ui two buttons'>
+      <Button   
+                content="View"
+                basic
+                color="green"
+                onClick={() => modalStore.openModal(<ViewDepartment />)}
+              />
+              </div>
       </Card.Content>
     </Card>
 
@@ -145,12 +162,14 @@ export default function DepartmentsPage() {
                </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='green'>
-            View all
-          </Button>
-         
-        </div>
+      <div className='ui two buttons'>
+      <Button   
+                content="View"
+                basic
+                color="green"
+                onClick={() => modalStore.openModal(<ViewDepartment />)}
+              />
+              </div>
       </Card.Content>
     </Card>
 
@@ -170,13 +189,16 @@ export default function DepartmentsPage() {
          mental and behavioural development.      </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='green'>
-            View all
-          </Button>
-          
-        </div>
+      <div className='ui two buttons'>
+      <Button   
+                content="View"
+                basic
+                color="green"
+                onClick={() => modalStore.openModal(<ViewDepartment />)}
+              />
+              </div>
       </Card.Content>
+      
     </Card>
 
 
@@ -195,12 +217,15 @@ export default function DepartmentsPage() {
          targeted therapy, immunotherapy, and hormonal therapy.        </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='green'>
-            View all
-          </Button>
+      <div className='ui two buttons'>
+      <Button   
+                content="View"
+                basic
+                color="green"
+                onClick={() => modalStore.openModal(<ViewDepartment />)}
+              />
+              </div>
         
-        </div>
       </Card.Content>
     </Card>
     <Card>
@@ -217,16 +242,18 @@ export default function DepartmentsPage() {
          and treat diseases seen within the body.        </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='green'>
-            View all
-          </Button>
-         
-        </div>
+      <div className='ui two buttons'>
+      <Button   
+                content="View"
+                basic
+                color="green"
+                onClick={() => modalStore.openModal(<ViewDepartment />)}
+              />
+              </div>
       </Card.Content>
     </Card>
   </Card.Group>
-
+             
 
 
             </Item>
