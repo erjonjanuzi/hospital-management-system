@@ -76,7 +76,7 @@ export default observer(function NavBar() {
 
         <Menu.Item as={Link} to="/admin/departments"
         style={menuItemStyle}>
-          departments
+          Departments
         </Menu.Item>
         <Divider hidden />
         </>
