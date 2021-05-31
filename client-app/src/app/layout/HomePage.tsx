@@ -11,10 +11,6 @@ export default observer(function HomePage() {
     const { user } = userStore;
     const [register, setRegister] = useState(false);
 
-    function handleRegisterForm(state: boolean) {
-        setRegister(!state);
-    }
-
     return (
         <>
             <Segment textAlign='center' style={{ margin: '0 0 50px 0' }}>
@@ -58,8 +54,8 @@ export default observer(function HomePage() {
                                     </Grid.Column>
                                 </Grid>
                             </Segment>
-                        </>
-                        || register &&
+                        </>)
+                        || (register &&
                         <>
                             <Segment style={{ minWidth: '30vw', padding: '0 20px' }}>
                                 <Grid >

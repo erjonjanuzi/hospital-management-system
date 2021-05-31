@@ -29,7 +29,6 @@ body {
   background-color: aqua;
 }
 
-.ui.vertical.menu {
-  display: flex;
-  align-items: center;
-}
+/*.ui.vertical.left.fixed.menu a:hover{
+  background-color: green;
+}*/

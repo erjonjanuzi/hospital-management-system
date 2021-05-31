@@ -16,16 +16,25 @@ namespace Persistence
                 var users = new List<AppUser>
                 {
                     new Admin{
-                        FirstName = "Erjon",
-                        LastName = "Januzi",
+                        FirstName = "Admin",
+                        LastName = "Admin",
+                        Email = "admin@test.com",
+                        UserName = "admin",
+                        RegisteredSince = DateTime.Now
                     },
                     new Doctor{
-                        FirstName = "Engjell",
-                        LastName = "Avdiu",
+                        FirstName = "Doctor",
+                        LastName = "Doctor",
+                        Email = "doctor@test.com",
+                        UserName = "doctor",
+                        RegisteredSince = DateTime.Now
                     },
                     new PatientUser{
-                        FirstName = "Andis",
-                        LastName = "Bajrami",
+                        FirstName = "Patient",
+                        LastName = "Patient",
+                        Email = "patient@test.com",
+                        UserName = "patient",
+                        RegisteredSince = DateTime.Now
                     }
                 };
 

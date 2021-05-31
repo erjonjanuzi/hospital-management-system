@@ -264,6 +264,13 @@ namespace Persistence.Migrations
                     b.HasDiscriminator().HasValue("Doctor");
                 });
 
+            modelBuilder.Entity("Domain.PatientUser", b =>
+                {
+                    b.HasBaseType("Domain.AppUser");
+
+                    b.HasDiscriminator().HasValue("PatientUser");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)

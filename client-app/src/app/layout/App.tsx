@@ -1,32 +1,27 @@
 import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { Container } from 'semantic-ui-react';
-import AdminDashboard from '../../features/admin/dashboard/AdminDashboard';
-import DoctorDashboard from '../../features/doctor/dashboard/DoctorDashboard';
 import NotFound from '../../features/errors/NotFound';
 import ServerError from '../../features/errors/ServerError';
 import TestErrors from '../../features/errors/TestError';
-import PatientForm from '../../features/patients/form/PatientForm';
 import ModalContainer from '../common/modals/ModalContainer';
 import { useStore } from '../stores/store';
 import HomePage from './HomePage';
 import LoadingComponent from './LoadingComponent';
-import NavBar from '../../features/admin/dashboard/NavBar';
+import NavBar from './NavBar';
 import PrivateRoute from './PrivateRoute';
 import './style.css';
-import AdminAppointmentPage from '../../features/admin/appointments/AdminAppointmentPage';
 import DepartmentsPage from '../../features/admin/departments/DepartmentsPage';
-import AppointmetsPatient from '../../features/doctor/AppointmetsPatient';
+import AppointmetsPatient from '../../features/patients/appointments/AppointmetsPatient';
 import PatientProfile from '../../features/patients/my-profile/PatientProfile';
 import RegisterPatient from '../../features/doctor/RegisterPatient';
 import AdminAccountsTable from '../../features/admin/accounts/AdminAccountsTable';
-import Diagnosis from '../../features/doctor/Diagnosis';
+import PatientDashboard from '../../features/patients/dashboard/PatientDashboard';
 
 
 function App() {
-  const location = useLocation();
   const { commonStore, userStore } = useStore()
 
   useEffect(() => {
@@ -49,27 +44,17 @@ function App() {
         render={() => (
           <>
             <NavBar />
-            <Container fluid style={{padding: '20px 20px 0 22vw'}}>
+            <Container fluid style={{ padding: '20px 20px 0 22vw' }}>
               <Switch>
-                <PrivateRoute exact path='/admin/dashboard' component={AdminDashboard} />
                 <PrivateRoute path='/admin/accounts' component={AdminAccountsTable} />
-                <PrivateRoute path='/admin/appointments' component={AdminAppointmentPage} />
                 <PrivateRoute path='/admin/departments' component={DepartmentsPage} />
 
-                <PrivateRoute exact path='/doctor/dashboard' component={DoctorDashboard} />
-                <PrivateRoute exact path='/doctor/patient-profile' component={PatientProfile} />
-                {/* <PrivateRoute exact path='/patient' component={PatientDashboard} /> */}
-                
-              
-
-                <PrivateRoute exact path='/doctor/appointmets-patient' component={AppointmetsPatient} />
                 <PrivateRoute exact path='/doctor/register-patient' component={RegisterPatient} />
-                <PrivateRoute exact path='/doctor/diagnosis' component={Diagnosis} />
 
+                <PrivateRoute exact path='/patient/dashboard' component={PatientDashboard} />
+                <PrivateRoute exact path='/patient/appointments' component={AppointmetsPatient} />
+                <PrivateRoute exact path='/patient/patient-profile' component={PatientProfile} />
 
-
-
-                <Route key={location.key} path={['/createPatient', '/manage/:id']} component={PatientForm} />
                 <Route path='/errors' component={TestErrors} />
                 <Route path='/server-error' component={ServerError} />
                 <Route component={NotFound} />
@@ -83,21 +68,3 @@ function App() {
 }
 
 export default observer(App);
-
-
-/*
-<Segment style={{margin: '0 0 0 20vw'}}>
-              <Switch>
-                <PrivateRoute exact path='/admin' component={AdminDashboard} />
-                <PrivateRoute path='/admin/appointments' component={AdminAppointmentPage} />
-                <PrivateRoute exact path='/doctor' component={DoctorDashboard} />
-                <PrivateRoute exact path='/patient' component={PatientDashboard} />
-
-
-                <Route key={location.key} path={['/createPatient', '/manage/:id']} component={PatientForm} />
-                <Route path='/errors' component={TestErrors} />
-                <Route path='/server-error' component={ServerError} />
-                <Route component={NotFound} />
-              </Switch>
-            </Segment>
-            */

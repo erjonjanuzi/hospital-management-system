@@ -1,15 +1,12 @@
 import React from 'react';
 import { Item, Segment } from 'semantic-ui-react';
-import { Button, Card, Image ,Modal,Header,Divider} from 'semantic-ui-react'
+import { Button, Card, Image} from 'semantic-ui-react'
 import { useStore } from '../../../app/stores/store';
 import ViewDepartment from '../departments/ViewDepartment';
 
-
-
 export default function DepartmentsPage(){
-  const { accountManagementStore, modalStore } = useStore();
+  const { modalStore } = useStore();
 
-const [open, setOpen] = React.useState(false); 
     return (
       
       

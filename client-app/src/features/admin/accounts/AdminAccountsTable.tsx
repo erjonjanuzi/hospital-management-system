@@ -2,7 +2,6 @@ import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { Button, Header, Segment, Table } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
-import EditUserAccountForm from './EditUserAccountForm';
 import RegisterNewUserForm from './RegisterNewUserForm';
 import ViewAccount from './ViewAccount';
 

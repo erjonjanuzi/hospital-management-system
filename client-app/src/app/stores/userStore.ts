@@ -21,7 +21,7 @@ export default class UserStore {
             store.commonStore.setToken(user.token);
             runInAction(() => this.user = user);
             const path = user.role.toLowerCase();
-            history.push(`/${path}`);
+            history.push(`/${path}/dashboard`);
             store.modalStore.closeModal();
         } catch (error){
             throw error;
@@ -50,7 +50,7 @@ export default class UserStore {
             store.commonStore.setToken(user.token);
             runInAction(() => this.user = user);
             const path = user.role.toLowerCase();
-            history.push(`/${path}`);
+            history.push(`/${path}/dashboard`);
             store.modalStore.closeModal();
         } catch (error) {
             throw error;

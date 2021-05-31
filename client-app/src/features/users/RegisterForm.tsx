@@ -1,11 +1,9 @@
 import { Formik, Form, ErrorMessage } from 'formik';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
 import { Button, Message } from 'semantic-ui-react';
 import * as Yup from 'yup';
 import MyTextInput from '../../app/common/form/MyTextInput';
 import { useStore } from '../../app/stores/store';
-import ValidationErrors from '../errors/ValidationErrors';
 
 export default observer(function RegisterForm() {
     const { accountManagementStore: { register } } = useStore();
