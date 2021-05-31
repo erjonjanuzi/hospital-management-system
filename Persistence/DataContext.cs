@@ -14,6 +14,7 @@ namespace Persistence
         {
             builder.Entity<Admin>();
             builder.Entity<Doctor>();
+            builder.Entity<PatientUser>();
 
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.

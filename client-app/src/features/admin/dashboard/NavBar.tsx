@@ -32,8 +32,8 @@ export default observer(function NavBar() {
       style={{ marginRight: "50px", minWidth: "20vw"}}
     >
       <>
-        <Menu.Item 
-          style={{ padding: "0px", height: '15%' }}>
+        <Menu.Item >
+
           <div className="sidebar-logo-header">
             <img src="/assets/logo.png" alt="logo" />
             <h2 style={{ margin: "0", padding: 0 }}>MEDCARE Hospital</h2>

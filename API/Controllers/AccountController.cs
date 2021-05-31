@@ -84,7 +84,8 @@ namespace API.Controllers
                     PasswordHash = registerDto.PasswordHash,
                     RegisteredSince = DateTime.Now
                 };
-            } else {
+            } else if (registerDto.Role.ToLower().Equals("patient"))
+            {
                 user = new PatientUser
                 {
                     FirstName = registerDto.FirstName,
@@ -95,14 +96,6 @@ namespace API.Controllers
                     RegisteredSince = DateTime.Now
                 };
             }
-            /*Admin user = new Admin {
-                FirstName = admin.FirstName,
-                LastName = admin.LastName,
-                UserName = admin.UserName,
-                Email = admin.Email,
-                PasswordHash = admin.PasswordHash,
-                RegisteredSince = DateTime.Now
-            };*/
 
             var result = await userManager.CreateAsync(user, registerDto.PasswordHash);
 
@@ -137,25 +130,28 @@ namespace API.Controllers
             };
         }
 
-        // Add Authorization later for all below
+        [Authorize(Roles = "admin")]
         [HttpGet("all")]
         public async Task<ActionResult<List<AppUser>>> GetAllUsers()
         {
             return HandleResult(await Mediator.Send(new List.Query()));
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("user/{id}")]
         public async Task<ActionResult<AppUser>> GetUser(string id)
         {
             return HandleResult(await Mediator.Send(new Details.Query { Id = id }));
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> EditUser(string id, UserDto userDto)
         {

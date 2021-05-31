@@ -89,7 +89,8 @@ export default class AccountManagementStore {
             runInAction(() => {
                 this.loadAccounts();
             })
-            toast.success('User added successfully');
+            if (creds.role != 'patient')
+                toast.success('User added successfully');
             store.modalStore.closeModal();
         } catch (error) {
             throw error;
