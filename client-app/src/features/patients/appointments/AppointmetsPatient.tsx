@@ -15,7 +15,7 @@ import {
 } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import Breadcrumbs from "../my-profile/Breadcrumbs";
-import ViewAppointments from "../../doctor/dashboard/ViewAppointments";
+import ViewAppointments from "./ViewAppointments";
 
 export default observer(function AppointmetsPatient() {
   const [open, setOpen] = React.useState(false);

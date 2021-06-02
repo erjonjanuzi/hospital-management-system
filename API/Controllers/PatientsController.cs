@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
-    [Authorize(Roles = "admin")]
+    // [Authorize(Roles = "doctor")]
     public class PatientsController : BaseApiController
     {
         [HttpGet]

@@ -19,6 +19,7 @@ import PatientProfile from '../../features/patients/my-profile/PatientProfile';
 import RegisterPatient from '../../features/doctor/RegisterPatient';
 import AdminAccountsTable from '../../features/admin/accounts/AdminAccountsTable';
 import PatientDashboard from '../../features/patients/dashboard/PatientDashboard';
+import DoctorPatientsTable from '../../features/doctor/patients/DoctorPatientsTable';
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
                 <PrivateRoute exact path='/patient/dashboard' component={PatientDashboard} />
                 <PrivateRoute exact path='/patient/appointments' component={AppointmetsPatient} />
                 <PrivateRoute exact path='/patient/patient-profile' component={PatientProfile} />
+                <PrivateRoute exact path='/doctor/patients' component={DoctorPatientsTable} />
 
                 <Route path='/errors' component={TestErrors} />
                 <Route path='/server-error' component={ServerError} />

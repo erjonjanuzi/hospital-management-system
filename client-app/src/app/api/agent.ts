@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { history } from '../..';
 import { toast } from "react-toastify";
-import { Patient } from "../models/patient";
+import { Patient, PatientTable } from "../models/patient";
 import { store } from "../stores/store";
 import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/user";
 
@@ -67,7 +67,7 @@ const requests = {
 const Patients = {
     list: () => requests.get<Patient[]>('/patients'),
     details: (id: string) => requests.get<Patient>(`/patients/${id}`),
-    create: (patient: Patient) => axios.post<void>('patients', patient),
+    create: (user: PatientTable) => axios.post<void>('patients', user),//ndryshim
     update: (patient: Patient) => axios.put<void>(`/patients/${patient.id}`, patient),
     delete: (id: string) => axios.delete<void>(`/patients/${id}`)
 }

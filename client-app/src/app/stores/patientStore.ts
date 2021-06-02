@@ -1,6 +1,9 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
-import { Patient } from "../models/patient";
+import { Patient, PatientTable } from "../models/patient";
+import { v4 as uuid } from 'uuid';
+import { toast } from "react-toastify";
+import { store } from "./store";
 
 export default class PatientStore {
     patientRegistry = new Map<string, Patient>();
@@ -97,6 +100,36 @@ export default class PatientStore {
             runInAction(() => {
                 this.loading = false;
             })
+        }
+    }
+//// selectPatient, cancelSelectedPatient, openForm, closeForm, create jon te shtuara nga Gresa
+    selectPatient = (id: string) => {
+        this.selectedPatient = this.patientRegistry.get(id);
+    }
+
+    cancelSelectedPatient = () => {
+        this.selectedPatient = undefined;
+    }
+
+    closeForm = () => {
+        this.editMode = false;
+    }
+
+    openForm = (id?: string) => {
+        id ? this.selectPatient(id) : this.cancelSelectedPatient();
+        this.editMode = true;
+    }
+
+    create = async (creds: PatientTable) => {
+        try {
+            await agent.Patients.create(creds);
+            runInAction(() => {
+                this.loadPatients();
+            })
+            toast.success('Patient added successfully');
+            store.modalStore.closeModal();
+        } catch (error) {
+            throw error;
         }
     }
 
