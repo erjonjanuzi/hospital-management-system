@@ -1,9 +1,11 @@
 import { useContext, createContext } from "react";
 import AccountManagementStore from "./accountManagementStore";
+import cityStore from "./cityStore";
 import CommonStore from "./commonStore";
 import ModalStore from "./modalStore";
 import PatientStore from "./patientStore";
 import UserStore from "./userStore";
+
 
 interface Store {
     patientStore: PatientStore;
@@ -11,6 +13,7 @@ interface Store {
     userStore: UserStore;
     modalStore: ModalStore;
     accountManagementStore: AccountManagementStore;
+    cityStore : cityStore;
 }
 
 export const store: Store = {
@@ -19,6 +22,7 @@ export const store: Store = {
     userStore: new UserStore(),
     modalStore: new ModalStore(),
     accountManagementStore: new AccountManagementStore(),
+    cityStore : new cityStore(),
 }
 
 export const StoreContext = createContext(store);

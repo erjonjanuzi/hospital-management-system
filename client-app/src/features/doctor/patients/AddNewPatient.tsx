@@ -35,6 +35,7 @@ export default observer(function AddNewPatient() {
         <>
             <Header as='h1' content='Add a new patient' />
             <Divider />
+            {/*
             <Formik
                 initialValues={selectedPatient}
                 onSubmit={(values, { setErrors }) => patientStore.create(values).catch(error =>
@@ -57,7 +58,7 @@ export default observer(function AddNewPatient() {
                         <Header sub content='Login credentials' />
                         <MyTextInput name='email' type='email' placeholder='Email' />
                         <MyTextInput name='status' placeholder='Status' />
-                        {/* <MyTextInput name='registerdSince' type="date" placeholder='Resgisterd since' /> */}
+                        {<MyTextInput name='registerdSince' type="date" placeholder='Resgisterd since' />}
                         <Divider />
                         <Button disabled={isSubmitting || !dirty || !isValid}
                             loading={isSubmitting} positive type='submit' content='Submit'
@@ -66,6 +67,7 @@ export default observer(function AddNewPatient() {
                     </Form>
                 )}
             </Formik>
+                            */}
         </>
 
     )

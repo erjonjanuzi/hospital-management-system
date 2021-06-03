@@ -9,7 +9,10 @@ namespace Persistence
         public DataContext(DbContextOptions options) : base(options)
         {
         }
+        public DbSet<City> Cities { get; set; }
 
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<Diagnosis> Diagnoses { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Admin>();
@@ -22,8 +25,5 @@ namespace Persistence
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
-
-        public DbSet<Patient> Patients { get; set; }
-        public DbSet<Diagnosis> Diagnoses { get; set; }
     }
 }

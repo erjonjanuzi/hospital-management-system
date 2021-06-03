@@ -9,6 +9,7 @@ namespace Application.Core
         {
             CreateMap<Patient, Patient>();
             CreateMap<AppUser, AppUser>();
+            CreateMap<City ,City>();
         }
     }
 }

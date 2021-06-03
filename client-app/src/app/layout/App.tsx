@@ -21,6 +21,8 @@ import AdminAccountsTable from '../../features/admin/accounts/AdminAccountsTable
 import PatientDashboard from '../../features/patients/dashboard/PatientDashboard';
 import DoctorPatientsTable from '../../features/doctor/patients/DoctorPatientsTable';
 import Diagnosis from '../../features/doctor/diagnosis/Diagnosis';
+import CityTable from '../../features/admin/city/CityTable';
+
 
 
 
@@ -52,6 +54,8 @@ function App() {
                 {/* Admin Routes */}
                 <PrivateRoute path='/admin/accounts' component={AdminAccountsTable} />
                 <PrivateRoute path='/admin/departments' component={DepartmentsPage} />
+                <PrivateRoute path='/admin/city/' component={CityTable}/>
+
 
                 {/* Doctor Routes */}
                 <PrivateRoute exact path='/doctor/register-patient' component={RegisterPatient} />

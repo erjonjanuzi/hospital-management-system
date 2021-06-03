@@ -2,10 +2,10 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { history } from '../..';
 import { toast } from "react-toastify";
 import { Patient, PatientTable } from "../models/patient";
+import { City } from "../models/city"
 import { store } from "../stores/store";
 import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/user";
 import { Diagnosis } from "../models/diagnosis";
-import { request } from "http";
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -74,6 +74,15 @@ const Patients = {
     delete: (id: string) => axios.delete<void>(`/patients/${id}`)
 }
 
+ 
+const Citys = {
+    list: () => requests.get<City[]>('/citys'),
+    details: (id: string) => requests.get<City>(`/citys/${id}`),
+    delete: (id: string) => axios.delete<void>(`/citys/${id}`),
+    create: (city: City) => axios.post<void>('citys', city),
+    update: (city: City) => axios.put<void>(`/citys/${city.id}`, city),
+}
+
 const Account = {
     current: () => requests.get<User>('/account'),
     login: (user: UserFormValues) => requests.post<User>('/account/login', user),
@@ -87,6 +96,7 @@ const UserPatients = {
     update: (user: Patient) => axios.put<void>(`/account/${user.id}`, user),
     register: (user: AccountFormValues) => requests.post('/account/register', user),
 }
+
 
 const AccountsManager = {
     list: () => requests.get<AccountDto[]>('/account/all'),
@@ -105,10 +115,11 @@ const DiagnosisManager = {
 
 const agent = {
     DiagnosisManager,
+    Citys,
     Patients,
     UserPatients,
     Account,
-    AccountsManager
+    AccountsManager,
 }
 
 export default agent;

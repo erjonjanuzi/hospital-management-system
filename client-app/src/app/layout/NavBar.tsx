@@ -9,7 +9,8 @@ export default observer(function NavBar() {
   const adminLinks = [
     { key: 'dashboard', name: 'Dashboard', to: '/admin/dashboard'},
     { key: 'accounts', name: 'Accounts Management', to: '/admin/accounts'},
-    { key: 'departments', name: 'Departments', to: '/admin/departments'}
+    { key: 'departments', name: 'Departments', to: '/admin/departments'},
+    { key : 'city', name:'City',to :'/admin/city'},
   ]
 
   const doctorLinks = [
