@@ -93,7 +93,8 @@ namespace API.Controllers
                     UserName = registerDto.Username,
                     Email = registerDto.Email,
                     PasswordHash = registerDto.PasswordHash,
-                    RegisteredSince = DateTime.Now
+                    RegisteredSince = DateTime.Now,
+                    Diagnosis = null
                 };
             }
 

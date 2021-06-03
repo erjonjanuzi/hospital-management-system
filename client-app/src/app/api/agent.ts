@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { Patient, PatientTable } from "../models/patient";
 import { store } from "../stores/store";
 import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/user";
+import { Diagnosis } from "../models/diagnosis";
+import { request } from "http";
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -78,6 +80,14 @@ const Account = {
     register: (user: UserFormValues) => requests.post<User>('/account/register', user)
 }
 
+const UserPatients = {
+    list: () => requests.get<Patient[]>('/account/all'),
+    details: (id: string) => requests.get<Patient>(`/account/user/${id}`),
+    delete: (id: string) => axios.delete<void>(`/account/${id}`),
+    update: (user: Patient) => axios.put<void>(`/account/${user.id}`, user),
+    register: (user: AccountFormValues) => requests.post('/account/register', user),
+}
+
 const AccountsManager = {
     list: () => requests.get<AccountDto[]>('/account/all'),
     details: (id: string) => requests.get<AccountDto>(`/account/user/${id}`),
@@ -86,8 +96,17 @@ const AccountsManager = {
     register: (user: AccountFormValues) => requests.post('/account/register', user),
 }
 
+const DiagnosisManager = {
+    list: () => requests.get<Diagnosis[]>('/doctor/diagnosis'),
+    details: (id: string) => requests.get<Diagnosis>(`doctor/diagnosis/${id}`),
+    create: (diagnosis: Diagnosis) => axios.post<void>('/diagnosis/create', diagnosis)
+
+}
+
 const agent = {
+    DiagnosisManager,
     Patients,
+    UserPatients,
     Account,
     AccountsManager
 }

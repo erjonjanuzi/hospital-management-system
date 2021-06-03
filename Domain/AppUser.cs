@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
 namespace Domain
@@ -25,6 +26,7 @@ namespace Domain
     public class PatientUser : AppUser
     {
         public override string Role { get; set; } = "patient";
+        public ICollection<Diagnosis> Diagnosis { get; set; }
         // public ICollection<Appointment> Appointments 
     }
 }

@@ -1,9 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
-import { Patient, PatientTable } from "../models/patient";
-import { v4 as uuid } from 'uuid';
-import { toast } from "react-toastify";
-import { store } from "./store";
+import { Patient } from "../models/patient";
 
 export default class PatientStore {
     patientRegistry = new Map<string, Patient>();
@@ -22,9 +19,9 @@ export default class PatientStore {
         
     loadPatients = async() => {
         try {
-            const patients = await agent.UserPatients.list();
-            patients.forEach(patients => {
-                this.setPatient(patients);
+            const patients = await agent.Patients.list();
+            patients.forEach(patient => {
+                this.setPatient(patient);
             })
             this.loadingInitial = false;
         } catch (error){
@@ -56,11 +53,7 @@ export default class PatientStore {
     }
 
     private setPatient = (patient: Patient) => {
-        if(patient.role === 'patient'){
-            this.patientRegistry.set(patient.id, patient);
-        }else{
-            console.log("Can't load Patients")
-        }
+        this.patientRegistry.set(patient.id, patient);
     }
 
     private getPatient = (id: string) => {
@@ -104,36 +97,6 @@ export default class PatientStore {
             runInAction(() => {
                 this.loading = false;
             })
-        }
-    }
-//// selectPatient, cancelSelectedPatient, openForm, closeForm, create jon te shtuara nga Gresa
-    selectPatient = (id: string) => {
-        this.selectedPatient = this.patientRegistry.get(id);
-    }
-
-    cancelSelectedPatient = () => {
-        this.selectedPatient = undefined;
-    }
-
-    closeForm = () => {
-        this.editMode = false;
-    }
-
-    openForm = (id?: string) => {
-        id ? this.selectPatient(id) : this.cancelSelectedPatient();
-        this.editMode = true;
-    }
-
-    create = async (creds: PatientTable) => {
-        try {
-            await agent.Patients.create(creds);
-            runInAction(() => {
-                this.loadPatients();
-            })
-            toast.success('Patient added successfully');
-            store.modalStore.closeModal();
-        } catch (error) {
-            throw error;
         }
     }
 

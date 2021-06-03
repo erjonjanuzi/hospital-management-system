@@ -32,6 +32,19 @@ export default class AccountManagementStore {
         }
     }
 
+    loadPatientAccounts = async() => {
+        try {
+            const accounts = await agent.AccountsManager.list();
+            accounts.forEach(account => {
+                this.setPatient(account);
+            })
+            this.loadingInitial = false;
+        } catch (error){
+            console.log(error);
+            this.setLoadingInitial(false);
+        }
+    }
+
     loadAccount = async (id: string) => {
         let account = this.getAccount(id);
         if (account) {
@@ -60,6 +73,14 @@ export default class AccountManagementStore {
 
     private setAccount = (user: AccountDto) => {
         this.accountRegistry.set(user.id, user);
+    }
+
+    private setPatient = (user: AccountDto) => {
+        if(user.role === 'patient'){
+            this.accountRegistry.set(user.id, user);
+        }else{
+            console.log("Can't load Patients")
+        }
     }
 
     setLoadingInitial = (state: boolean) => {
