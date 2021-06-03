@@ -20,6 +20,8 @@ import RegisterPatient from '../../features/doctor/RegisterPatient';
 import AdminAccountsTable from '../../features/admin/accounts/AdminAccountsTable';
 import PatientDashboard from '../../features/patients/dashboard/PatientDashboard';
 import DoctorPatientsTable from '../../features/doctor/patients/DoctorPatientsTable';
+import Diagnosis from '../../features/doctor/diagnosis/Diagnosis';
+
 
 
 function App() {
@@ -47,16 +49,21 @@ function App() {
             <NavBar />
             <Container fluid style={{ padding: '20px 20px 0 22vw' }}>
               <Switch>
+                {/* Admin Routes */}
                 <PrivateRoute path='/admin/accounts' component={AdminAccountsTable} />
                 <PrivateRoute path='/admin/departments' component={DepartmentsPage} />
 
+                {/* Doctor Routes */}
                 <PrivateRoute exact path='/doctor/register-patient' component={RegisterPatient} />
+                <PrivateRoute exact path='/doctor/diagnosis' component={ Diagnosis } />
 
+                {/* {Patient Routes} */}
                 <PrivateRoute exact path='/patient/dashboard' component={PatientDashboard} />
                 <PrivateRoute exact path='/patient/appointments' component={AppointmetsPatient} />
                 <PrivateRoute exact path='/patient/patient-profile' component={PatientProfile} />
                 <PrivateRoute exact path='/doctor/patients' component={DoctorPatientsTable} />
 
+                {/* Extra Routes */}
                 <Route path='/errors' component={TestErrors} />
                 <Route path='/server-error' component={ServerError} />
                 <Route component={NotFound} />
