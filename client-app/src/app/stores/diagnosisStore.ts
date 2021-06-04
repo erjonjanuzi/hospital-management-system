@@ -70,4 +70,4 @@ export default class DiagnosisStore {
     setLoadingInitial = (state: boolean) => {
         this.loadingInitial = state;
     }
-}
+} 

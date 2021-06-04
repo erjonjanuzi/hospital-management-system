@@ -57,6 +57,29 @@ namespace Persistence
 
             await context.Patients.AddRangeAsync(patients);
             await context.SaveChangesAsync();
+
+            if (context.Analyses.Any()) return;
+            
+            var analyses = new List<Analyse>
+            {
+                new Analyse
+                {
+                    Eritrocite = 5.6F,
+                    Hemoglobina = 160,
+                    Leukocite=6.5f,
+                    Hemakrotiti=49.5F,
+                    Tromobocite=289,
+                    Retikulocite=8,
+                    Neutrofile=62.9F,
+                    Limfocite=31.3F,
+                    Monocite=5.6F,
+                    Urea=5.4F,
+                    Glukoza=4.9F,
+                    Kolesteroli=6.5F
+                }
+            };
+             await context.Analyses.AddRangeAsync(analyses);
+             await context.SaveChangesAsync();
         }
     }
 }

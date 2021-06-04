@@ -20,8 +20,24 @@ export default class PatientStore {
         return Array.from(this.patientRegistry.values());
     }
         
+    // loadPatients = async() => {
+    //     try {
+    //         const patients = await agent.UserPatients.list();
+    //         patients.forEach(patients => {
+    //             this.setPatient(patients);
+    //         })
+    //         this.loadingInitial = false;
+    //     } catch (error){
+    //         console.log(error);
+    //         this.setLoadingInitial(false);
+    //     }
+    // }
+
     loadPatients = async() => {
         try {
+            // const patients = await agent.Patients.list();
+            // patients.forEach(patient => {
+            //     this.setPatient(patient);
             const patients = await agent.UserPatients.list();
             patients.forEach(patients => {
                 this.setPatient(patients);
@@ -32,6 +48,7 @@ export default class PatientStore {
             this.setLoadingInitial(false);
         }
     }
+
 
     loadPatient = async (id: string) => {
         let patient = this.getPatient(id);
@@ -54,14 +71,15 @@ export default class PatientStore {
             }
         }
     }
-
-    private setPatient = (patient: Patient) => {
-        if(patient.role === 'patient'){
-            this.patientRegistry.set(patient.id, patient);
-        }else{
-            console.log("Can't load Patients")
-        }
-    }
+//i had to change this back to how it was, bc it wouldn't work for me
+     private setPatient = (patient: Patient) => {
+        this.patientRegistry.set(patient.id, patient);
+    //     if(patient.role === 'patient'){
+    //         this.patientRegistry.set(patient.id, patient);
+    //     }else{
+    //         console.log("Can't load Patients")
+    //     }
+     }
 
     private getPatient = (id: string) => {
         return this.patientRegistry.get(id);

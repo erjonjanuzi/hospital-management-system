@@ -15,10 +15,13 @@ export default observer(function AddNewPatient() {
         firstName: '',
         lastName: '',
         age: '',
-        // registeredSince: '',
+        registeredSince: '',
         email: '',
         status: '',
-        error: null
+        error: null,
+        role: '',
+        username: '',
+        diagnosis: '',
 
     }
 

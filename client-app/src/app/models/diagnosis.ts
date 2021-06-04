@@ -4,4 +4,4 @@ export interface Diagnosis {
     type: string;
     details: string;
     patientsID: string;    
-}
+} 

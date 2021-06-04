@@ -6,6 +6,8 @@ import { City } from "../models/city"
 import { store } from "../stores/store";
 import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/user";
 import { Diagnosis } from "../models/diagnosis";
+import { request } from "http";
+import { Analyse } from "../models/analyse";
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -80,7 +82,14 @@ const Citys = {
     details: (id: string) => requests.get<City>(`/citys/${id}`),
     delete: (id: string) => axios.delete<void>(`/citys/${id}`),
     create: (city: City) => axios.post<void>('citys', city),
-    update: (city: City) => axios.put<void>(`/citys/${city.id}`, city),
+    update: (city: City) => axios.put<void>(`/citys/${city.id}`, city)
+}
+const Analysis = {
+    list: () => requests.get<Analyse[]>('/analysis'),
+    details: (id: string) => requests.get<Analyse>(`/analysis/${id}`),
+    create: (analyse: Analyse) => axios.post<void>('analysis', analyse),//ndryshim
+    update: (analyse: Analyse) => axios.put<void>(`/analysis/${analyse.id}`, analyse),
+    delete: (id: string) => axios.delete<void>(`/analysis/${id}`)
 }
 
 const Account = {
@@ -120,6 +129,7 @@ const agent = {
     UserPatients,
     Account,
     AccountsManager,
+    Analysis
 }
 
 export default agent;
