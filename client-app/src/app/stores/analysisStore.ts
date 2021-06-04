@@ -91,23 +91,25 @@ export default class Analysistore {
         }
     }
 
-    createAnalyse = async (analyse: Analyse) => {
-        this.loading = true;
-        try {
-          await agent.Analysis.create(analyse);
-          runInAction(() => {
-            this.analyseRegistry.set(analyse.id, analyse);
-            this.selectedAnalyse = analyse;
-            this.editMode = false;
-            this.loading = false;
-          });
-        } catch (error) {
-          console.log(error);
-          runInAction(() => {
-            this.loading = false;
-          });
-        }
-      };
+    // createAnalyse = async (analyse: Analyse) => {
+    //     this.loading = true;
+    //     try {
+    //       await agent.Analysis.create(analyse);
+    //       runInAction(() => {
+    //         this.analyseRegistry.set(analyse.id, analyse);
+    //         this.selectedAnalyse = analyse;
+    //         this.editMode = false;
+    //         this.loading = false;
+    //       });
+    //     } catch (error) {
+    //       console.log(error);
+    //       runInAction(() => {
+    //         this.loading = false;
+    //       });
+    //     }
+    //   };
+
+      
 
 //     createPatient = async (patient: Patient) => {
 //         this.loading = true;
@@ -162,18 +164,19 @@ export default class Analysistore {
         this.editMode = true;
     }
 
-    // create = async (creds: PatientTable) => {
-    //     try {
-    //         await agent.Patients.create(creds);
-    //         runInAction(() => {
-    //             this.loadPatients();
-    //         })
-    //         toast.success('Patient added successfully');
-    //         store.modalStore.closeModal();
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // }
+    create = async (creds: Analyse) => {
+        try {
+            await agent.Analysis.create(creds);
+            runInAction(() => {
+                this.loadAnalysis();
+            })
+            toast.success('Patient added successfully');
+            store.modalStore.closeModal();
+        } catch (error) {
+            throw error;
+        }
+    }
+
 
     deleteAnalyse = async (id: string) => {
         this.loading = true;

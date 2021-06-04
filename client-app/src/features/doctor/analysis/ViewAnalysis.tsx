@@ -2,6 +2,7 @@ import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
 import { Button, Container, Divider, Header, Table } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
+// import EditAndCancle from "./EditAndCancle";
 // import Editing from "./Editing";
 
 interface Props {
@@ -12,7 +13,7 @@ export default observer(function ViewAnalysis({ id }: Props) {
   const {
     analysisStore: {
       loadAnalyse,
-      selectedAnalyse: analyse,
+      selectedAnalyse: analyse
     },
     modalStore,
   } = useStore();
@@ -199,7 +200,7 @@ export default observer(function ViewAnalysis({ id }: Props) {
               icon="edit"
               basic
               color="youtube"
-              // onClick={() => modalStore.openModal(<Editing />)}
+              // onClick={() => modalStore.openModal(<EditAndCancle />)}
             />
             <Button
               color="red"

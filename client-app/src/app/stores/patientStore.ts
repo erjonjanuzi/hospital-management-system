@@ -20,27 +20,24 @@ export default class PatientStore {
         return Array.from(this.patientRegistry.values());
     }
         
-    // loadPatients = async() => {
-    //     try {
-    //         const patients = await agent.UserPatients.list();
-    //         patients.forEach(patients => {
-    //             this.setPatient(patients);
-    //         })
-    //         this.loadingInitial = false;
-    //     } catch (error){
-    //         console.log(error);
-    //         this.setLoadingInitial(false);
-    //     }
-    // }
-
     loadPatients = async() => {
         try {
-            // const patients = await agent.Patients.list();
-            // patients.forEach(patient => {
-            //     this.setPatient(patient);
             const patients = await agent.UserPatients.list();
             patients.forEach(patients => {
                 this.setPatient(patients);
+            })
+            this.loadingInitial = false;
+        } catch (error){
+            console.log(error);
+            this.setLoadingInitial(false);
+        }
+    }
+
+    GresaLoadPatients = async() => {
+        try {
+            const patients = await agent.Patients.list();
+            patients.forEach(patient => {
+                this.GresasetPatient(patient);
             })
             this.loadingInitial = false;
         } catch (error){
@@ -71,14 +68,18 @@ export default class PatientStore {
             }
         }
     }
-//i had to change this back to how it was, bc it wouldn't work for me
+     private GresasetPatient = (patient: Patient) => {
+        this.patientRegistry.set(patient.id, patient);
+     }
+
+
      private setPatient = (patient: Patient) => {
         this.patientRegistry.set(patient.id, patient);
-    //     if(patient.role === 'patient'){
-    //         this.patientRegistry.set(patient.id, patient);
-    //     }else{
-    //         console.log("Can't load Patients")
-    //     }
+        if(patient.role === 'patient'){
+            this.patientRegistry.set(patient.id, patient);
+        }else{
+            console.log("Can't load Patients")
+        }
      }
 
     private getPatient = (id: string) => {

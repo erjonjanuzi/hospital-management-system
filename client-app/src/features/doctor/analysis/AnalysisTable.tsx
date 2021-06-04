@@ -18,7 +18,7 @@ export default observer(function AnalysisTable() {
     return (
         <Segment>
 
-            {/* <Button style={{ color: "black", backgroundColor: "#3BBCA6" }} content='Add new patient' /> */}
+            {/* <Button onClick={() => modalStore.openModal(<AddNewAnalyse />)} style={{ color: "black", backgroundColor: "#3BBCA6" }} content='Add new patient' /> */}
             <Breadcrumbs></Breadcrumbs>
             <Header content='Analysis' />
             <Header sub content='All patients analysis' />
@@ -38,7 +38,7 @@ export default observer(function AnalysisTable() {
                             <Table.Cell>{patient.patientLastName}</Table.Cell>
                             <Table.Cell>
                                       <Button content='Analyse' icon='edit' basic color='youtube'
-                                    onClick={() => modalStore.openModal(<ViewAnalysis id={patient.id}/>)} />
+                                    onClick={() => modalStore.openModal(<ViewAnalysis id={patient.id}/>)} />                                    
                                 <Button icon='delete' color='red'id={patient.id}
                                     onClick={() => deleteAnalyse(patient.id)}
                                 />

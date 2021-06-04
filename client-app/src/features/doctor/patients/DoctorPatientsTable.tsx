@@ -2,27 +2,28 @@ import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { Button, Header, Segment, Table } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
-//import AddNewPatient from './patients/AddNewPatient';
+import AddNewPatient from './AddNewPatient';
+import UpdatePatient from './UpdatePatient';
 import ViewPatient from './ViewPatient';
+
 
 export default observer(function DoctorPatientsTable() {
     const { patientStore, modalStore } = useStore();
-    const { patients, patientRegistry, loadPatients, deletePatient } = patientStore;
+    const { patients, patientRegistry, GresaLoadPatients, deletePatient } = patientStore;
 
     useEffect(() => {
-        if (patientRegistry.size <= 1) loadPatients();
-    }, [patientRegistry.size, loadPatients])
+        if (patientRegistry.size <= 1) GresaLoadPatients();
+    }, [patientRegistry.size, GresaLoadPatients])
 
     return (
         <Segment>
-            {/*<Button style={{ color: "black", backgroundColor: "#3BBCA6" }} content='Add new patient' */}
-            {/*onClick={() => modalStore.openModal(<AddNewPatient />)}/>*/}
+            <Button style={{ color: "black", backgroundColor: "#3BBCA6" }} content='Add new patient' onClick={() => modalStore.openModal(<AddNewPatient />)}/>
             <Header content='Patients under my supervision' />
             <Header sub content='All patients' />
             <Table textAlign="center">
                 <Table.Header >
                     <Table.Row >
-                        { <Table.HeaderCell>Username</Table.HeaderCell>}
+                        {/* { <Table.HeaderCell>Username</Table.HeaderCell>} */}
                         <Table.HeaderCell style={{ backgroundColor: "#3BBCA6" }}>First Name</Table.HeaderCell>
                         <Table.HeaderCell style={{ color: "black", backgroundColor: "#3BBCA6" }}>Last Name</Table.HeaderCell>
                         <Table.HeaderCell style={{ color: "black", backgroundColor: "#3BBCA6" }}>Age</Table.HeaderCell>
@@ -44,7 +45,9 @@ export default observer(function DoctorPatientsTable() {
 
                             <Table.Cell>
                                 <Button content='Edit' icon='edit' basic color='youtube'
-                                    onClick={() => modalStore.openModal(<ViewPatient id={patient.id} />)} />
+                                    onClick={() => modalStore.openModal(<UpdatePatient id={patient.id} />)} />
+                                     <Button content='View'  basic color='youtube'
+                                    onClick={() => modalStore.openModal(<ViewPatient id={patient.id}/>)} />
                                 <Button icon='delete' color='red'
                                     onClick={() => deletePatient(patient.id)}
                                 />

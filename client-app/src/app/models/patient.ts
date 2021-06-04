@@ -17,7 +17,7 @@ export interface PatientTable {
     age: string;
     email: string;
     status: string;
-    registeredSince: string;
+    // registeredSince: string;
     username: string;
     role: string;
     diagnosis: string;

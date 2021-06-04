@@ -71,7 +71,7 @@ const requests = {
 const Patients = {
     list: () => requests.get<Patient[]>('/patients'),
     details: (id: string) => requests.get<Patient>(`/patients/${id}`),
-    create: (user: PatientTable) => axios.post<void>('patients', user),//ndryshim
+    create: (user: PatientTable) => axios.post<void>('patients', user),
     update: (patient: Patient) => axios.put<void>(`/patients/${patient.id}`, patient),
     delete: (id: string) => axios.delete<void>(`/patients/${id}`)
 }
@@ -87,7 +87,7 @@ const Citys = {
 const Analysis = {
     list: () => requests.get<Analyse[]>('/analysis'),
     details: (id: string) => requests.get<Analyse>(`/analysis/${id}`),
-    create: (analyse: Analyse) => axios.post<void>('analysis', analyse),//ndryshim
+    create: (user: Analyse) => axios.post<void>('analysis', user),
     update: (analyse: Analyse) => axios.put<void>(`/analysis/${analyse.id}`, analyse),
     delete: (id: string) => axios.delete<void>(`/analysis/${id}`)
 }
