@@ -11,7 +11,7 @@ namespace Application.Diagnoses
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public Guid id { get; set; }
+            public Guid Id { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -23,7 +23,7 @@ namespace Application.Diagnoses
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken){
             
-                var diagnosis = await context.Diagnoses.FindAsync(request.id);
+                var diagnosis = await context.Diagnoses.FindAsync(request.Id);
                 
                 context.Remove(diagnosis);
 

@@ -187,11 +187,17 @@ namespace Persistence.Migrations
                     b.Property<string>("PatientUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Stage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("patientsId")
                         .HasColumnType("nvarchar(max)");

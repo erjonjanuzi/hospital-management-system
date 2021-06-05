@@ -6,8 +6,13 @@ import { City } from "../models/city"
 import { store } from "../stores/store";
 import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/user";
 import { Diagnosis } from "../models/diagnosis";
+<<<<<<< Updated upstream
 import { request } from "http";
 import { Analyse } from "../models/analyse";
+=======
+import { warnAboutProxyRequirement } from "mobx/dist/internal";
+import { request } from "http";
+>>>>>>> Stashed changes
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -116,10 +121,12 @@ const AccountsManager = {
 }
 
 const DiagnosisManager = {
-    list: () => requests.get<Diagnosis[]>('/doctor/diagnosis'),
-    details: (id: string) => requests.get<Diagnosis>(`doctor/diagnosis/${id}`),
-    create: (diagnosis: Diagnosis) => axios.post<void>('/diagnosis/create', diagnosis)
-
+    list: () => requests.get<Diagnosis[]>('/diagnosis'),
+    delete: (id: string) => axios.delete<void>(`/diagnosis/delete/${id}`),
+    details: (id: string) => requests.get<Diagnosis>(`/diagnosis/${id}`),
+    update: (diagnosis: Diagnosis) => axios.put<void>(`/diagnosis/${diagnosis.patientsId}`, diagnosis),
+    create: (diagnosis: Diagnosis) => axios.post<void>('/diagnosis', diagnosis),
+    byPatient: (patientsId: string) => requests.get<Diagnosis>(`diagnosis/patient/${patientsId}`)
 }
 
 const agent = {

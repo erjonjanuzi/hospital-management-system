@@ -3,6 +3,7 @@ import AccountManagementStore from "./accountManagementStore";
 import AnalyseStore from "./analysisStore";
 import cityStore from "./cityStore";
 import CommonStore from "./commonStore";
+import DiagnosisStore from "./diagnosisStore";
 import ModalStore from "./modalStore";
 import PatientStore from "./patientStore";
 import UserStore from "./userStore";
@@ -16,6 +17,7 @@ interface Store {
     modalStore: ModalStore;
     accountManagementStore: AccountManagementStore;
     cityStore : cityStore;
+    diagnosisStore: DiagnosisStore
 }
 
 export const store: Store = {
@@ -26,6 +28,7 @@ export const store: Store = {
     modalStore: new ModalStore(),
     accountManagementStore: new AccountManagementStore(),
     cityStore : new cityStore(),
+    diagnosisStore: new DiagnosisStore()
 }
 
 export const StoreContext = createContext(store);
