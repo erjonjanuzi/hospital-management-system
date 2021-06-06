@@ -57,6 +57,23 @@ namespace Persistence
 
             await context.Patients.AddRangeAsync(patients);
             await context.SaveChangesAsync();
+
+
+            if (context.Departments.Any()) return;
+            
+            var departments = new List<Department>
+            {
+                new Department
+                {
+                    Name = "Cardiology",
+                    Capacity = "22/100",
+                    Description="test",
+                }
+            };
+
+            await context.Departments.AddRangeAsync(departments);
+            await context.SaveChangesAsync();
+
         }
     }
 }

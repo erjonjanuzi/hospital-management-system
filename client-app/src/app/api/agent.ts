@@ -6,6 +6,11 @@ import { City } from "../models/city"
 import { store } from "../stores/store";
 import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/user";
 import { Diagnosis } from "../models/diagnosis";
+import { Department } from "../models/department";
+
+import { Analyse } from "../models/analyse";
+import { warnAboutProxyRequirement } from "mobx/dist/internal";
+
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -69,7 +74,7 @@ const requests = {
 const Patients = {
     list: () => requests.get<Patient[]>('/patients'),
     details: (id: string) => requests.get<Patient>(`/patients/${id}`),
-    create: (user: PatientTable) => axios.post<void>('patients', user),//ndryshim
+    create: (user: PatientTable) => axios.post<void>('patients', user),
     update: (patient: Patient) => axios.put<void>(`/patients/${patient.id}`, patient),
     delete: (id: string) => axios.delete<void>(`/patients/${id}`)
 }
@@ -80,7 +85,22 @@ const Citys = {
     details: (id: string) => requests.get<City>(`/citys/${id}`),
     delete: (id: string) => axios.delete<void>(`/citys/${id}`),
     create: (city: City) => axios.post<void>('citys', city),
-    update: (city: City) => axios.put<void>(`/citys/${city.id}`, city),
+    update: (city: City) => axios.put<void>(`/citys/${city.id}`, city)
+}
+const Analysis = {
+    list: () => requests.get<Analyse[]>('/analysis'),
+    details: (id: string) => requests.get<Analyse>(`/analysis/${id}`),
+    create: (user: Analyse) => axios.post<void>('analysis', user),
+    update: (analyse: Analyse) => axios.put<void>(`/analysis/${analyse.id}`, analyse),
+    delete: (id: string) => axios.delete<void>(`/analysis/${id}`)
+}
+
+const Departments = {
+    list: () => requests.get<Department[]>('/departments'),
+    details: (id: string) => requests.get<Department>(`/departments/${id}`),
+    delete: (id: string) => axios.delete<void>(`/departments/${id}`),
+    create: (department: Department) => axios.post<void>('departments', department),
+    update: (department: Department) => axios.put<void>(`/departments/${department.id}`, department),
 }
 
 const Account = {
@@ -107,10 +127,12 @@ const AccountsManager = {
 }
 
 const DiagnosisManager = {
-    list: () => requests.get<Diagnosis[]>('/doctor/diagnosis'),
-    details: (id: string) => requests.get<Diagnosis>(`doctor/diagnosis/${id}`),
-    create: (diagnosis: Diagnosis) => axios.post<void>('/diagnosis/create', diagnosis)
-
+    list: () => requests.get<Diagnosis[]>('/diagnosis'),
+    delete: (id: string) => axios.delete<void>(`/diagnosis/delete/${id}`),
+    details: (id: string) => requests.get<Diagnosis>(`/diagnosis/${id}`),
+    update: (diagnosis: Diagnosis) => axios.put<void>(`/diagnosis/${diagnosis.patientsId}`, diagnosis),
+    create: (diagnosis: Diagnosis) => axios.post<void>('/diagnosis', diagnosis),
+    byPatient: (patientsId: string) => requests.get<Diagnosis>(`diagnosis/patient/${patientsId}`)
 }
 
 const agent = {
@@ -120,6 +142,7 @@ const agent = {
     UserPatients,
     Account,
     AccountsManager,
+    Departments
 }
 
 export default agent;

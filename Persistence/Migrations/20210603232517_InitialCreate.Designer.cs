@@ -3,15 +3,25 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+<<<<<<< HEAD:Persistence/Migrations/20210603232517_InitialCreate.Designer.cs
+    [Migration("20210603232517_InitialCreate")]
+=======
+<<<<<<< Updated upstream:Persistence/Migrations/20210604134538_InitialCreate.Designer.cs
+    [Migration("20210604134538_InitialCreate")]
+=======
+    [Migration("20210605233115_InitialCreate")]
+>>>>>>> Stashed changes:Persistence/Migrations/20210605233115_InitialCreate.Designer.cs
+>>>>>>> 9154aa76e9ad173f0c8dfe256d0ef4ea2b863d7d:Persistence/Migrations/20210604134538_InitialCreate.Designer.cs
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
