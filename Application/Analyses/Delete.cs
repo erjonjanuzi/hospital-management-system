@@ -5,7 +5,7 @@ using Application.Core;
 using MediatR;
 using Persistence;
 
-namespace Application.Diagnoses
+namespace Application.Analyses
 {
     public class Delete
     {
@@ -17,22 +17,23 @@ namespace Application.Diagnoses
         public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly DataContext context;
-            public Handler(DataContext context){
+            public Handler(DataContext context)
+            {
                 this.context = context;
             }
 
-            public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken){
-            
-                var diagnosis = await context.Diagnoses.FindAsync(request.Id);
-                
-                context.Remove(diagnosis);
+            public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
+            {
+                var analyse = await context.Analyses.FindAsync(request.Id);
+
+                context.Remove(analyse);
 
                 var result = await context.SaveChangesAsync() > 0;
 
-                if (!result) return Result<Unit>.Failure("Failed to delete the dignosis");
+                if (!result) return Result<Unit>.Failure("Failed to delete the analyse");
 
                 return Result<Unit>.Success(Unit.Value);
             }
-        }   
+        }
     }
 }

@@ -9,7 +9,10 @@ import { Diagnosis } from "../models/diagnosis";
 import { Department } from "../models/department";
 
 import { Analyse } from "../models/analyse";
-import { warnAboutProxyRequirement } from "mobx/dist/internal";
+
+
+
+
 
 
 const sleep = (delay: number) => {
@@ -93,6 +96,7 @@ const Analysis = {
     create: (user: Analyse) => axios.post<void>('analysis', user),
     update: (analyse: Analyse) => axios.put<void>(`/analysis/${analyse.id}`, analyse),
     delete: (id: string) => axios.delete<void>(`/analysis/${id}`)
+
 }
 
 const Departments = {
@@ -101,6 +105,7 @@ const Departments = {
     delete: (id: string) => axios.delete<void>(`/departments/${id}`),
     create: (department: Department) => axios.post<void>('departments', department),
     update: (department: Department) => axios.put<void>(`/departments/${department.id}`, department),
+
 }
 
 const Account = {
@@ -130,7 +135,7 @@ const DiagnosisManager = {
     list: () => requests.get<Diagnosis[]>('/diagnosis'),
     delete: (id: string) => axios.delete<void>(`/diagnosis/delete/${id}`),
     details: (id: string) => requests.get<Diagnosis>(`/diagnosis/${id}`),
-    update: (diagnosis: Diagnosis) => axios.put<void>(`/diagnosis/${diagnosis.patientsId}`, diagnosis),
+    update: (diagnosis: Diagnosis) => axios.put<void>(`/diagnosis/${diagnosis.patientsID}`, diagnosis),
     create: (diagnosis: Diagnosis) => axios.post<void>('/diagnosis', diagnosis),
     byPatient: (patientsId: string) => requests.get<Diagnosis>(`diagnosis/patient/${patientsId}`)
 }

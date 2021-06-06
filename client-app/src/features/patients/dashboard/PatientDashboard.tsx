@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Grid, Segment, Icon, Header, Image, Breadcrumb, Table, Button, Divider } from 'semantic-ui-react';
+import { Grid, Segment, Icon, Header, Image, Breadcrumb, Table, Button, Divider, Placeholder } from 'semantic-ui-react';
 
 const src = '/images/wireframe/image-text.png'
 export default observer(function PatientDashboard() {
@@ -46,6 +46,25 @@ export default observer(function PatientDashboard() {
                         </Segment>
                     </Grid.Column>
                 </Grid.Column>
+
+                <Grid.Column width={6}>
+
+                        <Segment>
+                        <Image src={src} size='massive' floated='left' />
+                            <Grid.Column>
+                                Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia
+                                facete scriptorem, est autem aliquip detraxit at. Usu ocurreret
+                                referrentur at, cu epicurei appellantur vix.Cum ea laoreet recteque
+                                Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia
+                                facete scriptorem, est autem aliquip detraxit at.
+                                Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia
+                                facete scriptorem, est autem aliquip detraxit at.
+                                facete scriptorem, est autem aliquip detraxit at.
+                            </Grid.Column>
+                        </Segment>
+
+                </Grid.Column>
+
             </Grid.Row>
             <Grid.Column width={10}>
                 <Segment>
@@ -107,6 +126,8 @@ export default observer(function PatientDashboard() {
                                 Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia
                                 facete scriptorem, est autem aliquip detraxit at. Usu ocurreret
                                 referrentur at, cu epicurei appellantur vix. Cum ea laoreet recteque
+                                Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia
+                                facete scriptorem, est autem aliquip detraxit at.
                                                 </p>
                         </Grid.Row>
 
@@ -118,26 +139,12 @@ export default observer(function PatientDashboard() {
                             Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia
                             facete scriptorem, est autem aliquip detraxit at. Usu ocurreret
                             referrentur at, cu epicurei appellantur vix. Cum ea laoreet recteque
+                            Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia
+                            facete scriptorem, est autem aliquip detraxit at. Usu ocurreret
+                            referrentur at, cu epicurei
                                                 </p>
                     </Segment>
 
-                    <Segment>
-                        <Image src={src} size='massive' floated='left' />
-                        <p>
-                            Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia
-                            facete scriptorem, est autem aliquip detraxit at. Usu ocurreret
-                            referrentur at, cu epicurei appellantur vix. Cum ea laoreet recteque
-                                                </p>
-                    </Segment>
-
-                    <Segment>
-                        <Image src={src} size='massive' floated='left' />
-                        <p>
-                            Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia
-                            facete scriptorem, est autem aliquip detraxit at. Usu ocurreret
-                            referrentur at, cu epicurei appellantur vix. Cum ea laoreet recteque
-                                                </p>
-                    </Segment>
                 </Grid.Column>
             </Grid.Column>
         </Grid>

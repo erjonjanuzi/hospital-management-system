@@ -33,6 +33,20 @@ export default class PatientStore {
         }
     }
 
+    GresaLoadPatients = async() => {
+        try {
+            const patients = await agent.Patients.list();
+            patients.forEach(patient => {
+                this.GresasetPatient(patient);
+            })
+            this.loadingInitial = false;
+        } catch (error){
+            console.log(error);
+            this.setLoadingInitial(false);
+        }
+    }
+
+
     loadPatient = async (id: string) => {
         let patient = this.getPatient(id);
         if (patient) {
@@ -54,14 +68,19 @@ export default class PatientStore {
             }
         }
     }
+     private GresasetPatient = (patient: Patient) => {
+        this.patientRegistry.set(patient.id, patient);
+     }
 
-    private setPatient = (patient: Patient) => {
+
+     private setPatient = (patient: Patient) => {
+        this.patientRegistry.set(patient.id, patient);
         if(patient.role === 'patient'){
             this.patientRegistry.set(patient.id, patient);
         }else{
             console.log("Can't load Patients")
         }
-    }
+     }
 
     private getPatient = (id: string) => {
         return this.patientRegistry.get(id);

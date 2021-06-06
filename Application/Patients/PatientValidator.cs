@@ -12,5 +12,3 @@ namespace Application.Patients
         }
     }
 }
-
-

@@ -17,7 +17,8 @@ export default observer(function NavBar() {
     { key: 'dashboard', name: 'Dashboard', to: '/doctor/dashboard'},
     { key: 'patients', name: 'Table Patient\'s', to: '/doctor/patients'},
     { key: 'register-patient', name: 'Register Patient', to: '/doctor/register-patient'},
-    { key: 'diagnosis', name: 'Patient\'s Diagnosis', to: '/doctor/diagnosis'}
+    { key: 'diagnosis', name: 'Patient\'s Diagnosis', to: '/doctor/diagnosis'},
+    { key: 'analysis', name: 'Patient\'s Analysis', to: '/doctor/analysis'}
   ]
 
   const patientLinks = [

@@ -21,6 +21,7 @@ import AdminAccountsTable from '../../features/admin/accounts/AdminAccountsTable
 import PatientDashboard from '../../features/patients/dashboard/PatientDashboard';
 import DoctorPatientsTable from '../../features/doctor/patients/DoctorPatientsTable';
 import Diagnosis from '../../features/doctor/diagnosis/Diagnosis';
+import AnalysisTable from '../../features/doctor/analysis/AnalysisTable';
 import CityTable from '../../features/admin/city/CityTable';
 
 
@@ -60,12 +61,17 @@ function App() {
                 {/* Doctor Routes */}
                 <PrivateRoute exact path='/doctor/register-patient' component={RegisterPatient} />
                 <PrivateRoute exact path='/doctor/diagnosis' component={ Diagnosis } />
-
+                <PrivateRoute exact path='/doctor/patients' component={DoctorPatientsTable} />
+<<<<<<< Updated upstream
+                <PrivateRoute exact path='/doctor/analysis' component={AnalysisTable} />
+=======
+>>>>>>> Stashed changes
+                
                 {/* {Patient Routes} */}
                 <PrivateRoute exact path='/patient/dashboard' component={PatientDashboard} />
                 <PrivateRoute exact path='/patient/appointments' component={AppointmetsPatient} />
                 <PrivateRoute exact path='/patient/patient-profile' component={PatientProfile} />
-                <PrivateRoute exact path='/doctor/patients' component={DoctorPatientsTable} />
+                
 
                 {/* Extra Routes */}
                 <Route path='/errors' component={TestErrors} />

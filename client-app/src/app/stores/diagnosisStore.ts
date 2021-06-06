@@ -30,20 +30,58 @@ export default class DiagnosisStore {
         }
     }
 
-    // loadDiagnosis = async (id: string) => {
-    //     let diagnosis = this.getDiagnosis(id);
-    //     if (diagnosis) {
+    loadDiagnosis = async (id: string) => {
+        let diagnosis = this.getDiagnosis(id);
+        if (diagnosis) {
+            this.selectedDiagnosis = diagnosis;
+            return diagnosis;
+        }
+        else{
+            this.loadingInitial = true;
+            try{
+                diagnosis = await agent.DiagnosisManager.details(id);
+                this.setDiagnosis(diagnosis);
+                runInAction(() => {
+                    this.selectedDiagnosis = diagnosis;
+                })
+                this.setLoadingInitial(false);
+                return diagnosis;
+            } catch (error) {
+                console.log(error);
+                this.setLoadingInitial(false);
+            }
+        } 
+    }
 
-    //     }
-
-    // }
+    loadDiagnosisByPatient = async (patientId: string) => {
+        let diagnosis = this.getDiagnosis(patientId);
+        if (diagnosis) {
+            this.selectedDiagnosis = diagnosis;
+            return diagnosis;
+        }
+        else{
+            this.loadingInitial = true;
+            try{
+                diagnosis = await agent.DiagnosisManager.byPatient(patientId);
+                this.setDiagnosis(diagnosis);
+                runInAction(() => {
+                    this.selectedDiagnosis = diagnosis;
+                })
+                this.setLoadingInitial(false);
+                return diagnosis;
+            } catch (error) {
+                console.log(error);
+                this.setLoadingInitial(false);
+            }
+        } 
+    }
 
     createDiagnosis = async (diagnosis: Diagnosis) => {
         this.loading = true;
         try {
             await agent.DiagnosisManager.create(diagnosis);
             runInAction(() => {
-                this.diagnosisRegistry.set(diagnosis.id, diagnosis);
+                this.diagnosisRegistry.set(diagnosis.patientsId, diagnosis);
                 this.selectedDiagnosis = diagnosis;
                 this.editMode = false;
                 this.loading = false;
@@ -58,16 +96,17 @@ export default class DiagnosisStore {
 
 
     private setDiagnosis = (diagnosis: Diagnosis) => {
-        this.diagnosisRegistry.set(diagnosis.id, diagnosis);
+        this.diagnosisRegistry.set(diagnosis.patientsId, diagnosis);
     }
     private getDiagnosis = (id: string) => {
-        this.diagnosisRegistry.get(id);
+        return this.diagnosisRegistry.get(id);
     }
-
-
-
-
     setLoadingInitial = (state: boolean) => {
         this.loadingInitial = state;
     }
+<<<<<<< Updated upstream
+} 
+=======
+    
 }
+>>>>>>> Stashed changes

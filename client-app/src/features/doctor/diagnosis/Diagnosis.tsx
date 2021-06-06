@@ -4,14 +4,19 @@ import { useStore } from '../../../app/stores/store';
 import Breadcrumbs from '../../patients/my-profile/Breadcrumbs'
 import { Button, Divider, Form, Header, Segment, Table } from 'semantic-ui-react';
 import ViewDiagnosis from './ViewDiagnosis';
+import DiagnosisStore from '../../../app/stores/diagnosisStore';
+import CreateDiagnosis from './CreateDiagnosis';
 
 
 
-export default observer(function Diagnosis(): JSX.Element {
+export default observer(function Diagnosis() {
 
     const { patientStore, modalStore } = useStore();
     const { patients, loadPatients } = patientStore;
     loadPatients();
+
+    const { diagnosisStore } = useStore();
+    const {} = diagnosisStore;
 
     return (
         <>
@@ -43,7 +48,9 @@ export default observer(function Diagnosis(): JSX.Element {
                                 <Table.Cell>
                                     <Button content='View Diagnosis' icon='edit' basic color='youtube'
                                         onClick={() => modalStore.openModal(<ViewDiagnosis id={patient.id} />)} />
-                                    {/* id={patient.id}  */}
+                                    <Button content='Add Diagnosis' icon='add' basic color='youtube'
+                                    onClick={() => modalStore.openModal(<CreateDiagnosis id={patient.id} />)} />
+                                    
                                 </Table.Cell>
                             </Table.Row>
                         ))}
