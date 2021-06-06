@@ -44,7 +44,7 @@ export default observer(function AddNewDepartment() {
                             name='error' render={() =>
                             <Message negative content={errors.error} />}
                         />
-                        <Header sub content='City details' />
+                        <Header sub content='Details' />
                         <MyTextInput name='Name' placeholder='Name' />
                         <MyTextInput name='Capacity' placeholder='Capacity' />
                         <MyTextInput name='Descritpion' placeholder='Description' />
