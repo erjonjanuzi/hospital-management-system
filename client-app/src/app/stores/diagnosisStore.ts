@@ -121,12 +121,12 @@ export default class DiagnosisStore {
     deleteDiagnosis = async (id: string) => {
         this.loading = true;
         try {
-            if (window.confirm('a me fshi jaran')) {
+            if (window.confirm('Delete ?')) {
                 await agent.DiagnosisManager.delete(id);
                 runInAction(() => {
                     this.diagnosisRegistry.delete(id);
                     this.loading = false;
-                    this.modalStore.closeModal()
+                    this.modalStore.closeModal();
                 })
             }
         } catch (error) {
@@ -147,12 +147,8 @@ export default class DiagnosisStore {
     setLoadingInitial = (state: boolean) => {
         this.loadingInitial = state;
     }
-<<<<<<< Updated upstream
 
 } 
 
 
 
-=======
-}
->>>>>>> Stashed changes

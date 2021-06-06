@@ -6,13 +6,8 @@ import { City, CityDto } from "../models/city"
 import { store } from "../stores/store";
 import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/user";
 import { Diagnosis } from "../models/diagnosis";
-<<<<<<< Updated upstream
 import { Department } from "../models/department";
 import { Analyse } from "../models/analyse";
-=======
-import { Analyse } from "../models/analyse";
-
->>>>>>> Stashed changes
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {

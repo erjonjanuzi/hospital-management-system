@@ -9,4 +9,3 @@ Migrations:
 1. dotnet ef database drop -s API -p Persistence
 2. delete files at ...\Persistence\Migrations
 3. dotnet ef migrations add InitialCreate -p Persistence -s API
-4. dotnet ef migrations add emri-i-migrations -p Persistence -s API

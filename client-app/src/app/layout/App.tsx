@@ -64,10 +64,6 @@ function App() {
                 <PrivateRoute exact path='/doctor/patients' component={DoctorPatientsTable} />
 
                 <PrivateRoute exact path='/doctor/analysis' component={AnalysisTable} />
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                 
                 {/* {Patient Routes} */}
                 <PrivateRoute exact path='/patient/dashboard' component={PatientDashboard} />
