@@ -6,8 +6,13 @@ import { City, CityDto } from "../models/city"
 import { store } from "../stores/store";
 import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/user";
 import { Diagnosis } from "../models/diagnosis";
+<<<<<<< Updated upstream
 import { Department } from "../models/department";
 import { Analyse } from "../models/analyse";
+=======
+import { Analyse } from "../models/analyse";
+
+>>>>>>> Stashed changes
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -127,11 +132,11 @@ const AccountsManager = {
 
 const DiagnosisManager = {
     list: () => requests.get<Diagnosis[]>('/diagnosis'),
-    delete: (id: string) => axios.delete<void>(`/diagnosis/delete/${id}`),
+    delete: (id: string) => axios.delete<void>(`/Diagnosis/${id}`),
     details: (id: string) => requests.get<Diagnosis>(`/diagnosis/${id}`),
     update: (diagnosis: Diagnosis) => axios.put<void>(`/diagnosis/${diagnosis.patientsId}`, diagnosis),
     create: (diagnosis: Diagnosis) => axios.post<void>('/diagnosis', diagnosis),
-    byPatient: (patientsId: string) => requests.get<Diagnosis>(`diagnosis/patient/${patientsId}`)
+    byPatient: (patientsId: string) => requests.get<Diagnosis>(`/patient/${patientsId}`)
 }
 
 const agent = {

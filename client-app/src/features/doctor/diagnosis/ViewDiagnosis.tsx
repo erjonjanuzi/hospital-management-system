@@ -20,8 +20,8 @@ export default observer(function ViewDiagnosis({ id }: Props) {
 
     // }
 
-    const { accountManagementStore: { loadAccount, selectedAccount, update }, modalStore, 
-            diagnosisStore: { loadDiagnosisByPatient ,loadDiagnosis, selectedDiagnosis}
+    const { accountManagementStore: {loadAccount, selectedAccount, update }, 
+            diagnosisStore: { deleteDiagnosis,loadDiagnosisByPatient , selectedDiagnosis}
             } = useStore();
     
 
@@ -33,12 +33,13 @@ export default observer(function ViewDiagnosis({ id }: Props) {
         if (id) loadDiagnosisByPatient(id);
     }, [id, loadDiagnosisByPatient])
 
+
     const Diagnosis = selectedDiagnosis;
     
     return (
         <>
             <div>
-                <Container textAlign='center'>{id}</Container>
+                <Container textAlign='center'>{selectedAccount?.firstName}'s Diagnosis</Container>
                 <Container textAlign='justified'>
                     <b>{Diagnosis?.title}</b>
                     <Divider />
@@ -46,11 +47,17 @@ export default observer(function ViewDiagnosis({ id }: Props) {
                     <span>{Diagnosis?.details}</span>
                     <Header sub>Type</Header>
                     <span>{Diagnosis?.type}</span>
+                    <Header sub>Stage</Header>
+                    <span>{Diagnosis?.stage}</span>
+                    <Header sub>Date</Header>
+                    <span>{Diagnosis?.date.split('T')[0]}</span>
 
                     <Divider hidden/>
                     <div>
                         <Button color='green' content=' Edit ' icon='edit' labelPosition='left' />
-                        <Button color='red' content='Delete' icon='delete' labelPosition='right' />
+                        <Button 
+                        onClick={() => deleteDiagnosis(id)}
+                        color='red' content='Delete' icon='delete' labelPosition='right' />
                     </div>
 
                 </Container>

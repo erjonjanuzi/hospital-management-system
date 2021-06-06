@@ -7,7 +7,6 @@ using MediatR;
 using Persistence;
 using System.Linq;
 
-
 namespace Application.Diagnoses
 {
     public class ByPatient
@@ -27,7 +26,7 @@ namespace Application.Diagnoses
 
             public async Task<Result<Diagnosis>> Handle(Query request, CancellationToken cancellationToken) 
             {
-                Diagnosis diagnosis = context.Diagnoses.SingleOrDefault(diagnosis => diagnosis.patientsId == request.patientsId);
+                var diagnosis =  context.Diagnoses.SingleOrDefault(diagnosis => diagnosis.patientsId == request.patientsId);
                 return Result<Diagnosis>.Success(diagnosis);
             }
         }

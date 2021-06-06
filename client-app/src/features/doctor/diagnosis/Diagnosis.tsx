@@ -7,17 +7,19 @@ import { Button, Divider, Form, Header, Segment, Table } from 'semantic-ui-react
 import ViewDiagnosis from './ViewDiagnosis';
 import DiagnosisStore from '../../../app/stores/diagnosisStore';
 import CreateDiagnosis from './CreateDiagnosis';
+import { boolean } from 'yup/lib/locale';
 
 
 
 export default observer(function Diagnosis() {
 
-    const { patientStore, modalStore } = useStore();
-    const { patients, loadPatients } = patientStore;
+    const { patientStore, modalStore,  } = useStore();
+    const {  loadPatient ,loadPatients, patients } = patientStore;
     loadPatients();
+    
 
     const { diagnosisStore } = useStore();
-    const {} = diagnosisStore;
+    const { loadDiagnosisByPatient } = diagnosisStore;
 
     return (
         <>
@@ -26,7 +28,7 @@ export default observer(function Diagnosis() {
                 {/* <Button content='Create new user' onClick={() => modalStore.openModal(<RegisterNewUserForm />)}
             /> */}
                 <Header content='Diagnosis Management' />
-                <Header sub content='All patietnss' />
+                <Header sub content='All patietns' />
                 <Table textAlign="center">
                     <Table.Header>
                         <Table.Row>
@@ -40,6 +42,7 @@ export default observer(function Diagnosis() {
                     </Table.Header>
                     <Table.Body>
                         {patients.map(patient => (
+                             
                             <Table.Row key={patient.id}>
                                 <Table.Cell>{patient.firstName}</Table.Cell>
                                 <Table.Cell>{patient.lastName}</Table.Cell>
@@ -47,10 +50,12 @@ export default observer(function Diagnosis() {
                                 <Table.Cell>{patient.role}</Table.Cell>
                                 <Table.Cell>{patient.registeredSince.split('T')[0]}</Table.Cell>
                                 <Table.Cell>
-                                    <Button content='View Diagnosis' icon='edit' basic color='youtube'
+                                    <Button 
+                                        content='View Diagnosis' icon='edit' basic color='youtube'
                                         onClick={() => modalStore.openModal(<ViewDiagnosis id={patient.id} />)} />
-                                    <Button content='Add Diagnosis' icon='add' basic color='youtube'
-                                    onClick={() => modalStore.openModal(<CreateDiagnosis id={patient.id} />)} />
+                                    <Button 
+                                        content='Add Diagnosis' icon='add' basic color='youtube'
+                                        onClick={() => modalStore.openModal(<CreateDiagnosis id={patient.id} />)} />
                                     
                                 </Table.Cell>
                             </Table.Row>

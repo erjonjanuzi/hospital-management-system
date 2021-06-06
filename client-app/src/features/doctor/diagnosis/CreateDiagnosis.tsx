@@ -1,7 +1,7 @@
 import { ErrorMessage, Formik } from 'formik';
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { Button, Container, Divider, Form, Header, Message, Segment, Table } from 'semantic-ui-react';
+import { Button, Container, Divider, Form, Header, Message, Modal, Segment, Table } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 import * as Yup from 'yup';
 import MyTextInput from '../../../app/common/form/MyTextInput';
@@ -14,6 +14,7 @@ interface Props {
 export default observer(function CreateDiagnosis({ id }: Props) {
 
     const { diagnosisStore, modalStore } = useStore();
+    const { } = diagnosisStore;
 
     const selectedDiagnosis = {
         title: '',
@@ -26,11 +27,11 @@ export default observer(function CreateDiagnosis({ id }: Props) {
     }
 
     const validationSchema = Yup.object({
-        title: Yup.string().required('Titel==le is required'),
+        title: Yup.string().required('Titele is required'),
         type: Yup.string().required('Type is required'),
         details: Yup.string().required('Valid details are required'),
         stage: Yup.string().required('Stage is required'),
-        date: Yup.date().required('Please pick a date')
+        date: Yup.date().required('Please pick a date'),
     })
 
     return (
@@ -50,6 +51,8 @@ export default observer(function CreateDiagnosis({ id }: Props) {
                             name='error' render={() =>
                                 <Message negative content={errors.error} />}
                         />
+                        <Segment clearing>
+                        <Modal.Content>
                         <Header sub content='Personal details' />
                         <MyTextInput name='title' placeholder='Title' />
                         <MyTextInput name='type' placeholder='Type' />
@@ -59,8 +62,10 @@ export default observer(function CreateDiagnosis({ id }: Props) {
                         <MyTextInput name='details' placeholder='Details' />
                         <MyTextInput name='date' type='date' placeholder='Date' />
                         <Divider />
-                        <Button disabled={isSubmitting || !dirty || !isValid}
-                            loading={isSubmitting} positive type='submit' content='Submit'
+                        </Modal.Content>
+                        </Segment>
+                        <Button disabled={isSubmitting || !dirty || !isValid  }
+                         loading={isSubmitting} positive type='submit' content='Submit'
                         />
                         <Button basic color='red' content='Cancel' onClick={modalStore.closeModal} />
                     </Form>

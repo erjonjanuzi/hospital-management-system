@@ -14,7 +14,6 @@ export default observer(function Breadcrumbs() {
         <Menu.Item>
           <Input icon="search" placeholder="Search..." />
         </Menu.Item>
-        <Menu.Item style={{ color: "black", backgroundColor: "#3BBCA6" }} name="Set new appointment" />
       </Menu.Menu>
     </Menu>
   )

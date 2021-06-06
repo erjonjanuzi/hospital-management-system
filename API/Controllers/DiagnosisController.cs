@@ -21,7 +21,7 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Details.Query{Id = id}));
         }
 
-        [HttpGet("/patient/{patientsId}")]
+        [HttpGet("/api/patient/{patientsId}")]
         public async Task<ActionResult<Diagnosis>> GetDiagnosisByPatient(string patientsId)
         {
             return HandleResult(await Mediator.Send(new ByPatient.Query{patientsId = patientsId}));
@@ -40,10 +40,10 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Edit.Command{ Diagnosis = newDiagnosis}));
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDiagnosis(Guid id)
+        [HttpDelete("{patientsId}")]
+        public async Task<IActionResult> DeleteDiagnosis(string patientsId)
         {
-            return HandleResult(await Mediator.Send(new Delete.Command{Id = id}));
+            return HandleResult(await Mediator.Send(new Delete.Command{patientsId = patientsId}));
         }
     }
 }

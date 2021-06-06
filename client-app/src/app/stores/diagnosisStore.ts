@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Diagnosis } from "../models/diagnosis";
+import ModalStore from "./modalStore";
 
 export default class DiagnosisStore {
     diagnosisRegistry = new Map<string, Diagnosis>();
@@ -8,6 +9,7 @@ export default class DiagnosisStore {
     editMode = false;
     loading = false;
     loadingInitial = false;
+    modalStore = new ModalStore();
 
     constructor() {
         makeAutoObservable(this);
@@ -15,6 +17,18 @@ export default class DiagnosisStore {
 
     getDiagnoses() {
         return Array.from(this.diagnosisRegistry.values());
+    }
+
+    hasDiagnosis = async (id: string) => {
+        const diagnoses = await agent.DiagnosisManager.list();
+        diagnoses.forEach(diagnosis => {
+            if (diagnosis.patientsId == id) {
+                console.log('qiky ka diagnoz')
+            }
+            else {
+                console.log('qiky ska diagnoz')
+            }
+        })
     }
 
     loadDiagnoses = async () => {
@@ -36,9 +50,9 @@ export default class DiagnosisStore {
             this.selectedDiagnosis = diagnosis;
             return diagnosis;
         }
-        else{
+        else {
             this.loadingInitial = true;
-            try{
+            try {
                 diagnosis = await agent.DiagnosisManager.details(id);
                 this.setDiagnosis(diagnosis);
                 runInAction(() => {
@@ -50,7 +64,7 @@ export default class DiagnosisStore {
                 console.log(error);
                 this.setLoadingInitial(false);
             }
-        } 
+        }
     }
 
     loadDiagnosisByPatient = async (patientId: string) => {
@@ -59,9 +73,9 @@ export default class DiagnosisStore {
             this.selectedDiagnosis = diagnosis;
             return diagnosis;
         }
-        else{
+        else {
             this.loadingInitial = true;
-            try{
+            try {
                 diagnosis = await agent.DiagnosisManager.byPatient(patientId);
                 this.setDiagnosis(diagnosis);
                 runInAction(() => {
@@ -73,11 +87,19 @@ export default class DiagnosisStore {
                 console.log(error);
                 this.setLoadingInitial(false);
             }
-        } 
+        }
     }
 
     createDiagnosis = async (diagnosis: Diagnosis) => {
         this.loading = true;
+        const diagnoses = await agent.DiagnosisManager.list();
+
+        for (let i = 0; i < diagnoses.length; i++) {
+            if (diagnoses[i].patientsId === diagnosis.patientsId) {
+                alert('Patient already has a Diagnose');
+                return;
+            }
+          }
         try {
             await agent.DiagnosisManager.create(diagnosis);
             runInAction(() => {
@@ -85,7 +107,28 @@ export default class DiagnosisStore {
                 this.selectedDiagnosis = diagnosis;
                 this.editMode = false;
                 this.loading = false;
+                this.modalStore.closeModal()
             })
+
+        } catch (error) {
+            console.log(error);
+            runInAction(() => {
+                this.loading = false;
+            })
+        }
+    }
+
+    deleteDiagnosis = async (id: string) => {
+        this.loading = true;
+        try {
+            if (window.confirm('a me fshi jaran')) {
+                await agent.DiagnosisManager.delete(id);
+                runInAction(() => {
+                    this.diagnosisRegistry.delete(id);
+                    this.loading = false;
+                    this.modalStore.closeModal()
+                })
+            }
         } catch (error) {
             console.log(error);
             runInAction(() => {
@@ -104,8 +147,12 @@ export default class DiagnosisStore {
     setLoadingInitial = (state: boolean) => {
         this.loadingInitial = state;
     }
+<<<<<<< Updated upstream
 
 } 
 
 
 
+=======
+}
+>>>>>>> Stashed changes

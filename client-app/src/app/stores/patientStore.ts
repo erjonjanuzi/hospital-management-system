@@ -74,7 +74,6 @@ export default class PatientStore {
 
 
      private setPatient = (patient: Patient) => {
-        this.patientRegistry.set(patient.id, patient);
         if(patient.role === 'patient'){
             this.patientRegistry.set(patient.id, patient);
         }else{

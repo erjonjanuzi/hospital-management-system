@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Application.Core;
 using MediatR;
 using Persistence;
+using System.Linq;
 
 namespace Application.Diagnoses
 {
@@ -11,7 +12,7 @@ namespace Application.Diagnoses
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public Guid Id { get; set; }
+            public string patientsId { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -23,7 +24,7 @@ namespace Application.Diagnoses
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken){
             
-                var diagnosis = await context.Diagnoses.FindAsync(request.Id);
+                var diagnosis = context.Diagnoses.SingleOrDefault(diagnosis => diagnosis.patientsId == request.patientsId);
                 
                 context.Remove(diagnosis);
 
