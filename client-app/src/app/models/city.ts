@@ -1,5 +1,9 @@
 
 export interface City {
-    id: string;
+    id : string;
     name: string;
+}
+
+export interface CityDto{
+    name : string;
 }

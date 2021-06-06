@@ -10,7 +10,6 @@ export default observer(function AddNewCityForm() {
     const{cityStore,modalStore} = useStore();
     
     const selectedCity ={
-        id :'',
         name : '',
         error : null
         

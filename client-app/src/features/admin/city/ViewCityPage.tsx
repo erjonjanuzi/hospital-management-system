@@ -7,17 +7,22 @@ import { Formik } from "formik";
 import MyTextInput from "../../../app/common/form/MyTextInput";
 
 interface Props{
-    Id: string
+    name: string
 }
 
-export default observer(function ViewCityPage({Id} : Props){
+
+export default observer(function ViewCityPage({name} : Props){
 
     const { cityStore : {loadCity,seletedCity,updateCity},modalStore} =useStore();
-    
-    useEffect(() => {
-    if(Id)loadCity(Id);
-    }, [Id,loadCity]);
 
+    useEffect(() => {
+    if(name)loadCity(name);
+    }, [name,loadCity]); 
+
+    const validationSchema = Yup.object({
+        name: Yup.string().required('First name is required'),
+
+    })
 
 
     return(
@@ -25,10 +30,10 @@ export default observer(function ViewCityPage({Id} : Props){
             <Header as='h1' content='Edit City ' />
             <Divider />
             <Formik
-                initialValues={seletedCity!}
+                initialValues={seletedCity!} 
                 onSubmit={(values) => updateCity(values).catch(error => console.log(error))}
                 enableReinitialize
-
+                validationSchema={validationSchema}
             >
                 {({ handleSubmit, isValid, isSubmitting, dirty }) => (
                     <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
@@ -38,8 +43,6 @@ export default observer(function ViewCityPage({Id} : Props){
                         <Divider />
                         <Button disabled={isSubmitting || !dirty || !isValid}
                             loading={isSubmitting} positive type='submit' content='Submit'
-                            onClick ={()=>updateCity.name}
-
                         />
                         <Button basic color='red' content='Cancel' onClick={modalStore.closeModal} />
                     </Form>

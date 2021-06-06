@@ -2,18 +2,12 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { history } from '../..';
 import { toast } from "react-toastify";
 import { Patient, PatientTable } from "../models/patient";
-import { City } from "../models/city"
+import { City, CityDto } from "../models/city"
 import { store } from "../stores/store";
 import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/user";
 import { Diagnosis } from "../models/diagnosis";
 import { Department } from "../models/department";
-
 import { Analyse } from "../models/analyse";
-
-
-
-
-
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -87,7 +81,7 @@ const Citys = {
     list: () => requests.get<City[]>('/citys'),
     details: (id: string) => requests.get<City>(`/citys/${id}`),
     delete: (id: string) => axios.delete<void>(`/citys/${id}`),
-    create: (city: City) => axios.post<void>('citys', city),
+    create: (city: CityDto) => requests.post<void>('/citys/', city),
     update: (city: City) => axios.put<void>(`/citys/${city.id}`, city)
 }
 const Analysis = {
@@ -135,12 +129,13 @@ const DiagnosisManager = {
     list: () => requests.get<Diagnosis[]>('/diagnosis'),
     delete: (id: string) => axios.delete<void>(`/diagnosis/delete/${id}`),
     details: (id: string) => requests.get<Diagnosis>(`/diagnosis/${id}`),
-    update: (diagnosis: Diagnosis) => axios.put<void>(`/diagnosis/${diagnosis.patientsID}`, diagnosis),
+    update: (diagnosis: Diagnosis) => axios.put<void>(`/diagnosis/${diagnosis.patientsId}`, diagnosis),
     create: (diagnosis: Diagnosis) => axios.post<void>('/diagnosis', diagnosis),
     byPatient: (patientsId: string) => requests.get<Diagnosis>(`diagnosis/patient/${patientsId}`)
 }
 
 const agent = {
+    Analysis,
     DiagnosisManager,
     Citys,
     Patients,

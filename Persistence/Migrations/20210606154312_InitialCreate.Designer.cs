@@ -10,17 +10,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-<<<<<<< HEAD:Persistence/Migrations/20210603232622_CityMigration.Designer.cs
-    [Migration("20210603232622_CityMigration")]
-    partial class CityMigration
-=======
-<<<<<<< Updated upstream:Persistence/Migrations/20210604134538_InitialCreate.Designer.cs
-    [Migration("20210604134538_InitialCreate")]
-=======
-    [Migration("20210605233115_InitialCreate")]
->>>>>>> Stashed changes:Persistence/Migrations/20210605233115_InitialCreate.Designer.cs
+    [Migration("20210606154312_InitialCreate")]
     partial class InitialCreate
->>>>>>> 9154aa76e9ad173f0c8dfe256d0ef4ea2b863d7d:Persistence/Migrations/20210605233115_InitialCreate.Designer.cs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

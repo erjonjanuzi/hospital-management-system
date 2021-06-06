@@ -16,7 +16,7 @@ namespace Application.Diagnoses
             public Diagnosis Diagnosis {get; set;}
         }
 
-
+ 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()

@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
-import { City } from "../models/city";
+import { City, CityDto} from "../models/city";
+import { store } from "./store";
 
 
 
@@ -55,7 +56,7 @@ export default class cityStore{
     }
 
     private setCity =(city : City) =>{
-        this.cityRegistry.set(city.id,city);
+        this.cityRegistry.set(city.name,city);
     }
 
     private getCity =(id : string) =>{
@@ -66,15 +67,12 @@ export default class cityStore{
         this.loadingInitial = state;
     }
 
-    createCity = async (city : City) =>{
+    createCity = async (city : CityDto) =>{
         this.loading = true;
         try{
             await agent.Citys.create(city);
             runInAction(()=>{
-                this.cityRegistry.set(city.id,city);
-                this.seletedCity=city;
-                this.editMode=false;
-                this.loading=false;
+                this.loadCities();
             })
         }catch(error) {
             console.log(error);
@@ -90,11 +88,9 @@ export default class cityStore{
         try{
             await agent.Citys.update(city);
             runInAction(()=>{
-                this.cityRegistry.set(city.id,city);
-                this.seletedCity=city;
-                this.editMode=false;
-                this.loading=false;
+                this.loadCities();
             })
+            store.modalStore.closeModal();
         }catch(error) {
             console.log(error);
             runInAction(()=>{

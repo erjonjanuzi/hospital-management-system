@@ -40,7 +40,7 @@ export default observer(function CreateDiagnosis({ id }: Props) {
             <Formik
                 initialValues={selectedDiagnosis}
                 onSubmit={(values, { setErrors }) => diagnosisStore.createDiagnosis(values).catch(error =>
-                    setErrors({ error }))}
+                    setErrors({ error }))} 
                 validationSchema={validationSchema}
                 enableReinitialize
             >

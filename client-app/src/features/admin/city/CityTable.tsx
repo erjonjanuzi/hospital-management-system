@@ -11,8 +11,8 @@ export default observer(function CityTable(){
 
     
    useEffect(() => {
-       if(cityRegistry.size<=0)loadCities();
-   } ,[cityRegistry.size,loadCities])
+       if(cityRegistry.size <= 1)loadCities();
+   } ,[cityRegistry.size,loadCities])  
     
     return (
         <Segment>
@@ -31,11 +31,11 @@ export default observer(function CityTable(){
                 <Table.Body >
                     {citys.map(city=>(
                                 <Table.Row key={city.id}>
-                                    <Table.Cell>{city.id}</Table.Cell>
+                                    <Table.Cell>{city.id}</Table.Cell> 
                                     <Table.Cell>{city.name}</Table.Cell>
                                     <Table.Cell>
                                     <Button content='Edit' icon='edit' basic color='youtube'
-                                    onClick={() => modalStore.openModal(<ViewCityPage Id={city.id}/>)}
+                                    onClick={() => modalStore.openModal(<ViewCityPage name={city.id}/>)}
                                     />
                                     <Button icon='delete' color='red'
                                      onClick={()=>deleteCity(city.id)}
@@ -43,7 +43,7 @@ export default observer(function CityTable(){
                                     </Table.Cell> 
                                 <Table.Row/>  
                     </Table.Row>
-                    ))}
+                    ))} 
                 </Table.Body>
             </Table>
         </Segment>
