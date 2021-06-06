@@ -1,10 +1,8 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import agent from "../api/agent";
-import { Patient, PatientTable } from "../models/patient";
-import { v4 as uuid } from 'uuid';
 import { toast } from "react-toastify";
-import { store } from "./store";
+import agent from "../api/agent";
 import { Analyse } from "../models/analyse";
+import { store } from "./store";
 
 export default class Analysistore {
     analyseRegistry = new Map<string, Analyse>();

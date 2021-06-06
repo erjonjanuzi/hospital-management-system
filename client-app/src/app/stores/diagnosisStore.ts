@@ -22,7 +22,7 @@ export default class DiagnosisStore {
     hasDiagnosis = async (id: string) => {
         const diagnoses = await agent.DiagnosisManager.list();
         diagnoses.forEach(diagnosis => {
-            if (diagnosis.patientsId == id) {
+            if (diagnosis.patientsId === id) {
                 console.log('qiky ka diagnoz')
             }
             else {

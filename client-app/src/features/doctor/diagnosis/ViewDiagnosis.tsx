@@ -1,7 +1,6 @@
-import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import { observer } from 'mobx-react-lite';
+import React, { useEffect } from 'react';
 import { Button, Container, Divider, Header } from 'semantic-ui-react';
-import DiagnosisStore from '../../../app/stores/diagnosisStore';
 import { useStore } from '../../../app/stores/store';
 
 interface Props {
@@ -10,17 +9,7 @@ interface Props {
 
 export default observer(function ViewDiagnosis({ id }: Props) {
 
-    // const Diagnosis = {
-    //     // personal information
-
-    //     title: "Hypertension",
-    //     type: "1",
-    //     diagnoseDate: "06/07/2021",
-    //     details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-
-    // }
-
-    const { accountManagementStore: {loadAccount, selectedAccount, update }, 
+    const { accountManagementStore: {loadAccount, selectedAccount }, 
             diagnosisStore: { deleteDiagnosis,loadDiagnosisByPatient , selectedDiagnosis}
             } = useStore();
     

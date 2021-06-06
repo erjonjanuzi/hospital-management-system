@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Grid, Segment, Icon, Header, Image, Breadcrumb, Table, Button, Divider, Placeholder } from 'semantic-ui-react';
+import { Breadcrumb, Button, Divider, Grid, Header, Icon, Image, Segment, Table } from 'semantic-ui-react';
 
 const src = '/images/wireframe/image-text.png'
 export default observer(function PatientDashboard() {

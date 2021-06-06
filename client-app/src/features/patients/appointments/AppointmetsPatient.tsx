@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Button,
   Checkbox,
@@ -11,15 +11,15 @@ import {
   Pagination,
   Progress,
   Segment,
-  Table,
+  Table
 } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import Breadcrumbs from "../my-profile/Breadcrumbs";
 import ViewAppointments from "./ViewAppointments";
 
 export default observer(function AppointmetsPatient() {
-  const [open, setOpen] = React.useState(false);
-  const { accountManagementStore, modalStore } = useStore();
+  const [] = React.useState(false);
+  const { modalStore } = useStore();
 
   return (
     <Container>

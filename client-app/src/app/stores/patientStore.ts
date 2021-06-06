@@ -1,8 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
+import { toast } from "react-toastify";
 import agent from "../api/agent";
 import { Patient, PatientTable } from "../models/patient";
-import { v4 as uuid } from 'uuid';
-import { toast } from "react-toastify";
 import { store } from "./store";
 
 export default class PatientStore {

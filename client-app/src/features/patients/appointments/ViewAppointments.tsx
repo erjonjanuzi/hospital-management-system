@@ -1,20 +1,20 @@
 import { observer } from "mobx-react-lite";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Button,
-  Checkbox,
+
   Divider,
   Header,
   Image,
-  Item,
+
   List,
   Modal,
-  Segment,
+  Segment
 } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 
 export default observer(function ViewAppointments() {
-  const { accountManagementStore, modalStore } = useStore();
+  const { modalStore } = useStore();
 
   const staticPatient = {
     // personal information

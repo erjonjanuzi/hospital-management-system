@@ -1,15 +1,14 @@
-import { Formik } from 'formik';
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { Button, Header, Segment, Table } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
-import ViewAnalysis from './ViewAnalysis';
 import Breadcrumbs from '../../patients/my-profile/Breadcrumbs';
+import ViewAnalysis from './ViewAnalysis';
 
 
 export default observer(function AnalysisTable() {
-    const { analysisStore, patientStore, modalStore } = useStore();
-    const { analysis, analyseRegistry, selectedAnalyse: analyse, loadAnalyseP, loadAnalysis, deleteAnalyse, loadAnalyse } = analysisStore;
+    const { analysisStore, modalStore } = useStore();
+    const { analysis, analyseRegistry, selectedAnalyse:  loadAnalyseP, loadAnalysis, deleteAnalyse, loadAnalyse } = analysisStore;
 
     useEffect(() => {
         if (analyseRegistry.size <= 1 ) loadAnalysis();

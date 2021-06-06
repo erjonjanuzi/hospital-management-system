@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
-import { Button, Container, Divider, Header, Image, List, Modal, Segment, Table } from "semantic-ui-react";
+import { Divider, Header, Image, List, Modal, Segment } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 // import Editing from "./Editing";
 
@@ -14,7 +14,6 @@ export default observer(function ViewPatient2({ id }: Props) {
       loadPatient,
       selectedPatient: patient
     },
-    modalStore,
   } = useStore();
 
   useEffect(() => {

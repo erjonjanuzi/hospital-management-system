@@ -1,11 +1,10 @@
 import { ErrorMessage, Formik } from 'formik';
-import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
-import { Button, Container, Divider, Form, Header, Message, Modal, Segment, Table } from 'semantic-ui-react';
-import { useStore } from '../../../app/stores/store';
+import { observer } from 'mobx-react-lite';
+import React from 'react';
+import { Button, Divider, Form, Header, Message, Modal, Segment } from 'semantic-ui-react';
 import * as Yup from 'yup';
 import MyTextInput from '../../../app/common/form/MyTextInput';
-import { getuid } from 'process';
+import { useStore } from '../../../app/stores/store';
 
 interface Props {
     id: string
@@ -14,7 +13,6 @@ interface Props {
 export default observer(function CreateDiagnosis({ id }: Props) {
 
     const { diagnosisStore, modalStore } = useStore();
-    const { } = diagnosisStore;
 
     const selectedDiagnosis = {
         title: '',
@@ -36,7 +34,7 @@ export default observer(function CreateDiagnosis({ id }: Props) {
 
     return (
         <>
-            <Header as='h1' content={id} />
+            <Header as='h1' content='Add a new Diagnosis' />
             <Divider />
             <Formik
                 initialValues={selectedDiagnosis}

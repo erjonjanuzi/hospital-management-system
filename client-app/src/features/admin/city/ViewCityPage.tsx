@@ -1,10 +1,10 @@
-import {observer} from "mobx-react-lite";
-import {Button,Modal,Card, Form, Header, Divider} from "semantic-ui-react";
-import {useStore} from "../../../app/stores/store";
-import React, { useEffect } from 'react'
-import * as Yup from 'yup';
 import { Formik } from "formik";
+import { observer } from "mobx-react-lite";
+import React, { useEffect } from 'react';
+import { Button, Divider, Form, Header } from "semantic-ui-react";
+import * as Yup from 'yup';
 import MyTextInput from "../../../app/common/form/MyTextInput";
+import { useStore } from "../../../app/stores/store";
 
 interface Props{
     name: string

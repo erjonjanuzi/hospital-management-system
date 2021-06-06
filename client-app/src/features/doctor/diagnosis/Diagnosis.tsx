@@ -1,25 +1,22 @@
 
-import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import { observer } from 'mobx-react-lite';
+import React from 'react';
+import { Button, Header, Segment, Table } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
-import Breadcrumbs from '../../patients/my-profile/Breadcrumbs'
-import { Button, Divider, Form, Header, Segment, Table } from 'semantic-ui-react';
-import ViewDiagnosis from './ViewDiagnosis';
-import DiagnosisStore from '../../../app/stores/diagnosisStore';
+import Breadcrumbs from '../../patients/my-profile/Breadcrumbs';
 import CreateDiagnosis from './CreateDiagnosis';
-import { boolean } from 'yup/lib/locale';
+import ViewDiagnosis from './ViewDiagnosis';
 
 
 
 export default observer(function Diagnosis() {
 
     const { patientStore, modalStore,  } = useStore();
-    const {  loadPatient ,loadPatients, patients } = patientStore;
+    const { loadPatients, patients } = patientStore;
     loadPatients();
     
 
     const { diagnosisStore } = useStore();
-    const { loadDiagnosisByPatient } = diagnosisStore;
 
     return (
         <>
