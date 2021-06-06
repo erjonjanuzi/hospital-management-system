@@ -7,6 +7,7 @@ import DiagnosisStore from "./diagnosisStore";
 import ModalStore from "./modalStore";
 import PatientStore from "./patientStore";
 import UserStore from "./userStore";
+import DepartmentStore from "./departmentStore";
 
 
 interface Store {
@@ -17,6 +18,7 @@ interface Store {
     modalStore: ModalStore;
     accountManagementStore: AccountManagementStore;
     cityStore : cityStore;
+    departmentStore: DepartmentStore;
     diagnosisStore: DiagnosisStore
 }
 
@@ -28,6 +30,7 @@ export const store: Store = {
     modalStore: new ModalStore(),
     accountManagementStore: new AccountManagementStore(),
     cityStore : new cityStore(),
+    departmentStore: new DepartmentStore(),
     diagnosisStore: new DiagnosisStore()
 }
 
