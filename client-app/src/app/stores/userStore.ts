@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { history } from "../..";
 import agent from "../api/agent";
-import { User, UserFormValues } from "../models/user";
+import { AccountFormValues, User, UserFormValues } from "../models/user";
 import { store } from "./store";
 
 export default class UserStore {
@@ -44,7 +44,7 @@ export default class UserStore {
         }
     }
 
-    register = async (creds: UserFormValues) => {
+    register = async (creds: AccountFormValues) => {
         try {
             const user = await agent.Account.register(creds);
             store.commonStore.setToken(user.token);

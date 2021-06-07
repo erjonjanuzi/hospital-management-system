@@ -6,7 +6,7 @@ import MyTextInput from '../../app/common/form/MyTextInput';
 import { useStore } from '../../app/stores/store';
 
 export default observer(function RegisterForm() {
-    const { accountManagementStore: { register } } = useStore();
+    const { userStore: { register } } = useStore();
 
     const validationSchema = Yup.object({
         firstName: Yup.string().required('First name is required'),
@@ -18,7 +18,7 @@ export default observer(function RegisterForm() {
 
     return (
         <Formik
-            initialValues={{ firstName: '', lastName: '', username: '', email: '', passwordHash: '', role: 'admin', error: null }}
+            initialValues={{ firstName: '', lastName: '', username: '', email: '', passwordHash: '', role: 'patient', error: null }}
             onSubmit={(values, { setErrors }) => register(values).catch(error =>
             setErrors({ error }))}
             validationSchema={validationSchema}

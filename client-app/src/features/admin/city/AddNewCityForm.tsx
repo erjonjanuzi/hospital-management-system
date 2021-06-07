@@ -37,7 +37,6 @@ export default observer(function AddNewCityForm() {
                             <Message negative content={errors.error} />}
                         />
                         <Header sub content='City details' />
-                        <MyTextInput name='id' placeholder='Id' />
                         <MyTextInput name='name' placeholder='Name' />
                         <Divider />
                         <Button disabled={isSubmitting || !dirty || !isValid}

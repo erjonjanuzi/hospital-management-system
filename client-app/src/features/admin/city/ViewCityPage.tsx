@@ -38,7 +38,6 @@ export default observer(function ViewCityPage({name} : Props){
                 {({ handleSubmit, isValid, isSubmitting, dirty }) => (
                     <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
                         <Header sub content='City details' />
-                        <MyTextInput name='Id' placeholder='Id' />
                         <MyTextInput name='name' placeholder='Name' />
                         <Divider />
                         <Button disabled={isSubmitting || !dirty || !isValid}
