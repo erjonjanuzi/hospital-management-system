@@ -4,3 +4,9 @@ export interface Department {
     capacity: string;
     description: string;
 }
+
+export interface DepartmentTable{
+    name:string;
+    capacity:string;
+   description:string;
+}

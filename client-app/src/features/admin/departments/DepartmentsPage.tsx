@@ -38,7 +38,7 @@ export default observer(function DepartmentsPage(){
 
                                     <Table.Cell>
                                     <Button content='Edit' icon='edit' basic color='youtube'
-                                    onClick={() => modalStore.openModal(<ViewDepartment Id={department.id}/>)}
+                                    onClick={() => modalStore.openModal(<ViewDepartment id={department.id}/>)}
                                     />
                                     <Button icon='delete' color='red'
                                      onClick={()=>deleteDepartment(department.id)}

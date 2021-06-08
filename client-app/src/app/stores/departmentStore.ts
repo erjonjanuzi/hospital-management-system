@@ -1,10 +1,11 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
-import { Department } from "../models/department";
+import { Department, DepartmentTable} from "../models/department";
+import { store } from "./store";
 
 
 
-export default class DepartmentStore{
+export default class departmentStore{
     departmentRegistry = new Map<string, Department>();
     seletedDepartment : Department | undefined = undefined;
     editMode = false;
@@ -22,12 +23,12 @@ export default class DepartmentStore{
     loadDepartments = async() =>{
         try{
             const departments = await agent.Departments.list();
-            departments.forEach(departments =>{
-                this.setDepartment(departments);
+            departments.forEach(department =>{
+                this.setDepartment(department);
             })
             this.loadingInitial = false;
         }catch (error){
-          //  console.log(error);
+            console.log(error);
             this.setLoadingInitial(false);
         }
     }
@@ -54,8 +55,8 @@ export default class DepartmentStore{
         }
     }
 
-    private setDepartment =(Department : Department) =>{
-        //this.departmentRegistry.set(this.departments.id, this.departments);
+    private setDepartment =(department : Department) =>{
+        this.departmentRegistry.set(department.name,department);
     }
 
     private getDepartment =(id : string) =>{
@@ -66,15 +67,12 @@ export default class DepartmentStore{
         this.loadingInitial = state;
     }
 
-    createDepartment = async (department : Department) =>{
+    createDepartment = async (department : DepartmentTable) =>{
         this.loading = true;
         try{
             await agent.Departments.create(department);
             runInAction(()=>{
-                this.departmentRegistry.set(department.id,department);
-                this.seletedDepartment=department;
-                this.editMode=false;
-                this.loading=false;
+                this.loadDepartments();
             })
         }catch(error) {
             console.log(error);
@@ -90,11 +88,9 @@ export default class DepartmentStore{
         try{
             await agent.Departments.update(department);
             runInAction(()=>{
-                this.departmentRegistry.set(department.id,department);
-                this.seletedDepartment=department;
-                this.editMode=false;
-                this.loading=false;
+                this.loadDepartments();
             })
+            store.modalStore.closeModal();
         }catch(error) {
             console.log(error);
             runInAction(()=>{

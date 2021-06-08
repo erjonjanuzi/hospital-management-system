@@ -9,8 +9,8 @@ export default observer(function AddNewDepartment() {
 
     const{departmentStore,modalStore} = useStore();
     
-    const selectedDeparment ={
-        id :'',
+    const selectedDepartment ={
+       
         name : '',
         capacity:'',
         description:'',
@@ -18,12 +18,7 @@ export default observer(function AddNewDepartment() {
         
     }
     const validationSchema = Yup.object({
-        name:Yup.string().required('Name is required'),
-        capacity:Yup.string().required('Capacity is required'),
-        description:Yup.string().required('Descritpion is required'),
-
-
-
+        name:Yup.string().required('First name is required'),
     })
 
     return (
@@ -32,7 +27,7 @@ export default observer(function AddNewDepartment() {
             <Header as='h1' content='Add Department' />
             <Divider />
             <Formik
-                initialValues={selectedDeparment}
+                initialValues={selectedDepartment}
                 onSubmit={(values, { setErrors }) => departmentStore.createDepartment(values).catch(error =>
                 setErrors({ error }))}
                 validationSchema={validationSchema}
@@ -44,10 +39,12 @@ export default observer(function AddNewDepartment() {
                             name='error' render={() =>
                             <Message negative content={errors.error} />}
                         />
-                        <Header sub content='Details' />
-                        <MyTextInput name='Name' placeholder='Name' />
-                        <MyTextInput name='Capacity' placeholder='Capacity' />
-                        <MyTextInput name='Descritpion' placeholder='Description' />
+                        <Header sub content='details' />
+                        <MyTextInput name='name' placeholder='Name' />
+                        <MyTextInput name='capacity' placeholder='capacity' />
+
+                        <MyTextInput name='description' placeholder='description' />
+
                         <Divider />
                         <Button disabled={isSubmitting || !dirty || !isValid}
                             loading={isSubmitting} positive type='submit' content='Submit'

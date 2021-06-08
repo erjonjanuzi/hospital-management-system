@@ -6,7 +6,7 @@ import { City, CityDto } from "../models/city"
 import { store } from "../stores/store";
 import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/user";
 import { Diagnosis } from "../models/diagnosis";
-import { Department } from "../models/department";
+import { Department,DepartmentTable } from "../models/department";
 import { Analyse } from "../models/analyse";
 
 const sleep = (delay: number) => {
@@ -97,7 +97,7 @@ const Departments = {
     list: () => requests.get<Department[]>('/departments'),
     details: (id: string) => requests.get<Department>(`/departments/${id}`),
     delete: (id: string) => axios.delete<void>(`/departments/${id}`),
-    create: (department: Department) => axios.post<void>('departments', department),
+    create: (department: DepartmentTable) => axios.post<void>('departments', department),
     update: (department: Department) => axios.put<void>(`/departments/${department.id}`, department),
 
 }
