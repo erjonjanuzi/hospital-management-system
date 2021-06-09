@@ -5,7 +5,7 @@ import { Patient, PatientTable } from "../models/patient";
 import { City, CityDto } from "../models/city"
 import { store } from "../stores/store";
 import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/user";
-import { Diagnosis } from "../models/diagnosis";
+import { Diagnosis, DiagnosisDto } from "../models/diagnosis";
 import { Department,DepartmentTable } from "../models/department";
 import { Analyse } from "../models/analyse";
 
@@ -127,10 +127,10 @@ const AccountsManager = {
 
 const DiagnosisManager = {
     list: () => requests.get<Diagnosis[]>('/diagnosis'),
-    delete: (id: string) => axios.delete<void>(`/Diagnosis/${id}`),
+    delete: (id: string) => axios.delete<void>(`/diagnosis/${id}`),
     details: (id: string) => requests.get<Diagnosis>(`/diagnosis/${id}`),
-    update: (diagnosis: Diagnosis) => axios.put<void>(`/diagnosis/${diagnosis.patientsId}`, diagnosis),
-    create: (diagnosis: Diagnosis) => axios.post<void>('/diagnosis', diagnosis),
+    update: (diagnosis: Diagnosis) => axios.put<void>(`/diagnosis/${diagnosis.id}`, diagnosis),
+    create: (diagnosis: DiagnosisDto) => axios.post<void>('/diagnosis', diagnosis),
     byPatient: (patientsId: string) => requests.get<Diagnosis>(`/patient/${patientsId}`)
 }
 

@@ -1,6 +1,6 @@
 
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Header, Segment, Table } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 import Breadcrumbs from '../../patients/my-profile/Breadcrumbs';
@@ -12,11 +12,13 @@ import ViewDiagnosis from './ViewDiagnosis';
 export default observer(function Diagnosis() {
 
     const { patientStore, modalStore,  } = useStore();
-    const { loadPatients, patients } = patientStore;
-    loadPatients();
-    
+    const { loadPatients, patients, patientRegistry } = patientStore;    
 
     const { diagnosisStore } = useStore();
+
+    useEffect(() => {
+        if (patientRegistry.size <= 1) loadPatients();
+    }, [patientRegistry.size, loadPatients])
 
     return (
         <>

@@ -33,14 +33,15 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Create.Command { Diagnosis = diagnosis }));
         }
         
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditDiagnosis(Guid id, Diagnosis newDiagnosis)
+        public async Task<IActionResult> EditDiagnosis(Guid id,Diagnosis newDiagnosis)
         {
-            newDiagnosis.Id = id;
-            return HandleResult(await Mediator.Send(new Edit.Command{ Diagnosis = newDiagnosis}));
+            newDiagnosis.Id=id;
+            return HandleResult(await Mediator.Send(new Edit.Command {Diagnosis = newDiagnosis}));
         }
 
-        [HttpDelete("{patientsId}")]
+        [HttpDelete("/api/diagnosis/{patientsId}")]
         public async Task<IActionResult> DeleteDiagnosis(string patientsId)
         {
             return HandleResult(await Mediator.Send(new Delete.Command{patientsId = patientsId}));

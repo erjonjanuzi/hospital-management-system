@@ -24,7 +24,7 @@ export default observer(function ViewDiagnosis({ id }: Props) {
 
 
     const Diagnosis = selectedDiagnosis;
-    
+    console.log(id);
     return (
         <>
             <div>
@@ -46,6 +46,7 @@ export default observer(function ViewDiagnosis({ id }: Props) {
                         <Button color='green' content=' Edit ' icon='edit' labelPosition='left' />
                         <Button 
                         onClick={() => deleteDiagnosis(id)}
+                        
                         color='red' content='Delete' icon='delete' labelPosition='right' />
                     </div>
 

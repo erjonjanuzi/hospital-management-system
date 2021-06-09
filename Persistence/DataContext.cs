@@ -10,10 +10,8 @@ namespace Persistence
         {
         }
         public DbSet<City> Cities { get; set; }
-
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Diagnosis> Diagnoses { get; set; }
-
         public DbSet<Department> Departments { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {

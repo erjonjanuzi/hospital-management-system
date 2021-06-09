@@ -4,6 +4,7 @@ import agent from "../api/agent";
 import { Patient, PatientTable } from "../models/patient";
 import { store } from "./store";
 
+
 export default class PatientStore {
     patientRegistry = new Map<string, Patient>();
     selectedPatient: Patient | undefined = undefined;
@@ -161,6 +162,7 @@ export default class PatientStore {
             runInAction(() => {
                 this.patientRegistry.delete(id);
                 this.loading = false;
+                
             })
         } catch(error) {
             console.log(error);

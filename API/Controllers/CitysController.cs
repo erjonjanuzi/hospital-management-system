@@ -34,7 +34,6 @@ namespace API.Controllers
 
 
         [HttpPut("{id}")]
-
         public async Task<IActionResult> EditCity(Guid id,City newCity)
         {
             newCity.Id=id;

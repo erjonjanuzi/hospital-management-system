@@ -1,7 +1,10 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
-import { Diagnosis } from "../models/diagnosis";
+import { Diagnosis, DiagnosisDto } from "../models/diagnosis";
 import ModalStore from "./modalStore";
+import { store } from "./store";
+import 'react-toastify/dist/ReactToastify.min.css';
+import { toast } from "react-toastify";
 
 export default class DiagnosisStore {
     diagnosisRegistry = new Map<string, Diagnosis>();
@@ -90,24 +93,28 @@ export default class DiagnosisStore {
         }
     }
 
-    createDiagnosis = async (diagnosis: Diagnosis) => {
+    createDiagnosis = async (diagnosis: DiagnosisDto) => {
         this.loading = true;
         const diagnoses = await agent.DiagnosisManager.list();
 
         for (let i = 0; i < diagnoses.length; i++) {
             if (diagnoses[i].patientsId === diagnosis.patientsId) {
-                alert('Patient already has a Diagnose');
+                toast.error("Patient already has a Diagnose", {
+                    autoClose: 3000
+                })
                 return;
             }
           }
         try {
             await agent.DiagnosisManager.create(diagnosis);
             runInAction(() => {
-                this.diagnosisRegistry.set(diagnosis.patientsId, diagnosis);
-                this.selectedDiagnosis = diagnosis;
                 this.editMode = false;
                 this.loading = false;
-                this.modalStore.closeModal()
+                store.modalStore.closeModal();
+                toast.success("Diagnose Added Successfully", {
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                })
             })
 
         } catch (error) {
@@ -126,8 +133,14 @@ export default class DiagnosisStore {
                 runInAction(() => {
                     this.diagnosisRegistry.delete(id);
                     this.loading = false;
-                    this.modalStore.closeModal();
+                    store.modalStore.closeModal();
+                    window.location.reload();
+                    // toast.success("Diagnose Deleted Successfully", {
+                    //     autoClose: 3000,
+                    //     hideProgressBar: false,
+                    // })
                 })
+                
             }
         } catch (error) {
             console.log(error);
