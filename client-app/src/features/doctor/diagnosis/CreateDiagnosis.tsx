@@ -51,13 +51,17 @@ export default observer(function CreateDiagnosis({ id }: Props) {
                         />
                         <Segment clearing>
                         <Modal.Content>
-                        <Header sub content='Personal details' />
+                        <Header sub content='Diagnosis information' />
                         <MyTextInput name='title' placeholder='Title' />
                         <MyTextInput name='type' placeholder='Type' />
                         <Divider />
-                        <Header sub content='Login credentials' />
+
+                        <Header sub content='Details' />
                         <MyTextInput name='stage' placeholder='Stage' />
                         <MyTextInput name='details' placeholder='Details' />
+
+                        <Divider />
+                        <Header sub content='Date' />
                         <MyTextInput name='date' type='date' placeholder='Date' />
                         <Divider />
                         </Modal.Content>

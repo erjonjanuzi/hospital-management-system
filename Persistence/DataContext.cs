@@ -13,6 +13,7 @@ namespace Persistence
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Diagnosis> Diagnoses { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<PatientsDetail> PatientsDetails { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Admin>();
@@ -20,6 +21,7 @@ namespace Persistence
             builder.Entity<PatientUser>();
             builder.Entity<Diagnosis>();
             builder.Entity<Department>();
+            builder.Entity<PatientsDetail>();
             // builder.Entity<Analyse>();
 
             base.OnModelCreating(builder);

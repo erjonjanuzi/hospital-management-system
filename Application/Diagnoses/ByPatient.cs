@@ -26,7 +26,7 @@ namespace Application.Diagnoses
 
             public async Task<Result<Diagnosis>> Handle(Query request, CancellationToken cancellationToken) 
             {
-                var diagnosis =  context.Diagnoses.SingleOrDefault(diagnosis => diagnosis.patientsId == request.patientsId);
+                var diagnosis = context.Diagnoses.SingleOrDefault(diagnosis => diagnosis.patientsId == request.patientsId);
                 return Result<Diagnosis>.Success(diagnosis);
             }
         }
