@@ -22,7 +22,6 @@ export default observer(function CityTable(){
             <Table textAlign="center">
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell>City Id</Table.HeaderCell>
                         <Table.HeaderCell>City Name</Table.HeaderCell>
                         <Table.HeaderCell>Edit / Delete</Table.HeaderCell>
                     </Table.Row>
@@ -31,7 +30,6 @@ export default observer(function CityTable(){
                 <Table.Body >
                     {citys.map(city=>(
                                 <Table.Row key={city.id}>
-                                    <Table.Cell>{city.id}</Table.Cell> 
                                     <Table.Cell>{city.name}</Table.Cell>
                                     <Table.Cell>
                                     <Button content='Edit' icon='edit' basic color='youtube'
@@ -41,7 +39,6 @@ export default observer(function CityTable(){
                                      onClick={()=>deleteCity(city.id)}
                                     /> 
                                     </Table.Cell> 
-                                <Table.Row/>  
                     </Table.Row>
                     ))} 
                 </Table.Body>

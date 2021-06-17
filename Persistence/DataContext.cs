@@ -13,6 +13,9 @@ namespace Persistence
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Diagnosis> Diagnoses { get; set; }
         public DbSet<Department> Departments { get; set; }
+
+        public DbSet<Pharmacy> Pharmacies { get; set; }
+
         public DbSet<PatientsDetail> PatientsDetails { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -30,7 +33,5 @@ namespace Persistence
             // Add your customizations after calling base.OnModelCreating(builder);
         }
         public DbSet<Analyse> Analyses { get; set; }
- 
-
     }
 }

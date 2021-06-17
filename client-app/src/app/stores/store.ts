@@ -8,6 +8,7 @@ import ModalStore from "./modalStore";
 import PatientStore from "./patientStore";
 import UserStore from "./userStore";
 import DepartmentStore from "./departmentStore";
+import pharmacyStore from "./pharmacyStore";
 
 
 interface Store {
@@ -18,11 +19,13 @@ interface Store {
     modalStore: ModalStore;
     accountManagementStore: AccountManagementStore;
     cityStore : cityStore;
+    pharmacyStore : pharmacyStore;
     departmentStore: DepartmentStore;
-    diagnosisStore: DiagnosisStore
+    diagnosisStore: DiagnosisStore;
 }
 
 export const store: Store = {
+    pharmacyStore: new pharmacyStore(),
     patientStore: new PatientStore(),
     analysisStore: new AnalyseStore(), // recently added
     commonStore: new CommonStore(),

@@ -8,6 +8,7 @@ import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/u
 import { Diagnosis, DiagnosisDto } from "../models/diagnosis";
 import { Department,DepartmentTable } from "../models/department";
 import { Analyse } from "../models/analyse";
+import { Pharmacy, PharmacyDto } from "../models/pharmacy";
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -76,7 +77,14 @@ const Patients = {
     delete: (id: string) => axios.delete<void>(`/patients/${id}`)
 }
 
- 
+const Pharmacies ={
+    list : () => requests.get<Pharmacy[]>('/pharmacies'),
+    details : (id: string) => requests.get<Pharmacy>(`/pharmacies/${id}`),
+    delete :(id: string) => axios.delete<void>(`/pharmacies/${id}`),
+    create : (pharmacy : PharmacyDto) => requests.post<void>('/pharmacies/',pharmacy),
+    update : (pharmacy : Pharmacy) => axios.put<void>(`/pharmacies/${pharmacy.id}`,pharmacy)
+}
+
 const Citys = {
     list: () => requests.get<City[]>('/citys'),
     details: (id: string) => requests.get<City>(`/citys/${id}`),
@@ -135,6 +143,7 @@ const DiagnosisManager = {
 }
 
 const agent = {
+    Pharmacies,
     Analysis,
     DiagnosisManager,
     Citys,

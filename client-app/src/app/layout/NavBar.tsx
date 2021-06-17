@@ -11,6 +11,7 @@ export default observer(function NavBar() {
     { key: 'accounts', name: 'Accounts Management', to: '/admin/accounts'},
     { key: 'departments', name: 'Departments', to: '/admin/departments'},
     { key : 'city', name:'City',to :'/admin/city'},
+    {key : 'pharmacyProducts', name :'PharmacyProducts', to :'/admin/pharmacyProducts'}
   ]
 
   const doctorLinks = [

@@ -23,6 +23,7 @@ import DoctorPatientsTable from '../../features/doctor/patients/DoctorPatientsTa
 import Diagnosis from '../../features/doctor/diagnosis/Diagnosis';
 import AnalysisTable from '../../features/doctor/analysis/AnalysisTable';
 import CityTable from '../../features/admin/city/CityTable';
+import PharmacyProductTable from '../../features/admin/pharmacyProducts/PharmacyProductTable';
 
 
 
@@ -56,6 +57,8 @@ function App() {
                 <PrivateRoute path='/admin/accounts' component={AdminAccountsTable} />
                 <PrivateRoute path='/admin/departments' component={DepartmentsPage} />
                 <PrivateRoute path='/admin/city/' component={CityTable}/>
+                <PrivateRoute path='/admin/pharmacyProducts/' component={PharmacyProductTable}/>
+
 
 
                 {/* Doctor Routes */}

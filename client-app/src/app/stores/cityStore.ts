@@ -2,7 +2,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { City, CityDto} from "../models/city";
 import { store } from "./store";
-
+import { toast } from "react-toastify";
 
 
 export default class cityStore{
@@ -74,6 +74,7 @@ export default class cityStore{
             runInAction(()=>{
                 this.loadCities();
             })
+            toast.success('City added successfully');
         }catch(error) {
             console.log(error);
             runInAction(()=>{
@@ -90,6 +91,7 @@ export default class cityStore{
             runInAction(()=>{
                 this.loadCities();
             })
+            toast.success('City updated successfully');
             store.modalStore.closeModal();
         }catch(error) {
             console.log(error);
@@ -107,6 +109,7 @@ export default class cityStore{
                 this.cityRegistry.delete(id);
                 this.loading=false;
             })
+            toast.success('City deleted successfully');
         }catch(error){
             console.log(error);
             runInAction(()=>{
