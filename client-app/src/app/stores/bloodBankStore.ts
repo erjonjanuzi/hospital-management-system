@@ -1,15 +1,15 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
-import { Department, DepartmentTable} from "../models/department";
+import { BloodBank, BloodBankTable} from "../models/bloodBank";
 import { store } from "./store";
 import { toast } from "react-toastify";
 
 
 
 
-export default class departmentStore{
-    departmentRegistry = new Map<string, Department>();
-    seletedDepartment : Department | undefined = undefined;
+export default class BloodBankStore{
+    bloodBankRegistry = new Map<string, BloodBank>();
+    seletedBloodBank : BloodBank | undefined = undefined;
     editMode = false;
     loading = false;
     loadingInitial = false;
@@ -18,15 +18,15 @@ export default class departmentStore{
         makeAutoObservable(this);
     }
 
-    get departments(){
-        return Array.from(this.departmentRegistry.values());
+    get bloodBanks(){
+        return Array.from(this.bloodBankRegistry.values());
     }
 
-    loadDepartments = async() =>{
+    loadBloodBanks = async() =>{
         try{
-            const departments = await agent.Departments.list();
-            departments.forEach(department =>{
-                this.setDepartment(department);
+            const bloodBanks = await agent.BloodBanks.list();
+            bloodBanks.forEach(bloodBank =>{
+                this.setBloodBank(bloodBank);
             })
             this.loadingInitial = false;
         }catch (error){
@@ -35,21 +35,21 @@ export default class departmentStore{
         }
     }
     
-    loadDepartment = async (id: string) =>{
-        let department = this.getDepartment(id);
-        if(department){
-            this.seletedDepartment = department;
-            return department;
+    loadBloodBank = async (id: string) =>{
+        let bloodBank = this.getBloodBank(id);
+        if(bloodBank){
+            this.seletedBloodBank = bloodBank;
+            return bloodBank;
         }else{
             this.loadingInitial = true;
         try{
-            department = await agent.Departments.details(id);
-            this.setDepartment(department);
+            bloodBank = await agent.BloodBanks.details(id);
+            this.setBloodBank(bloodBank);
             runInAction(()=>{
-                this.seletedDepartment = department;
+                this.seletedBloodBank = bloodBank;
             })
             this.setLoadingInitial(false);
-            return department;
+            return bloodBank;
         }catch(error){
             console.log(error);
             this.setLoadingInitial(false);
@@ -57,24 +57,24 @@ export default class departmentStore{
         }
     }
 
-    private setDepartment =(department : Department) =>{
-        this.departmentRegistry.set(department.name,department);
+    private setBloodBank =(bloodBank : BloodBank) =>{
+        this.bloodBankRegistry.set(bloodBank.name,bloodBank);
     }
 
-    private getDepartment =(id : string) =>{
-        return this.departmentRegistry.get(id);
+    private getBloodBank =(id : string) =>{
+        return this.bloodBankRegistry.get(id);
     }
 
     setLoadingInitial = (state : boolean) =>{
         this.loadingInitial = state;
     }
 
-    createDepartment = async (department : DepartmentTable) =>{
+    createBloodBank = async (bloodBank : BloodBankTable) =>{
         this.loading = true;
         try{
-            await agent.Departments.create(department);
+            await agent.BloodBanks.create(bloodBank);
             runInAction(()=>{
-                this.loadDepartments();
+                this.loadBloodBanks();
                 store.modalStore.closeModal();
             })
         }catch(error) {
@@ -86,12 +86,12 @@ export default class departmentStore{
     }
 
 
-    updateDepartment = async (department : Department)=>{
+    updateBloodBank = async (bloodBank : BloodBank)=>{
         this.loading=true;
         try{
-            await agent.Departments.update(department);
+            await agent.BloodBanks.update(bloodBank);
             runInAction(()=>{
-                this.loadDepartments();
+                this.loadBloodBanks();
             })
             store.modalStore.closeModal();
         }catch(error) {
@@ -102,13 +102,13 @@ export default class departmentStore{
         } 
     }
    
-         deleteDepartment = async (id: string) => {
+         deleteBloodBank = async (id: string) => {
         this.loading = true;
         try {
             if (window.confirm('Are you sure you want to delete this record?')) {
-                await agent.Departments.delete(id);
+                await agent.BloodBanks.delete(id);
                 runInAction(() => {
-                    this.departmentRegistry.delete(id);
+                    this.bloodBankRegistry.delete(id);
                     this.loading = false;
                     store.modalStore.closeModal();
                     window.location.reload();

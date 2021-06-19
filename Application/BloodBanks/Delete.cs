@@ -5,7 +5,7 @@ using Application.Core;
 using MediatR;
 using Persistence;
 
-namespace Application.Departments
+namespace Application.BloodBanks
 {
     public class Delete
     {
@@ -26,13 +26,13 @@ namespace Application.Departments
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var department = await context.Departments.FindAsync(request.Id);
+                var bloodBank = await context.BloodBanks.FindAsync(request.Id);
                 
-                context.Remove(department);
+                context.Remove(bloodBank);
 
                 var result = await context.SaveChangesAsync()>0;
 
-                if(!result)return Result<Unit>.Failure("Failed to delete department!");
+                if(!result)return Result<Unit>.Failure("Failed to delete !");
 
                 return Result<Unit>.Success(Unit.Value);
             }

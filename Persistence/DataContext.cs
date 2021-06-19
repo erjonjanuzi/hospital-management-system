@@ -15,6 +15,7 @@ namespace Persistence
         public DbSet<Department> Departments { get; set; }
 
         public DbSet<Pharmacy> Pharmacies { get; set; }
+        public DbSet<BloodBank> BloodBanks { get; set; }
 
         public DbSet<PatientsDetail> PatientsDetails { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
@@ -25,6 +26,7 @@ namespace Persistence
             builder.Entity<Diagnosis>();
             builder.Entity<Department>();
             builder.Entity<PatientsDetail>();
+            builder.Entity<BloodBank>();
             // builder.Entity<Analyse>();
 
             base.OnModelCreating(builder);

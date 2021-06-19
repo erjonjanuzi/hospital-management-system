@@ -11,19 +11,17 @@ interface Props{
 }
 
 
-export default observer(function ViewDepartment({id} : Props){
+export default observer(function ViewDonor({id} : Props){
 
-    const { departmentStore : {loadDepartment,seletedDepartment,updateDepartment},modalStore} =useStore();
+    const { bloodBankStore : {loadBloodBank,seletedBloodBank,updateBloodBank},modalStore} =useStore();
 
     useEffect(() => {
-    if(id)loadDepartment(id);
-    }, [id,loadDepartment]); 
+    if(id)loadBloodBank(id);
+    }, [id,loadBloodBank]); 
 
     const validationSchema = Yup.object({
         name: Yup.string().required('Name is required'),
-        capacity: Yup.string().required('Capacity is required'),
-        description: Yup.string().required('Description is required'),
-
+        
        
 
 
@@ -32,11 +30,11 @@ export default observer(function ViewDepartment({id} : Props){
 
     return(
         <>
-            <Header as='h1' content='Edit Department ' />
+            <Header as='h1' content='Edit Donor ' />
             <Divider />
             <Formik
-                initialValues={seletedDepartment!} 
-                onSubmit={(values) => updateDepartment(values).catch(error => console.log(error))}
+                initialValues={seletedBloodBank!} 
+                onSubmit={(values) => updateBloodBank(values).catch(error => console.log(error))}
                 enableReinitialize
                 validationSchema={validationSchema}
             >
@@ -44,8 +42,9 @@ export default observer(function ViewDepartment({id} : Props){
                     <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
                         <Header sub content='details' />
                         <MyTextInput name='name' placeholder='Name' />
-                        <MyTextInput name='capacity' placeholder='Capacity' />
-                        <MyTextInput name='description' placeholder='Description' />
+                        <MyTextInput name='age' placeholder='Age' />
+                        <MyTextInput name='email' placeholder='Email' />
+                        <MyTextInput name='mobile' placeholder='Mobile' />
 
                         <Divider />
                         <Button disabled={isSubmitting || !dirty || !isValid}

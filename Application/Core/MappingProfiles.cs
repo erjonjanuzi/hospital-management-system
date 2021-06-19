@@ -12,6 +12,7 @@ namespace Application.Core
             CreateMap<City ,City>();
             CreateMap<Department, Department>();
             CreateMap<Pharmacy, Pharmacy>();
+            CreateMap<BloodBank, BloodBank>();
         }
     }
 }

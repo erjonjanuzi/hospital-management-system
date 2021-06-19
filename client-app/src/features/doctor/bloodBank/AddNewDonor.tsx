@@ -1,22 +1,37 @@
 import { ErrorMessage, Form, Formik } from 'formik';
 import { observer } from 'mobx-react-lite';
-import { Button, Divider, Header, Message } from 'semantic-ui-react';
+import { Button, Divider, Header, Message ,Dropdown} from 'semantic-ui-react';
+import MySelectInput from '../../../app/common/form/MySelectInput';
 import MyTextInput from '../../../app/common/form/MyTextInput';
 import { useStore } from '../../../app/stores/store';
 import * as Yup from 'yup';
 
-export default observer(function AddNewDepartment() {
+export default observer(function AddNewDonor() {
 
-    const{departmentStore,modalStore} = useStore();
+    const{bloodBankStore,modalStore} = useStore();
     
-    const selectedDepartment ={
+    const selectedBloodBank ={
        
         name : '',
-        capacity:'',
-        description:'',
+        blood:'',
+        age:'',
+        email:'',
+        mobile:'',
         error : null
         
     }
+
+    const groups = [
+        { key: 'A+', text: 'A+', value:'A+'  },
+        { key: 'A-', text: 'A-', value: 'A-' },
+        { key: 'B+', text: 'B+', value: 'B+' },
+        { key: 'B-', text: 'B-', value: 'B-' },
+        { key: 'AB+', text: 'AB+', value: 'AB+' },
+        { key: 'AB-', text: 'AB-', value: 'AB-' },
+        { key: '0+', text: '0+', value: '0+' },
+        { key: '0-', text: '0-', value: '0-' },
+      ]
+      
     const validationSchema = Yup.object({
         name:Yup.string().required('Name is required'),
     })
@@ -24,11 +39,11 @@ export default observer(function AddNewDepartment() {
     return (
 
         <>
-            <Header as='h1' content='Add Department' />
+            <Header as='h1' content='Add Donor' />
             <Divider />
             <Formik
-                initialValues={selectedDepartment}
-                onSubmit={(values, { setErrors }) => departmentStore.createDepartment(values).catch(error =>
+                initialValues={selectedBloodBank}
+                onSubmit={(values, { setErrors }) => bloodBankStore.createBloodBank(values).catch(error =>
                 setErrors({ error }))}
                 validationSchema={validationSchema}
                 enableReinitialize
@@ -41,9 +56,10 @@ export default observer(function AddNewDepartment() {
                         />
                         <Header sub content='details' />
                         <MyTextInput name='name' placeholder='Name' />
-                        <MyTextInput name='capacity' placeholder='capacity' />
-
-                        <MyTextInput name='description' placeholder='description' />
+                        <MySelectInput name='blood' placeholder='Blood Group' options={groups} />
+                        <MyTextInput name='age' placeholder='Age' />
+                        <MyTextInput name='email' placeholder='Email' />
+                        <MyTextInput name='mobile' placeholder='Mobile' />
 
                         <Divider />
                         <Button disabled={isSubmitting || !dirty || !isValid}

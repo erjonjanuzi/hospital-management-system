@@ -9,6 +9,7 @@ import { Diagnosis, DiagnosisDto } from "../models/diagnosis";
 import { Department,DepartmentTable } from "../models/department";
 import { Analyse } from "../models/analyse";
 import { Pharmacy, PharmacyDto } from "../models/pharmacy";
+import { BloodBank,BloodBankTable } from "../models/bloodBank";
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -109,6 +110,14 @@ const Departments = {
     update: (department: Department) => axios.put<void>(`/departments/${department.id}`, department),
 
 }
+const BloodBanks = {
+    list: () => requests.get<BloodBank[]>('/bloodBank'),
+    details: (id: string) => requests.get<BloodBank>(`/bloodBank/${id}`),
+    delete: (id: string) => axios.delete<void>(`/bloodBank/${id}`),
+    create: (bloodBank: BloodBankTable) => axios.post<void>('bloodBank', bloodBank),
+    update: (bloodBank: BloodBank) => axios.put<void>(`/bloodBank/${bloodBank.id}`, bloodBank),
+
+}
 
 const Account = {
     current: () => requests.get<User>('/account'),
@@ -151,6 +160,7 @@ const agent = {
     UserPatients,
     Account,
     AccountsManager,
+    BloodBanks,
     Departments
 }
 
