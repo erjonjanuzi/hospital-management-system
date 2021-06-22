@@ -14,7 +14,6 @@ import NavBar from './NavBar';
 import PrivateRoute from './PrivateRoute';
 import './style.css';
 import DepartmentsPage from '../../features/admin/departments/DepartmentsPage';
-import AppointmetsPatient from '../../features/patients/appointments/AppointmetsPatient';
 import PatientProfile from '../../features/patients/my-profile/PatientProfile';
 import RegisterPatient from '../../features/doctor/RegisterPatient';
 import AdminAccountsTable from '../../features/admin/accounts/AdminAccountsTable';
@@ -25,12 +24,7 @@ import AnalysisTable from '../../features/doctor/analysis/AnalysisTable';
 import CityTable from '../../features/admin/city/CityTable';
 import PharmacyProductTable from '../../features/admin/pharmacyProducts/PharmacyProductTable';
 import BloodManagment from '../../features/doctor/bloodBank/BloodManagment';
-
-
-
-
-
-
+import PatientAppointments from '../../features/patients/appointments/PatientAppointments';
 
 function App() {
   const { commonStore, userStore } = useStore()
@@ -75,7 +69,7 @@ function App() {
                 
                 {/* {Patient Routes} */}
                 <PrivateRoute exact path='/patient/dashboard' component={PatientDashboard} />
-                <PrivateRoute exact path='/patient/appointments' component={AppointmetsPatient} />
+                <PrivateRoute exact path='/patient/appointments' component={PatientAppointments} />
                 <PrivateRoute exact path='/patient/patient-profile' component={PatientProfile} />
                 
 

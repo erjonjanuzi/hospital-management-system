@@ -39,7 +39,7 @@ export default observer(function NavBar() {
       </Menu.Item>
       <Menu.Item style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
         <Image src="/assets/user.png" size="tiny" circular />
-        <h3 style={{ margin: "0 10px", padding: 0 }}>{user?.username}</h3>
+        <h3 style={{ margin: "0 10px", padding: 0 }}>{user?.firstName}</h3>
       </Menu.Item>
       {user?.role === 'admin' && adminLinks.map(link => (
         <Menu.Item key={link.key} as={NavLink} to={link.to} content={link.name} exact activeClassName='active'/>

@@ -39,7 +39,8 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers().AddFluentValidation(configuration => {
+            services.AddControllers().AddFluentValidation(configuration =>
+            {
                 configuration.RegisterValidatorsFromAssemblyContaining<Create>();
             });
 
@@ -49,16 +50,16 @@ namespace API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
-            services.AddDbContext<DataContext>(opt => 
+            services.AddDbContext<DataContext>(opt =>
             {
                 opt.UseSqlServer(this.configuration.GetConnectionString("DbConn"));
             });
 
-            services.AddCors(opt => 
+            services.AddCors(opt =>
             {
                 opt.AddPolicy("CorsPolicy", policy =>
                 {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins(new string[] {"http://localhost:3000", "test"});
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins(new string[] { "http://localhost:3000", "test" });
                 });
             });
 
@@ -66,7 +67,8 @@ namespace API
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
             //IdentityServices
-            services.AddIdentityCore<AppUser>(opt => {
+            services.AddIdentityCore<AppUser>(opt =>
+            {
                 opt.Password.RequireNonAlphanumeric = false;
             })
             .AddEntityFrameworkStores<DataContext>()
@@ -75,7 +77,8 @@ namespace API
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(opt => {
+                .AddJwtBearer(opt =>
+                {
                     opt.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
@@ -86,11 +89,15 @@ namespace API
                 });
             services.AddScoped<TokenService>();
 
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {   
+        {
             app.UseMiddleware<ExceptionMiddleware>();
 
             if (env.IsDevelopment())
@@ -102,7 +109,7 @@ namespace API
             //app.UseHttpsRedirection();
 
             app.UseRouting();
-            
+
             app.UseCors("CorsPolicy");
 
             app.UseAuthentication();

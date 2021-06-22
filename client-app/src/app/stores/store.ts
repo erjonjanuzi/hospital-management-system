@@ -10,6 +10,7 @@ import UserStore from "./userStore";
 import DepartmentStore from "./departmentStore";
 import pharmacyStore from "./pharmacyStore";
 import BloodBankStore from "./bloodBankStore";
+import AppointmentsStore from "./appointmentsStore";
 
 
 interface Store {
@@ -24,6 +25,7 @@ interface Store {
     departmentStore: DepartmentStore;
     diagnosisStore: DiagnosisStore;
     bloodBankStore: BloodBankStore;
+    appointmentsStore: AppointmentsStore
 }
 
 export const store: Store = {
@@ -37,7 +39,8 @@ export const store: Store = {
     cityStore : new cityStore(),
     departmentStore: new DepartmentStore(),
     bloodBankStore: new BloodBankStore(),
-    diagnosisStore: new DiagnosisStore()
+    diagnosisStore: new DiagnosisStore(),
+    appointmentsStore: new AppointmentsStore()
 }
 
 export const StoreContext = createContext(store);

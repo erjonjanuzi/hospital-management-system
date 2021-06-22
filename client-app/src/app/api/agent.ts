@@ -10,6 +10,7 @@ import { Department,DepartmentTable } from "../models/department";
 import { Analyse } from "../models/analyse";
 import { Pharmacy, PharmacyDto } from "../models/pharmacy";
 import { BloodBank,BloodBankTable } from "../models/bloodBank";
+import { Appointment } from "../models/appointment";
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -151,6 +152,11 @@ const DiagnosisManager = {
     byPatient: (patientsId: string) => requests.get<Diagnosis>(`/patient/${patientsId}`)
 }
 
+const Appointments = {
+    list: () => requests.get<Appointment[]>('/Appointment'),
+    patientAppointments: (id: string) => requests.get<Appointment[]>(`/Appointment/${id}`)
+}
+
 const agent = {
     Pharmacies,
     Analysis,
@@ -161,7 +167,8 @@ const agent = {
     Account,
     AccountsManager,
     BloodBanks,
-    Departments
+    Departments,
+    Appointments
 }
 
 export default agent;

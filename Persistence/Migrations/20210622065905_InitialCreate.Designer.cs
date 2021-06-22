@@ -10,7 +10,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210618223919_InitialCreate")]
+    [Migration("20210622065905_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -161,6 +161,36 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("AppUser");
+                });
+
+            modelBuilder.Entity("Domain.Appointment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DoctorId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PatientId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Appointments");
                 });
 
             modelBuilder.Entity("Domain.BloodBank", b =>
@@ -512,6 +542,21 @@ namespace Persistence.Migrations
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("Domain.Appointment", b =>
+                {
+                    b.HasOne("Domain.Doctor", "Doctor")
+                        .WithMany("Appointments")
+                        .HasForeignKey("DoctorId");
+
+                    b.HasOne("Domain.PatientUser", "Patient")
+                        .WithMany("Appointments")
+                        .HasForeignKey("PatientId");
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+                });
+
             modelBuilder.Entity("Domain.Diagnosis", b =>
                 {
                     b.HasOne("Domain.PatientUser", null)
@@ -584,8 +629,15 @@ namespace Persistence.Migrations
                     b.Navigation("Analyse");
                 });
 
+            modelBuilder.Entity("Domain.Doctor", b =>
+                {
+                    b.Navigation("Appointments");
+                });
+
             modelBuilder.Entity("Domain.PatientUser", b =>
                 {
+                    b.Navigation("Appointments");
+
                     b.Navigation("Diagnosis");
                 });
 #pragma warning restore 612, 618
