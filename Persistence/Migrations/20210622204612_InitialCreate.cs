@@ -94,6 +94,22 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MedicalReports",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    RegisteredSince = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Report = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MedicalReports", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Patients",
                 columns: table => new
                 {
@@ -438,6 +454,9 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Diagnoses");
+
+            migrationBuilder.DropTable(
+                name: "MedicalReports");
 
             migrationBuilder.DropTable(
                 name: "PatientsDetails");

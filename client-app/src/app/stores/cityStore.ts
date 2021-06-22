@@ -104,12 +104,16 @@ export default class cityStore{
     deleteCity = async (id : string)=>{
         this.loading=true;
         try{
+            if(window.confirm('Are you sure you want to delete this city?')){
             await agent.Citys.delete(id);
             runInAction(()=>{
                 this.cityRegistry.delete(id);
                 this.loading=false;
+                store.modalStore.closeModal();
+                window.location.reload();
             })
             toast.success('City deleted successfully');
+            }
         }catch(error){
             console.log(error);
             runInAction(()=>{

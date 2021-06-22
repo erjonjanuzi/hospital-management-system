@@ -102,12 +102,15 @@ export default class pharmacyStore{
     deletePharmacy = async(id : string)=>{
         this.loading = true;
         try{
+            if(window.confirm('Are you sure you want to delete this product?')){
             await agent.Pharmacies.delete(id);
             runInAction(()=>{
                 this.pharmacyRegistry.delete(id);
                 this.loading=false;
+                store.modalStore.closeModal();
+                window.location.reload();
             })
-            toast.info('Product deleted successfully');
+            }
         }catch(error){
             console.log(error);
             runInAction(()=>{

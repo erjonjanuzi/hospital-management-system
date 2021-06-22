@@ -17,6 +17,7 @@ export default observer(function PharmacyProductTable(){
 
 
     return(
+        <>
         <Segment>
             <Button inverted color='green' content='Add Pharmacy Products' onClick={() => modalStore.openModal(<AddNewProductForm/>)}/>
             <Header content='Pharmacy Products' />
@@ -49,13 +50,14 @@ export default observer(function PharmacyProductTable(){
                                     onClick={() => modalStore.openModal(<ViewPharmacyProductPage id={pharmacy.id}/>)}
                                     />
                                     <Button inverted icon='delete' color='red'
-                                     onClick={()=>deletePharmacy(pharmacy.id)}
+                                     onClick={() => deletePharmacy(pharmacy.id)}
                                     /> 
                                     </Table.Cell>
-                    </Table.Row>
+                                </Table.Row>
                     ))} 
                 </Table.Body>
             </Table>
-        </Segment>
+        </Segment> 
+        </>
     )
 })

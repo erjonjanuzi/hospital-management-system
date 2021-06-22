@@ -10,6 +10,7 @@ const options = [
 ]
 
 export default function RegisterPatient() {
+  
     return (
 
     <Container>

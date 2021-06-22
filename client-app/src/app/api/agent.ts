@@ -11,6 +11,8 @@ import { Analyse } from "../models/analyse";
 import { Pharmacy, PharmacyDto } from "../models/pharmacy";
 import { BloodBank,BloodBankTable } from "../models/bloodBank";
 import { Appointment } from "../models/appointment";
+import { MedicalReport,MedicalReportDto } from "../models/medicalReport";
+
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -87,6 +89,14 @@ const Pharmacies ={
     update : (pharmacy : Pharmacy) => axios.put<void>(`/pharmacies/${pharmacy.id}`,pharmacy)
 }
 
+const MedicalReports ={
+    list : () => requests.get<MedicalReport[]>('/medicalreports'),
+    details : (id : string) => requests.get<MedicalReport>(`/medicalreports/${id}`),
+    delete :(id: string) => axios.delete<void>(`/medicalreports/${id}`),
+    create : (medicalReport : MedicalReportDto) => requests.post<void>('/medicalreports/',medicalReport),
+    update : (medicalReport : MedicalReport) => axios.put<void>(`/medicalreports/${medicalReport.id}`,medicalReport)
+}
+
 const Citys = {
     list: () => requests.get<City[]>('/citys'),
     details: (id: string) => requests.get<City>(`/citys/${id}`),
@@ -152,12 +162,14 @@ const DiagnosisManager = {
     byPatient: (patientsId: string) => requests.get<Diagnosis>(`/patient/${patientsId}`)
 }
 
+
 const Appointments = {
     list: () => requests.get<Appointment[]>('/Appointment'),
     patientAppointments: (id: string) => requests.get<Appointment[]>(`/Appointment/${id}`)
 }
 
 const agent = {
+    MedicalReports, 
     Pharmacies,
     Analysis,
     DiagnosisManager,

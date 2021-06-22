@@ -20,7 +20,9 @@ export default observer(function NavBar() {
     { key: 'register-patient', name: 'Register Patient', to: '/doctor/register-patient'},
     { key: 'diagnosis', name: 'Patient\'s Diagnosis', to: '/doctor/diagnosis'},
     { key: 'analysis', name: 'Patient\'s Analysis', to: '/doctor/analysis'},
-    { key: 'bloodBank', name: 'Blood Bank Managment', to: '/doctor/bloodBank'}
+    { key: 'bloodBank', name: 'Blood Bank Managment', to: '/doctor/bloodBank'},
+    { key: 'medicalReports', name: 'Medical Reports', to: '/doctor/medicalReports'}
+
   ]
 
   const patientLinks = [

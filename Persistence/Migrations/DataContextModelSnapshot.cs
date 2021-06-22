@@ -285,6 +285,32 @@ namespace Persistence.Migrations
                     b.ToTable("Diagnoses");
                 });
 
+            modelBuilder.Entity("Domain.MedicalReport", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RegisteredSince")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Report")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MedicalReports");
+                });
+
             modelBuilder.Entity("Domain.Patient", b =>
                 {
                     b.Property<Guid>("Id")

@@ -18,7 +18,12 @@ namespace Persistence
         public DbSet<BloodBank> BloodBanks { get; set; }
 
         public DbSet<PatientsDetail> PatientsDetails { get; set; }
+
         public DbSet<Appointment> Appointments { get; set; }
+
+
+        public DbSet<MedicalReport> MedicalReports { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Admin>();

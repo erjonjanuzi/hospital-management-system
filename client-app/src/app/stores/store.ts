@@ -11,6 +11,8 @@ import DepartmentStore from "./departmentStore";
 import pharmacyStore from "./pharmacyStore";
 import BloodBankStore from "./bloodBankStore";
 import AppointmentsStore from "./appointmentsStore";
+import medicalReportStore from "./medicalReportStore";
+
 
 
 interface Store {
@@ -26,9 +28,12 @@ interface Store {
     diagnosisStore: DiagnosisStore;
     bloodBankStore: BloodBankStore;
     appointmentsStore: AppointmentsStore
+    medicalReportStore : medicalReportStore;
+
 }
 
 export const store: Store = {
+    medicalReportStore : new medicalReportStore(),
     pharmacyStore: new pharmacyStore(),
     patientStore: new PatientStore(),
     analysisStore: new AnalyseStore(), // recently added

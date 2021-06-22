@@ -13,6 +13,7 @@ namespace Application.Core
             CreateMap<Department, Department>();
             CreateMap<Pharmacy, Pharmacy>();
             CreateMap<BloodBank, BloodBank>();
+            CreateMap<MedicalReport, MedicalReport>();
         }
     }
 }

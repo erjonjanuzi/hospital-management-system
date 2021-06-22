@@ -25,6 +25,8 @@ import CityTable from '../../features/admin/city/CityTable';
 import PharmacyProductTable from '../../features/admin/pharmacyProducts/PharmacyProductTable';
 import BloodManagment from '../../features/doctor/bloodBank/BloodManagment';
 import PatientAppointments from '../../features/patients/appointments/PatientAppointments';
+import MedicalReportsTable from '../../features/doctor/medicalReports/MedicalReportsTable';
+
 
 function App() {
   const { commonStore, userStore } = useStore()
@@ -64,8 +66,10 @@ function App() {
                 <PrivateRoute exact path='/doctor/diagnosis' component={ Diagnosis } />
                 <PrivateRoute exact path='/doctor/patients' component={DoctorPatientsTable} />
                 <PrivateRoute exact path='/doctor/bloodBank' component={BloodManagment} />
-
                 <PrivateRoute exact path='/doctor/analysis' component={AnalysisTable} />
+                <PrivateRoute exact path='/doctor/medicalReports' component={MedicalReportsTable} />
+
+
                 
                 {/* {Patient Routes} */}
                 <PrivateRoute exact path='/patient/dashboard' component={PatientDashboard} />
