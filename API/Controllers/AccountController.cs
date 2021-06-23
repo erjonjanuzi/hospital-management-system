@@ -122,6 +122,7 @@ namespace API.Controllers
         {
             return new UserDto
             {
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
@@ -140,9 +141,11 @@ namespace API.Controllers
 
         //[Authorize(Roles = "admin")]
         [HttpGet("user/{id}")]
-        public async Task<ActionResult<AppUser>> GetUser(string id)
+        public async Task<ActionResult<UserDto>> GetUser(string id)
         {
-            return HandleResult(await Mediator.Send(new Details.Query { Id = id }));
+            var user = await userManager.FindByIdAsync(id);
+            
+            return CreateUserObject(user);
         }
 
         //[Authorize(Roles = "admin")]

@@ -150,7 +150,8 @@ const AccountsManager = {
     details: (id: string) => requests.get<AccountDto>(`/account/user/${id}`),
     delete: (id: string) => axios.delete<void>(`/account/${id}`),
     update: (user: AccountDto) => axios.put<void>(`/account/${user.id}`, user),
-    register: (user: AccountFormValues) => requests.post('/account/register', user),
+    register: (user: AccountFormValues) => requests.post('/account/register', user)
+    //currentUser: () => requests.get<User>('/account')
 }
 
 const DiagnosisManager = {
@@ -165,7 +166,8 @@ const DiagnosisManager = {
 
 const Appointments = {
     list: () => requests.get<Appointment[]>('/Appointment'),
-    patientAppointments: (id: string) => requests.get<Appointment[]>(`/Appointment/${id}`)
+    patientAppointments: (id: string) => requests.get<Appointment[]>(`/Appointment/${id}`),
+    create: (appointment: Appointment) => requests.post<void>('/Appointment', appointment)
 }
 
 const agent = {

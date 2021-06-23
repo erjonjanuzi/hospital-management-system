@@ -2,7 +2,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 import agent from "../api/agent";
 import { Appointment } from "../models/appointment";
-import { AccountDto, AccountFormValues } from "../models/user";
+import { AccountDto, AccountFormValues, User } from "../models/user";
 import { store } from "./store";
 
 export default class AppointmentsStore {
@@ -34,9 +34,21 @@ export default class AppointmentsStore {
     }
 
     private setAppointment = (appointment: Appointment) => {
-        this.appointmentRegistry.set(appointment.id, appointment);
+        this.appointmentRegistry.set(appointment.id!, appointment);
     }
 
+    create = async (appointment: Appointment) => {
+        try {
+            await agent.Appointments.create(appointment);
+            runInAction(() => {
+                this.loadPatientAppointments(appointment.patientId);
+            })
+            toast.success('Appointment created succesfully');
+            store.modalStore.closeModal();
+        } catch (error) {
+            throw error;
+        }
+    }
     /*loadPatientAccounts = async() => {
         try {
             const accounts = await agent.AccountsManager.list();

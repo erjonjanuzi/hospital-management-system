@@ -17,7 +17,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAppointment([FromBody] Appointment appointment)
+        public async Task<IActionResult> CreateAppointment(Appointment appointment)
         {
             if (appointment == null)
                 return BadRequest("Cannot create appointment");
