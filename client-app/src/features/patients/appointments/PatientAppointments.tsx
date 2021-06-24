@@ -12,7 +12,7 @@ export default observer(function PatientAppointments() {
     return (
         <>
             <Segment>
-                <h1>Appointments</h1>
+                <h1>My Appointments</h1>
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', alignItems: 'center' }}>
                     <Header as='h3' sub content='Want to create a new appointment?' style={{marginRight: '5px'}}/>
                     <Button animated color='teal' onClick={() => modalStore.openModal(<AppointmentForm />)}>

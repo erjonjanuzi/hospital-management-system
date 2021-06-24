@@ -7,10 +7,7 @@ import { store } from "./store";
 
 export default class AppointmentsStore {
     appointmentRegistry = new Map<string, Appointment>();
-    //selectedAccount: AccountDto | undefined = undefined;    
-    //editMode = false;
-    //loading = false;
-    //loadingInitial = false;
+    selectedAppointment: Appointment | undefined = undefined;
 
     constructor(){
         makeAutoObservable(this);
@@ -20,16 +17,34 @@ export default class AppointmentsStore {
         return Array.from(this.appointmentRegistry.values());
     }
 
+    get numberOfPendingAppointments() {
+        let count = 0;
+        for (let i = 0; i < this.appointments.length; i++){
+            if (this.appointments[i].status === 'Pending')
+                count++;
+        }
+        return count;
+    }
+
+    loadAppointments = async() => {
+        try {
+            const appointments = await agent.Appointments.list();
+            appointments.forEach(appointment => {
+                this.setAppointment(appointment);
+            })
+        } catch (error){
+            console.log(error);
+        }
+    }
+
     loadPatientAppointments = async(id: string) => {
         try {
             const appointments = await agent.Appointments.patientAppointments(id);
             appointments.forEach(appointment => {
                 this.setAppointment(appointment);
             })
-            //this.loadingInitial = false;
         } catch (error){
             console.log(error);
-            //this.setLoadingInitial(false);
         }
     }
 
@@ -49,6 +64,42 @@ export default class AppointmentsStore {
             throw error;
         }
     }
+
+    loadAppointment = async (id: string) => {
+        let appointment = this.getAppointment(id);
+        if (appointment) {
+            this.selectedAppointment = appointment;
+            return appointment;
+        } else {
+            try {
+                appointment = await agent.Appointments.details(id);
+                this.setAppointment(appointment);
+                runInAction(() => {
+                    this.selectedAppointment = appointment;
+                })
+                return appointment;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+
+    private getAppointment = (id: string) => {
+        return this.appointmentRegistry.get(id);
+    }
+
+    deleteAppointment = async (id: any) => {
+        try {
+            await agent.Appointments.delete(id);
+            runInAction(() => {
+                this.appointmentRegistry.delete(id);
+            })
+            toast.info('Appointment deleted');
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     /*loadPatientAccounts = async() => {
         try {
             const accounts = await agent.AccountsManager.list();

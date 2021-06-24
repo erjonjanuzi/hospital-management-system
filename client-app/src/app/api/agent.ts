@@ -12,6 +12,7 @@ import { Pharmacy, PharmacyDto } from "../models/pharmacy";
 import { BloodBank,BloodBankTable } from "../models/bloodBank";
 import { Appointment } from "../models/appointment";
 import { MedicalReport,MedicalReportDto } from "../models/medicalReport";
+import { request } from "http";
 
 
 const sleep = (delay: number) => {
@@ -167,7 +168,9 @@ const DiagnosisManager = {
 const Appointments = {
     list: () => requests.get<Appointment[]>('/Appointment'),
     patientAppointments: (id: string) => requests.get<Appointment[]>(`/Appointment/${id}`),
-    create: (appointment: Appointment) => requests.post<void>('/Appointment', appointment)
+    create: (appointment: Appointment) => requests.post<void>('/Appointment', appointment),
+    details: (id: any) => requests.get<Appointment>(`/Appointment/get/${id}`),
+    delete: (id: any) => axios.delete<void>(`/appointment/${id}`)
 }
 
 const agent = {

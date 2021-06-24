@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,10 +36,18 @@ namespace API.Controllers
             var appointments = await context.Appointments.ToListAsync();
             foreach (Appointment a in appointments)
             {
-                a.Patient = (PatientUser) await context.Users.FindAsync(a.PatientId);
+                a.Patient = (PatientUser)await context.Users.FindAsync(a.PatientId);
             }
 
             return Ok(appointments);
+        }
+
+        [HttpGet("get/{id}")]
+        public async Task<ActionResult<Appointment>> GetAppointment(Guid id)
+        {
+            var appointment = await context.Appointments.FindAsync(id);
+            appointment.Patient = (PatientUser)await context.Users.FindAsync(appointment.PatientId);
+            return Ok(appointment);
         }
 
         [HttpGet("{id}")]
@@ -50,5 +59,16 @@ namespace API.Controllers
 
             return Ok(query);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAppointment(Guid id){
+            var appointment = await context.Appointments.FindAsync(id);
+
+            context.Appointments.Remove(appointment);
+            var result = await context.SaveChangesAsync() > 0;
+            if (result) return Ok("Appointment deleted");
+            return BadRequest("Could not delete appointment");
+        }
+
     }
 }

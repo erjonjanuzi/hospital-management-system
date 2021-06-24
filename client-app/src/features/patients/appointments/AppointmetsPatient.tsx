@@ -15,13 +15,14 @@ import {
 } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import Breadcrumbs from "../my-profile/Breadcrumbs";
-import ViewAppointments from "./ViewAppointments";
 
 export default observer(function AppointmetsPatient() {
   const [] = React.useState(false);
   const { modalStore } = useStore();
 
   return (
+    <h1>test</h1>)
+    /*
     <Container>
       <Breadcrumbs></Breadcrumbs>
       <Segment>
@@ -117,7 +118,7 @@ export default observer(function AppointmetsPatient() {
               />
             </Table.Cell>
           </Table.Row>
-          {/* ------------------------------------ */}
+
           <Table.Row>
             <Table.Cell>
               <Checkbox label="05 Jun 2021" />{" "}
@@ -191,7 +192,6 @@ export default observer(function AppointmetsPatient() {
             </Table.Cell>
           </Table.Row>
 
-          {/* -------------------------------- */}
 
           <Table.Row>
             <Table.Cell>
@@ -238,6 +238,5 @@ export default observer(function AppointmetsPatient() {
         siblingRange={1}
         totalPages={10}
       />
-    </Container>
-  );
+    </Container>*/
 });

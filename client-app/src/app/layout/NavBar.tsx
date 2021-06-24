@@ -1,34 +1,35 @@
 import { observer } from "mobx-react-lite";
 import { Link, NavLink } from "react-router-dom";
-import { Image, Menu} from "semantic-ui-react";
+import { Image, Menu } from "semantic-ui-react";
 import { useStore } from "../stores/store";
 
 export default observer(function NavBar() {
   const { userStore: { user, logout } } = useStore();
 
   const adminLinks = [
-    { key: 'dashboard', name: 'Dashboard', to: '/admin/dashboard'},
-    { key: 'accounts', name: 'Accounts Management', to: '/admin/accounts'},
-    { key: 'departments', name: 'Departments', to: '/admin/departments'},
-    { key : 'city', name:'City',to :'/admin/city'},
-    {key : 'pharmacyProducts', name :'PharmacyProducts', to :'/admin/pharmacyProducts'}
+    { key: 'dashboard', name: 'Dashboard', to: '/admin/dashboard' },
+    { key: 'accounts', name: 'Accounts Management', to: '/admin/accounts' },
+    { key: 'appointments', name: 'Appointments', to: '/admin/appointments' },
+    { key: 'departments', name: 'Departments', to: '/admin/departments' },
+    { key: 'city', name: 'City', to: '/admin/city' },
+    { key: 'pharmacyProducts', name: 'PharmacyProducts', to: '/admin/pharmacyProducts' }
   ]
 
   const doctorLinks = [
-    { key: 'dashboard', name: 'Dashboard', to: '/doctor/dashboard'},
-    { key: 'patients', name: 'Table Patient\'s', to: '/doctor/patients'},
-    { key: 'register-patient', name: 'Register Patient', to: '/doctor/register-patient'},
-    { key: 'diagnosis', name: 'Patient\'s Diagnosis', to: '/doctor/diagnosis'},
-    { key: 'analysis', name: 'Patient\'s Analysis', to: '/doctor/analysis'},
-    { key: 'bloodBank', name: 'Blood Bank Managment', to: '/doctor/bloodBank'},
-    { key: 'medicalReports', name: 'Medical Reports', to: '/doctor/medicalReports'}
+    { key: 'dashboard', name: 'Dashboard', to: '/doctor/dashboard' },
+    { key: 'patients', name: 'Table Patient\'s', to: '/doctor/patients' },
+    { key: 'register-patient', name: 'Register Patient', to: '/doctor/register-patient' },
+    { key: 'diagnosis', name: 'Patient\'s Diagnosis', to: '/doctor/diagnosis' },
+    { key: 'analysis', name: 'Patient\'s Analysis', to: '/doctor/analysis' },
+    { key: 'bloodBank', name: 'Blood Bank Managment', to: '/doctor/bloodBank' },
+    { key: 'medicalReports', name: 'Medical Reports', to: '/doctor/medicalReports' }
 
   ]
 
   const patientLinks = [
-    { key: 'dashboard', name: 'Dashboard', to: '/patient/dashboard'},
-    { key: 'appointments', name: 'Appointments', to: '/patient/appointments'},
-    { key: 'patient-profile', name: 'Patient Profile', to: '/patient/patient-profile'}
+    { key: 'dashboard', name: 'Dashboard', to: '/patient/dashboard' },
+    { key: 'appointments', name: 'Appointments', to: '/patient/appointments' },
+    { key: 'patient-profile', name: 'Patient Profile', to: '/patient/patient-profile' }
   ]
 
   return (
@@ -44,15 +45,15 @@ export default observer(function NavBar() {
         <h3 style={{ margin: "0 10px", padding: 0 }}>{user?.firstName}</h3>
       </Menu.Item>
       {user?.role === 'admin' && adminLinks.map(link => (
-        <Menu.Item key={link.key} as={NavLink} to={link.to} content={link.name} exact activeClassName='active'/>
+        <Menu.Item key={link.key} as={NavLink} to={link.to} content={link.name} exact activeClassName='active' />
       ))}
       {user?.role === 'doctor' && doctorLinks.map(link => (
-        <Menu.Item key={link.key} as={NavLink} to={link.to} content={link.name} exact activeClassName='active'/>
+        <Menu.Item key={link.key} as={NavLink} to={link.to} content={link.name} exact activeClassName='active' />
       ))}
       {user?.role === 'patient' && patientLinks.map(link => (
-        <Menu.Item key={link.key} as={NavLink} to={link.to} content={link.name} exact activeClassName='active'/>
+        <Menu.Item key={link.key} as={NavLink} to={link.to} content={link.name} exact activeClassName='active' />
       ))}
-      <Menu.Item as={Link} content="Logout" onClick={logout} text="Logout" icon="power"/>
+      <Menu.Item as={Link} content="Logout" onClick={logout} text="Logout" icon="power" />
     </Menu>
   );
 });

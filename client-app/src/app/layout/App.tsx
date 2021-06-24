@@ -26,6 +26,7 @@ import PharmacyProductTable from '../../features/admin/pharmacyProducts/Pharmacy
 import BloodManagment from '../../features/doctor/bloodBank/BloodManagment';
 import PatientAppointments from '../../features/patients/appointments/PatientAppointments';
 import MedicalReportsTable from '../../features/doctor/medicalReports/MedicalReportsTable';
+import AdminAppointments from '../../features/admin/appointments/AdminAppointments';
 
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
                 <PrivateRoute path='/admin/departments' component={DepartmentsPage} />
                 <PrivateRoute path='/admin/city/' component={CityTable}/>
                 <PrivateRoute path='/admin/pharmacyProducts/' component={PharmacyProductTable}/>
+                <PrivateRoute path='/admin/appointments/' component={AdminAppointments}/>
 
 
 

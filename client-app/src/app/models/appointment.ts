@@ -1,4 +1,4 @@
-import { DoctorProfile } from "./profile";
+import { DoctorProfile, PatientProfile } from "./profile";
 
 export interface Appointment {
     id?: string;
@@ -8,4 +8,5 @@ export interface Appointment {
     patientId: string;
     doctorId?: string;
     doctor?: DoctorProfile;
+    patient? : PatientProfile;
 }
