@@ -1,12 +1,11 @@
 import { observer } from 'mobx-react-lite';
-import { Table, Button, Segment, Label, Item, Icon, Header, Popup, Confirm } from "semantic-ui-react";
-import React, { useState } from 'react';
+import { Button, Segment, Icon, Header, Popup, Confirm } from "semantic-ui-react";
+import { useState } from 'react';
 import { useStore } from '../../../app/stores/store';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 export default observer(function AppointmentsTable() {
-    const { appointmentsStore, userStore, modalStore } = useStore();
+    const { appointmentsStore } = useStore();
     const { loadAppointments, appointmentRegistry, appointments, deleteAppointment } = appointmentsStore;
 
     const [openConfirm, setOpenConfirm] = useState(false);

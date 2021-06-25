@@ -1,10 +1,11 @@
 import { observer } from 'mobx-react-lite';
-import { Table, Button, Segment, Label, Item, Icon, Header, Popup } from "semantic-ui-react";
+import { Table, Button, Segment, Label, Item, Icon, Header, Popup, Grid, Divider } from "semantic-ui-react";
 import React from 'react';
 import { useStore } from '../../../app/stores/store';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ViewAppointment from './ViewAppointment';
+import { Fragment } from 'react';
 
 export default observer(function AppointmentsTable() {
     const { appointmentsStore, userStore, modalStore } = useStore();
@@ -19,84 +20,66 @@ export default observer(function AppointmentsTable() {
         <>
             {appointments.map(appointment => (
                 <Segment.Group>
-                    <Segment color='teal' inverted>
-                        <Item.Group>
-                            <Item>
-                                <Item.Content>
-                                    <Item.Header as={Link}>
-                                        {`Appointment No. ${appointment.id}`}
-                                    </Item.Header>
-                                </Item.Content>
-                            </Item>
-                        </Item.Group>
+                    <Segment color='teal' inverted secondary>
+                        {`Appointment No.${appointment.id}`}
                     </Segment>
                     <Segment>
-                        <span>
-                            <Header content='Status' />
-                            {appointment.status}
-                        </span>
-                    </Segment>
-                    <Segment>
-                        <span>
-                            <Header content='Date and time' />
-                            <Icon name='calendar' color='teal' />{appointment.date.toString().split('T')[0]}
-                            <Icon name='clock' color='teal' />{appointment.date.toString().split('T')[1]}
-                        </span>
-                    </Segment>
-                    <Segment>
-                        <span>
-                            <Header content='Doctor' />
-                            {appointment.doctor ? appointment.doctor?.firstName + ' ' + appointment.doctor?.lastName
-                                : 'Not assigned yet!'}
-                        </span>
-                    </Segment>
-                    <Segment clearing>
-                        <Popup content='Open appointment ' trigger={
-                            <Button
-                                color='teal'
-                                content='View'
-                                onClick={() => modalStore.openModal(<ViewAppointment id={appointment.id!} />)}
-                            />} 
-                        />
-                        {appointment.status === 'Completed'
-                            ? <Button icon='trash' color='red' />
-                            : <Popup content='Appointment not completed yet' trigger={<Button icon='trash' color='red' disabled />} />}
+                        <Grid>
+                            <Grid.Column width='6' textAlign='center'>
+                                <span>
+                                    {appointment.doctor ?
+                                        <Item>
+                                            <Popup
+                                                hoverable
+                                                trigger={
+                                                    <Item.Image style={{ marginBottom: 3 }} size='mini' circular src='/assets/user.png' />
+                                                }
+                                            >
+                                                <Popup.Content>
+                                                    {appointment.doctor.email}
+                                                </Popup.Content>
+                                            </Popup>
 
+                                            <Item.Content>
+                                                <Item.Header>{appointment.doctor?.firstName + ' ' + appointment.doctor?.lastName}</Item.Header>
+                                            </Item.Content>
+                                        </ Item>
+                                        : <Item.Content style={{ color: 'red' }}>{`Doctor not assigned yet`}</Item.Content>
+
+                                    }
+                                </span>
+                            </Grid.Column>
+                            <Grid.Column width='3'>
+                                <span>
+                                    <Icon name='calendar' color='teal' />{appointment.date.toString().split('T')[0]}
+                                </span>
+                                <br />
+                                <span>
+                                    <Icon name='clock' color='teal' />{appointment.date.toString().split('T')[1]}
+                                </span>
+                            </Grid.Column>
+                            <Grid.Column width='1'>
+                                <Header 
+                                    content={appointment.status} 
+                                    color={appointment.status === 'Active' || appointment.status === 'Completed' ? 'green' : 'red'} 
+                                />
+                            </Grid.Column>
+                            <Grid.Column width='6' textAlign='center'>
+                                <Popup content='Open appointment ' trigger={
+                                    <Button
+                                        color='teal'
+                                        content='View'
+                                        onClick={() => modalStore.openModal(<ViewAppointment id={appointment.id!} />)}
+                                    />}
+                                />
+                                <Popup content='Cancel this appointment with immediate effect' trigger={
+                                    <Button icon='trash' color='red' content='Cancel appointment' />
+                                } />
+                            </Grid.Column>
+                        </Grid>
                     </Segment>
                 </Segment.Group>
             ))}
         </>
     )
-
-    /*return (
-        <Table textAlign="center">
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell style={style}>Appointment No.</Table.HeaderCell>
-                        <Table.HeaderCell style={style}>Date</Table.HeaderCell>
-                        <Table.HeaderCell style={style}>Time</Table.HeaderCell>
-                        <Table.HeaderCell style={style}>Doctor</Table.HeaderCell>
-                        <Table.HeaderCell style={style}>Status</Table.HeaderCell>
-                        <Table.HeaderCell style={style}>Actions</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    {appointments.map(appointment => (
-                        <Table.Row key={appointment.id}>
-                            <Table.Cell>{appointment.id}</Table.Cell>
-                            <Table.Cell>{appointment.date.toString().split("T")[0]}</Table.Cell>
-                            <Table.Cell>{appointment.date.toString().split("T")[1]}</Table.Cell>
-                            <Table.Cell>{
-                                appointment.doctor ? appointment.doctor.firstName + ' ' + appointment.doctor.lastName : "Not assigned yet"    
-                            }</Table.Cell>
-                            <Table.Cell>{appointment.status}</Table.Cell>
-                            <Table.Cell>
-                                <Button content='Edit' icon='edit' basic color='youtube'/>
-                                <Button icon='delete' color='red'/>
-                            </Table.Cell>
-                        </Table.Row>
-                    ))}
-                </Table.Body>
-            </Table>
-    )*/
 })
