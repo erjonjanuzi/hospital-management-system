@@ -6,7 +6,6 @@ import { store } from "./store";
 
 export default class AccountManagementStore {
     accountRegistry = new Map<string, AccountDto>();
-    doctorRegistry = new Map<string, AccountDto>();
     selectedAccount: AccountDto | undefined = undefined;    
     editMode = false;
     loading = false;
@@ -18,17 +17,6 @@ export default class AccountManagementStore {
 
     get accounts() {
         return Array.from(this.accountRegistry.values());
-    }
-
-    loadDoctors = async() => {
-        for (let i = 0; i < this.accounts.length; i++){
-            if (this.accounts[i].role === 'Doctor')
-                this.setDoctor(this.accounts[i]);
-        }
-    }
-
-    private setDoctor = (doctor: AccountDto) => {
-        this.doctorRegistry.set(doctor.id, doctor);
     }
 
     loadAccounts = async() => {

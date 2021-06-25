@@ -9,7 +9,7 @@ export default class AppointmentsStore {
     appointmentRegistry = new Map<string, Appointment>();
     selectedAppointment: Appointment | undefined = undefined;
 
-    constructor(){
+    constructor() {
         makeAutoObservable(this);
     }
 
@@ -19,31 +19,31 @@ export default class AppointmentsStore {
 
     get numberOfPendingAppointments() {
         let count = 0;
-        for (let i = 0; i < this.appointments.length; i++){
+        for (let i = 0; i < this.appointments.length; i++) {
             if (this.appointments[i].status === 'Pending')
                 count++;
         }
         return count;
     }
 
-    loadAppointments = async() => {
+    loadAppointments = async () => {
         try {
             const appointments = await agent.Appointments.list();
             appointments.forEach(appointment => {
                 this.setAppointment(appointment);
             })
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
     }
 
-    loadPatientAppointments = async(id: string) => {
+    loadPatientAppointments = async (id: string) => {
         try {
             const appointments = await agent.Appointments.patientAppointments(id);
             appointments.forEach(appointment => {
                 this.setAppointment(appointment);
             })
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
     }
@@ -88,6 +88,24 @@ export default class AppointmentsStore {
         return this.appointmentRegistry.get(id);
     }
 
+    assignDoctor = async (id: any, docId: string) => {
+        try {
+            const appointment = this.getAppointment(id);
+
+            appointment!.doctorId = docId;
+
+            await agent.Appointments.assignDoctor(appointment!);
+            
+            runInAction(() => {
+                this.loadAppointments();
+            });
+            store.modalStore.closeModal();
+            toast.info("Doctor assigned");
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     deleteAppointment = async (id: any) => {
         try {
             await agent.Appointments.delete(id);
@@ -95,7 +113,7 @@ export default class AppointmentsStore {
                 this.appointmentRegistry.delete(id);
             })
             toast.info('Appointment deleted');
-        } catch(error) {
+        } catch (error) {
             console.log(error);
         }
     }

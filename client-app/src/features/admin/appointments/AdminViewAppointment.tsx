@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Button, Divider, Grid, Header, Icon, Image, Item, List, Message, Modal, Segment } from "semantic-ui-react";
 import MySelectInput from "../../../app/common/form/MySelectInput";
 import MyTextInput from "../../../app/common/form/MyTextInput";
+import { AccountDto } from "../../../app/models/user";
 import { useStore } from "../../../app/stores/store";
 
 interface Props {
@@ -12,14 +13,34 @@ interface Props {
 }
 
 export default observer(function ViewAppointment({ id }: Props) {
-    const { modalStore, appointmentsStore: { loadAppointment, selectedAppointment },  } = useStore();
+    const { modalStore, appointmentsStore: { loadAppointment, selectedAppointment, assignDoctor }, accountManagementStore } = useStore();
     const [form, setForm] = useState(false);
 
+    let doctors = [
+        { key: '', value: '', text: '' }
+    ]
 
+    const test = async () => {
+        await accountManagementStore.loadAccounts();
+    }
+
+    const insert = async () => {
+        let temp = accountManagementStore.accounts.filter(x => x.role === 'doctor');
+        for (let i = 0; i < temp.length; i++) {
+            let item = {
+                key: temp[i].id,
+                value: temp[i].id,
+                text: temp[i].firstName + ' ' + temp[i].lastName
+            };
+            doctors.push(item);
+        }
+    }
 
     useEffect(() => {
         if (id) loadAppointment(id);
-    }, [id, loadAppointment]);
+        test();
+        insert();
+    }, [id, loadAppointment, doctors]);
 
     return (
         <>
@@ -60,14 +81,14 @@ export default observer(function ViewAppointment({ id }: Props) {
                     {form &&
                         <Segment>
                             <Formik
-                                initialValues={{ doctor: '' }}
-                                onSubmit={() => console.log('submitted')}
+                                initialValues={{ appointmentId: selectedAppointment?.id, doctorId: '' }}
+                                onSubmit={(values) => assignDoctor(values.appointmentId, values.doctorId)
+                                    .catch(error => console.log(error))}
                                 enableReinitialize
                             >
                                 {({ handleSubmit, isValid, isSubmitting, dirty, errors }) => (
                                     <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
-                                        <Header sub content='Assign a doctor' />
-                
+                                        <MySelectInput placeholder='Doctor' name='doctorId' options={doctors} label='Pick a doctor' />
                                         <Button disabled={isSubmitting || !dirty || !isValid}
                                             loading={isSubmitting} positive type='submit' content='Submit'
                                         />

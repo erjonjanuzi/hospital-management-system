@@ -19,7 +19,7 @@ export default observer(function AppointmentsTable() {
         <>
             {appointments.map(appointment => (
                 <Segment.Group>
-                    <Segment>
+                    <Segment color='teal' inverted>
                         <Item.Group>
                             <Item>
                                 <Item.Content>

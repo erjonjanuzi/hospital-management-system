@@ -152,7 +152,6 @@ const AccountsManager = {
     delete: (id: string) => axios.delete<void>(`/account/${id}`),
     update: (user: AccountDto) => axios.put<void>(`/account/${user.id}`, user),
     register: (user: AccountFormValues) => requests.post('/account/register', user)
-    //currentUser: () => requests.get<User>('/account')
 }
 
 const DiagnosisManager = {
@@ -164,13 +163,13 @@ const DiagnosisManager = {
     byPatient: (patientsId: string) => requests.get<Diagnosis>(`/patient/${patientsId}`)
 }
 
-
 const Appointments = {
     list: () => requests.get<Appointment[]>('/Appointment'),
     patientAppointments: (id: string) => requests.get<Appointment[]>(`/Appointment/${id}`),
     create: (appointment: Appointment) => requests.post<void>('/Appointment', appointment),
     details: (id: any) => requests.get<Appointment>(`/Appointment/get/${id}`),
-    delete: (id: any) => axios.delete<void>(`/appointment/${id}`)
+    delete: (id: any) => axios.delete<void>(`/appointment/${id}`),
+    assignDoctor: (appointment: Appointment) => axios.put<void>(`/Appointment/assign/${appointment.id}`, appointment)
 }
 
 const agent = {
