@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 export default class BloodBankStore{
     bloodBankRegistry = new Map<string, BloodBank>();
-    seletedBloodBank : BloodBank | undefined = undefined;
+    selectedBloodBank : BloodBank | undefined = undefined;
     editMode = false;
     loading = false;
     loadingInitial = false;
@@ -38,7 +38,7 @@ export default class BloodBankStore{
     loadBloodBank = async (id: string) =>{
         let bloodBank = this.getBloodBank(id);
         if(bloodBank){
-            this.seletedBloodBank = bloodBank;
+            this.selectedBloodBank = bloodBank;
             return bloodBank;
         }else{
             this.loadingInitial = true;
@@ -46,7 +46,7 @@ export default class BloodBankStore{
             bloodBank = await agent.BloodBanks.details(id);
             this.setBloodBank(bloodBank);
             runInAction(()=>{
-                this.seletedBloodBank = bloodBank;
+                this.selectedBloodBank = bloodBank;
             })
             this.setLoadingInitial(false);
             return bloodBank;
@@ -76,6 +76,7 @@ export default class BloodBankStore{
             runInAction(()=>{
                 this.loadBloodBanks();
                 store.modalStore.closeModal();
+                toast.success('Donor added successfully')
             })
         }catch(error) {
             console.log(error);
@@ -111,6 +112,7 @@ export default class BloodBankStore{
                     this.bloodBankRegistry.delete(id);
                     this.loading = false;
                     store.modalStore.closeModal();
+                    toast.info('Donor deleted successfully')
                     window.location.reload();
                     // toast.success("Diagnose Deleted Successfully", {
                     //     autoClose: 3000,

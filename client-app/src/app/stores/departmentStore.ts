@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 export default class departmentStore{
     departmentRegistry = new Map<string, Department>();
-    seletedDepartment : Department | undefined = undefined;
+    selectedDepartment : Department | undefined = undefined;
     editMode = false;
     loading = false;
     loadingInitial = false;
@@ -38,7 +38,7 @@ export default class departmentStore{
     loadDepartment = async (id: string) =>{
         let department = this.getDepartment(id);
         if(department){
-            this.seletedDepartment = department;
+            this.selectedDepartment = department;
             return department;
         }else{
             this.loadingInitial = true;
@@ -46,7 +46,7 @@ export default class departmentStore{
             department = await agent.Departments.details(id);
             this.setDepartment(department);
             runInAction(()=>{
-                this.seletedDepartment = department;
+                this.selectedDepartment = department;
             })
             this.setLoadingInitial(false);
             return department;
@@ -76,6 +76,7 @@ export default class departmentStore{
             runInAction(()=>{
                 this.loadDepartments();
                 store.modalStore.closeModal();
+                toast.success('Department added successfully')
             })
         }catch(error) {
             console.log(error);
@@ -111,6 +112,7 @@ export default class departmentStore{
                     this.departmentRegistry.delete(id);
                     this.loading = false;
                     store.modalStore.closeModal();
+                    toast.info('Department deleted successfully')
                     window.location.reload();
                     // toast.success("Diagnose Deleted Successfully", {
                     //     autoClose: 3000,

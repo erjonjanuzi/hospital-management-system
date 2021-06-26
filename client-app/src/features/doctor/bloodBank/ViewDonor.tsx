@@ -13,7 +13,7 @@ interface Props{
 
 export default observer(function ViewDonor({id} : Props){
 
-    const { bloodBankStore : {loadBloodBank,seletedBloodBank,updateBloodBank},modalStore} =useStore();
+    const { bloodBankStore : {loadBloodBank,selectedBloodBank,updateBloodBank},modalStore} =useStore();
 
     useEffect(() => {
     if(id)loadBloodBank(id);
@@ -33,7 +33,7 @@ export default observer(function ViewDonor({id} : Props){
             <Header as='h1' content='Edit Donor ' />
             <Divider />
             <Formik
-                initialValues={seletedBloodBank!} 
+                initialValues={selectedBloodBank!} 
                 onSubmit={(values) => updateBloodBank(values).catch(error => console.log(error))}
                 enableReinitialize
                 validationSchema={validationSchema}

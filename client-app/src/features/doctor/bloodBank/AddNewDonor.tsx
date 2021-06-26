@@ -34,6 +34,8 @@ export default observer(function AddNewDonor() {
       
     const validationSchema = Yup.object({
         name:Yup.string().required('Name is required'),
+        blood:Yup.string().required('Blood Type is required'),
+
     })
 
     return (
@@ -56,7 +58,7 @@ export default observer(function AddNewDonor() {
                         />
                         <Header sub content='details' />
                         <MyTextInput name='name' placeholder='Name' />
-                        <MySelectInput name='blood' placeholder='Blood Group' options={groups} />
+                        <MySelectInput name='blood' placeholder='Blood Type' options={groups} />
                         <MyTextInput name='age' placeholder='Age' />
                         <MyTextInput name='email' placeholder='Email' />
                         <MyTextInput name='mobile' placeholder='Mobile' />

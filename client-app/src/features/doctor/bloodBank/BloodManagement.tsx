@@ -26,7 +26,7 @@ export default observer(function BloodManagment(){
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>Full Name</Table.HeaderCell>
-                        <Table.HeaderCell>Blood Group</Table.HeaderCell>
+                        <Table.HeaderCell>Blood Type</Table.HeaderCell>
                         <Table.HeaderCell>Age</Table.HeaderCell>
                         <Table.HeaderCell>Email</Table.HeaderCell>
                         <Table.HeaderCell>Mobile</Table.HeaderCell>

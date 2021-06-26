@@ -13,7 +13,7 @@ interface Props{
 
 export default observer(function ViewDepartment({id} : Props){
 
-    const { departmentStore : {loadDepartment,seletedDepartment,updateDepartment},modalStore} =useStore();
+    const { departmentStore : {loadDepartment,selectedDepartment,updateDepartment},modalStore} =useStore();
 
     useEffect(() => {
     if(id)loadDepartment(id);
@@ -35,7 +35,7 @@ export default observer(function ViewDepartment({id} : Props){
             <Header as='h1' content='Edit Department ' />
             <Divider />
             <Formik
-                initialValues={seletedDepartment!} 
+                initialValues={selectedDepartment!} 
                 onSubmit={(values) => updateDepartment(values).catch(error => console.log(error))}
                 enableReinitialize
                 validationSchema={validationSchema}

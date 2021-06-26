@@ -23,7 +23,7 @@ import Diagnosis from '../../features/doctor/diagnosis/Diagnosis';
 import AnalysisTable from '../../features/doctor/analysis/AnalysisTable';
 import CityTable from '../../features/admin/city/CityTable';
 import PharmacyProductTable from '../../features/admin/pharmacyProducts/PharmacyProductTable';
-import BloodManagment from '../../features/doctor/bloodBank/BloodManagment';
+import BloodManagment from '../../features/doctor/bloodBank/BloodManagement';
 import PatientAppointments from '../../features/patients/appointments/PatientAppointments';
 import MedicalReportsTable from '../../features/doctor/medicalReports/MedicalReportsTable';
 import AdminAppointments from '../../features/admin/appointments/AdminAppointments';
