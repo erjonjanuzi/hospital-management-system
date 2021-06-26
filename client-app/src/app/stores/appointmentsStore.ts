@@ -106,6 +106,23 @@ export default class AppointmentsStore {
         }
     }
 
+    cancelAppointment = async(id: any) => {
+        try {
+            const appointment = this.getAppointment(id);
+
+            if(appointment === null) return null;
+
+            await agent.Appointments.cancelAppointment(id);
+            
+            runInAction(() => {
+                this.loadAppointments();
+            });
+            toast.info("Appointment canceled by your request");
+        } catch (error){
+            toast.error('Unexpected error');
+        }
+    }
+
     deleteAppointment = async (id: any) => {
         try {
             await agent.Appointments.delete(id);

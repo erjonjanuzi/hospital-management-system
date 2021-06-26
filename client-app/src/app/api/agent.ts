@@ -169,7 +169,8 @@ const Appointments = {
     create: (appointment: Appointment) => requests.post<void>('/Appointment', appointment),
     details: (id: any) => requests.get<Appointment>(`/Appointment/get/${id}`),
     delete: (id: any) => axios.delete<void>(`/appointment/${id}`),
-    assignDoctor: (appointment: Appointment) => axios.put<void>(`/Appointment/assign/${appointment.id}`, appointment)
+    assignDoctor: (appointment: Appointment) => axios.put<void>(`/Appointment/assign/${appointment.id}`, appointment),
+    cancelAppointment: (id: any) => axios.put<void>(`/Appointment/cancel/${id}`)
 }
 
 const agent = {

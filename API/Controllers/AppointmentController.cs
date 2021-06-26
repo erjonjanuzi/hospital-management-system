@@ -39,7 +39,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Appointment>>> GetAllAppointments()
         {
-            var appointments = await context.Appointments.ToListAsync();
+            var appointments = await context.Appointments.OrderByDescending(x => x.Date).ToListAsync();
 
             foreach (Appointment a in appointments)
             {
@@ -66,6 +66,7 @@ namespace API.Controllers
         {
             var appointments = await context.Appointments
                 .Where(x => x.PatientId == id)
+                .OrderByDescending(x => x.Date)
                 .ToListAsync();
                 
             foreach (Appointment a in appointments)
@@ -86,6 +87,20 @@ namespace API.Controllers
 
             appointment.DoctorId = newAppointment.DoctorId;
             appointment.Status = "Active";
+
+            var result = await context.SaveChangesAsync() > 0;
+            if (result)
+                return Ok(appointment);
+            return BadRequest();
+        }
+
+        [HttpPut("cancel/{id}")]
+        public async Task<IActionResult> CancelAppointment(Guid id)
+        {
+            var appointment = await context.Appointments.FindAsync(id);
+
+            if (appointment == null) return null;
+            appointment.Status = "Canceled";
 
             var result = await context.SaveChangesAsync() > 0;
             if (result)

@@ -3,7 +3,6 @@ import React from 'react'
 import { useLocation } from 'react-router';
 import { Input, Menu } from 'semantic-ui-react'
 
-
 export default observer(function Breadcrumbs() {
   const path = useLocation();
   return (

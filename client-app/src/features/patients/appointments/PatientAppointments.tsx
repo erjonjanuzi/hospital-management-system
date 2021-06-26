@@ -1,9 +1,13 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Button, Icon, Segment, Header, Divider, Tab, Menu } from "semantic-ui-react";
+import { Button, Icon, Segment, Header, Divider, Tab, Menu, Grid } from "semantic-ui-react";
 import { useStore } from '../../../app/stores/store';
-import AppointmentsTable from './AppointmentsTable';
+import AppointmentsTable from './AllAppointmentsTable';
 import AppointmentForm from './AppointmentForm';
+import Breadcrumbs from '../../../app/layout/Breadcrumbs';
+import AllAppointmentsTable from './AllAppointmentsTable';
+import ActiveAppointments from './ActiveAppointments';
+import CompletedAppointments from './CompletedAppointments';
 
 
 export default observer(function PatientAppointments() {
@@ -12,33 +16,43 @@ export default observer(function PatientAppointments() {
     const panes = [
         {
             menuItem: { key: 'all', content: 'All' },
-            render: () => <Tab.Pane><AppointmentsTable /></Tab.Pane>,
+            render: () => <Tab.Pane><AllAppointmentsTable /></Tab.Pane>,
         },
         {
             menuItem: { key: 'active', content: 'Active' },
-            render: () => <Tab.Pane><AppointmentsTable /></Tab.Pane>,
+            render: () => <Tab.Pane><ActiveAppointments /></Tab.Pane>,
         },
         {
             menuItem: { key: 'completed', content: 'Completed' },
-            render: () => <Tab.Pane><AppointmentsTable /></Tab.Pane>,
+            render: () => <Tab.Pane><CompletedAppointments /></Tab.Pane>,
         }
     ]
 
     return (
         <>
             <Segment>
-                <h1>My Appointments</h1>
-                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', alignItems: 'center' }}>
-                    <Header as='h3' sub content='Want to create a new appointment?' style={{ marginRight: '5px' }} />
-                    <Button animated color='teal' onClick={() => modalStore.openModal(<AppointmentForm />)}>
-                        <Button.Content visible>New appointment</Button.Content>
-                        <Button.Content hidden>
-                            <Icon name='plus' />
-                        </Button.Content>
-                    </Button>
-                </div>
+                <Breadcrumbs />
             </Segment>
-            <Tab panes={panes} />
+            <Grid >
+                <Grid.Column width='12'>
+                    <Tab panes={panes} />
+                </Grid.Column>
+                <Grid.Column width='4'>
+                    <Segment textAlign='center' style={{marginTop: '42px'}}>
+                        <Header as='h3' content='Want to create a new appointment?'/>
+                        <span>Schedule your appoinment with a click of a few buttons</span>
+                        <br /><br />
+                        <Icon name='stethoscope' size='massive'/>
+                        <br /><br />
+                        <Button animated color='teal' onClick={() => modalStore.openModal(<AppointmentForm />)}>
+                            <Button.Content visible>New appointment</Button.Content>
+                            <Button.Content hidden>
+                                <Icon name='plus' />
+                            </Button.Content>
+                        </Button>
+                    </Segment>
+                </Grid.Column>
+            </Grid>
         </>
     )
 })
