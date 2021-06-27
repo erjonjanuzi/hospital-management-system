@@ -26,10 +26,10 @@ export default class DiagnosisStore {
         const diagnoses = await agent.DiagnosisManager.list();
         diagnoses.forEach(diagnosis => {
             if (diagnosis.patientsId === id) {
-                console.log('qiky ka diagnoz')
+                console.log('Has a Diagnosis')
             }
             else {
-                console.log('qiky ska diagnoz')
+                console.log('Does not have a diagnosis')
             }
         })
     }
@@ -150,6 +150,23 @@ export default class DiagnosisStore {
         }
     }
 
+    updateDiagnosis = async (diagnosis : Diagnosis)=>{
+        this.loading=true;
+        try{
+            await agent.DiagnosisManager.update(diagnosis);
+            runInAction(()=>{
+                this.loadDiagnoses();
+            })
+            // toast.success('Diagnosis updated successfully');
+            store.modalStore.closeModal();
+            window.location.reload();
+        }catch(error) {
+            console.log(error);
+            runInAction(()=>{
+                this.loading = false;
+        })
+        } 
+    }
 
     private setDiagnosis = (diagnosis: Diagnosis) => {
         this.diagnosisRegistry.set(diagnosis.patientsId, diagnosis);

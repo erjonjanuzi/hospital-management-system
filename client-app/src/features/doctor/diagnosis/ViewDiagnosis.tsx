@@ -1,7 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { Button, Container, Divider, Header } from 'semantic-ui-react';
+import ModalStore from '../../../app/stores/modalStore';
 import { useStore } from '../../../app/stores/store';
+import EditDiagnosis from './EditDiagnosis';
 
 interface Props {
     id: string
@@ -9,16 +11,16 @@ interface Props {
 
 export default observer(function ViewDiagnosis({ id }: Props) {
 
-    const { accountManagementStore: {loadAccount, selectedAccount }, 
-            diagnosisStore: { deleteDiagnosis,loadDiagnosisByPatient , selectedDiagnosis}
-            } = useStore();
-    
+    const { accountManagementStore: { loadAccount, selectedAccount },
+        diagnosisStore: { deleteDiagnosis, loadDiagnosisByPatient, selectedDiagnosis }, modalStore
+    } = useStore();
+
 
     useEffect(() => {
         if (id) loadAccount(id);
     }, [id, loadAccount]);
 
-    useEffect(()=> {
+    useEffect(() => {
         if (id) loadDiagnosisByPatient(id);
     }, [id, loadDiagnosisByPatient])
 
@@ -41,13 +43,15 @@ export default observer(function ViewDiagnosis({ id }: Props) {
                     <Header sub>Date</Header>
                     <span>{Diagnosis?.date.split('T')[0]}</span>
 
-                    <Divider hidden/>
+                    <Divider hidden />
                     <div>
-                        <Button color='green' content=' Edit ' icon='edit' labelPosition='left' />
-                        <Button 
-                        onClick={() => deleteDiagnosis(id)}
-                        
-                        color='red' content='Delete' icon='delete' labelPosition='right' />
+                        <Button color='green' content=' Edit ' icon='edit' labelPosition='left'
+                            onClick={() => modalStore.openModal(<EditDiagnosis id={Diagnosis?.id} />)} />
+
+
+                        <Button
+                            onClick={() => deleteDiagnosis(id)}
+                            color='red' content='Delete' icon='delete' labelPosition='right' />
                     </div>
 
                 </Container>

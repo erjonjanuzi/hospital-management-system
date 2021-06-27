@@ -2,13 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Diagnoses;
+using AutoMapper;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
+using Persistence;
 
 namespace API.Controllers
 {
     public class DiagnosisController : BaseApiController
     {
+
+        private DataContext context { get; }
+        private IMapper mapper { get; }
+        public DiagnosisController(DataContext context, IMapper mapper)
+        {
+            this.context = context;
+            this.mapper = mapper;
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<Diagnosis>>> GetDiagnoses()
         {
@@ -35,10 +46,24 @@ namespace API.Controllers
         
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditDiagnosis(Guid id,Diagnosis newDiagnosis)
+        public async Task<IActionResult> EditDiagnosis(Diagnosis newDiagnosis)
         {
-            newDiagnosis.Id=id;
-            return HandleResult(await Mediator.Send(new Edit.Command {Diagnosis = newDiagnosis}));
+            var diagnosis = await context.Diagnoses.FindAsync(newDiagnosis.Id);
+
+            if (diagnosis == null) return null;
+
+            diagnosis.Title = newDiagnosis.Title;
+            diagnosis.Stage = newDiagnosis.Stage;
+            diagnosis.Type = newDiagnosis.Type;
+            diagnosis.Details = newDiagnosis.Details;
+            diagnosis.date = newDiagnosis.date;
+            
+
+            var result = await context.SaveChangesAsync() > 0;
+
+            if (result)
+                return Ok(diagnosis);
+            return BadRequest();
         }
 
         [HttpDelete("/api/diagnosis/{patientsId}")]

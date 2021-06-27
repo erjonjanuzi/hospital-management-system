@@ -1,28 +1,41 @@
-import { ErrorMessage, Formik } from 'formik';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { useEffect } from 'react';
 import { Button, Divider, Form, Header, Message, Modal, Segment } from 'semantic-ui-react';
-import * as Yup from 'yup';
-import MyTextInput from '../../../app/common/form/MyTextInput';
 import { useStore } from '../../../app/stores/store';
+import * as Yup from 'yup';
+import { ErrorMessage, Formik } from 'formik';
+import MyTextInput from '../../../app/common/form/MyTextInput';
+import { values } from 'mobx';
 
 interface Props {
-    id: string
+    id: string | undefined;
 }
 
-export default observer(function CreateDiagnosis({ id }: Props) {
+export default observer(function EditDiagnosis({ id }: Props) {
 
-    const { diagnosisStore, modalStore } = useStore();
+    const {
+        accountManagementStore: { loadAccount, selectedAccount },
+        diagnosisStore: { loadDiagnosis, loadDiagnosisByPatient, selectedDiagnosis, updateDiagnosis },
+        modalStore
+    } = useStore();
 
-    const selectedDiagnosis = {
-        title: '',
-        type: '',
-        stage: '',
-        details: '',
-        date: '',
-        patientsId: id,
+    const Diagnosis = selectedDiagnosis;
+
+    const SelectedDiagnosis = {
+        id: Diagnosis!.id,
+        title: Diagnosis!.title,
+        type: Diagnosis!.type,
+        stage: Diagnosis!.stage,
+        details: Diagnosis!.details,
+        date: Diagnosis!.date,
+        patientsId: Diagnosis!.patientsId,
         error: null
     }
+    useEffect(() => {
+        if (id) loadDiagnosis(id);
+    }, [id, loadAccount]);
+
 
     const validationSchema = Yup.object({
         title: Yup.string().required('Title is required'),
@@ -37,9 +50,8 @@ export default observer(function CreateDiagnosis({ id }: Props) {
             <Header as='h1' content='Add a new Diagnosis' />
             <Divider />
             <Formik
-                initialValues={selectedDiagnosis}
-                onSubmit={(values, { setErrors }) => diagnosisStore.createDiagnosis(values).catch(error =>
-                    setErrors({ error }))} 
+                initialValues={SelectedDiagnosis}
+                onSubmit={(values, { setErrors }) => updateDiagnosis(values).catch(error => setErrors({ error }))}
                 validationSchema={validationSchema}
                 enableReinitialize
             >
@@ -74,5 +86,11 @@ export default observer(function CreateDiagnosis({ id }: Props) {
                 )}
             </Formik>
         </>
-    )
+    );
+
+
+
+
 })
+
+

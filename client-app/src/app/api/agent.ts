@@ -105,13 +105,13 @@ const Citys = {
     create: (city: CityDto) => requests.post<void>('/citys/', city),
     update: (city: City) => axios.put<void>(`/citys/${city.id}`, city)
 }
+
 const Analysis = {
     list: () => requests.get<Analyse[]>('/analysis'),
     details: (id: string) => requests.get<Analyse>(`/analysis/${id}`),
     create: (user: Analyse) => axios.post<void>('analysis', user),
     update: (analyse: Analyse) => axios.put<void>(`/analysis/${analyse.id}`, analyse),
     delete: (id: string) => axios.delete<void>(`/analysis/${id}`)
-
 }
 
 const Departments = {
@@ -122,6 +122,7 @@ const Departments = {
     update: (department: Department) => axios.put<void>(`/departments/${department.id}`, department),
 
 }
+
 const BloodBanks = {
     list: () => requests.get<BloodBank[]>('/bloodBank'),
     details: (id: string) => requests.get<BloodBank>(`/bloodBank/${id}`),
@@ -144,7 +145,6 @@ const UserPatients = {
     update: (user: Patient) => axios.put<void>(`/account/${user.id}`, user),
     register: (user: AccountFormValues) => requests.post('/account/register', user),
 }
-
 
 const AccountsManager = {
     list: () => requests.get<AccountDto[]>('/account/all'),

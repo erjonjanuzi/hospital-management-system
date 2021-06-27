@@ -1,9 +1,22 @@
+import userEvent from '@testing-library/user-event'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
-import { Card, Container, Divider, Grid, Icon, Image, List } from 'semantic-ui-react'
+import React, { useEffect } from 'react'
+import { Card, Container, Divider, Grid, Icon, Image, List, Segment } from 'semantic-ui-react'
+import { useStore } from '../../../app/stores/store'
 
 
-export default observer(function profile(){
+export default observer(function Profile(){
+
+    const { commonStore, userStore } = useStore()
+    const { user } = userStore;
+    useEffect(() => {
+        if (commonStore.token) {
+        userStore.getUser();
+        } else {
+        commonStore.setAppLoaded();
+        }
+    }, [commonStore, userStore])
+
     const staticPatient = {
         // personal information
         fullName: "Engjëll Avdiu",
@@ -26,7 +39,7 @@ export default observer(function profile(){
     }
     return(
         <>
-   
+        <Segment>
         <Grid padded container >
             <Grid.Column width='4'>
             
@@ -51,7 +64,7 @@ export default observer(function profile(){
                 <List>
                     <List.Item>
                         <List.Header>Full Name:</List.Header>
-                        {staticPatient.fullName}
+                        {user?.firstName+" "+user?.lastName} 
                     </List.Item>
                     <List.Item>
                         <List.Header>Date of birth:</List.Header>
@@ -118,7 +131,8 @@ export default observer(function profile(){
                 </Container>
             </div>      
             </Grid.Column>
-        </Grid>    
+        </Grid> 
+        </Segment>   
         </>
         )
 })
