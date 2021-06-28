@@ -1,11 +1,12 @@
 import userEvent from '@testing-library/user-event'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { Card, Container, Divider, Grid, Icon, Image, List, Segment, Tab } from 'semantic-ui-react'
+import { Button, Icon, Segment, Header, Divider, Tab, Menu, Grid, Card, Image } from "semantic-ui-react";
 import { useStore } from '../../../app/stores/store'
-import BillingInfo from './BillingInfo'
-import MedicalInfo from './MedicalInfo'
-import PersonalInfo from './PersonalInfo'
+import Breadcrumbs from '../../../app/layout/Breadcrumbs';
+import MedicalInfo from './MedicalInfo';
+import PersonalInfo from './PersonalInfo';
+import BillingInfo from './BillingInfo';
 
 
 export default observer(function Profile() {
@@ -41,7 +42,6 @@ export default observer(function Profile() {
 
     }
 
-
     const { modalStore } = useStore();
 
     const panes = [
@@ -62,26 +62,34 @@ export default observer(function Profile() {
     return (
         <>
             <Segment>
-                <Grid  >
-                    <Grid.Column width='4'>
-
-                        <Card>
-                            <Image src='https://react.semantic-ui.com/images/avatar/large/elliot.jpg' wrapped ui={false} />
-                            <Card.Content>
-                                <Card.Header textAlign='center'>
-
-                                    <Icon name='edit outline' size='large'></Icon>
-                                    <Icon name='clipboard list' color='red' size='large'></Icon>
-                                </Card.Header>
-                            </Card.Content>
-                        </Card>
-                    </Grid.Column>
-
-                    <Grid.Column width='12'>
-                        <Tab panes={panes} />
-                    </Grid.Column>
-                </Grid>
+                <Breadcrumbs />
             </Segment>
+            <Grid >
+            <Grid padded container >
+            <Grid.Column width='4'>
+
+                <Card>
+                    <Image src='https://react.semantic-ui.com/images/avatar/large/elliot.jpg' wrapped ui={false} />
+                    <Card.Content>
+                        <Card.Header textAlign='center'>
+
+                            <Icon name='edit outline' size='large'></Icon>
+                            <Icon name='clipboard list' color='red' size='large'></Icon>
+                        </Card.Header>
+                    </Card.Content>
+                </Card>
+            </Grid.Column>
+
+
+        </Grid> 
+                <Grid.Column width='12'>
+                    <Tab panes={panes} />
+                </Grid.Column>
+
+            </Grid>
+            < Segment >
+
+            </Segment >
         </>
     )
 })

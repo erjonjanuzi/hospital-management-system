@@ -448,3 +448,5 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+Persistence/Migrations/20210622204612_InitialCreate.cs
