@@ -7,24 +7,37 @@ import MyDateInput from '../../../app/common/form/MyDateInput';
 import { useStore } from '../../../app/stores/store';
 import * as Yup from 'yup';
 import { Appointment } from '../../../app/models/appointment';
+import MyTextArea from '../../../app/common/form/MyTextArea';
 
 export default observer(function AppointmentForm() {
     const { modalStore, userStore, appointmentsStore } = useStore()
 
     const validationSchema = Yup.object({
-        description: Yup.string().required('Description is required'),
+        reason: Yup.string().required('A medical reason is required'),
         date: Yup.string().required('Date is required')
     })
 
     const medicalReasons = [
-        { key: '', value: '', text: '' }
+        { key: 'chest', value: 'chestpain', text: 'Chest Pain' },
+        { key: 'abdominal', value: 'abdominalpain', text: 'Abdominal Pain' },
+        { key: 'toothaches', value: 'toothaches', text: 'Toothaches' },
+        { key: 'brokenbones', value: 'brokenbones', text: 'Broken Bones and Sprains' },
+        { key: 'respiratory', value: 'respiratory', text: 'Respiratory infections' },
+        { key: 'contusions', value: 'contusions', text: 'Contusions and Cuts' },
+        { key: 'back', value: 'backpain', text: 'Back Pain' },
+        { key: 'skin', value: 'skin', text: 'Skin Infections' },
+        { key: 'objects', value: 'foreignobjects', text: 'Foreign objects in the body' },
+        { key: 'headaches', value: 'headaches', text: 'Headaches' },
+        { key: 'checkup', value: 'checkup', text: 'General Medical Checkup' },
+        { key: 'other', value: 'other', text: 'Other' }
     ]
 
     const appointment: Appointment = {
         status: 'Pending',
         date: new Date,
-        description: '',
-        patientId: userStore.user?.id!
+        reason: '',
+        comment: '',
+        patientId: userStore.user?.id!,
     }
 
     return (
@@ -64,7 +77,7 @@ export default observer(function AppointmentForm() {
                             </Segment>
                         </Card>
                         <Divider />
-                        <Header sub content='Date and Time' />
+                        <Header sub content='Date and Time (between 08:00AM and 08:00PM)' />
                         <MyDateInput
                             placeholderText='Date'
                             name='date'
@@ -72,14 +85,17 @@ export default observer(function AppointmentForm() {
                             timeCaption='time'
                             dateFormat='MMMM d, yyyy h:mm aa'
                         />
-                        <MyTextInput
-                            name='description'
-                            label='haha'
+                        <MySelectInput placeholder='Reason' name='reason' options={medicalReasons} label='Reason for your appointment' />
+                        <MyTextArea
+                            placeholder='Comment here...'
+                            rows={3}
+                            name='comment'
+                            label='You can leave a comment here (Optional)'
                         />
                         <Button.Group>
-                        <Button disabled={isSubmitting || !dirty || !isValid}
-                            loading={isSubmitting} positive type='submit' content='Submit'
-                        />
+                            <Button disabled={isSubmitting || !dirty || !isValid}
+                                loading={isSubmitting} positive type='submit' content='Submit'
+                            />
                             <Button.Or />
                             <Button onClick={modalStore.closeModal}>Cancel</Button>
                         </Button.Group>

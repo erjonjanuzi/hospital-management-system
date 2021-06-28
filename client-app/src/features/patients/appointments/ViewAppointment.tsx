@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
-import { Button, Divider, Grid, Header, Icon, Image, Item, List, Modal, Segment, Label, Container, Message } from "semantic-ui-react";
+import { Button, Divider, Grid, Header, Icon, Item, Segment, Label, Container, Message } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default observer(function ViewAppointment({ id }: Props) {
-  const { modalStore, appointmentsStore: { loadAppointment, selectedAppointment } } = useStore();
+  const { appointmentsStore: { loadAppointment, selectedAppointment } } = useStore();
 
   const [details, setDetails] = useState(false);
 
@@ -83,7 +83,7 @@ export default observer(function ViewAppointment({ id }: Props) {
             <Message
               icon='hourglass outline'
               header='This appointment is under review'
-              content='You will soon hear from us'
+              content='Please be aware that the chosen date and time can be changed without any notice'
             />
           }
           <Segment color={selectedAppointment?.status === 'Active'
@@ -105,9 +105,13 @@ export default observer(function ViewAppointment({ id }: Props) {
             </Segment>
           </Segment.Group>
           <br />
-          <Label content='Reason for appointment' />
+          <Label content='Reason' />
           <Segment>
-            {selectedAppointment?.description}
+            {selectedAppointment?.reason}
+          </Segment>
+          <Label content='Comment' />
+          <Segment>
+            {selectedAppointment?.comment ? selectedAppointment?.comment : 'No comment'}
           </Segment>
         </Grid.Column>
       </Grid>

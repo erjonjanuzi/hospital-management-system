@@ -26,6 +26,14 @@ namespace API.Controllers
             if (appointment == null)
                 return BadRequest("Cannot create appointment");
 
+            DateTime minValidDate = DateTime.Now.AddDays(2);
+
+            if(DateTime.Compare(appointment.Date, minValidDate) < 0)
+                return BadRequest("Please pick a date at least three days from today");
+
+            if(appointment.Date.Hour < 8 || appointment.Date.Hour > 20)
+                return BadRequest("Please pick hours between 08:00AM and 08:00PM");
+
             await context.Appointments.AddAsync(appointment);
 
             var result = await context.SaveChangesAsync() > 0;
@@ -106,6 +114,42 @@ namespace API.Controllers
             if (result)
                 return Ok(appointment);
             return BadRequest();
+        }
+
+        [HttpPut("deny/{id}")]
+        public async Task<IActionResult> DenyAppointment(Guid id)
+        {
+            var appointment = await context.Appointments.FindAsync(id);
+
+            if (appointment == null) return null;
+            appointment.Status = "Denied";
+
+            var result = await context.SaveChangesAsync() > 0;
+            if (result)
+                return Ok(appointment);
+            return BadRequest();
+        }
+
+        [HttpPut("edit/{id}")]
+        public async Task<ActionResult<Appointment>> EditDate(Appointment newAppointment)
+        {
+            var appointment = await context.Appointments.FindAsync(newAppointment.Id);
+
+            if (appointment == null) return null;
+            //int year, int month, int day, int hour, int minute, int second
+            int year = newAppointment.Date.Year;
+            int month = newAppointment.Date.Month;
+            int day = newAppointment.Date.Day;
+            int hour = newAppointment.Date.Hour;
+            int minute = newAppointment.Date.Minute;
+            int second = newAppointment.Date.Second;
+
+            appointment.Date = new DateTime(year, month, day, hour, minute, second);
+
+            var result = await context.SaveChangesAsync() > 0;
+            if (result)
+                return Ok(appointment);
+            return BadRequest("test");
         }
 
         [HttpDelete("{id}")]

@@ -61,7 +61,7 @@ export default class AppointmentsStore {
             toast.success('Appointment created succesfully');
             store.modalStore.closeModal();
         } catch (error) {
-            throw error;
+            toast.error(error);
         }
     }
 
@@ -123,6 +123,23 @@ export default class AppointmentsStore {
         }
     }
 
+    denyAppointment = async(id: any) => {
+        try {
+            const appointment = this.getAppointment(id);
+
+            if(appointment === null) return null;
+
+            await agent.Appointments.denyAppointment(id);
+            
+            runInAction(() => {
+                this.loadAppointments();
+            });
+            toast.info("Appointment denied");
+        } catch (error){
+            console.log(error);
+        }
+    }
+
     deleteAppointment = async (id: any) => {
         try {
             await agent.Appointments.delete(id);
@@ -130,6 +147,21 @@ export default class AppointmentsStore {
                 this.appointmentRegistry.delete(id);
             })
             toast.info('Appointment deleted');
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    editAppointment = async (appointment: Appointment) => {
+        try {
+            await agent.Appointments.edit(appointment);
+
+            runInAction(() => {
+                this.loadAppointments();
+                this.selectedAppointment!.date = new Date(appointment.date);
+            })
+
+            toast.info('Appointment updated');
         } catch (error) {
             console.log(error);
         }

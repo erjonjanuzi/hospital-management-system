@@ -31,7 +31,7 @@ export default observer(function AppointmentItem({ appointment }: Props) {
                 <Segment color={appointment.status === 'Canceled' ? 'red' : 'teal'} inverted secondary>
                     {`Appointment No.${appointment.id}`}
                 </Segment>
-                <Segment disabled={appointment.status === 'Canceled'}>
+                <Segment disabled={appointment.status === 'Canceled' || appointment.status === 'Denied'}>
                     <Grid>
                         <Grid.Column width='4' textAlign='center'>
                             <span>
@@ -98,7 +98,7 @@ export default observer(function AppointmentItem({ appointment }: Props) {
                                         icon='cancel'
                                         color='red'
                                         content='Cancel appointment'
-                                        disabled={appointment.status === 'Canceled'}
+                                        disabled={appointment.status === 'Canceled' || appointment.status === 'Denied'}
                                         onClick={open}
                                         basic
                                     />
