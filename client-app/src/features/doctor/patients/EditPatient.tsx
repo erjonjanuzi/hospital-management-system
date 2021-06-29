@@ -5,12 +5,10 @@ import {
   Button,
   Divider,
   Header,
-
   List,
   Modal,
   Segment
 } from "semantic-ui-react";
-import * as Yup from "yup";
 import MyTextInput from "../../../app/common/form/MyTextInput";
 import { useStore } from "../../../app/stores/store";
 
@@ -18,7 +16,7 @@ interface Props {
   id: string;
 }
 
-export default observer(function ViewPatient({ id }: Props) {
+export default observer(function EditPatient({ id }: Props) {
   const {
     patientStore: { loadPatient, selectedPatient, updatePatient },
     modalStore,
@@ -28,12 +26,6 @@ export default observer(function ViewPatient({ id }: Props) {
     if (id) loadPatient(id);
   }, [id, loadPatient]);
 
-  const validationSchema = Yup.object({
-    firstName: Yup.string().required("First name is required"),
-    lastName: Yup.string().required("Last name is required"),
-    email: Yup.string().email().required("A valid email is required"),
-    age: Yup.string().required("Age is required"),
-  });
   return (
     <>
       <Header as="h1" content="Edit patient informations" />
@@ -44,7 +36,6 @@ export default observer(function ViewPatient({ id }: Props) {
           updatePatient(values).catch((error) => console.log(error))
         }
         enableReinitialize
-        validationSchema={validationSchema}
       >
         {({ handleSubmit, isValid, isSubmitting, dirty }) => (
           <Form className="ui form" onSubmit={handleSubmit} autoComplete="off">
@@ -72,6 +63,12 @@ export default observer(function ViewPatient({ id }: Props) {
                   </List.Header>
                 </List.Item>
                 <Divider />
+                <List.Item>
+                  <List.Header>
+                    Registered Since:
+                    <MyTextInput name="registeredSince" type="date" placeholder="registeredSince" />
+                  </List.Header>
+                </List.Item>
                 <List.Item>
                   <List.Header>
                     Email:

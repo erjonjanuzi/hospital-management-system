@@ -1,7 +1,5 @@
 export interface Analyse {
   id: string;
-  patientFirstName:string;
-  patientLastName:string;
   eritrocite: string;
   hemoglobina: string;
   leukocite: string;
@@ -14,5 +12,21 @@ export interface Analyse {
   urea: string;
   glukoza: string;
   kolesteroli: string;
-  patientId: string;
+  patientsId: string;
+}
+
+export interface AnalyseDto {
+  eritrocite: string;
+  hemoglobina: string;
+  leukocite: string;
+  hemakrotiti: string;
+  tromobocite: string;
+  retikulocite: string;
+  neutrofile: string;
+  limfocite: string;
+  monocite: string;
+  urea: string;
+  glukoza: string;
+  kolesteroli: string;
+  patientsId: string;
 }

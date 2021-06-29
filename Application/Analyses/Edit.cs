@@ -20,7 +20,7 @@ namespace Application.Analyses
         // {
         //     public CommandValidator()
         //     {
-        //         RuleFor(x => x.Patient).SetValidator(new PatientValidator());
+        //         RuleFor(x => x.Analyse).SetValidator(new AnalysisValidator());
         //     }
         // }
 
@@ -36,11 +36,11 @@ namespace Application.Analyses
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var analyse = await context.Analyses.FindAsync(request.Analyse.Id);
+                var analysis = await context.Analyses.FindAsync(request.Analyse.Id);
 
-                if (analyse == null) return null;
+                if (analysis == null) return null;
 
-                mapper.Map(request.Analyse, analyse);
+                mapper.Map(request.Analyse, analysis);
 
                 var result = await context.SaveChangesAsync() > 0;
 

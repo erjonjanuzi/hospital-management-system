@@ -19,7 +19,7 @@ namespace Application.Analyses
         // {
         //     public CommandValidator()
         //     {
-        //         RuleFor(x => x.Analyse).SetValidator(new AnalyseValidator());
+        //         RuleFor(x => x.Analyse).SetValidator(new AnalysisValidator());
         //     }
         // }
 

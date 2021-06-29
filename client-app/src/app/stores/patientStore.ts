@@ -19,7 +19,7 @@ export default class PatientStore {
     get patients() {
         return Array.from(this.patientRegistry.values());
     }
-        
+
     loadPatients = async() => {
         try {
             const patients = await agent.UserPatients.list();
@@ -56,7 +56,7 @@ export default class PatientStore {
             this.loadingInitial = true;
             try {
                 patient = await agent.Patients.details(id);
-                this.setPatient(patient);
+                this.GresasetPatient(patient);
                 runInAction(() => {
                     this.selectedPatient = patient;
                 })
@@ -98,6 +98,11 @@ export default class PatientStore {
                 this.selectedPatient = patient;
                 this.editMode = false;
                 this.loading = false;
+                store.modalStore.closeModal();
+                toast.success("Patient Added Successfully", {
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                })
             })
         } catch (error) {
             console.log(error);
@@ -116,6 +121,7 @@ export default class PatientStore {
                 this.selectedPatient = patient;
                 this.editMode = false;
                 this.loading = false;
+                store.modalStore.closeModal();
             })
         } catch (error) {
             console.log(error);
@@ -123,23 +129,6 @@ export default class PatientStore {
                 this.loading = false;
             })
         }
-    }
-//// selectPatient, cancelSelectedPatient, openForm, closeForm, create jon te shtuara nga Gresa
-    selectPatient = (id: string) => {
-        this.selectedPatient = this.patientRegistry.get(id);
-    }
-
-    cancelSelectedPatient = () => {
-        this.selectedPatient = undefined;
-    }
-
-    closeForm = () => {
-        this.editMode = false;
-    }
-
-    openForm = (id?: string) => {
-        id ? this.selectPatient(id) : this.cancelSelectedPatient();
-        this.editMode = true;
     }
 
     create = async (creds: PatientTable) => {

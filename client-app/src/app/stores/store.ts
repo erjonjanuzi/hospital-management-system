@@ -1,6 +1,5 @@
 import { useContext, createContext } from "react";
 import AccountManagementStore from "./accountManagementStore";
-import AnalyseStore from "./analysisStore";
 import cityStore from "./cityStore";
 import CommonStore from "./commonStore";
 import DiagnosisStore from "./diagnosisStore";
@@ -13,11 +12,12 @@ import BloodBankStore from "./bloodBankStore";
 import AppointmentsStore from "./appointmentsStore";
 import medicalReportStore from "./medicalReportStore";
 
+import AnalysisStore from "./analysisStore";
 
 
 interface Store {
     patientStore: PatientStore;
-    analysisStore: AnalyseStore; // recently added
+    analysisStore: AnalysisStore; 
     commonStore: CommonStore;
     userStore: UserStore;
     modalStore: ModalStore;
@@ -36,7 +36,7 @@ export const store: Store = {
     medicalReportStore : new medicalReportStore(),
     pharmacyStore: new pharmacyStore(),
     patientStore: new PatientStore(),
-    analysisStore: new AnalyseStore(), // recently added
+    analysisStore: new AnalysisStore(), 
     commonStore: new CommonStore(),
     userStore: new UserStore(),
     modalStore: new ModalStore(),

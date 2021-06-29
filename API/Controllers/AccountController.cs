@@ -94,7 +94,8 @@ namespace API.Controllers
                     Email = registerDto.Email,
                     PasswordHash = registerDto.PasswordHash,
                     RegisteredSince = DateTime.Now,
-                    Diagnosis = null
+                    Diagnosis = null,
+                    Analysis = null
                 };
             }
 

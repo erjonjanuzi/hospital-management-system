@@ -24,6 +24,7 @@ namespace Persistence
 
         public DbSet<MedicalReport> MedicalReports { get; set; }
 
+        public DbSet<Analyse> Analyses { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Admin>();
@@ -33,13 +34,12 @@ namespace Persistence
             builder.Entity<Department>();
             builder.Entity<PatientsDetail>();
             builder.Entity<BloodBank>();
-            // builder.Entity<Analyse>();
+            builder.Entity<Analyse>();
 
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
-        public DbSet<Analyse> Analyses { get; set; }
     }
 }

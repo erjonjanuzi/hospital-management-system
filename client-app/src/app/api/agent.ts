@@ -7,13 +7,12 @@ import { store } from "../stores/store";
 import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/user";
 import { Diagnosis, DiagnosisDto } from "../models/diagnosis";
 import { Department,DepartmentTable } from "../models/department";
-import { Analyse } from "../models/analyse";
+import { Analyse, AnalyseDto } from "../models/analyse";
 import { Pharmacy, PharmacyDto } from "../models/pharmacy";
 import { BloodBank,BloodBankTable } from "../models/bloodBank";
 import { Appointment } from "../models/appointment";
 import { MedicalReport,MedicalReportDto } from "../models/medicalReport";
 import { request } from "http";
-
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -109,9 +108,10 @@ const Citys = {
 const Analysis = {
     list: () => requests.get<Analyse[]>('/analysis'),
     details: (id: string) => requests.get<Analyse>(`/analysis/${id}`),
-    create: (user: Analyse) => axios.post<void>('analysis', user),
+    create: (analysis: AnalyseDto) => axios.post<void>('analysis', analysis),
     update: (analyse: Analyse) => axios.put<void>(`/analysis/${analyse.id}`, analyse),
-    delete: (id: string) => axios.delete<void>(`/analysis/${id}`)
+    delete: (id: string) => axios.delete<void>(`/analysis/${id}`),
+    ByPatient: (patientsId: string) => requests.get<Analyse>(`/patientAnalyse/${patientsId}`)
 }
 
 const Departments = {

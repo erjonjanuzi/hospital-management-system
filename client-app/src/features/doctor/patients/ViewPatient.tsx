@@ -2,13 +2,12 @@ import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
 import { Divider, Header, Image, List, Modal, Segment } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
-// import Editing from "./Editing";
 
 interface Props {
   id: string;
 }
 
-export default observer(function ViewPatient2({ id }: Props) {
+export default observer(function ViewPatient({ id }: Props) {
   const {
     patientStore: {
       loadPatient,
@@ -58,7 +57,7 @@ export default observer(function ViewPatient2({ id }: Props) {
             <List.Header>Email: {patient?.email}</List.Header>
           </List.Item>
           <List.Item>
-            <List.Header>Registered Since: {patient?.registeredSince}</List.Header>
+            <List.Header>Registered Since: {patient?.registeredSince.split('T')[0]}</List.Header>
           </List.Item>
         </Modal.Content>
       </Segment>

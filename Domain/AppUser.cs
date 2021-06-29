@@ -28,5 +28,6 @@ namespace Domain
         public override string Role { get; set; } = "patient";
         public ICollection<Diagnosis> Diagnosis { get; set; }
        public ICollection<Appointment> Appointments { get; set; }
+        public ICollection<Analyse> Analysis { get; set; }
     }
 }

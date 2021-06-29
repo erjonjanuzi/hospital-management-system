@@ -5,14 +5,16 @@ using Application.Core;
 using Domain;
 using MediatR;
 using Persistence;
+using System.Linq;
+
 
 namespace Application.Analyses
 {
-    public class Details
+    public class ByPatient
     {
         public class Query : IRequest<Result<Analyse>>
         {
-            public Guid Id { get; set; }
+            public string patientsId { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, Result<Analyse>>
@@ -23,12 +25,12 @@ namespace Application.Analyses
                 this.context = context;
             }
 
-            public async Task<Result<Analyse>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<Analyse>> Handle(Query request, CancellationToken cancellationToken) 
             {
-                var analysis = await context.Analyses.FindAsync(request.Id);
-
-                return Result<Analyse>.Success(analysis);
+                var anaysis =  context.Analyses.SingleOrDefault(anaysis => anaysis.patientsId == request.patientsId);
+                return Result<Analyse>.Success(anaysis);
             }
+
         }
     }
 }

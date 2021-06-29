@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 using Application.Core;
 using MediatR;
 using Persistence;
-
+using System.Linq;
 namespace Application.Analyses
 {
     public class Delete
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public Guid Id { get; set; }
+           public string patientsId { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -24,9 +24,9 @@ namespace Application.Analyses
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var analyse = await context.Analyses.FindAsync(request.Id);
+                var analysis = context.Analyses.SingleOrDefault(analysis => analysis.patientsId == request.patientsId);
 
-                context.Remove(analyse);
+                context.Remove(analysis);
 
                 var result = await context.SaveChangesAsync() > 0;
 

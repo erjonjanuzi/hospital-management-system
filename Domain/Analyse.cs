@@ -6,21 +6,18 @@ namespace Domain
     public class Analyse
     {
         public Guid Id { get; set; }
-        public float Eritrocite { get; set; }
-        public float Hemoglobina { get; set; }
-        public float Leukocite { get; set; }
-        public float Hemakrotiti { get; set; }
-        public float Tromobocite { get; set; }
-        public float Retikulocite { get; set; }
-        public float Neutrofile { get; set; }
-        public float Limfocite { get; set; }
-        public float Monocite { get; set; }
-        public float Urea { get; set; }
-        public float Glukoza { get; set; }
-        public float Kolesteroli { get; set; }
-        public Guid PatientId { get; set; }
-        public string PatientFirstName { get; set; }
-        public string PatientLastName { get; set; }
-        public Patient Patient {get; set;}
+        public string Eritrocite { get; set; }
+        public string Hemoglobina { get; set; }
+        public string Leukocite { get; set; }
+        public string Hemakrotiti { get; set; }
+        public string Tromobocite { get; set; }
+        public string Retikulocite { get; set; }
+        public string Neutrofile { get; set; }
+        public string Limfocite { get; set; }
+        public string Monocite { get; set; }
+        public string Urea { get; set; }
+        public string Glukoza { get; set; }
+        public string Kolesteroli { get; set; }
+        public string patientsId { get; set; }
     }
 }
