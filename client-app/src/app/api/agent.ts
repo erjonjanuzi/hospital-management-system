@@ -13,6 +13,8 @@ import { BloodBank,BloodBankTable } from "../models/bloodBank";
 import { Appointment } from "../models/appointment";
 import { MedicalReport,MedicalReportDto } from "../models/medicalReport";
 import { request } from "http";
+import { Specialty } from "../models/specialty";
+import { DoctorProfile } from "../models/profile";
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -175,6 +177,11 @@ const Appointments = {
     edit: (appointment: Appointment) => axios.put<void>(`/Appointment/edit/${appointment.id}`, appointment)
 }
 
+const Specialties = {
+    list: () => requests.get<Specialty[]>('/specialty'),
+    getDoctorsBySpecialty: (id: any) => requests.get<DoctorProfile[]>(`/Profile/doctorsbyspecialty/${id}`),
+}
+
 const agent = {
     MedicalReports, 
     Pharmacies,
@@ -187,7 +194,8 @@ const agent = {
     AccountsManager,
     BloodBanks,
     Departments,
-    Appointments
+    Appointments,
+    Specialties
 }
 
 export default agent;

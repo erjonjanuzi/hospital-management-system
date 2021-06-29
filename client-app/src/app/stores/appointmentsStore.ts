@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 import agent from "../api/agent";
 import { Appointment } from "../models/appointment";
-import { AccountDto, AccountFormValues, User } from "../models/user";
 import { store } from "./store";
 
 export default class AppointmentsStore {
@@ -166,6 +165,8 @@ export default class AppointmentsStore {
             console.log(error);
         }
     }
+
+    
 
     /*loadPatientAccounts = async() => {
         try {

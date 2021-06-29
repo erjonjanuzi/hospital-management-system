@@ -10,7 +10,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210628190059_InitialCreate")]
+    [Migration("20210629134448_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,55 +27,51 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<float>("Eritrocite")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Glukoza")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Hemakrotiti")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Hemoglobina")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Kolesteroli")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Leukocite")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Limfocite")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Monocite")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Neutrofile")
-                        .HasColumnType("real");
-
-                    b.Property<string>("PatientFirstName")
+                    b.Property<string>("Eritrocite")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("PatientId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("PatientLastName")
+                    b.Property<string>("Glukoza")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Retikulocite")
-                        .HasColumnType("real");
+                    b.Property<string>("Hemakrotiti")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Tromobocite")
-                        .HasColumnType("real");
+                    b.Property<string>("Hemoglobina")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Urea")
-                        .HasColumnType("real");
+                    b.Property<string>("Kolesteroli")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Leukocite")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Limfocite")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Monocite")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Neutrofile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PatientUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Retikulocite")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tromobocite")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Urea")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("patientsId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PatientId")
-                        .IsUnique();
+                    b.HasIndex("PatientUserId");
 
                     b.ToTable("Analyses");
                 });
@@ -408,6 +404,23 @@ namespace Persistence.Migrations
                     b.ToTable("Pharmacies");
                 });
 
+            modelBuilder.Entity("Domain.Specialty", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Specialty");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -550,6 +563,11 @@ namespace Persistence.Migrations
                 {
                     b.HasBaseType("Domain.AppUser");
 
+                    b.Property<Guid?>("SpecialtyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasIndex("SpecialtyId");
+
                     b.HasDiscriminator().HasValue("Doctor");
                 });
 
@@ -562,19 +580,15 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Analyse", b =>
                 {
-                    b.HasOne("Domain.Patient", "Patient")
-                        .WithOne("Analyse")
-                        .HasForeignKey("Domain.Analyse", "PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Patient");
+                    b.HasOne("Domain.PatientUser", null)
+                        .WithMany("Analysis")
+                        .HasForeignKey("PatientUserId");
                 });
 
             modelBuilder.Entity("Domain.Appointment", b =>
                 {
                     b.HasOne("Domain.Doctor", "Doctor")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("DoctorId");
 
                     b.HasOne("Domain.PatientUser", "Patient")
@@ -653,18 +667,24 @@ namespace Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Patient", b =>
-                {
-                    b.Navigation("Analyse");
-                });
-
             modelBuilder.Entity("Domain.Doctor", b =>
                 {
-                    b.Navigation("Appointments");
+                    b.HasOne("Domain.Specialty", "Specialty")
+                        .WithMany("Doctors")
+                        .HasForeignKey("SpecialtyId");
+
+                    b.Navigation("Specialty");
+                });
+
+            modelBuilder.Entity("Domain.Specialty", b =>
+                {
+                    b.Navigation("Doctors");
                 });
 
             modelBuilder.Entity("Domain.PatientUser", b =>
                 {
+                    b.Navigation("Analysis");
+
                     b.Navigation("Appointments");
 
                     b.Navigation("Diagnosis");

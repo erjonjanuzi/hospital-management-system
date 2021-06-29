@@ -28,10 +28,10 @@ namespace API.Controllers
 
             DateTime minValidDate = DateTime.Now.AddDays(2);
 
-            if(DateTime.Compare(appointment.Date, minValidDate) < 0)
+            if (DateTime.Compare(appointment.Date, minValidDate) < 0)
                 return BadRequest("Please pick a date at least three days from today");
 
-            if(appointment.Date.Hour < 8 || appointment.Date.Hour > 20)
+            if (appointment.Date.Hour < 8 || appointment.Date.Hour > 20)
                 return BadRequest("Please pick hours between 08:00AM and 08:00PM");
 
             await context.Appointments.AddAsync(appointment);
@@ -76,7 +76,7 @@ namespace API.Controllers
                 .Where(x => x.PatientId == id)
                 .OrderByDescending(x => x.Date)
                 .ToListAsync();
-                
+
             foreach (Appointment a in appointments)
             {
                 a.Patient = (PatientUser)await context.Users.FindAsync(a.PatientId);

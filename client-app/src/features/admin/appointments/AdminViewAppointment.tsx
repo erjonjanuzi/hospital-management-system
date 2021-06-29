@@ -6,7 +6,6 @@ import { Button, Confirm, Divider, Grid, Header, Icon, Item, Label, Segment } fr
 import MyDateInput from "../../../app/common/form/MyDateInput";
 import MySelectInput from "../../../app/common/form/MySelectInput";
 import { store, useStore } from "../../../app/stores/store";
-import EditAppointment from "./EditAppointment";
 
 interface Props {
     id: string
@@ -14,35 +13,47 @@ interface Props {
 
 export default observer(function ViewAppointment({ id }: Props) {
     const { modalStore, appointmentsStore: { loadAppointment, selectedAppointment, assignDoctor,
-        denyAppointment }, accountManagementStore } = useStore();
+        denyAppointment }, accountManagementStore, specialtyStore } = useStore();
+
     const [form, setForm] = useState(false);
     const [openConfirm, setOpenConfirm] = useState(false);
     const [editMode, setEditMode] = useState(false);
+    const [availableDoctors, setAvailableDoctors] = useState(false);
 
     function open() {
         setOpenConfirm(!openConfirm);
     }
 
-    let doctors = [
-        { key: '', value: '', text: '' }
-    ]
-
-    const insert = async () => {
-        await accountManagementStore.loadAccounts();
-        let temp = accountManagementStore.accounts.filter(x => x.role === 'doctor');
-        for (let i = 0; i < temp.length; i++) {
-            let item = {
-                key: temp[i].id,
-                value: temp[i].id,
-                text: temp[i].firstName + ' ' + temp[i].lastName
+    let specialties = new Array();
+    const insertSpecialties = async () => {
+        await specialtyStore.loadSpecialties();
+        for (let i = 0; i < specialtyStore.specialties.length; i++) {
+            let specialty = {
+                key: specialtyStore.specialties[i].id,
+                value: specialtyStore.specialties[i].id,
+                text: specialtyStore.specialties[i].name
             };
-            doctors.push(item);
+            specialties[i] = specialty;
         }
+    }
+
+    let doctors = new Array();
+    const getAvailableDoctors = async (id: string) => {
+        await specialtyStore.loadDoctors(id);
+        for (let i = 0; i < specialtyStore.doctors.length; i++){
+            let doctor = {
+                key: specialtyStore.doctors[i].id,
+                value: specialtyStore.doctors[i].id,
+                text: specialtyStore.doctors[i].firstName + ' ' + specialtyStore.doctors[i].firstName
+            }
+            doctors[i] = doctor;
+        }
+        setAvailableDoctors(true);
     }
 
     useEffect(() => {
         if (id) loadAppointment(id);
-        insert();
+        insertSpecialties();
     }, [id, loadAppointment, doctors]);
 
     return (
@@ -133,21 +144,40 @@ export default observer(function ViewAppointment({ id }: Props) {
                     {form &&
                         <Segment>
                             <Formik
-                                initialValues={{ appointmentId: selectedAppointment?.id, doctorId: '' }}
-                                onSubmit={(values) => assignDoctor(values.appointmentId, values.doctorId)
-                                    .catch(error => console.log(error))}
+                                initialValues={{ appointmentId: selectedAppointment?.id, specialtyId: '' }}
+                                onSubmit={(values) => getAvailableDoctors(values.specialtyId)}
                                 enableReinitialize
                             >
                                 {({ handleSubmit, isValid, isSubmitting, dirty }) => (
                                     <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
-                                        <MySelectInput placeholder='Doctor' name='doctorId' options={doctors} label='Pick a doctor' />
+                                        <MySelectInput placeholder='Specialty' name='specialtyId' options={specialties} label='Browse specialties' />
                                         <Button disabled={isSubmitting || !dirty || !isValid}
-                                            loading={isSubmitting} positive type='submit' content='Submit'
+                                            loading={isSubmitting} positive type='submit' content='Get Available doctors'
                                         />
                                         <Button basic color='red' content='Cancel' onClick={() => setForm(false)} />
                                     </Form>
                                 )}
                             </Formik>
+                            <br />
+                            {
+                                availableDoctors &&
+                                <Formik
+                                initialValues={{ appointmentId: selectedAppointment?.id, doctorId: '' }}
+                                onSubmit={(values) => assignDoctor(selectedAppointment?.id, values.doctorId)}
+                                enableReinitialize
+                            >
+                                {({ handleSubmit, isValid, isSubmitting, dirty }) => (
+                                    
+                                    <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
+                                        <MySelectInput placeholder='Doctor' name='doctorId' options={doctors} label='Available doctors' />
+                                        <Button disabled={isSubmitting || !dirty || !isValid}
+                                            loading={isSubmitting} positive type='submit' content='Submit'
+                                        />
+                                        <Button basic color='red' content='Cancel' onClick={() => setAvailableDoctors(false)} />
+                                    </Form>
+                                )}
+                            </Formik>
+                            }
                         </Segment>}
                     <Confirm
                         open={openConfirm}

@@ -402,6 +402,23 @@ namespace Persistence.Migrations
                     b.ToTable("Pharmacies");
                 });
 
+            modelBuilder.Entity("Domain.Specialty", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Specialty");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -544,6 +561,11 @@ namespace Persistence.Migrations
                 {
                     b.HasBaseType("Domain.AppUser");
 
+                    b.Property<Guid?>("SpecialtyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasIndex("SpecialtyId");
+
                     b.HasDiscriminator().HasValue("Doctor");
                 });
 
@@ -564,7 +586,7 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Appointment", b =>
                 {
                     b.HasOne("Domain.Doctor", "Doctor")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("DoctorId");
 
                     b.HasOne("Domain.PatientUser", "Patient")
@@ -643,25 +665,25 @@ namespace Persistence.Migrations
                         .IsRequired();
                 });
 
-<<<<<<< Updated upstream
-            modelBuilder.Entity("Domain.Patient", b =>
-                {
-                    b.Navigation("Analyse");
-                });
-
             modelBuilder.Entity("Domain.Doctor", b =>
                 {
-                    b.Navigation("Appointments");
+                    b.HasOne("Domain.Specialty", "Specialty")
+                        .WithMany("Doctors")
+                        .HasForeignKey("SpecialtyId");
+
+                    b.Navigation("Specialty");
                 });
 
-            modelBuilder.Entity("Domain.PatientUser", b =>
+            modelBuilder.Entity("Domain.Specialty", b =>
                 {
-                    b.Navigation("Appointments");
-=======
+                    b.Navigation("Doctors");
+                });
+
             modelBuilder.Entity("Domain.PatientUser", b =>
                 {
                     b.Navigation("Analysis");
->>>>>>> Stashed changes
+
+                    b.Navigation("Appointments");
 
                     b.Navigation("Diagnosis");
                 });

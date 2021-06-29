@@ -16,12 +16,9 @@ namespace Persistence
 
         public DbSet<Pharmacy> Pharmacies { get; set; }
         public DbSet<BloodBank> BloodBanks { get; set; }
-
         public DbSet<PatientsDetail> PatientsDetails { get; set; }
-
         public DbSet<Appointment> Appointments { get; set; }
-
-
+        public DbSet<Specialty> Specialty { get; set; }
         public DbSet<MedicalReport> MedicalReports { get; set; }
 
         public DbSet<Analyse> Analyses { get; set; }
@@ -35,6 +32,8 @@ namespace Persistence
             builder.Entity<PatientsDetail>();
             builder.Entity<BloodBank>();
             builder.Entity<Analyse>();
+            builder.Entity<Specialty>();
+            // builder.Entity<Analyse>();
 
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.
