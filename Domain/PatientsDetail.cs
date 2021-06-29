@@ -2,7 +2,7 @@ using System;
 
 namespace Domain
 {
-    public class PatientsDetail
+    public class PersonalInfo
     {
         public Guid Id { get; set; }
         public DateTime DateOfBirth { get; set; }

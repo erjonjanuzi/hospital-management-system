@@ -7,22 +7,22 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-namespace Application.PatientsDetails
+namespace Application.PersonalInfos
 {
     public class List{
-        public class Query : IRequest<Result<List<PatientsDetail>>>
+        public class Query : IRequest<Result<List<PersonalInfo>>>
         {
         }
-        public class Handler : IRequestHandler<Query, Result<List<PatientsDetail>>>
+        public class Handler : IRequestHandler<Query, Result<List<PersonalInfo>>>
         {
             private readonly DataContext context;
             public Handler(DataContext context)
             {
                 this.context = context;
             }
-            public async Task<Result<List<PatientsDetail>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<PersonalInfo>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return Result<List<PatientsDetail>>.Success(await context.PatientsDetails.ToListAsync(cancellationToken));
+                return Result<List<PersonalInfo>>.Success(await context.PersonalInfo.ToListAsync(cancellationToken));
             }
         }
     }

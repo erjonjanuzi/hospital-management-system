@@ -16,12 +16,15 @@ namespace Persistence
 
         public DbSet<Pharmacy> Pharmacies { get; set; }
         public DbSet<BloodBank> BloodBanks { get; set; }
-        public DbSet<PatientsDetail> PatientsDetails { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Specialty> Specialty { get; set; }
         public DbSet<MedicalReport> MedicalReports { get; set; }
 
         public DbSet<Analyse> Analyses { get; set; }
+
+
+        //Info Details
+        public DbSet<PersonalInfo> PersonalInfo { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Admin>();
@@ -29,7 +32,7 @@ namespace Persistence
             builder.Entity<PatientUser>();
             builder.Entity<Diagnosis>();
             builder.Entity<Department>();
-            builder.Entity<PatientsDetail>();
+            builder.Entity<PersonalInfo>();
             builder.Entity<BloodBank>();
             builder.Entity<Analyse>();
             builder.Entity<Specialty>();

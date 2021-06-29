@@ -1,29 +1,18 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Core;
-using Domain;
-using FluentValidation;
 using MediatR;
 using Persistence;
 
-
-namespace Application.PatientsDetails
+namespace Application.PersonalInfos
 {
-    public class Create
+    public class Delete
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public PatientsDetail PatientsDetail { get; set; }
+            public Guid Id { get; set; }
         }
-
-        public class CommandValidator : AbstractValidator<Command>
-        {
-            public CommandValidator()
-            {
-                RuleFor(x => x.PatientsDetail).SetValidator(new PatientDetailsValidator());
-            }
-        }
-
 
         public class Handler : IRequestHandler<Command, Result<Unit>>
         {
@@ -35,11 +24,13 @@ namespace Application.PatientsDetails
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                context.PatientsDetails.Add(request.PatientsDetail);
+                var details = await context.PersonalInfo.FindAsync(request.Id);
+
+                context.Remove(details);
 
                 var result = await context.SaveChangesAsync() > 0;
 
-                if (!result) return Result<Unit>.Failure("Failed to add Patient's Details");
+                if (!result) return Result<Unit>.Failure("Failed to delete personal info");
 
                 return Result<Unit>.Success(Unit.Value);
             }
