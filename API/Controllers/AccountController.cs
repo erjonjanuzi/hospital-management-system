@@ -95,7 +95,8 @@ namespace API.Controllers
                     PasswordHash = registerDto.PasswordHash,
                     RegisteredSince = DateTime.Now,
                     Diagnosis = null,
-                    Analysis = null
+                    Analysis = null,
+                    PersonalInfos = null
                 };
             }
 

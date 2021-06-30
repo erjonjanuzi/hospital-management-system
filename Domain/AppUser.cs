@@ -30,5 +30,6 @@ namespace Domain
         public ICollection<Diagnosis> Diagnosis { get; set; }
        public ICollection<Appointment> Appointments { get; set; }
         public ICollection<Analyse> Analysis { get; set; }
+        public ICollection<PersonalInfo> PersonalInfos {get; set;}
     }
 }

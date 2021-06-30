@@ -22,9 +22,9 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePatientesDetails(PersonalInfo details)
+        public async Task<IActionResult> CreatePatientesDetails(PersonalInfo PersonalInfo)
         {
-            return HandleResult(await Mediator.Send(new Create.Command { PersonalInfo = details }));
+            return HandleResult(await Mediator.Send(new Create.Command { PersonalInfo = PersonalInfo }));
         }
 
         [HttpPut("{id}")]

@@ -1,6 +1,9 @@
 Modulet e Nodes
 cd client-app > npm install
 
+Librarite e dotnet
+cd api > dotnet restore
+
 Database
 user: .
 name:
