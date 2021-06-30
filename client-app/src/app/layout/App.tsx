@@ -21,7 +21,6 @@ import PatientDashboard from '../../features/patients/dashboard/PatientDashboard
 import DoctorPatientsTable from '../../features/doctor/patients/DoctorPatientsTable';
 import Diagnosis from '../../features/doctor/diagnosis/Diagnosis';
 import AnalysisTable from '../../features/doctor/analysis/AnalysisTable';
-import CityTable from '../../features/admin/city/CityTable';
 import PharmacyProductTable from '../../features/admin/pharmacyProducts/PharmacyProductTable';
 import BloodManagment from '../../features/doctor/bloodBank/BloodManagement';
 import PatientAppointments from '../../features/patients/appointments/PatientAppointments';
@@ -29,6 +28,9 @@ import MedicalReportsTable from '../../features/doctor/medicalReports/MedicalRep
 import AdminAppointments from '../../features/admin/appointments/AdminAppointments';
 import PharmacyTable from '../../features/patients/Pharmacy/PharmacyTable';
 import RoomManagement from '../../features/admin/rooms/RoomManagement';
+import DoctorAppointments from '../../features/doctor/appointments/DoctorAppointments';
+import Countries from '../../features/admin/countries/Countries';
+
 
 function App() {
   const { commonStore, userStore } = useStore()
@@ -58,7 +60,7 @@ function App() {
                 {/* Admin Routes */}
                 <PrivateRoute path='/admin/accounts' component={AdminAccountsTable} />
                 <PrivateRoute path='/admin/departments' component={DepartmentsPage} />
-                <PrivateRoute path='/admin/city/' component={CityTable}/>
+                <PrivateRoute path='/admin/countries' component={Countries} />
                 <PrivateRoute path='/admin/pharmacyProducts/' component={PharmacyProductTable}/>
                 <PrivateRoute path='/admin/appointments/' component={AdminAppointments}/>
                 <PrivateRoute path='/admin/rooms/' component={RoomManagement}/>
@@ -72,6 +74,7 @@ function App() {
                 <PrivateRoute exact path='/doctor/bloodBank' component={BloodManagment} />
                 <PrivateRoute exact path='/doctor/analysis' component={AnalysisTable} />
                 <PrivateRoute exact path='/doctor/medicalReports' component={MedicalReportsTable} />
+                <PrivateRoute exact path='/doctor/appointments' component={DoctorAppointments} />
 
 
                 

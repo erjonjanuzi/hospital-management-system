@@ -1,124 +1,110 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
-import { City, CityDto} from "../models/city";
+import { City } from "../models/city";
 import { store } from "./store";
 import { toast } from "react-toastify";
 
 
-export default class cityStore{
+export default class cityStore {
     cityRegistry = new Map<string, City>();
-    seletedCity : City | undefined = undefined;
+    seletedCity: City | undefined = undefined;
     editMode = false;
     loading = false;
     loadingInitial = false;
 
-    constructor(){
+    constructor() {
         makeAutoObservable(this);
     }
 
-    get citys(){
+    get citys() {
         return Array.from(this.cityRegistry.values());
     }
 
-    loadCities = async() =>{
-        try{
+    loadCities = async () => {
+        try {
             const citys = await agent.Citys.list();
-            citys.forEach(city =>{
+            citys.forEach(city => {
                 this.setCity(city);
             })
             this.loadingInitial = false;
-        }catch (error){
+        } catch (error) {
             console.log(error);
             this.setLoadingInitial(false);
         }
     }
-    
-    loadCity = async (id: string) =>{
+
+    loadCity = async (id: string) => {
         let city = this.getCity(id);
-        if(city){
+        if (city) {
             this.seletedCity = city;
             return city;
-        }else{
+        } else {
             this.loadingInitial = true;
-        try{
-            city = await agent.Citys.details(id);
-            this.setCity(city);
-            runInAction(()=>{
-                this.seletedCity = city;
-            })
-            this.setLoadingInitial(false);
-            return city;
-        }catch(error){
-            console.log(error);
-            this.setLoadingInitial(false);
+            try {
+                city = await agent.Citys.details(id);
+                this.setCity(city);
+                runInAction(() => {
+                    this.seletedCity = city;
+                })
+                this.setLoadingInitial(false);
+                return city;
+            } catch (error) {
+                console.log(error);
+                this.setLoadingInitial(false);
             }
         }
     }
 
-    private setCity =(city : City) =>{
-        this.cityRegistry.set(city.name,city);
+    private setCity = (city: City) => {
+        this.cityRegistry.set(city.name, city);
     }
 
-    private getCity =(id : string) =>{
+    private getCity = (id: string) => {
         return this.cityRegistry.get(id);
     }
 
-    setLoadingInitial = (state : boolean) =>{
+    setLoadingInitial = (state: boolean) => {
         this.loadingInitial = state;
     }
 
-    createCity = async (city : CityDto) =>{
-        this.loading = true;
-        try{
+    createCity = async (city: City) => {
+        try {
+            if (city == null) return null;
+
             await agent.Citys.create(city);
-            runInAction(()=>{
-                this.loadCities();
-            })
+            
             toast.success('City added successfully');
-        }catch(error) {
+        } catch (error) {
             console.log(error);
-            runInAction(()=>{
-                this.loading=false;
-            }) 
         }
     }
 
-
-    updateCity = async (city : City)=>{
-        this.loading=true;
-        try{
+    updateCity = async (city: City) => {
+        this.loading = true;
+        try {
             await agent.Citys.update(city);
-            runInAction(()=>{
+            runInAction(() => {
                 this.loadCities();
             })
             toast.success('City updated successfully');
             store.modalStore.closeModal();
-        }catch(error) {
+        } catch (error) {
             console.log(error);
-            runInAction(()=>{
+            runInAction(() => {
                 this.loading = false;
             })
-        } 
+        }
     }
 
-    deleteCity = async (id : string)=>{
-        this.loading=true;
-        try{
-            if(window.confirm('Are you sure you want to delete this city?')){
+    deleteCity = async (id: string) => {
+        try {
             await agent.Citys.delete(id);
-            runInAction(()=>{
+            runInAction(() => {
                 this.cityRegistry.delete(id);
-                this.loading=false;
-                store.modalStore.closeModal();
-                window.location.reload();
             })
             toast.success('City deleted successfully');
-            }
-        }catch(error){
+        } catch (error) {
             console.log(error);
-            runInAction(()=>{
-                this.loading=false;
-            })
         }
     }
 }

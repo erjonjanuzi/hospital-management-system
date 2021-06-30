@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { history } from '../..';
 import { toast } from "react-toastify";
 import { Patient, PatientTable } from "../models/patient";
-import { City, CityDto } from "../models/city"
+import { City, Country } from "../models/city"
 import { store } from "../stores/store";
 import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/user";
 import { Diagnosis, DiagnosisDto } from "../models/diagnosis";
@@ -12,7 +12,6 @@ import { Pharmacy, PharmacyDto } from "../models/pharmacy";
 import { BloodBank,BloodBankTable } from "../models/bloodBank";
 import { Appointment } from "../models/appointment";
 import { MedicalReport,MedicalReportDto } from "../models/medicalReport";
-import { request } from "http";
 import { Specialty } from "../models/specialty";
 import { DoctorProfile } from "../models/profile";
 import { Room,RoomDto } from "../models/room";
@@ -104,9 +103,18 @@ const Citys = {
     list: () => requests.get<City[]>('/citys'),
     details: (id: string) => requests.get<City>(`/citys/${id}`),
     delete: (id: string) => axios.delete<void>(`/citys/${id}`),
-    create: (city: CityDto) => requests.post<void>('/citys/', city),
+    create: (city: City) => requests.post<void>('/citys/', city),
     update: (city: City) => axios.put<void>(`/citys/${city.id}`, city)
 }
+
+const Countries = {
+    list: () => requests.get<Country[]>('/Country'),
+    create: (country: Country) => requests.post<void>('/Country', country),
+    details: (id: any) => requests.get<Country>(`/Country/${id}`),
+    delete: (id: any) => axios.delete<void>(`/Country/${id}`),
+    update: (country: Country) => axios.put<void>(`/Country/${country.id}`, country)
+}
+
 
 const Analysis = {
     list: () => requests.get<Analyse[]>('/analysis'),
@@ -205,7 +213,8 @@ const agent = {
     Departments,
     Appointments,
     Rooms,
-    Specialties
+    Specialties,
+    Countries
 }
 
 export default agent;

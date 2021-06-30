@@ -1,9 +1,12 @@
-
 export interface City {
-    id : string;
+    id?: string;
     name: string;
+    zip: string;
+    countryId: string;
 }
 
-export interface CityDto{
-    name : string;
+export interface Country {
+    id: string;
+    name: string;
+    cities?: City[];
 }

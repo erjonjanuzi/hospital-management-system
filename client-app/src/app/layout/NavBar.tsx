@@ -10,14 +10,15 @@ export default observer(function NavBar() {
     { key: 'dashboard', name: 'Dashboard', to: '/admin/dashboard' },
     { key: 'accounts', name: 'Accounts Management', to: '/admin/accounts' },
     { key: 'appointments', name: 'Appointments', to: '/admin/appointments' },
+    { key: 'countries', name: 'Countries, Cities and Nationalities', to: '/admin/countries' },
     { key: 'departments', name: 'Departments', to: '/admin/departments' },
-    { key: 'city', name: 'City', to: '/admin/city' },
     { key: 'pharmacyProducts', name: 'PharmacyProducts', to: '/admin/pharmacyProducts' },
-    { key: 'rooms', name: 'Room Management', to: '/admin/rooms' }
+    { key: 'rooms', name: 'Room Management', to: '/admin/rooms' },
   ]
 
   const doctorLinks = [
     { key: 'dashboard', name: 'Dashboard', to: '/doctor/dashboard' },
+    { key: 'appointments', name: 'Appointments', to: '/doctor/appointments' },
     { key: 'patients', name: 'Table Patient\'s', to: '/doctor/patients' },
     { key: 'register-patient', name: 'Register Patient', to: '/doctor/register-patient' },
     { key: 'diagnosis', name: 'Patient\'s Diagnosis', to: '/doctor/diagnosis' },
