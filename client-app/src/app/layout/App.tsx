@@ -15,7 +15,7 @@ import PrivateRoute from './PrivateRoute';
 import './style.css';
 import DepartmentsPage from '../../features/admin/departments/DepartmentsPage';
 import PatientProfile from '../../features/patients/my-profile/PatientProfile';
-import RegisterPatient from '../../features/doctor/RegisterPatient';
+import RegisterPatient from '../../features/doctor/RegisterPatients/RegisterPatient';
 import AdminAccountsTable from '../../features/admin/accounts/AdminAccountsTable';
 import PatientDashboard from '../../features/patients/dashboard/PatientDashboard';
 import DoctorPatientsTable from '../../features/doctor/patients/DoctorPatientsTable';
@@ -30,7 +30,7 @@ import PharmacyTable from '../../features/patients/Pharmacy/PharmacyTable';
 import RoomManagement from '../../features/admin/rooms/RoomManagement';
 import DoctorAppointments from '../../features/doctor/appointments/DoctorAppointments';
 import Countries from '../../features/admin/countries/Countries';
-
+import RegisteredPatientsFromDoc from '../../features/admin/RegisteredPatients/RegisteredPatientsFromDoc';
 
 function App() {
   const { commonStore, userStore } = useStore()
@@ -64,6 +64,7 @@ function App() {
                 <PrivateRoute path='/admin/pharmacyProducts/' component={PharmacyProductTable}/>
                 <PrivateRoute path='/admin/appointments/' component={AdminAppointments}/>
                 <PrivateRoute path='/admin/rooms/' component={RoomManagement}/>
+                <PrivateRoute path='/admin/registeredPatients/' component={RegisteredPatientsFromDoc}/>
 
 
 

@@ -20,7 +20,7 @@ export default observer(function PharmacyProductTable(){
         <>
         <Segment>
             <Button inverted color='green' content='Add Pharmacy Products' onClick={() => modalStore.openModal(<AddNewProductForm/>)}/>
-            <Header content='Pharmacy Products' />
+            <Header as='h1' content='Pharmacy Products' color='green' inverted />
             <Header sub content='All Products' />
             <Table textAlign="center" color='green'>
 
@@ -34,7 +34,7 @@ export default observer(function PharmacyProductTable(){
                         <Table.HeaderCell>Manufacturer <Icon name='angle down'/></Table.HeaderCell>
                         <Table.HeaderCell>Prescription <Icon name='angle down'/></Table.HeaderCell>
                         <Table.HeaderCell>Mg <Icon name='angle down'/></Table.HeaderCell>
-                        <Table.HeaderCell>Price <Icon name='angle down'/></Table.HeaderCell>
+                        <Table.HeaderCell>Price<Icon name='euro'></Icon> <Icon name='angle down'/></Table.HeaderCell>
                         <Table.HeaderCell>Modification Date <Icon name='angle down'/></Table.HeaderCell>
                         <Table.HeaderCell>Quantity <Icon name='angle down'/></Table.HeaderCell>
                         <Table.HeaderCell>Edit/Delete <Icon name='angle down'/></Table.HeaderCell>
@@ -52,7 +52,7 @@ export default observer(function PharmacyProductTable(){
                                     <Table.Cell>{pharmacy.manufacturer}</Table.Cell> 
                                     <Table.Cell>{pharmacy.prescription}</Table.Cell>
                                     <Table.Cell>{pharmacy.mg}</Table.Cell> 
-                                    <Table.Cell>{pharmacy.price}</Table.Cell>
+                                    <Table.Cell>{pharmacy.price}<Icon name='euro'></Icon></Table.Cell>
                                     <Table.Cell>{pharmacy.modificationDate.split('T')[0]}</Table.Cell>
                                     <Table.Cell>{pharmacy.quantity}</Table.Cell>
                                     <Table.Cell>

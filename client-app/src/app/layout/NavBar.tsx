@@ -14,13 +14,16 @@ export default observer(function NavBar() {
     { key: 'departments', name: 'Departments', to: '/admin/departments' },
     { key: 'pharmacyProducts', name: 'PharmacyProducts', to: '/admin/pharmacyProducts' },
     { key: 'rooms', name: 'Room Management', to: '/admin/rooms' },
+    { key: 'city', name: 'City', to: '/admin/city' },
+    { key: 'pharmacyProducts', name: 'Pharmacy Products', to: '/admin/pharmacyProducts' },
+    { key: 'registeredPatients', name: 'Registered Patients', to: '/admin/registeredPatients' }
   ]
 
   const doctorLinks = [
     { key: 'dashboard', name: 'Dashboard', to: '/doctor/dashboard' },
     { key: 'appointments', name: 'Appointments', to: '/doctor/appointments' },
     { key: 'patients', name: 'Table Patient\'s', to: '/doctor/patients' },
-    { key: 'register-patient', name: 'Register Patient', to: '/doctor/register-patient' },
+    { key: 'register-patient', name: 'Register Patients', to: '/doctor/register-patient' },
     { key: 'diagnosis', name: 'Patient\'s Diagnosis', to: '/doctor/diagnosis' },
     { key: 'analysis', name: 'Patient\'s Analysis', to: '/doctor/analysis' },
     { key: 'bloodBank', name: 'Blood Bank Management', to: '/doctor/bloodBank' },

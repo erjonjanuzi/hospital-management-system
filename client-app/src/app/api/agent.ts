@@ -15,6 +15,7 @@ import { MedicalReport,MedicalReportDto } from "../models/medicalReport";
 import { Specialty } from "../models/specialty";
 import { DoctorProfile } from "../models/profile";
 import { Room,RoomDto } from "../models/room";
+import { RegisterPatient, RegisterPatientDto } from "../models/registerPatients";
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -81,6 +82,14 @@ const Patients = {
     create: (user: PatientTable) => axios.post<void>('patients', user),
     update: (patient: Patient) => axios.put<void>(`/patients/${patient.id}`, patient),
     delete: (id: string) => axios.delete<void>(`/patients/${id}`)
+}
+
+const RegisterPatients = {
+    list: () => requests.get<RegisterPatient[]>('/registerPatients'),
+    details: (id: string) => requests.get<RegisterPatient>(`/registerPatients/${id}`),
+    create: (user: RegisterPatientDto) => axios.post<void>('registerPatients', user),
+    update: (registerPatient: RegisterPatient) => axios.put<void>(`/registerPatients/${registerPatient.id}`, registerPatient),
+    delete: (id: string) => axios.delete<void>(`/registerPatients/${id}`)
 }
 
 const Pharmacies ={
@@ -200,7 +209,8 @@ const Specialties = {
 }
 
 const agent = {
-    MedicalReports, 
+    MedicalReports,
+    RegisterPatients, 
     Pharmacies,
     Analysis,
     DiagnosisManager,

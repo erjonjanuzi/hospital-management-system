@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { useStore } from "../../../app/stores/store";
 import * as Yup from 'yup';
-import { Button, Divider, Form, Header } from "semantic-ui-react";
+import { Button, Divider, Form, Header, Icon } from "semantic-ui-react";
 import { Formik } from "formik";
 import MyTextInput from "../../../app/common/form/MyTextInput";
 
@@ -65,7 +65,7 @@ export default observer(function ViewPharmacyProduct({id}:Props){
                         </Form.Field>
                         </Form.Group>
                         <Form.Group widths={2}>
-                        <Form.Field><h5>Price:</h5>
+                        <Form.Field><h5>Price<Icon name='euro'>:</Icon></h5>
                         <MyTextInput  name='price' placeholder='Price'/>
                         </Form.Field>
                         <Form.Field><h5>Quantity:</h5>

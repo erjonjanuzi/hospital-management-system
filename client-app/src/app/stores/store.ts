@@ -15,9 +15,11 @@ import SpecialtyStore from "./specialtyStore";
 import RoomStore from "./roomStore";
 import AnalysisStore from "./analysisStore";
 import CountriesStore from "./countriesStore";
+import RegisterPatientStore from "./registerPatientStore";
 
 
 interface Store {
+    registerPatientStore : RegisterPatientStore;
     patientStore: PatientStore;
     analysisStore: AnalysisStore; 
     commonStore: CommonStore;
@@ -37,6 +39,7 @@ interface Store {
 }
 
 export const store: Store = {
+    registerPatientStore : new RegisterPatientStore(),
     medicalReportStore : new medicalReportStore(),
     pharmacyStore: new pharmacyStore(),
     patientStore: new PatientStore(),
