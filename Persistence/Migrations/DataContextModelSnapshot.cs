@@ -417,6 +417,32 @@ namespace Persistence.Migrations
                     b.ToTable("Pharmacies");
                 });
 
+            modelBuilder.Entity("Domain.Room", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Department")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Floor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Patient")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoomNo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoomType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rooms");
+                });
+
             modelBuilder.Entity("Domain.Specialty", b =>
                 {
                     b.Property<Guid>("Id")

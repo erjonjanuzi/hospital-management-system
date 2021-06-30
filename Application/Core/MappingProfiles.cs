@@ -16,6 +16,7 @@ namespace Application.Core
             CreateMap<MedicalReport, MedicalReport>();
             CreateMap<Appointment, Appointment>();
             CreateMap<Specialty, Specialty>();
+            CreateMap<Room, Room>();
         }
     }
 }

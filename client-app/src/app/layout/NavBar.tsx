@@ -12,7 +12,8 @@ export default observer(function NavBar() {
     { key: 'appointments', name: 'Appointments', to: '/admin/appointments' },
     { key: 'departments', name: 'Departments', to: '/admin/departments' },
     { key: 'city', name: 'City', to: '/admin/city' },
-    { key: 'pharmacyProducts', name: 'PharmacyProducts', to: '/admin/pharmacyProducts' }
+    { key: 'pharmacyProducts', name: 'PharmacyProducts', to: '/admin/pharmacyProducts' },
+    { key: 'rooms', name: 'Room Management', to: '/admin/rooms' }
   ]
 
   const doctorLinks = [

@@ -12,7 +12,7 @@ import BloodBankStore from "./bloodBankStore";
 import AppointmentsStore from "./appointmentsStore";
 import medicalReportStore from "./medicalReportStore";
 import SpecialtyStore from "./specialtyStore";
-
+import RoomStore from "./roomStore";
 import AnalysisStore from "./analysisStore";
 
 
@@ -31,6 +31,7 @@ interface Store {
     appointmentsStore: AppointmentsStore
     medicalReportStore : medicalReportStore;
     specialtyStore: SpecialtyStore
+    roomStore: RoomStore
 }
 
 export const store: Store = {
@@ -47,7 +48,8 @@ export const store: Store = {
     bloodBankStore: new BloodBankStore(),
     diagnosisStore: new DiagnosisStore(),
     appointmentsStore: new AppointmentsStore(),
-    specialtyStore: new SpecialtyStore()
+    specialtyStore: new SpecialtyStore(),
+    roomStore: new RoomStore()
 }
 
 export const StoreContext = createContext(store);

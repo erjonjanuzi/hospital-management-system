@@ -10,7 +10,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210630112533_InitialCreate")]
+    [Migration("20210630130756_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -417,6 +417,32 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pharmacies");
+                });
+
+            modelBuilder.Entity("Domain.Room", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Department")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Floor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Patient")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoomNo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoomType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rooms");
                 });
 
             modelBuilder.Entity("Domain.Specialty", b =>

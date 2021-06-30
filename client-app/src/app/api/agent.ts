@@ -15,6 +15,7 @@ import { MedicalReport,MedicalReportDto } from "../models/medicalReport";
 import { request } from "http";
 import { Specialty } from "../models/specialty";
 import { DoctorProfile } from "../models/profile";
+import { Room,RoomDto } from "../models/room";
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -133,6 +134,14 @@ const BloodBanks = {
     update: (bloodBank: BloodBank) => axios.put<void>(`/bloodBank/${bloodBank.id}`, bloodBank),
 
 }
+const Rooms = {
+    list: () => requests.get<Room[]>('/rooms'),
+    details: (id: string) => requests.get<Room>(`/rooms/${id}`),
+    delete: (id: string) => axios.delete<void>(`/rooms/${id}`),
+    create: (room: RoomDto) => axios.post<void>('rooms', room),
+    update: (room: Room) => axios.put<void>(`/rooms/${room.id}`, room),
+
+}
 
 const Account = {
     current: () => requests.get<User>('/account'),
@@ -195,6 +204,7 @@ const agent = {
     BloodBanks,
     Departments,
     Appointments,
+    Rooms,
     Specialties
 }
 

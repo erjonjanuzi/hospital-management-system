@@ -19,6 +19,7 @@ namespace Persistence
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Specialty> Specialty { get; set; }
         public DbSet<MedicalReport> MedicalReports { get; set; }
+        public DbSet<Room> Rooms { get; set; }
 
         public DbSet<Analyse> Analyses { get; set; }
 
@@ -36,6 +37,7 @@ namespace Persistence
             builder.Entity<BloodBank>();
             builder.Entity<Analyse>();
             builder.Entity<Specialty>();
+            builder.Entity<Room>();
             // builder.Entity<Analyse>();
 
             base.OnModelCreating(builder);

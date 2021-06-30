@@ -118,6 +118,22 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Rooms",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoomNo = table.Column<int>(type: "int", nullable: false),
+                    RoomType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Floor = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Department = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Patient = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rooms", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Specialty",
                 columns: table => new
                 {
@@ -495,6 +511,9 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Pharmacies");
+
+            migrationBuilder.DropTable(
+                name: "Rooms");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
