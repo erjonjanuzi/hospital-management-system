@@ -15,6 +15,7 @@ import SpecialtyStore from "./specialtyStore";
 import RoomStore from "./roomStore";
 import AnalysisStore from "./analysisStore";
 import CountriesStore from "./countriesStore";
+import PersonalInfoStore from "./personalInfoStore";
 
 
 interface Store {
@@ -34,6 +35,7 @@ interface Store {
     specialtyStore: SpecialtyStore,
     roomStore: RoomStore,
     countriesStore: CountriesStore
+    personalInfoStore: PersonalInfoStore
 }
 
 export const store: Store = {
@@ -52,7 +54,8 @@ export const store: Store = {
     appointmentsStore: new AppointmentsStore(),
     specialtyStore: new SpecialtyStore(),
     roomStore: new RoomStore(),
-    countriesStore: new CountriesStore()
+    countriesStore: new CountriesStore(),
+    personalInfoStore: new PersonalInfoStore()
 }
 
 export const StoreContext = createContext(store);

@@ -16,13 +16,13 @@ namespace Application.PersonalInfos
             public PersonalInfo PersonalInfo { get; set; }
         }
 
-        public class CommandValidator : AbstractValidator<Command>
-        {
-            public CommandValidator()
-            {
-                RuleFor(x => x.PersonalInfo).SetValidator(new PersonalInfoValidator());
-            }
-        }
+        // public class CommandValidator : AbstractValidator<Command>
+        // {
+        //     public CommandValidator()
+        //     {
+        //         RuleFor(x => x.PersonalInfo).SetValidator(new PersonalInfoValidator());
+        //     }
+        // }
 
 
         public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -39,7 +39,7 @@ namespace Application.PersonalInfos
 
                 var result = await context.SaveChangesAsync() > 0;
 
-                if (!result) return Result<Unit>.Failure("Failed to add Patient's Details");
+                if (!result) return Result<Unit>.Failure("Failed to add Personal Info");
 
                 return Result<Unit>.Success(Unit.Value);
             }

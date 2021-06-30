@@ -15,6 +15,7 @@ import { MedicalReport,MedicalReportDto } from "../models/medicalReport";
 import { Specialty } from "../models/specialty";
 import { DoctorProfile } from "../models/profile";
 import { Room,RoomDto } from "../models/room";
+import { PersonalInfo, PersonalInfoDTO } from "../models/personalInfo";
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -199,6 +200,14 @@ const Specialties = {
     getDoctorsBySpecialty: (id: any) => requests.get<DoctorProfile[]>(`/Profile/doctorsbyspecialty/${id}`),
 }
 
+const PersonalInfos = {
+    list: () => requests.get<PersonalInfo[]>('/personalInfo'),
+    delete: (id: string) => axios.delete<void>(`/personalInfo/${id}`),
+    details: (id: string) => requests.get<PersonalInfo>(`/personalInfo/${id}`),
+    update: (personalInfo: PersonalInfo) => axios.put<void>(`/personalInfo/${personalInfo.id}`, personalInfo),
+    create: (personalInfo: PersonalInfoDTO) => axios.post<void>('/personalInfo', personalInfo),
+}
+
 const agent = {
     MedicalReports, 
     Pharmacies,
@@ -214,7 +223,8 @@ const agent = {
     Appointments,
     Rooms,
     Specialties,
-    Countries
+    Countries,
+    PersonalInfos
 }
 
 export default agent;
