@@ -10,7 +10,7 @@ interface Props{
     id : string;
 }
 
-export default observer(function ViewPharmacyProductPage({id}:Props){
+export default observer(function ViewPharmacyProduct({id}:Props){
 
     const{pharmacyStore :{loadPharmacy,selectedPharmacy,updatePharmacy},modalStore} = useStore();
 
@@ -34,31 +34,45 @@ export default observer(function ViewPharmacyProductPage({id}:Props){
                 enableReinitialize
                 validationSchema={validationSchema}
             >
-                {({ handleSubmit, isValid, isSubmitting, dirty }) => (
+                {({ handleSubmit}) => (
                     <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
                         <Header sub content='Pharmacy Product Details' color='green' inverted/>
                         <Form.Group widths={2}> 
-                        <MyTextInput name='productName' placeholder='Product Name' />
-                        <MyTextInput name='productCode' placeholder='Product Code' />
-                        </Form.Group>
-                        <Form.Group widths={2}> 
-                        <MyTextInput name='category' placeholder='Category' />
-                        <MyTextInput name='country' placeholder='Country' />
-                        </Form.Group>
-                        <Form.Group widths={3}> 
-                        <MyTextInput name='manufacturer' placeholder='Manufacturer' />
-                        <MyTextInput name='prescription' placeholder='Prescription' />
-                        <MyTextInput name='mg' placeholder='Mg' />
+                        <Form.Field><h5>Product Name:</h5>
+                        <MyTextInput  name='productName' placeholder='Product Name'/>
+                        </Form.Field>
+                        <Form.Field><h5>Product Code:</h5>
+                        <MyTextInput  name='productCode' placeholder='Product Code'/>
+                        </Form.Field>
                         </Form.Group>
                         <Form.Group widths={2}>
-                        <MyTextInput name='price' placeholder='Price' />
-                        <MyTextInput name='quantity' placeholder='Quantity' />
+                        <Form.Field><h5>Category:</h5>
+                        <MyTextInput  name='category' placeholder='Category'/>
+                        </Form.Field>
+                        <Form.Field><h5>Country:</h5>
+                        <MyTextInput  name='country' placeholder='Country'/>
+                        </Form.Field>
+                        </Form.Group>
+                        <Form.Group widths={3}> 
+                        <Form.Field><h5>Manufacturer:</h5>
+                        <MyTextInput  name='manufacturer' placeholder='Manufacturer'/>
+                        </Form.Field>
+                        <Form.Field><h5>Prescription:</h5>
+                        <MyTextInput  name='prescription' placeholder='Prescription'/>
+                        </Form.Field>
+                        <Form.Field><h5>Mg:</h5>
+                        <MyTextInput  name='mg' placeholder='Mg'/>
+                        </Form.Field>
+                        </Form.Group>
+                        <Form.Group widths={2}>
+                        <Form.Field><h5>Price:</h5>
+                        <MyTextInput  name='price' placeholder='Price'/>
+                        </Form.Field>
+                        <Form.Field><h5>Quantity:</h5>
+                        <MyTextInput  name='quantity' placeholder='Quantity'/>
+                        </Form.Field>
                         </Form.Group>
                         <Divider />
-                        <Button disabled={isSubmitting || !dirty || !isValid}
-                            loading={isSubmitting} positive type='submit' content='Submit'
-                        />
-                        <Button basic color='red' content='Cancel' onClick={modalStore.closeModal} />
                     </Form>
                 )}
             </Formik>

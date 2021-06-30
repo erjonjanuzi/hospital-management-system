@@ -29,7 +29,9 @@ export default observer(function NavBar() {
   const patientLinks = [
     { key: 'dashboard', name: 'Dashboard', to: '/patient/dashboard' },
     { key: 'appointments', name: 'Appointments', to: '/patient/appointments' },
-    { key: 'patient-profile', name: 'Patient Profile', to: '/patient/patient-profile' }
+    { key: 'patient-profile', name: 'Patient Profile', to: '/patient/patient-profile' },
+    { key: 'pharmacy-table', name: 'Online Pharmacy', to: '/patient/pharmacy-table'}
+
   ]
 
   return (

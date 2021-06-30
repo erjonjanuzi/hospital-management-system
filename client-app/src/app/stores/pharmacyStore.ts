@@ -98,8 +98,7 @@ export default class pharmacyStore{
             throw error;
         }
     }
-
-    deletePharmacy = async(id : string)=>{
+        deletePharmacy = async(id : string)=>{
         this.loading = true;
         try{
             if(window.confirm('Are you sure you want to delete this product?')){
@@ -118,5 +117,4 @@ export default class pharmacyStore{
             })
         }
     }
-
 }

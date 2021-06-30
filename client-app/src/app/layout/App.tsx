@@ -27,6 +27,7 @@ import BloodManagment from '../../features/doctor/bloodBank/BloodManagement';
 import PatientAppointments from '../../features/patients/appointments/PatientAppointments';
 import MedicalReportsTable from '../../features/doctor/medicalReports/MedicalReportsTable';
 import AdminAppointments from '../../features/admin/appointments/AdminAppointments';
+import PharmacyTable from '../../features/patients/Pharmacy/PharmacyTable';
 
 
 function App() {
@@ -77,7 +78,8 @@ function App() {
                 <PrivateRoute exact path='/patient/dashboard' component={PatientDashboard} />
                 <PrivateRoute exact path='/patient/appointments' component={PatientAppointments} />
                 <PrivateRoute exact path='/patient/patient-profile' component={PatientProfile} />
-                
+                <PrivateRoute exact path='/patient/pharmacy-table' component={PharmacyTable} />
+
 
                 {/* Extra Routes */}
                 <Route path='/errors' component={TestErrors} />

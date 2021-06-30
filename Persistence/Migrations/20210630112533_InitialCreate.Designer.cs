@@ -10,7 +10,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210629134448_InitialCreate")]
+    [Migration("20210630112533_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -341,7 +341,7 @@ namespace Persistence.Migrations
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("Domain.PatientsDetail", b =>
+            modelBuilder.Entity("Domain.PersonalInfo", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -375,7 +375,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("PatientsDetails");
+                    b.ToTable("PersonalInfo");
                 });
 
             modelBuilder.Entity("Domain.Pharmacy", b =>
@@ -384,8 +384,23 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Mg")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("ModificationDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Prescription")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
@@ -607,7 +622,7 @@ namespace Persistence.Migrations
                         .HasForeignKey("PatientUserId");
                 });
 
-            modelBuilder.Entity("Domain.PatientsDetail", b =>
+            modelBuilder.Entity("Domain.PersonalInfo", b =>
                 {
                     b.HasOne("Domain.City", "City")
                         .WithMany()

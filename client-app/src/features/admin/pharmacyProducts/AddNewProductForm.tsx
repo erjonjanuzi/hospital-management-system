@@ -9,10 +9,15 @@ import MyTextInput from "../../../app/common/form/MyTextInput";
 
 export default observer(function AddNewPharmacyProductForm(){
     const{pharmacyStore,modalStore} = useStore();
-
+ 
     const selectedPharmacy ={
         productName : '',
         productCode : '',
+        category : '',
+        country : '',
+        manufacturer : '',
+        prescription : '',
+        mg : '',
         price : '',
         quantity : '',
         error : null,
@@ -22,7 +27,7 @@ export default observer(function AddNewPharmacyProductForm(){
         productName:Yup.string().required('Product Name is required'),
         productCode:Yup.string().required('Product Code is required'),
         price:Yup.string().required('Price is required'),
-        quantity:Yup.string().required('Quantity is required'),
+        quantity:Yup.string().required('Quantity is required')
     })
 
     return(
@@ -46,6 +51,15 @@ export default observer(function AddNewPharmacyProductForm(){
                         <Form.Group widths={2}> 
                         <MyTextInput name='productName' placeholder='Product Name' />
                         <MyTextInput name='productCode' placeholder='Product Code' />
+                        </Form.Group>
+                        <Form.Group widths={2}> 
+                        <MyTextInput name='category' placeholder='Category' />
+                        <MyTextInput name='country' placeholder='Country' />
+                        </Form.Group>
+                        <Form.Group widths={3}> 
+                        <MyTextInput name='manufacturer' placeholder='Manufacturer' />
+                        <MyTextInput name='prescription' placeholder='Prescription' />
+                        <MyTextInput name='mg' placeholder='Mg' />
                         </Form.Group>
                         <Form.Group widths={2}>
                         <MyTextInput name='price' placeholder='Price' />

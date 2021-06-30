@@ -5,6 +5,7 @@ using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Application.Pharmacies;
 
+
 namespace API.Controllers
 {
     public class PharmaciesController : BaseApiController

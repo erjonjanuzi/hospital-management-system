@@ -10,8 +10,7 @@ namespace Application.Pharmacies
             RuleFor(x => x.ProductName).NotEmpty();
             RuleFor(x => x.ProductCode).NotEmpty();
             RuleFor(x => x.Price).NotEmpty();
-            RuleFor(x => x.Quantity).NotEmpty();
-
+            RuleFor(x => x.Quantity).NotEmpty(); 
         }
     }
 }

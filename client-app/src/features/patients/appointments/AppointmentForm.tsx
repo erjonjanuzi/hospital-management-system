@@ -39,7 +39,7 @@ export default observer(function AppointmentForm() {
         comment: '',
         patientId: userStore.user?.id!,
     }
-
+ 
     return (
         <>
             <Header as='h1' content='New Appointment' />

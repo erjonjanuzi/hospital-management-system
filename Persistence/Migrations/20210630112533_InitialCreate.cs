@@ -103,6 +103,11 @@ namespace Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ProductCode = table.Column<int>(type: "int", nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Manufacturer = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Prescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Mg = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
                     ModificationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false)
@@ -147,7 +152,7 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PatientsDetails",
+                name: "PersonalInfo",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -162,9 +167,9 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PatientsDetails", x => x.Id);
+                    table.PrimaryKey("PK_PersonalInfo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PatientsDetails_Cities_CityId",
+                        name: "FK_PersonalInfo_Cities_CityId",
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id",
@@ -442,8 +447,8 @@ namespace Persistence.Migrations
                 column: "PatientUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PatientsDetails_CityId",
-                table: "PatientsDetails",
+                name: "IX_PersonalInfo_CityId",
+                table: "PersonalInfo",
                 column: "CityId");
         }
 
@@ -486,7 +491,7 @@ namespace Persistence.Migrations
                 name: "Patients");
 
             migrationBuilder.DropTable(
-                name: "PatientsDetails");
+                name: "PersonalInfo");
 
             migrationBuilder.DropTable(
                 name: "Pharmacies");
