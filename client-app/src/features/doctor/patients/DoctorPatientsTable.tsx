@@ -7,6 +7,7 @@ import EditPatient from './EditPatient';
 import ViewPatient from './ViewPatient';
 
 
+
 export default observer(function DoctorPatientsTable() {
     const { patientStore, modalStore } = useStore();
     const { patients, patientRegistry, GresaLoadPatients, deletePatient } = patientStore;

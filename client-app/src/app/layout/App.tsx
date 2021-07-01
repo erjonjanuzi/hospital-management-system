@@ -29,6 +29,7 @@ import MedicalReportsTable from '../../features/doctor/medicalReports/MedicalRep
 import AdminAppointments from '../../features/admin/appointments/AdminAppointments';
 import PharmacyTable from '../../features/patients/Pharmacy/PharmacyTable';
 import RoomManagement from '../../features/admin/rooms/RoomManagement';
+import HealthData from '../../features/patients/healthDatas/HealthData';
 
 function App() {
   const { commonStore, userStore } = useStore()
@@ -80,6 +81,8 @@ function App() {
                 <PrivateRoute exact path='/patient/appointments' component={PatientAppointments} />
                 <PrivateRoute exact path='/patient/patient-profile' component={PatientProfile} />
                 <PrivateRoute exact path='/patient/pharmacy-table' component={PharmacyTable} />
+                <PrivateRoute exact path='/patient/healthDatas' component={HealthData} />
+
 
 
                 {/* Extra Routes */}

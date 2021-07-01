@@ -10,10 +10,10 @@ import * as Yup from 'yup';
 export default observer(function AddRoom() {
 
     const{roomStore,modalStore,departmentStore,patientStore} = useStore();
+    const {rooms,roomRegistry,loadRooms,deleteRoom} = roomStore
     const {departments,departmentRegistry,loadDepartments,deleteDepartment} = departmentStore
     const { patients, patientRegistry, GresaLoadPatients, deletePatient } = patientStore
 
- 
 
     
     

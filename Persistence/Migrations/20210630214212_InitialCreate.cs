@@ -64,6 +64,27 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "HealthDatas",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Medication = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Checkup = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Drugs = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Allergies = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Injections = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Asthma = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Disease = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Immune = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Smoke = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Relatives = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HealthDatas", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MedicalReports",
                 columns: table => new
                 {
@@ -499,6 +520,9 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Diagnoses");
+
+            migrationBuilder.DropTable(
+                name: "HealthDatas");
 
             migrationBuilder.DropTable(
                 name: "MedicalReports");

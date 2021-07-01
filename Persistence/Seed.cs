@@ -73,6 +73,25 @@ namespace Persistence
 
             await context.Departments.AddRangeAsync(departments);
             await context.SaveChangesAsync();
+            
+
+             if (context.Rooms.Any()) return;
+            
+            var rooms = new List<Room>
+            {
+                new Room
+                {
+                    RoomNo= 9111,
+                    RoomType="Critical Room",
+                    Floor="2nd Floor",
+                    Department = "Cardiology",
+                    Patient="Engjell Avdiu",
+                    
+                }
+            };
+
+            await context.Rooms.AddRangeAsync(rooms);
+            await context.SaveChangesAsync();
 
         }
     }

@@ -284,6 +284,47 @@ namespace Persistence.Migrations
                     b.ToTable("Diagnoses");
                 });
 
+            modelBuilder.Entity("Domain.HealthData", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Allergies")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Asthma")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Checkup")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Disease")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Drugs")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Immune")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Injections")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Medication")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Relatives")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Smoke")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HealthDatas");
+                });
+
             modelBuilder.Entity("Domain.MedicalReport", b =>
                 {
                     b.Property<Guid>("Id")

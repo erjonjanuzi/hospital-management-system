@@ -21,6 +21,8 @@ namespace Persistence
         public DbSet<MedicalReport> MedicalReports { get; set; }
         public DbSet<Room> Rooms { get; set; }
 
+         public DbSet<HealthData> HealthDatas { get; set; }
+
         public DbSet<Analyse> Analyses { get; set; }
 
 
@@ -38,6 +40,7 @@ namespace Persistence
             builder.Entity<Analyse>();
             builder.Entity<Specialty>();
             builder.Entity<Room>();
+            builder.Entity<HealthData>();
             // builder.Entity<Analyse>();
 
             base.OnModelCreating(builder);

@@ -10,7 +10,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210630130756_InitialCreate")]
+    [Migration("20210630214212_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -284,6 +284,47 @@ namespace Persistence.Migrations
                     b.HasIndex("PatientUserId");
 
                     b.ToTable("Diagnoses");
+                });
+
+            modelBuilder.Entity("Domain.HealthData", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Allergies")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Asthma")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Checkup")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Disease")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Drugs")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Immune")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Injections")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Medication")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Relatives")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Smoke")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HealthDatas");
                 });
 
             modelBuilder.Entity("Domain.MedicalReport", b =>

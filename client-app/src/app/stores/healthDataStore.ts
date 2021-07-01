@@ -1,15 +1,15 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
-import { Room, RoomDto} from "../models/room";
+import { HealthData, HealthDataTable} from "../models/healthData";
 import { store } from "./store";
 import { toast } from "react-toastify";
 
 
 
 
-export default class roomStore{
-    roomRegistry = new Map<string, Room>();
-    selectedRoom : Room | undefined = undefined;
+export default class HealthDataStore{
+    healthDataRegistry = new Map<string, HealthData>();
+    selectedHealthData : HealthData | undefined = undefined;
     editMode = false;
     loading = false;
     loadingInitial = false;
@@ -18,15 +18,15 @@ export default class roomStore{
         makeAutoObservable(this);
     }
 
-    get rooms(){
-        return Array.from(this.roomRegistry.values());
+    get healthDatas(){
+        return Array.from(this.healthDataRegistry.values());
     }
 
-    loadRooms = async() =>{
+    loadHealthDatas = async() =>{
         try{
-            const rooms = await agent.Rooms.list();
-            rooms.forEach(room =>{
-                this.setRoom(room);
+            const healthDatas = await agent.HealthDatas.list();
+            healthDatas.forEach(healthData =>{
+                this.setHealthData(healthData);
             })
             this.loadingInitial = false;
         }catch (error){
@@ -35,21 +35,21 @@ export default class roomStore{
         }
     }
     
-    loadRoom = async (id: string) =>{
-        let room = this.getRoom(id);
-        if(room){
-            this.selectedRoom = room;
-            return room;
+    loadHealthData = async (id: string) =>{
+        let healthData = this.getHealthData(id);
+        if(healthData){
+            this.selectedHealthData = healthData;
+            return healthData;
         }else{
             this.loadingInitial = true;
         try{
-            room = await agent.Rooms.details(id);
-            this.setRoom(room);
+            healthData = await agent.HealthDatas.details(id);
+            this.setHealthData(healthData);
             runInAction(()=>{
-                this.selectedRoom = room;
+                this.selectedHealthData = healthData;
             })
             this.setLoadingInitial(false);
-            return room;
+            return healthData;
         }catch(error){
             console.log(error);
             this.setLoadingInitial(false);
@@ -57,26 +57,26 @@ export default class roomStore{
         }
     }
 
-    private setRoom =(room : Room) =>{
-        this.roomRegistry.set(room.roomNo,room);
+    private setHealthData =(healthData : HealthData) =>{
+        this.healthDataRegistry.set(healthData.medication,healthData);
     }
 
-    private getRoom =(id : string) =>{
-        return this.roomRegistry.get(id);
+    private getHealthData =(id : string) =>{
+        return this.healthDataRegistry.get(id);
     }
 
     setLoadingInitial = (state : boolean) =>{
         this.loadingInitial = state;
     }
 
-    createRoom = async (room : RoomDto) =>{
+    createHealthData = async (healthData : HealthDataTable) =>{
         this.loading = true;
         try{
-            await agent.Rooms.create(room);
+            await agent.HealthDatas.create(healthData);
             runInAction(()=>{
-                this.loadRooms();
+                this.loadHealthDatas();
                 store.modalStore.closeModal();
-                toast.success('Room added successfully')
+                toast.success('Data added successfully')
             })
         }catch(error) {
             console.log(error);
@@ -87,12 +87,12 @@ export default class roomStore{
     }
 
 
-    updateRoom = async (room : Room)=>{
+    updateHealthData = async (healthData : HealthData)=>{
         this.loading=true;
         try{
-            await agent.Rooms.update(room);
+            await agent.HealthDatas.update(healthData);
             runInAction(()=>{
-                this.loadRooms();
+                this.loadHealthDatas();
             })
             store.modalStore.closeModal();
         }catch(error) {
@@ -103,16 +103,16 @@ export default class roomStore{
         } 
     }
    
-         deleteRoom = async (id: string) => {
+         deleteHealthData = async (id: string) => {
         this.loading = true;
         try {
             if (window.confirm('Are you sure you want to delete this record?')) {
-                await agent.Rooms.delete(id);
+                await agent.HealthDatas.delete(id);
                 runInAction(() => {
-                    this.roomRegistry.delete(id);
+                    this.healthDataRegistry.delete(id);
                     this.loading = false;
                     store.modalStore.closeModal();
-                    toast.info('Room deleted successfully')
+                    toast.info('Data deleted successfully')
                     window.location.reload();
                     // toast.success("Diagnose Deleted Successfully", {
                     //     autoClose: 3000,
