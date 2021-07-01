@@ -18,6 +18,7 @@ import CountriesStore from "./countriesStore";
 import RegisterPatientStore from "./registerPatientStore";
 import PersonalInfoStore from "./personalInfoStore";
 import NationalityStore from "./nationalitiesStore";
+import VaccinationStore from "./vaccinationStore";
 
 
 interface Store {
@@ -40,6 +41,8 @@ interface Store {
     countriesStore: CountriesStore,
     personalInfoStore: PersonalInfoStore,
     nationalitiesStore: NationalityStore
+    vaccinationStore : VaccinationStore;
+
 }
 
 export const store: Store = {
@@ -61,7 +64,8 @@ export const store: Store = {
     roomStore: new RoomStore(),
     countriesStore: new CountriesStore(),
     personalInfoStore: new PersonalInfoStore(),
-    nationalitiesStore: new NationalityStore()
+    nationalitiesStore: new NationalityStore(),
+    vaccinationStore : new VaccinationStore()
 }
 
 export const StoreContext = createContext(store);

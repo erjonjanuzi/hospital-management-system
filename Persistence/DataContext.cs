@@ -20,6 +20,7 @@ namespace Persistence
         public DbSet<BloodBank> BloodBanks { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Specialty> Specialty { get; set; }
+
         public DbSet<MedicalReport> MedicalReports { get; set; }
         public DbSet<Room> Rooms { get; set; }
 
@@ -30,6 +31,7 @@ namespace Persistence
 
         //Info Details
         public DbSet<PersonalInfo> PersonalInfo { get; set; }
+        public DbSet<Vaccination> Vaccinations { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Admin>();
@@ -44,7 +46,7 @@ namespace Persistence
             builder.Entity<Room>();
             builder.Entity<Country>();
             builder.Entity<Nationality>();
-            // builder.Entity<Analyse>();
+            builder.Entity<Vaccination>();
 
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.

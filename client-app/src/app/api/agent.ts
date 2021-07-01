@@ -18,7 +18,7 @@ import { Room,RoomDto } from "../models/room";
 import { RegisterPatient, RegisterPatientDto } from "../models/registerPatients";
 import { PersonalInfo, PersonalInfoDTO } from "../models/personalInfo";
 import { Nationality } from "../models/nationality";
-
+import { Vaccination, VaccinationDto } from "../models/vaccination";
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -93,6 +93,15 @@ const RegisterPatients = {
     create: (user: RegisterPatientDto) => axios.post<void>('registerPatients', user),
     update: (registerPatient: RegisterPatient) => axios.put<void>(`/registerPatients/${registerPatient.id}`, registerPatient),
     delete: (id: string) => axios.delete<void>(`/registerPatients/${id}`)
+
+}
+
+const Vaccinations = {
+    list: () => requests.get<Vaccination[]>('/vaccination'),
+    details: (id: string) => requests.get<Vaccination>(`/vaccination/${id}`),
+    create: (vaccine: VaccinationDto) => axios.post<void>('vaccination', vaccine),
+    update: (vaccine: Vaccination) => axios.put<void>(`/vaccination/${vaccine.id}`, vaccine),
+    delete: (id: string) => axios.delete<void>(`/vaccination/${id}`)
 }
 
 const Pharmacies ={
@@ -244,7 +253,8 @@ const agent = {
     Specialties,
     Countries,
     PersonalInfos,
-    Nationalities
+    Nationalities,
+    Vaccinations
 }
 
 export default agent;
