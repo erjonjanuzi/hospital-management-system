@@ -37,3 +37,21 @@ export interface AccountDto {
     email: string;
     role: string;
 }
+
+export interface RegisterDoctor {
+    firstName: string;
+    lastName: string;
+    userName: string;
+    email: string;
+    passwordHash: string;
+    specialtyId: string;
+    personalNumber: string;
+    dateOfBirth: Date;
+    gender: string;
+    phoneNumber: string;
+    address: string;
+    countryId: string;
+    cityId: string;
+    nationalityId: string;
+    maritalStatus: string;
+}

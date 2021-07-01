@@ -1,3 +1,4 @@
+import { PersonalInfo } from "./personalInfo";
 import { Specialty } from "./specialty";
 
 export interface DoctorProfile {
@@ -6,7 +7,9 @@ export interface DoctorProfile {
     lastName: string;
     userName: string;
     email: string;
-    specialtyId?: Specialty;
+    //registeredSince: string;
+    specialty: Specialty;
+    personalInfo: PersonalInfo
 }
 
 export interface PatientProfile {

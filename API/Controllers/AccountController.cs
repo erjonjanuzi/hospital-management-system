@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Persistence;
 
 namespace API.Controllers
 {
@@ -22,11 +23,14 @@ namespace API.Controllers
         private readonly UserManager<AppUser> userManager;
         private readonly SignInManager<AppUser> signInManager;
         private readonly TokenService tokenService;
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenService tokenService)
+        private readonly DataContext context;
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenService tokenService,
+            DataContext context)
         {
             this.tokenService = tokenService;
             this.signInManager = signInManager;
             this.userManager = userManager;
+            this.context = context;
         }
 
         [HttpPost("login")]
@@ -46,6 +50,7 @@ namespace API.Controllers
             return Unauthorized();
         }
 
+        //subject to change, review after completing doctor registering
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
@@ -57,7 +62,7 @@ namespace API.Controllers
             if (await userManager.Users.AnyAsync(x => x.UserName == registerDto.Username))
             {
                 ModelState.AddModelError("username", "Username is taken");
-            return ValidationProblem();
+                return ValidationProblem();
             }
 
             AppUser user = null;
@@ -73,7 +78,8 @@ namespace API.Controllers
                     PasswordHash = registerDto.PasswordHash,
                     RegisteredSince = DateTime.Now
                 };
-            } else if (registerDto.Role.ToLower().Equals("doctor"))
+            }
+            else if (registerDto.Role.ToLower().Equals("doctor"))
             {
                 user = new Doctor
                 {
@@ -84,7 +90,8 @@ namespace API.Controllers
                     PasswordHash = registerDto.PasswordHash,
                     RegisteredSince = DateTime.Now
                 };
-            } else if (registerDto.Role.ToLower().Equals("patient"))
+            }
+            else if (registerDto.Role.ToLower().Equals("patient"))
             {
                 user = new PatientUser
                 {
@@ -95,7 +102,8 @@ namespace API.Controllers
                     PasswordHash = registerDto.PasswordHash,
                     RegisteredSince = DateTime.Now,
                     Diagnosis = null,
-                    Analysis = null
+                    Analysis = null,
+                    PersonalInfos = null
                 };
             }
 
@@ -107,6 +115,76 @@ namespace API.Controllers
             }
 
             return BadRequest("Problem registering user");
+        }
+
+        [HttpPost("register/doctor")]
+        public async Task<ActionResult<UserDto>> RegisterDoctor(Doctor doctor)
+        {
+            if (await userManager.Users.AnyAsync(x => x.Email == doctor.Email))
+            {
+                ModelState.AddModelError("email", "Email is taken");
+                return ValidationProblem();
+            }
+            if (await userManager.Users.AnyAsync(x => x.UserName == doctor.UserName))
+            {
+                ModelState.AddModelError("username", "Username is taken");
+                return ValidationProblem();
+            }
+
+            Doctor user = new Doctor
+            {
+                FirstName = doctor.FirstName,
+                LastName = doctor.LastName,
+                UserName = doctor.UserName,
+                Email = doctor.Email,
+                PasswordHash = doctor.PasswordHash,
+                RegisteredSince = DateTime.Now,
+                SpecialtyId = doctor.SpecialtyId,
+                PersonalInfo = new PersonalInfo
+                {
+                    PersonalNumber = doctor.PersonalInfo.PersonalNumber,
+                    DateOfBirth = doctor.PersonalInfo.DateOfBirth,
+                    Gender = doctor.PersonalInfo.Gender,
+                    PhoneNumber = doctor.PersonalInfo.PhoneNumber,
+                    Address = doctor.PersonalInfo.Address,
+                    CountryId = doctor.PersonalInfo.CountryId,
+                    CityId = doctor.PersonalInfo.CityId,
+                    NationalityId = doctor.PersonalInfo.NationalityId,
+                    MaritalStatus = doctor.PersonalInfo.MaritalStatus,
+                }
+            };
+
+            var result = await userManager.CreateAsync(user, doctor.PasswordHash);
+
+            if (result.Succeeded)
+            {
+                return CreateUserObject(user);
+            }
+
+            return BadRequest("Problem registering user");
+        }
+
+        [HttpGet("doctor/{id}")]
+        public async Task<ActionResult<Doctor>> GetDoctor(string Id)
+        {
+            Doctor doctor = (Doctor)await userManager.Users.FirstOrDefaultAsync(x => x.Id == Id);
+
+            if (doctor == null) return null;
+
+            PersonalInfo pi = await context.PersonalInfo.FindAsync(doctor.PersonalInfoId);
+            Specialty specialty = await context.Specialty.FindAsync(doctor.SpecialtyId);
+            Country country = await context.Country.FindAsync(doctor.PersonalInfo.CountryId);
+            Nationality nationality = await context.Nationality.FindAsync(doctor.PersonalInfo.NationalityId);
+            City city = await context.Cities.FindAsync(doctor.PersonalInfo.CityId);
+
+            pi.Country = country;
+            pi.Nationality = nationality;
+            pi.City = city;
+
+            doctor.PersonalInfo = pi;
+            doctor.Specialty = specialty;
+
+            return Ok(doctor);
         }
 
 
@@ -145,7 +223,7 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto>> GetUser(string id)
         {
             var user = await userManager.FindByIdAsync(id);
-            
+
             return CreateUserObject(user);
         }
 

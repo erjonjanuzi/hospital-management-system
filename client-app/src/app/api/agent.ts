@@ -2,9 +2,9 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { history } from '../..';
 import { toast } from "react-toastify";
 import { Patient, PatientTable } from "../models/patient";
-import { City, CityDto } from "../models/city"
+import { City, Country } from "../models/city"
 import { store } from "../stores/store";
-import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/user";
+import { User, UserFormValues, AccountDto, AccountFormValues, RegisterDoctor } from "../models/user";
 import { Diagnosis, DiagnosisDto } from "../models/diagnosis";
 import { Department,DepartmentTable } from "../models/department";
 import { Analyse, AnalyseDto } from "../models/analyse";
@@ -12,7 +12,6 @@ import { Pharmacy, PharmacyDto } from "../models/pharmacy";
 import { BloodBank,BloodBankTable } from "../models/bloodBank";
 import { Appointment } from "../models/appointment";
 import { MedicalReport,MedicalReportDto } from "../models/medicalReport";
-import { request } from "http";
 import { Specialty } from "../models/specialty";
 import { DoctorProfile } from "../models/profile";
 import { Room,RoomDto } from "../models/room";
@@ -85,6 +84,23 @@ const Patients = {
     delete: (id: string) => axios.delete<void>(`/patients/${id}`)
 }
 
+const RegisterPatients = {
+    list: () => requests.get<RegisterPatient[]>('/registerPatients'),
+    details: (id: string) => requests.get<RegisterPatient>(`/registerPatients/${id}`),
+    create: (user: RegisterPatientDto) => axios.post<void>('registerPatients', user),
+    update: (registerPatient: RegisterPatient) => axios.put<void>(`/registerPatients/${registerPatient.id}`, registerPatient),
+    delete: (id: string) => axios.delete<void>(`/registerPatients/${id}`)
+
+}
+
+const Vaccinations = {
+    list: () => requests.get<Vaccination[]>('/vaccination'),
+    details: (id: string) => requests.get<Vaccination>(`/vaccination/${id}`),
+    create: (vaccine: VaccinationDto) => axios.post<void>('vaccination', vaccine),
+    update: (vaccine: Vaccination) => axios.put<void>(`/vaccination/${vaccine.id}`, vaccine),
+    delete: (id: string) => axios.delete<void>(`/vaccination/${id}`)
+}
+
 const Pharmacies ={
     list : () => requests.get<Pharmacy[]>('/pharmacies'),
     details : (id: string) => requests.get<Pharmacy>(`/pharmacies/${id}`),
@@ -105,8 +121,24 @@ const Citys = {
     list: () => requests.get<City[]>('/citys'),
     details: (id: string) => requests.get<City>(`/citys/${id}`),
     delete: (id: string) => axios.delete<void>(`/citys/${id}`),
-    create: (city: CityDto) => requests.post<void>('/citys/', city),
+    create: (city: City) => requests.post<void>('/citys/', city),
     update: (city: City) => axios.put<void>(`/citys/${city.id}`, city)
+}
+
+const Countries = {
+    list: () => requests.get<Country[]>('/Country'),
+    create: (country: Country) => requests.post<void>('/Country', country),
+    details: (id: any) => requests.get<Country>(`/Country/${id}`),
+    delete: (id: any) => axios.delete<void>(`/Country/${id}`),
+    update: (country: Country) => axios.put<void>(`/Country/${country.id}`, country)
+}
+
+const Nationalities = {
+    list: () => requests.get<Nationality[]>('/Nationality'),
+    create: (nationality: Nationality) => requests.post<void>('/Nationality', nationality),
+    details: (id: any) => requests.get<Nationality>(`/Nationality/${id}`),
+    delete: (id: any) => axios.delete<void>(`/Nationality/${id}`),
+    update: (nationality: Nationality) => axios.put<void>(`/Nationality/${nationality.id}`, nationality)
 }
 
 const Analysis = {
@@ -172,7 +204,8 @@ const AccountsManager = {
     details: (id: string) => requests.get<AccountDto>(`/account/user/${id}`),
     delete: (id: string) => axios.delete<void>(`/account/${id}`),
     update: (user: AccountDto) => axios.put<void>(`/account/${user.id}`, user),
-    register: (user: AccountFormValues) => requests.post('/account/register', user)
+    register: (user: AccountFormValues) => requests.post('/account/register', user),
+    registerDoctor: (user: RegisterDoctor) => requests.post('account/register/doctor', user)
 }
 
 const DiagnosisManager = {
@@ -201,8 +234,17 @@ const Specialties = {
     getDoctorsBySpecialty: (id: any) => requests.get<DoctorProfile[]>(`/Profile/doctorsbyspecialty/${id}`),
 }
 
+const PersonalInfos = {
+    list: () => requests.get<PersonalInfo[]>('/personalInfo'),
+    delete: (id: string) => axios.delete<void>(`/personalInfo/${id}`),
+    details: (id: string) => requests.get<PersonalInfo>(`/personalInfo/${id}`),
+    update: (personalInfo: PersonalInfo) => axios.put<void>(`/personalInfo/${personalInfo.id}`, personalInfo),
+    create: (personalInfo: PersonalInfoDTO) => axios.post<void>('/personalInfo', personalInfo),
+}
+
 const agent = {
-    MedicalReports, 
+    MedicalReports,
+    RegisterPatients, 
     Pharmacies,
     Analysis,
     DiagnosisManager,

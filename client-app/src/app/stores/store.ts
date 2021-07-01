@@ -18,6 +18,7 @@ import HealthDataStore from "./healthDataStore"
 
 
 interface Store {
+    registerPatientStore : RegisterPatientStore;
     patientStore: PatientStore;
     analysisStore: AnalysisStore; 
     commonStore: CommonStore;
@@ -37,6 +38,7 @@ interface Store {
 }
 
 export const store: Store = {
+    registerPatientStore : new RegisterPatientStore(),
     medicalReportStore : new medicalReportStore(),
     pharmacyStore: new pharmacyStore(),
     patientStore: new PatientStore(),

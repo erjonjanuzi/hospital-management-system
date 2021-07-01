@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { Button, Header, Segment, Table } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
+import RegisterDoctorForm from './RegisterDoctorForm';
 import RegisterNewUserForm from './RegisterNewUserForm';
 import ViewAccount from './ViewAccount';
 
@@ -16,6 +17,7 @@ export default observer(function AdminAccountsTable() {
     return (
         <Segment>
             <Button content='Create new user' onClick={() => modalStore.openModal(<RegisterNewUserForm />)}/>
+            <Button content='Register new doctor' positive icon='user doctor' onClick={() => modalStore.openModal(<RegisterDoctorForm />)}/>
             <Header content='Account Management' />
             <Header sub content='All accounts' />
             <Table textAlign="center">

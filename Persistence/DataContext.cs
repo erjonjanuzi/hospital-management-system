@@ -10,6 +10,8 @@ namespace Persistence
         {
         }
         public DbSet<City> Cities { get; set; }
+        public DbSet<Country> Country { get; set; }
+        public DbSet<Nationality> Nationality { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Diagnosis> Diagnoses { get; set; }
         public DbSet<Department> Departments { get; set; }
@@ -18,6 +20,7 @@ namespace Persistence
         public DbSet<BloodBank> BloodBanks { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Specialty> Specialty { get; set; }
+
         public DbSet<MedicalReport> MedicalReports { get; set; }
         public DbSet<Room> Rooms { get; set; }
 
@@ -28,6 +31,7 @@ namespace Persistence
 
         //Info Details
         public DbSet<PersonalInfo> PersonalInfo { get; set; }
+        public DbSet<Vaccination> Vaccinations { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Admin>();

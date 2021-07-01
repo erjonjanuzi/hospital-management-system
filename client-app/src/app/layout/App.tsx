@@ -15,13 +15,12 @@ import PrivateRoute from './PrivateRoute';
 import './style.css';
 import DepartmentsPage from '../../features/admin/departments/DepartmentsPage';
 import PatientProfile from '../../features/patients/my-profile/PatientProfile';
-import RegisterPatient from '../../features/doctor/RegisterPatient';
+import RegisterPatient from '../../features/doctor/RegisterPatients/RegisterPatient';
 import AdminAccountsTable from '../../features/admin/accounts/AdminAccountsTable';
 import PatientDashboard from '../../features/patients/dashboard/PatientDashboard';
 import DoctorPatientsTable from '../../features/doctor/patients/DoctorPatientsTable';
 import Diagnosis from '../../features/doctor/diagnosis/Diagnosis';
 import AnalysisTable from '../../features/doctor/analysis/AnalysisTable';
-import CityTable from '../../features/admin/city/CityTable';
 import PharmacyProductTable from '../../features/admin/pharmacyProducts/PharmacyProductTable';
 import BloodManagment from '../../features/doctor/bloodBank/BloodManagement';
 import PatientAppointments from '../../features/patients/appointments/PatientAppointments';
@@ -59,10 +58,11 @@ function App() {
                 {/* Admin Routes */}
                 <PrivateRoute path='/admin/accounts' component={AdminAccountsTable} />
                 <PrivateRoute path='/admin/departments' component={DepartmentsPage} />
-                <PrivateRoute path='/admin/city/' component={CityTable}/>
+                <PrivateRoute path='/admin/countries' component={Countries} />
                 <PrivateRoute path='/admin/pharmacyProducts/' component={PharmacyProductTable}/>
                 <PrivateRoute path='/admin/appointments/' component={AdminAppointments}/>
                 <PrivateRoute path='/admin/rooms/' component={RoomManagement}/>
+                <PrivateRoute path='/admin/registeredPatients/' component={RegisteredPatientsFromDoc}/>
 
 
 
@@ -73,6 +73,7 @@ function App() {
                 <PrivateRoute exact path='/doctor/bloodBank' component={BloodManagment} />
                 <PrivateRoute exact path='/doctor/analysis' component={AnalysisTable} />
                 <PrivateRoute exact path='/doctor/medicalReports' component={MedicalReportsTable} />
+                <PrivateRoute exact path='/doctor/appointments' component={DoctorAppointments} />
 
 
                 

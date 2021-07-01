@@ -48,7 +48,7 @@ export default observer(function PharmacyTable({id}:Props){
                         <Table.HeaderCell>Manufacturer <Icon name='angle down'/></Table.HeaderCell>
                         <Table.HeaderCell>With prescription / Without prescription<Icon name='angle down'/></Table.HeaderCell>
                         <Table.HeaderCell>Mg <Icon name='angle down'/></Table.HeaderCell>
-                        <Table.HeaderCell>Price <Icon name='angle down'/></Table.HeaderCell>
+                        <Table.HeaderCell>Price<Icon name='euro'></Icon> <Icon name='angle down'/></Table.HeaderCell>
                         <Table.HeaderCell>Quantity <Icon name='angle down'/></Table.HeaderCell>
                         <Table.HeaderCell>Buy/View <Icon name='angle down'/></Table.HeaderCell>
                     </Table.Row>
@@ -69,7 +69,7 @@ export default observer(function PharmacyTable({id}:Props){
                                     <Table.Cell>{pharmacy.manufacturer}</Table.Cell> 
                                     <Table.Cell>{pharmacy.prescription}</Table.Cell>
                                     <Table.Cell>{pharmacy.mg}</Table.Cell> 
-                                    <Table.Cell>{pharmacy.price}</Table.Cell>
+                                    <Table.Cell>{pharmacy.price}<Icon name='euro'></Icon></Table.Cell>
                                     <Table.Cell>{pharmacy.quantity}</Table.Cell>
                                     <Table.Cell>
                                     <Button content='Add to cart' icon='cart' color='green'
