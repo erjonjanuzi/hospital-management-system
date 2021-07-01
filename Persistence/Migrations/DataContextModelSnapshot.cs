@@ -222,12 +222,33 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("CountryId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Zip")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("Cities");
+                });
+
+            modelBuilder.Entity("Domain.Country", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Country");
                 });
 
             modelBuilder.Entity("Domain.Department", b =>
@@ -310,6 +331,20 @@ namespace Persistence.Migrations
                     b.ToTable("MedicalReports");
                 });
 
+            modelBuilder.Entity("Domain.Nationality", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Nationality");
+                });
+
             modelBuilder.Entity("Domain.Patient", b =>
                 {
                     b.Property<Guid>("Id")
@@ -328,6 +363,9 @@ namespace Persistence.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("PersonalInfoId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("RegisteredSince")
                         .HasColumnType("datetime2");
 
@@ -336,10 +374,12 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PersonalInfoId");
+
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("Domain.PatientsDetail", b =>
+            modelBuilder.Entity("Domain.PersonalInfo", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -348,11 +388,11 @@ namespace Persistence.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("BloodType")
+                    b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("CityId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
@@ -360,20 +400,28 @@ namespace Persistence.Migrations
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Height")
+                    b.Property<string>("MaritalStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("NationalityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PatientUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PatientsId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
+                    b.HasIndex("NationalityId");
 
-                    b.ToTable("PatientsDetails");
+                    b.HasIndex("PatientUserId");
+
+                    b.ToTable("PersonalInfo");
                 });
 
             modelBuilder.Entity("Domain.Pharmacy", b =>
@@ -382,8 +430,23 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Mg")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("ModificationDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Prescription")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
@@ -400,6 +463,85 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pharmacies");
+                });
+
+            modelBuilder.Entity("Domain.RegisterPatient", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("About")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Allergic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RegisterPatients");
+                });
+
+            modelBuilder.Entity("Domain.Room", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Department")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Floor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Patient")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoomNo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoomType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("Domain.Specialty", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Specialty");
                 });
 
             modelBuilder.Entity("Domain.Vaccination", b =>
@@ -582,6 +724,11 @@ namespace Persistence.Migrations
                 {
                     b.HasBaseType("Domain.AppUser");
 
+                    b.Property<Guid?>("SpecialtyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasIndex("SpecialtyId");
+
                     b.HasDiscriminator().HasValue("Doctor");
                 });
 
@@ -602,7 +749,7 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Appointment", b =>
                 {
                     b.HasOne("Domain.Doctor", "Doctor")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("DoctorId");
 
                     b.HasOne("Domain.PatientUser", "Patient")
@@ -614,6 +761,13 @@ namespace Persistence.Migrations
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("Domain.City", b =>
+                {
+                    b.HasOne("Domain.Country", null)
+                        .WithMany("Cities")
+                        .HasForeignKey("CountryId");
+                });
+
             modelBuilder.Entity("Domain.Diagnosis", b =>
                 {
                     b.HasOne("Domain.PatientUser", null)
@@ -621,13 +775,28 @@ namespace Persistence.Migrations
                         .HasForeignKey("PatientUserId");
                 });
 
-            modelBuilder.Entity("Domain.PatientsDetail", b =>
+            modelBuilder.Entity("Domain.Patient", b =>
                 {
-                    b.HasOne("Domain.City", "City")
+                    b.HasOne("Domain.PersonalInfo", "PersonalInfo")
                         .WithMany()
-                        .HasForeignKey("CityId");
+                        .HasForeignKey("PersonalInfoId");
 
-                    b.Navigation("City");
+                    b.Navigation("PersonalInfo");
+                });
+
+            modelBuilder.Entity("Domain.PersonalInfo", b =>
+                {
+                    b.HasOne("Domain.Nationality", "Nationality")
+                        .WithMany()
+                        .HasForeignKey("NationalityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.PatientUser", null)
+                        .WithMany("PersonalInfos")
+                        .HasForeignKey("PatientUserId");
+
+                    b.Navigation("Nationality");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -683,7 +852,21 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Doctor", b =>
                 {
-                    b.Navigation("Appointments");
+                    b.HasOne("Domain.Specialty", "Specialty")
+                        .WithMany("Doctors")
+                        .HasForeignKey("SpecialtyId");
+
+                    b.Navigation("Specialty");
+                });
+
+            modelBuilder.Entity("Domain.Country", b =>
+                {
+                    b.Navigation("Cities");
+                });
+
+            modelBuilder.Entity("Domain.Specialty", b =>
+                {
+                    b.Navigation("Doctors");
                 });
 
             modelBuilder.Entity("Domain.PatientUser", b =>
@@ -693,6 +876,8 @@ namespace Persistence.Migrations
                     b.Navigation("Appointments");
 
                     b.Navigation("Diagnosis");
+
+                    b.Navigation("PersonalInfos");
                 });
 #pragma warning restore 612, 618
         }

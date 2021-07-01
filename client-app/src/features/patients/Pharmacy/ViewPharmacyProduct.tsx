@@ -38,39 +38,21 @@ export default observer(function ViewPharmacyProduct({id}:Props){
                     <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
                         <Header sub content='Pharmacy Product Details' color='green' inverted/>
                         <Form.Group widths={2}> 
-                        <Form.Field><h5>Product Name:</h5>
-                        <MyTextInput  name='productName' placeholder='Product Name'/>
-                        </Form.Field>
-                        <Form.Field><h5>Product Code:</h5>
-                        <MyTextInput  name='productCode' placeholder='Product Code'/>
-                        </Form.Field>
+                        <MyTextInput name='productName' placeholder='Product Name' label="Product Name:" />
+                        <MyTextInput name='productCode' placeholder='Product Code' label="Product Code:"/>
                         </Form.Group>
-                        <Form.Group widths={2}>
-                        <Form.Field><h5>Category:</h5>
-                        <MyTextInput  name='category' placeholder='Category'/>
-                        </Form.Field>
-                        <Form.Field><h5>Country:</h5>
-                        <MyTextInput  name='country' placeholder='Country'/>
-                        </Form.Field>
+                        <Form.Group widths={2}> 
+                        <MyTextInput  name='category' placeholder='Category' label="Category:"/>
+                        <MyTextInput name='country' placeholder='Country' label="Country:"/>
                         </Form.Group>
                         <Form.Group widths={3}> 
-                        <Form.Field><h5>Manufacturer:</h5>
-                        <MyTextInput  name='manufacturer' placeholder='Manufacturer'/>
-                        </Form.Field>
-                        <Form.Field><h5>Prescription:</h5>
-                        <MyTextInput  name='prescription' placeholder='Prescription'/>
-                        </Form.Field>
-                        <Form.Field><h5>Mg:</h5>
-                        <MyTextInput  name='mg' placeholder='Mg'/>
-                        </Form.Field>
+                        <MyTextInput name='manufacturer' placeholder='Manufacturer' label="Manufacturer:"/>
+                        <MyTextInput  name='prescription' placeholder='Prescription'label="Prescription:"/>
+                        <MyTextInput name='mg' placeholder='Mg' label="Mg:"/>
                         </Form.Group>
                         <Form.Group widths={2}>
-                        <Form.Field><h5>Price<Icon name='euro'>:</Icon></h5>
-                        <MyTextInput  name='price' placeholder='Price'/>
-                        </Form.Field>
-                        <Form.Field><h5>Quantity:</h5>
-                        <MyTextInput  name='quantity' placeholder='Quantity'/>
-                        </Form.Field>
+                        <MyTextInput name='price' placeholder='Price' label="Price:"/>
+                        <MyTextInput name='quantity' placeholder='Quantity' label="Quantity:"/>
                         </Form.Group>
                         <Divider />
                     </Form>
