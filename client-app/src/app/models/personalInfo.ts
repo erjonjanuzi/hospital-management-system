@@ -1,15 +1,17 @@
+import { City, Country } from "./city";
+import { Nationality } from "./nationality";
+
+//changes made here/////
 export interface PersonalInfo {
     id: string;
-    dateofbirth: string;
+    dateOfBirth: string;
     gender: string;
     phonenumber: string;
-    height: string;
     address: string;
-    city: string;
-    country: string;
-    nationality: string;
+    city: City;
+    country: Country;
+    nationality: Nationality;
     maritalstatus: string;
-    patientsId: string;
 }
 
 export interface PersonalInfoDTO {

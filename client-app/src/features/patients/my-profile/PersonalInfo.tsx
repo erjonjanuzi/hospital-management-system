@@ -9,7 +9,7 @@ import { ErrorMessage, Form, Formik } from 'formik';
 
 export default observer(function PersonalInfo(){
 
-    const { modalStore, userStore, personalInfoStore } =  useStore();
+    /*const { modalStore, userStore, personalInfoStore } =  useStore();
     
     const validationSchema = Yup.object({
         dateofbirth: Yup.string().required(' Date of birth is requred!'),
@@ -35,13 +35,13 @@ export default observer(function PersonalInfo(){
         nationality: '',
         maritalstatus: '',
         patientsId: ''
-    }
+    }*/
 
     return(
         <>
         <Header as='h1' content='Personal Information' />
         <Divider />
-        <Formik 
+        {/*<Formik 
             initialValues={personalInfo}
             validationSchema={validationSchema}
             onSubmit={(values) => personalInfoStore.editPersonalInfo(values).catch(error => console.log(error))}
@@ -54,10 +54,11 @@ export default observer(function PersonalInfo(){
                     Emri
                 </Item.Header>
 
-                {/* <MySelectInput placeholder='maritalstatus' name='maritalstatus' options={maritalStatus} label='What is your marital status ? ' /> */}
+                {/* <MySelectInput placeholder='maritalstatus' name='maritalstatus' options={maritalStatus} label='What is your marital status ? ' /> 
             </Segment>
-        </Card>
+        </Card>*/}
         </>
+        
     );
 })
     

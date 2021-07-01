@@ -38,7 +38,7 @@ export default observer(function ViewAppointment({ id }: Props) {
                       <br />
                       <span><Label content='Email' />{'  ' + selectedAppointment.doctor.email}</span><br /><br />
                       <span><Label content='Doctor in the hospital since' />{'  ' + 2019}</span><br /><br />
-                      <span><Label content='Specialty' />{selectedAppointment.doctor.specialtyId?.name}</span><br /><br />
+                      <span><Label content='Specialty' />{selectedAppointment.doctor.specialty.name}</span><br /><br />
                       <span><Label content='Gender' />{'  Male'}</span><br />
                     </Container>
                     <Container textAlign='center'>

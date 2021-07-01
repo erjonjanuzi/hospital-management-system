@@ -22,6 +22,8 @@ namespace Domain
         public override string Role { get; set; } = "doctor";
         public Guid? SpecialtyId { get; set; } //Bug when adding this using Persistence
         public Specialty Specialty { get; set; }
+        public Guid PersonalInfoId { get; set; }
+        public PersonalInfo PersonalInfo { get; set; }
     }
 
     public class PatientUser : AppUser

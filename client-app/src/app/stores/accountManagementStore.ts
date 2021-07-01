@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 import agent from "../api/agent";
-import { AccountDto, AccountFormValues } from "../models/user";
+import { AccountDto, AccountFormValues, RegisterDoctor } from "../models/user";
 import { store } from "./store";
 
 export default class AccountManagementStore {
@@ -127,6 +127,19 @@ export default class AccountManagementStore {
             store.modalStore.closeModal();
         } catch (error) {
             throw error;
+        }
+    }
+
+    registerDoctor = async (creds: RegisterDoctor) => {
+        try {
+            await agent.AccountsManager.registerDoctor(creds);
+            runInAction(() => {
+                this.loadAccounts();
+            });
+            toast.success('Doctor registered succesfully');
+            store.modalStore.closeModal();
+        } catch (error) {
+            toast.error('Error registering doctor');
         }
     }
 }

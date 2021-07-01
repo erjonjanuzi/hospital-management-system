@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { Patient, PatientTable } from "../models/patient";
 import { City, Country } from "../models/city"
 import { store } from "../stores/store";
-import { User, UserFormValues, AccountDto, AccountFormValues } from "../models/user";
+import { User, UserFormValues, AccountDto, AccountFormValues, RegisterDoctor } from "../models/user";
 import { Diagnosis, DiagnosisDto } from "../models/diagnosis";
 import { Department,DepartmentTable } from "../models/department";
 import { Analyse, AnalyseDto } from "../models/analyse";
@@ -198,7 +198,8 @@ const AccountsManager = {
     details: (id: string) => requests.get<AccountDto>(`/account/user/${id}`),
     delete: (id: string) => axios.delete<void>(`/account/${id}`),
     update: (user: AccountDto) => axios.put<void>(`/account/${user.id}`, user),
-    register: (user: AccountFormValues) => requests.post('/account/register', user)
+    register: (user: AccountFormValues) => requests.post('/account/register', user),
+    registerDoctor: (user: RegisterDoctor) => requests.post('account/register/doctor', user)
 }
 
 const DiagnosisManager = {
