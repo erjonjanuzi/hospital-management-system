@@ -17,6 +17,7 @@ import { DoctorProfile } from "../models/profile";
 import { Room,RoomDto } from "../models/room";
 import { RegisterPatient, RegisterPatientDto } from "../models/registerPatients";
 import { PersonalInfo, PersonalInfoDTO } from "../models/personalInfo";
+import { Nationality } from "../models/nationality";
 
 
 const sleep = (delay: number) => {
@@ -126,6 +127,13 @@ const Countries = {
     update: (country: Country) => axios.put<void>(`/Country/${country.id}`, country)
 }
 
+const Nationalities = {
+    list: () => requests.get<Nationality[]>('/Nationality'),
+    create: (nationality: Nationality) => requests.post<void>('/Nationality', nationality),
+    details: (id: any) => requests.get<Nationality>(`/Nationality/${id}`),
+    delete: (id: any) => axios.delete<void>(`/Nationality/${id}`),
+    update: (nationality: Nationality) => axios.put<void>(`/Nationality/${nationality.id}`, nationality)
+}
 
 const Analysis = {
     list: () => requests.get<Analyse[]>('/analysis'),
@@ -235,7 +243,8 @@ const agent = {
     Rooms,
     Specialties,
     Countries,
-    PersonalInfos
+    PersonalInfos,
+    Nationalities
 }
 
 export default agent;

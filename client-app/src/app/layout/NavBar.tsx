@@ -14,7 +14,6 @@ export default observer(function NavBar() {
     { key: 'departments', name: 'Departments', to: '/admin/departments' },
     { key: 'pharmacyProducts', name: 'PharmacyProducts', to: '/admin/pharmacyProducts' },
     { key: 'rooms', name: 'Room Management', to: '/admin/rooms' },
-    { key: 'city', name: 'City', to: '/admin/city' },
     { key: 'pharmacyProducts', name: 'Pharmacy Products', to: '/admin/pharmacyProducts' },
     { key: 'registeredPatients', name: 'Registered Patients', to: '/admin/registeredPatients' }
   ]

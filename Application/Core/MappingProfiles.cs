@@ -19,6 +19,7 @@ namespace Application.Core
             CreateMap<Room, Room>();
             CreateMap<Country, Country>();
             CreateMap<RegisterPatient ,RegisterPatient>();
+            CreateMap<Nationality, Nationality>();
         }
     }
 }

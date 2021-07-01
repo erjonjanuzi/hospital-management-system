@@ -11,6 +11,7 @@ namespace Persistence
         }
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Country { get; set; }
+        public DbSet<Nationality> Nationality { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Diagnosis> Diagnoses { get; set; }
         public DbSet<Department> Departments { get; set; }
@@ -42,6 +43,7 @@ namespace Persistence
             builder.Entity<Specialty>();
             builder.Entity<Room>();
             builder.Entity<Country>();
+            builder.Entity<Nationality>();
             // builder.Entity<Analyse>();
 
             base.OnModelCreating(builder);
