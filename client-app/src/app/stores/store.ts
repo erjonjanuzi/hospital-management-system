@@ -15,6 +15,11 @@ import SpecialtyStore from "./specialtyStore";
 import RoomStore from "./roomStore";
 import AnalysisStore from "./analysisStore";
 import HealthDataStore from "./healthDataStore"
+import RegisterPatientStore from "./registerPatientStore";
+import CountriesStore from "./countriesStore";
+import NationalityStore from "./nationalitiesStore";
+import PersonalInfoStore from "./personalInfoStore";
+import VaccinationStore from "./vaccinationStore";
 
 
 interface Store {
@@ -34,7 +39,12 @@ interface Store {
     medicalReportStore : medicalReportStore;
     specialtyStore: SpecialtyStore
     roomStore: RoomStore;
-    healthDataStore : HealthDataStore
+    healthDataStore : HealthDataStore;
+    countriesStore : CountriesStore;
+    nationalitiesStore :NationalityStore;
+    personalInfoStore : PersonalInfoStore;
+    vaccinationStore : VaccinationStore;
+    
 }
 
 export const store: Store = {
@@ -54,7 +64,11 @@ export const store: Store = {
     appointmentsStore: new AppointmentsStore(),
     specialtyStore: new SpecialtyStore(),
     roomStore: new RoomStore(),
-    healthDataStore: new HealthDataStore()
+    healthDataStore: new HealthDataStore(),
+    countriesStore :new CountriesStore(),
+    nationalitiesStore : new NationalityStore(),
+    personalInfoStore : new PersonalInfoStore(),
+    vaccinationStore : new VaccinationStore(),
 }
 
 export const StoreContext = createContext(store);

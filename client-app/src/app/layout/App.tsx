@@ -29,6 +29,9 @@ import AdminAppointments from '../../features/admin/appointments/AdminAppointmen
 import PharmacyTable from '../../features/patients/Pharmacy/PharmacyTable';
 import RoomManagement from '../../features/admin/rooms/RoomManagement';
 import HealthData from '../../features/patients/healthDatas/HealthData';
+import Countries from '../../features/admin/countries/Countries';
+import RegisteredPatientsFromDoc from '../../features/admin/RegisteredPatients/RegisteredPatientsFromDoc';
+import DoctorAppointments from '../../features/doctor/appointments/DoctorAppointments';
 
 function App() {
   const { commonStore, userStore } = useStore()

@@ -16,6 +16,10 @@ import { Specialty } from "../models/specialty";
 import { DoctorProfile } from "../models/profile";
 import { Room,RoomDto } from "../models/room";
 import { HealthData, HealthDataTable } from "../models/healthData";
+import { PersonalInfo, PersonalInfoDTO } from "../models/personalInfo";
+import { Nationality } from "../models/nationality";
+import { RegisterPatient, RegisterPatientDto } from "../models/registerPatients";
+import { Vaccination, VaccinationDto } from "../models/vaccination";
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -258,6 +262,10 @@ const agent = {
     Appointments,
     Rooms,
     HealthDatas,
+    Countries,
+    Nationalities,
+    PersonalInfos,
+    Vaccinations,
     Specialties
 }
 

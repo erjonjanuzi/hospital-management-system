@@ -429,11 +429,11 @@ namespace Persistence.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CityId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("CountryId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
@@ -450,13 +450,17 @@ namespace Persistence.Migrations
                     b.Property<string>("PatientUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("PatientsId")
+                    b.Property<string>("PersonalNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("CountryId");
 
                     b.HasIndex("NationalityId");
 
@@ -765,8 +769,13 @@ namespace Persistence.Migrations
                 {
                     b.HasBaseType("Domain.AppUser");
 
+                    b.Property<Guid>("PersonalInfoId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("SpecialtyId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.HasIndex("PersonalInfoId");
 
                     b.HasIndex("SpecialtyId");
 
@@ -827,6 +836,16 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.PersonalInfo", b =>
                 {
+                    b.HasOne("Domain.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId");
+
                     b.HasOne("Domain.Nationality", "Nationality")
                         .WithMany()
                         .HasForeignKey("NationalityId")
@@ -836,6 +855,10 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.PatientUser", null)
                         .WithMany("PersonalInfos")
                         .HasForeignKey("PatientUserId");
+
+                    b.Navigation("City");
+
+                    b.Navigation("Country");
 
                     b.Navigation("Nationality");
                 });
@@ -893,9 +916,17 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Doctor", b =>
                 {
+                    b.HasOne("Domain.PersonalInfo", "PersonalInfo")
+                        .WithMany()
+                        .HasForeignKey("PersonalInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Specialty", "Specialty")
                         .WithMany("Doctors")
                         .HasForeignKey("SpecialtyId");
+
+                    b.Navigation("PersonalInfo");
 
                     b.Navigation("Specialty");
                 });

@@ -27,6 +27,8 @@ namespace Persistence
          public DbSet<HealthData> HealthDatas { get; set; }
 
         public DbSet<Analyse> Analyses { get; set; }
+         public DbSet<RegisterPatient> RegisterPatients { get; set; }
+
 
 
         //Info Details
