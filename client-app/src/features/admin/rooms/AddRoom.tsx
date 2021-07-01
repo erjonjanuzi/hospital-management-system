@@ -1,22 +1,56 @@
-import { ErrorMessage, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { observer } from 'mobx-react-lite';
-import { Button, Divider, Header, Message ,Dropdown} from 'semantic-ui-react';
+import { Button, Divider, Grid, Header, Input, Label, Message, Radio, Select } from 'semantic-ui-react';
 import MySelectInput from '../../../app/common/form/MySelectInput';
 import MyTextInput from '../../../app/common/form/MyTextInput';
 import { useStore } from '../../../app/stores/store';
-import React, { useEffect } from 'react';
 import * as Yup from 'yup';
+import { RegisterDoctor } from '../../../app/models/user';
+import { useEffect } from 'react';
+import MyDateInput from '../../../app/common/form/MyDateInput';
+import { useState } from 'react';
 
 export default observer(function AddRoom() {
-
-    const{roomStore,modalStore,departmentStore,patientStore} = useStore();
-    const {rooms,roomRegistry,loadRooms,deleteRoom} = roomStore
-    const {departments,departmentRegistry,loadDepartments,deleteDepartment} = departmentStore
-    const { patients, patientRegistry, GresaLoadPatients, deletePatient } = patientStore
+    const { roomStore , modalStore, departmentStore, patientStore } = useStore();
 
 
-    
-    
+
+
+    const maritalStatus = [
+        { key: 'Single', value: 'Single', text: 'Single' },
+        { key: 'Married', value: 'Married', text: 'Married' },
+        { key: 'Widowed', value: 'Widowed', text: 'Widowed' },
+        { key: 'Divorced', value: 'Divorced', text: 'Divorced' },
+    ]
+
+    let departments = new Array();
+    const insertDepartments = async () => {
+        await departmentStore.loadDepartments();
+        for (let i = 0; i < departmentStore.departments.length; i++) {
+            let department = {
+                key: departmentStore.departments[i].id,
+                value: departmentStore.departments[i].id,
+                text: departmentStore.departments[i].name
+            };
+            departments[i] = department;
+        }
+    }
+
+    let patients = new Array();
+    const insertPatients = async () => {
+        await patientStore.loadPatients();
+        for (let i = 0; i < patientStore.patients.length; i++) {
+            let patient = {
+                key: patientStore.patients[i].id,
+                value: patientStore.patients[i].id,
+                text: patientStore.patients[i].firstName +'  '+ patientStore.patients[i].lastName
+                
+            };
+            patients[i] = patient;
+        }
+    }
+   
+
     const selectedRoom ={
        
         roomNo : '',
@@ -27,6 +61,11 @@ export default observer(function AddRoom() {
         error : null
         
     }
+
+    useEffect(() => {
+        insertDepartments();
+        insertPatients();
+    }, [patients, departments])
 
     const types = [
         { key: '1', text: 'Critical Care Unit', value:'Critical Care Unit'  },
@@ -66,26 +105,17 @@ export default observer(function AddRoom() {
                             name='error' render={() =>
                             <Message negative content={errors.error} />}
                         />
-                        <Header sub content='details' />
+                        <Header sub content='Room No.' />
                         <MyTextInput name='roomNo' placeholder='RoomNo' />
+                        <Header sub content='Room Type' />
                         <MySelectInput name='roomType' placeholder='Room Type' options={types} />
+                        <Header sub content='Floor' />
                         <MySelectInput name='floor' placeholder='Floor' options={floors} />
+                         <Header sub content='Department' /> 
+                        <MySelectInput options={departments} placeholder='Department' name='department' />
+                        <Header sub content='Patient' />
+                        <MySelectInput options={patients} placeholder='Patient' name='patient' />
                         
-                      <Header sub content='Department' /> 
-                        <select className="form-control" data-val="true" name="department" >  
-                            <option value="">-- Select Department --</option>  
-                            {departments.map(department =>  
-                                <option key={department.id} value={department.name}>{department.name}</option>  
-                            )}  
-                        </select>  
-                    
-                         <Header sub content='Patient' />
-                        <select className="form-control" data-val="true" name="patient">  
-                            <option value="">-- Select Patient --</option>  
-                            {patients.map(patient =>  
-                                <option key={patient.id} value={patient.firstName +' '+patient.lastName}>{patient.firstName+' '+patient.lastName}</option>  
-                            )}  
-                        </select>  
                        
                         <Divider />
                         <Button disabled={isSubmitting || !dirty || !isValid}

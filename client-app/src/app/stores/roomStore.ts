@@ -13,6 +13,7 @@ export default class roomStore{
     editMode = false;
     loading = false;
     loadingInitial = false;
+    //closeModal: ((event: MouseEvent<HTMLButtonElement, MouseEvent>, data: ButtonProps) => void) | undefined;
 
     constructor(){
         makeAutoObservable(this);
