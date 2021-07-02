@@ -31,6 +31,7 @@ export default observer(function ViewRoom({id} : Props){
         { key: '4', text: 'Intensive Treatment Unit', value: 'Intensive Treatment Unit' },
         
       ]
+      
 
 
     return(
@@ -48,6 +49,7 @@ export default observer(function ViewRoom({id} : Props){
                         <Header sub content='details' />
                         <MyTextInput name='roomNo' placeholder='Name' />
                         <MySelectInput name='roomType' placeholder='Room Type' options={types} />
+
                         <MyTextInput name='patient' placeholder='Patient' />
 
                         <Divider />

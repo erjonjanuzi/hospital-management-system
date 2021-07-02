@@ -29,7 +29,7 @@ export default observer(function AddRoom() {
         for (let i = 0; i < departmentStore.departments.length; i++) {
             let department = {
                 key: departmentStore.departments[i].id,
-                value: departmentStore.departments[i].id,
+                value: departmentStore.departments[i].name,
                 text: departmentStore.departments[i].name
             };
             departments[i] = department;
@@ -42,7 +42,7 @@ export default observer(function AddRoom() {
         for (let i = 0; i < patientStore.patients.length; i++) {
             let patient = {
                 key: patientStore.patients[i].id,
-                value: patientStore.patients[i].id,
+                value: patientStore.patients[i].firstName +'  '+ patientStore.patients[i].lastName,
                 text: patientStore.patients[i].firstName +'  '+ patientStore.patients[i].lastName
                 
             };

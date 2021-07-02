@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { Button, Header, Segment, Table } from 'semantic-ui-react';
+import { Button, Header, Segment, Table,Card, CardHeader, CardDescription ,Item,Divider} from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 import AddNewDepartment from './AddNewDepartment';
 import React, { useEffect } from 'react';
@@ -16,39 +16,44 @@ export default observer(function DepartmentsPage(){
     
     return (
         <Segment>
+            <Item>
             <Button content='Add New Department' onClick={() => modalStore.openModal(<AddNewDepartment/>)}/>
             <Header content='Departments' />
-          
-            <Table textAlign="center">
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>Department Name</Table.HeaderCell>
-                        <Table.HeaderCell>Capacity</Table.HeaderCell>
-                        <Table.HeaderCell>Description</Table.HeaderCell>
-                        <Table.HeaderCell>Actions</Table.HeaderCell>
-                    </Table.Row>
-                    
-                </Table.Header> 
-                <Table.Body >
-                    {departments.map(department=>(
-                                <Table.Row key={department.id}>
-                                    <Table.Cell>{department.name}</Table.Cell>
-                                    <Table.Cell>{department.capacity}</Table.Cell>
-                                    <Table.Cell>{department.description}</Table.Cell>
-
-                                    <Table.Cell>
-                                    <Button content='Edit' icon='edit' basic color='youtube'
+            <Card.Group>
+         
+         
+             {departments.map(department=>(
+                                <Card>
+                                <Card.Content key={department.id}>
+                                    
+                                    <Card.Header>{department.name}</Card.Header>
+                                    <Card.Meta>{department.capacity}</Card.Meta>
+                                    <Card.Description>{department.description}</Card.Description>
+                                    </Card.Content>  
+                                    <Card.Content extra>
+                                  <div className='ui two buttons'>
+                                  <Button content='Edit' icon='edit' basic color='blue'
                                     onClick={() => modalStore.openModal(<ViewDepartment id={department.id}/>)}
                                     />
-                                    <Button icon='delete' color='red'
+                                 <Button content='Delete' icon='delete' basic color='red'
                                      onClick={()=>deleteDepartment(department.id)}
-                                    /> 
-                                    </Table.Cell> 
-                                <Table.Row/>  
-                    </Table.Row>
-                    ))}
-                </Table.Body>
-            </Table>
+                                    />
+                                   </div>
+
+                                   </Card.Content>  
+                                     
+                                   
+                                   
+                
+                 </Card>
+               
+                  ))} 
+               
+
+             </Card.Group>
+            
+          
+             </Item>
         </Segment>
     )
 })
