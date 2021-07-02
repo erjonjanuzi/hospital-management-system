@@ -103,7 +103,8 @@ namespace API.Controllers
                     RegisteredSince = DateTime.Now,
                     Diagnosis = null,
                     Analysis = null,
-                    PersonalInfos = null
+                    PersonalInfos = null,
+                    MedicalReports = null
                 };
             }
 

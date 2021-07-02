@@ -12,47 +12,37 @@ interface Props {
     id: string | undefined;
 }
 
-export default observer(function EditDiagnosis({ id }: Props) {
+export default observer(function EditReport({ id }: Props) {
 
     const {
         accountManagementStore: { loadAccount, selectedAccount },
-        diagnosisStore: { loadDiagnosis, loadDiagnosisByPatient, selectedDiagnosis, updateDiagnosis },
+        medicalReportStore: { loadReport, loadReportsByPatient, selectedReport, updateReport },
         modalStore
     } = useStore();
 
-    const Diagnosis = selectedDiagnosis;
+    const reports = selectedReport;
 
-    const SelectedDiagnosis = {
-        id: Diagnosis!.id,
-        title: Diagnosis!.title,
-        type: Diagnosis!.type,
-        stage: Diagnosis!.stage,
-        details: Diagnosis!.details,
-        date: Diagnosis!.date,
-        patientsId: Diagnosis!.patientsId,
+    const SelectedReport = {
+        id: reports!.id,
+        firstName: reports!.firstName,
+        lastName: reports!.lastName,
+        age: reports!.age,
+        date: reports!.date,
+        report: reports!.report,
+        patientsId: reports!.patientsId,
         error: null
     }
     useEffect(() => {
-        if (id) loadDiagnosis(id);
+        if (id) loadReport(id);
     }, [id, loadAccount]);
-
-
-    const validationSchema = Yup.object({
-        title: Yup.string().required('Title is required'),
-        type: Yup.string().required('Type is required'),
-        details: Yup.string().required('Valid details are required'),
-        stage: Yup.string().required('Stage is required'),
-        date: Yup.date().required('Please pick a date'),
-    })
 
     return (
         <>
-            <Header as='h1' content='Add a new Diagnosis' />
+            <Header as='h2' content='You can update report here!' />
             <Divider />
             <Formik
-                initialValues={SelectedDiagnosis}
-                onSubmit={(values, { setErrors }) => updateDiagnosis(values).catch(error => setErrors({ error }))}
-                validationSchema={validationSchema}
+                initialValues={SelectedReport}
+                onSubmit={(values, { setErrors }) => updateReport(values).catch(error => setErrors({ error }))}
                 enableReinitialize
             >
                 {({ handleSubmit, isValid, isSubmitting, dirty, errors }) => (
@@ -62,21 +52,23 @@ export default observer(function EditDiagnosis({ id }: Props) {
                                 <Message negative content={errors.error} />}
                         />
                         <Segment clearing>
+
                         <Modal.Content>
-                        <Header sub content='Diagnosis information' />
-                        <MyTextInput name='title' placeholder='Title' />
-                        <MyTextInput name='type' placeholder='Type' />
+
+                        <MyTextInput name='firstName' placeholder='First Name' label="First Name:"/>
+                        <MyTextInput name='lastName' placeholder='Last Name' label="Last Name:"/>
                         <Divider />
 
-                        <Header sub content='Details' />
-                        <MyTextInput name='stage' placeholder='Stage' />
-                        <MyTextInput name='details' placeholder='Details' />
+                        <MyTextInput name='age' placeholder='Age' label="Age:"/> 
+                        <MyTextInput name='date' type='date' placeholder='Date' label="Date:" />
 
                         <Divider />
-                        <Header sub content='Date' />
-                        <MyTextInput name='date' type='date' placeholder='Date' />
+
+                        <MyTextInput name='report' placeholder='Report' label="Report:"/>
+
                         <Divider />
                         </Modal.Content>
+
                         </Segment>
                         <Button disabled={isSubmitting || !dirty || !isValid  }
                          loading={isSubmitting} positive type='submit' content='Submit'
@@ -88,5 +80,3 @@ export default observer(function EditDiagnosis({ id }: Props) {
         </>
     );
 })
-
-

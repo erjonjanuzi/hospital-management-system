@@ -2,13 +2,12 @@ import { observer } from 'mobx-react-lite';
 import { Button, Header, Segment, Table } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 import React, { useEffect } from 'react';
-import AddNewReport from './AddNewReport';
-import ViewReport from './ViewReport';
 import medicalReportStore from '../../../app/stores/medicalReportStore';
 import Breadcrumbs from '../../patients/my-profile/Breadcrumbs';
+import ViewReport from './ViewReport';
 
 
-export default observer(function MedicalReportsTable(){
+export default observer(function MedicalReportPatient(){
 
 
     const { patientStore,modalStore  } = useStore();
@@ -46,12 +45,9 @@ export default observer(function MedicalReportsTable(){
                                     <Table.Cell>{patient.role}</Table.Cell>
                                     <Table.Cell>{patient.registeredSince.split('T')[0]}</Table.Cell>
                                     <Table.Cell>
-                                    <Button content='View Report' icon='edit' basic color='youtube'
+                                    <Button content='View My Report' icon='eye' basic color='youtube'
                                     onClick={() => modalStore.openModal(<ViewReport id={patient.id}/>)}
                                     />
-                                    <Button content='Add Report' icon='add' basic color='youtube'
-                                    onClick={()=> modalStore.openModal(<AddNewReport id={patient.id}/>)}
-                                    /> 
                                     </Table.Cell> 
                                 <Table.Row/>  
                     </Table.Row>

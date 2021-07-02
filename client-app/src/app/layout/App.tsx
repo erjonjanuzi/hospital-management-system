@@ -32,6 +32,7 @@ import HealthData from '../../features/patients/healthDatas/HealthData';
 import Countries from '../../features/admin/countries/Countries';
 import RegisteredPatientsFromDoc from '../../features/admin/RegisteredPatients/RegisteredPatientsFromDoc';
 import DoctorAppointments from '../../features/doctor/appointments/DoctorAppointments';
+import MedicalReportPatient from '../../features/patients/medicalReports/MedicalReportPatient';
 
 function App() {
   const { commonStore, userStore } = useStore()
@@ -79,14 +80,14 @@ function App() {
                 <PrivateRoute exact path='/doctor/appointments' component={DoctorAppointments} />
 
 
-                
+                 
                 {/* {Patient Routes} */}
                 <PrivateRoute exact path='/patient/dashboard' component={PatientDashboard} />
                 <PrivateRoute exact path='/patient/appointments' component={PatientAppointments} />
                 <PrivateRoute exact path='/patient/patient-profile' component={PatientProfile} />
                 <PrivateRoute exact path='/patient/pharmacy-table' component={PharmacyTable} />
                 <PrivateRoute exact path='/patient/healthDatas' component={HealthData} />
-
+                <PrivateRoute exact path='/patient/medicalReports' component={MedicalReportPatient} />
 
 
                 {/* Extra Routes */}

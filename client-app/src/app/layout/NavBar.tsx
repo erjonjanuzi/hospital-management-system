@@ -12,7 +12,6 @@ export default observer(function NavBar() {
     { key: 'appointments', name: 'Appointments', to: '/admin/appointments' },
     { key: 'countries', name: 'Countries, Cities and Nationalities', to: '/admin/countries' },
     { key: 'departments', name: 'Departments', to: '/admin/departments' },
-    { key: 'pharmacyProducts', name: 'PharmacyProducts', to: '/admin/pharmacyProducts' },
     { key: 'rooms', name: 'Room Management', to: '/admin/rooms' },
     { key: 'pharmacyProducts', name: 'Pharmacy Products', to: '/admin/pharmacyProducts' },
     { key: 'registeredPatients', name: 'Registered Patients', to: '/admin/registeredPatients' }
@@ -35,7 +34,9 @@ export default observer(function NavBar() {
     { key: 'appointments', name: 'Appointments', to: '/patient/appointments' },
     { key: 'patient-profile', name: 'Patient Profile', to: '/patient/patient-profile' },
     { key: 'pharmacy-table', name: 'Online Pharmacy', to: '/patient/pharmacy-table'},
-    { key: 'healthDatas', name: 'PHR', to: '/patient/healthDatas'}
+    { key: 'healthDatas', name: 'PHR', to: '/patient/healthDatas'},
+    { key: 'medicalReports', name: 'My Medical Reports', to: '/patient/medicalReports' }
+
 
   ]
 

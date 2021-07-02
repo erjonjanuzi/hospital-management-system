@@ -10,6 +10,7 @@ export interface Patient {
     username: string;
     diagnosis: string;
     analysis: string;
+    report : string;
 }
 
 export interface PatientTable {

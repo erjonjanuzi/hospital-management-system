@@ -118,7 +118,9 @@ const MedicalReports ={
     details : (id : string) => requests.get<MedicalReport>(`/medicalreports/${id}`),
     delete :(id: string) => axios.delete<void>(`/medicalreports/${id}`),
     create : (medicalReport : MedicalReportDto) => requests.post<void>('/medicalreports/',medicalReport),
-    update : (medicalReport : MedicalReport) => axios.put<void>(`/medicalreports/${medicalReport.id}`,medicalReport)
+    update : (medicalReport : MedicalReport) => axios.put<void>(`/medicalreports/${medicalReport.id}`,medicalReport),
+    ByPatient: (patientsId: string) => requests.get<MedicalReport>(`/patientReports/${patientsId}`)
+
 }
 
 const Citys = {

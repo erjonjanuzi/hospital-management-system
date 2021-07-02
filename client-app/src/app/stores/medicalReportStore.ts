@@ -20,7 +20,7 @@ export default class medicalReportStore{
     }
 
     private setReport = (report : MedicalReport)=>{
-        this.reportRegistry.set(report.firstName,report);
+        this.reportRegistry.set(report.patientsId,report);
     }
 
     private getReport = (id : string)=>{
@@ -28,6 +28,19 @@ export default class medicalReportStore{
     }
     setLoadingInitial = (state : boolean)=>{
         this.loadingInitial= state;
+    }
+
+    hasReport= async(id: string) => {
+        const reports = await agent.MedicalReports.list();
+        reports.forEach(reports =>{
+            if(reports.patientsId === id){
+                console.log("This patient already has an report")
+                // this.setAnalyse(analyse);
+            }
+            else{
+                console.log("This patient does not have an report");
+            }
+        })
     }
 
     loadReports = async() =>{
@@ -65,19 +78,57 @@ export default class medicalReportStore{
         }
     }
 
+    loadReportsByPatient = async (patientId: string) => {
+        let reports = this.getReport(patientId);
+        if (reports) {
+            this.selectedReport = reports;
+            return reports;
+        }
+        else {
+            this.loadingInitial = true;
+            try {
+                reports = await agent.MedicalReports.ByPatient(patientId);
+                this.setReport(reports);
+                runInAction(() => {
+                    this.selectedReport = reports;
+                })
+                this.setLoadingInitial(false);
+                return reports;
+            } catch (error) {
+                console.log(error);
+                this.setLoadingInitial(false);
+            }
+        }
+    }
+
     createReport = async (report : MedicalReportDto)=>{
         this.loading = true;
-        try{
+        const reports = await agent.MedicalReports.list();
+
+        for (let i = 0; i < reports.length; i++) {
+            if (reports[i].patientsId === report.patientsId) {
+                toast.error("Patient already has a Report", {
+                    autoClose: 3000
+                })
+                return;
+            }
+          }
+        try {
             await agent.MedicalReports.create(report);
-            runInAction(()=>{
-                this.loadReports();
+            runInAction(() => {
+                this.editMode = false;
+                this.loading = false;
+                store.modalStore.closeModal();
+                toast.success("Report Added Successfully", {
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                })
             })
-            toast.success('Report added successfully');
-            store.modalStore.closeModal();
-        }catch(error){
+
+        } catch (error) {
             console.log(error);
-            runInAction(()=>{
-                this.loading=false;
+            runInAction(() => {
+                this.loading = false;
             })
         }
     }

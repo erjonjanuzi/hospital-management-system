@@ -361,13 +361,21 @@ namespace Persistence.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("RegisteredSince")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("PatientUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Report")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("patientsId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PatientUserId");
 
                     b.ToTable("MedicalReports");
                 });
@@ -825,6 +833,13 @@ namespace Persistence.Migrations
                         .HasForeignKey("PatientUserId");
                 });
 
+            modelBuilder.Entity("Domain.MedicalReport", b =>
+                {
+                    b.HasOne("Domain.PatientUser", null)
+                        .WithMany("MedicalReports")
+                        .HasForeignKey("PatientUserId");
+                });
+
             modelBuilder.Entity("Domain.Patient", b =>
                 {
                     b.HasOne("Domain.PersonalInfo", "PersonalInfo")
@@ -948,6 +963,8 @@ namespace Persistence.Migrations
                     b.Navigation("Appointments");
 
                     b.Navigation("Diagnosis");
+
+                    b.Navigation("MedicalReports");
 
                     b.Navigation("PersonalInfos");
                 });

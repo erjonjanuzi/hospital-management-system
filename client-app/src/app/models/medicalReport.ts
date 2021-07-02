@@ -3,12 +3,15 @@ export interface MedicalReport{
     firstName : string;
     lastName : string;
     age : string;
-    registeredSince : string;
     report : string;
+    date: string; 
+    patientsId: string;
 }
 export interface MedicalReportDto{
     firstName : string;
     lastName : string;
     age : string;
     report : string;
+    date: string; 
+    patientsId: string;
 }

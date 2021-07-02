@@ -3,7 +3,6 @@ import { observer } from "mobx-react-lite";
 import { useEffect } from 'react';
 import { Button, Container, Divider, Form, Header } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
-import EditReport from "./EditReport";
 
 interface Props{
     id : string
@@ -44,15 +43,6 @@ export default observer(function ViewReport({id} : Props){
                     <span>{Reports?.report}</span>
 
                     <Divider hidden />
-                    <div>
-                        <Button
-                            onClick={() => deleteReport(id)}
-                            color='red' content='Delete' icon='delete' labelPosition='right' />
-                        <Button
-                            onClick={() => modalStore.openModal(<EditReport id={Reports?.id}/>)}
-                            basic color='youtube' content='Edit' icon='edit' labelPosition='right' />
-                    </div>
-
                 </Container>
             </div>
         </>
