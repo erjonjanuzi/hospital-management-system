@@ -68,6 +68,7 @@ function App() {
                 <PrivateRoute path='/admin/appointments/' component={AdminAppointments}/>
                 <PrivateRoute path='/admin/rooms/' component={RoomManagement}/>
                 <PrivateRoute path='/admin/registeredPatients/' component={RegisteredPatientsFromDoc}/>
+               
 
 
 

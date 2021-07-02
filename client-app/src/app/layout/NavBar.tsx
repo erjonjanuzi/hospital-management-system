@@ -19,7 +19,8 @@ export default observer(function NavBar() {
     { key: 'departments', name: 'Departments', to: '/admin/departments' },
     { key: 'rooms', name: 'Room Management', to: '/admin/rooms' },
     { key: 'pharmacyProducts', name: 'Pharmacy Products', to: '/admin/pharmacyProducts' },
-    { key: 'registeredPatients', name: 'Registered Patients', to: '/admin/registeredPatients' }
+    { key: 'registeredPatients', name: 'Registered Patients', to: '/admin/registeredPatients' },
+    
   ]
 
   const doctorLinks = [
@@ -41,9 +42,8 @@ export default observer(function NavBar() {
     { key: 'pharmacy-table', name: 'Online Pharmacy', to: '/patient/pharmacy-table'},
     { key: 'healthDatas', name: 'PHR', to: '/patient/healthDatas'},
     { key: 'medicalReports', name: 'My Medical Reports', to: '/patient/medicalReports' },
-
     { key: 'pharmacy-table', name: 'Online Pharmacy', to: '/patient/pharmacy-table' },
-    { key: 'healthDatas', name: 'PHR', to: '/patient/healthDatas' }
+   
 
   ]
 
