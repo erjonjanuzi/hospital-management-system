@@ -1,10 +1,15 @@
 import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Image, Menu } from "semantic-ui-react";
 import { useStore } from "../stores/store";
 
 export default observer(function NavBar() {
-  const { userStore: { user, logout } } = useStore();
+  const { userStore: { user, logout, getUser } } = useStore();
+
+  useEffect(() => {
+    getUser();
+  }, [user, getUser])
 
   const adminLinks = [
     { key: 'dashboard', name: 'Dashboard', to: '/admin/dashboard' },
@@ -25,8 +30,8 @@ export default observer(function NavBar() {
     { key: 'diagnosis', name: 'Patient\'s Diagnosis', to: '/doctor/diagnosis' },
     { key: 'analysis', name: 'Patient\'s Analysis', to: '/doctor/analysis' },
     { key: 'bloodBank', name: 'Blood Bank Management', to: '/doctor/bloodBank' },
-    { key: 'medicalReports', name: 'Medical Reports', to: '/doctor/medicalReports' }
-
+    { key: 'medicalReports', name: 'Medical Reports', to: '/doctor/medicalReports' },
+    { key: 'profile', name: 'My Profile', to: '/doctor/profile' },
   ]
 
   const patientLinks = [
@@ -35,8 +40,10 @@ export default observer(function NavBar() {
     { key: 'patient-profile', name: 'Patient Profile', to: '/patient/patient-profile' },
     { key: 'pharmacy-table', name: 'Online Pharmacy', to: '/patient/pharmacy-table'},
     { key: 'healthDatas', name: 'PHR', to: '/patient/healthDatas'},
-    { key: 'medicalReports', name: 'My Medical Reports', to: '/patient/medicalReports' }
+    { key: 'medicalReports', name: 'My Medical Reports', to: '/patient/medicalReports' },
 
+    { key: 'pharmacy-table', name: 'Online Pharmacy', to: '/patient/pharmacy-table' },
+    { key: 'healthDatas', name: 'PHR', to: '/patient/healthDatas' }
 
   ]
 

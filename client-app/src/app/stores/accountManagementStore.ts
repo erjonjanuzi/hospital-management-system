@@ -130,16 +130,38 @@ export default class AccountManagementStore {
         }
     }
 
-    registerDoctor = async (creds: RegisterDoctor) => {
+    registerDoctor = async (creds: any) => {
         try {
-            await agent.AccountsManager.registerDoctor(creds);
+            const city = await agent.Citys.details(creds.cityId);
+            const country = await agent.Countries.details(city.countryId);
+            const doctor = {
+                "firstName" : creds.firstName,
+                "lastName" : creds.lastName,
+                "email" : creds.email,
+                "userName" : creds.userName,
+                "passwordHash" : creds.passwordHash,
+                "specialtyId" : creds.specialtyId,
+                "personalInfo" : {
+                    "personalNumber" : creds.personalNumber,
+                    "dateOfBirth" : creds.dateOfBirth,
+                    "gender" : creds.gender,
+                    "phoneNumber" : creds.phoneNumber,
+                    "address" : creds.address,
+                    "countryId" : country.id,
+                    "cityId" : creds.cityId,
+                    "nationalityId" : creds.nationalityId,
+                    "maritalStatus" : creds.maritalStatus
+                }
+            };
+            await agent.AccountsManager.registerDoctor(doctor);
             runInAction(() => {
                 this.loadAccounts();
             });
             toast.success('Doctor registered succesfully');
             store.modalStore.closeModal();
         } catch (error) {
-            toast.error('Error registering doctor');
+            throw error;
         }
     }
+
 }

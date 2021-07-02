@@ -7,7 +7,7 @@ export interface DoctorProfile {
     lastName: string;
     userName: string;
     email: string;
-    //registeredSince: string;
+    registeredSince: string;
     specialty: Specialty;
     personalInfo: PersonalInfo
 }

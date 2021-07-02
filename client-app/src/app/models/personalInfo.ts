@@ -5,13 +5,14 @@ import { Nationality } from "./nationality";
 export interface PersonalInfo {
     id: string;
     dateOfBirth: string;
+    personalNumber: string;
     gender: string;
-    phonenumber: string;
+    phoneNumber: string;
     address: string;
     city: City;
     country: Country;
     nationality: Nationality;
-    maritalstatus: string;
+    maritalStatus: string;
 }
 
 export interface PersonalInfoDTO {

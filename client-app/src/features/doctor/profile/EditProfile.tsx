@@ -9,10 +9,14 @@ import { RegisterDoctor } from '../../../app/models/user';
 import { useEffect } from 'react';
 import DateInput from '../../../app/common/form/DateInput';
 import { useState } from 'react';
+import { DoctorProfile } from '../../../app/models/profile';
 
+interface Props {
+    doctor: DoctorProfile
+}
 
-export default observer(function RegisterDoctorForm() {
-    const { accountManagementStore: { registerDoctor }, modalStore, countriesStore, specialtyStore, nationalitiesStore } = useStore();
+export default observer(function EditProfile({ doctor }: Props) {
+    const { profileStore: { updateDoctor }, modalStore, countriesStore, specialtyStore, nationalitiesStore } = useStore();
 
     const maritalStatus = [
         { key: 'Single', value: 'Single', text: 'Single' },
@@ -21,7 +25,9 @@ export default observer(function RegisterDoctorForm() {
         { key: 'Divorced', value: 'Divorced', text: 'Divorced' },
     ]
 
-    let specialties = new Array();
+    let specialties = [
+        { key: doctor.specialty.id, value: doctor.specialty.id, text: doctor.specialty.name }
+    ];
     const insertSpecialties = async () => {
         await specialtyStore.loadSpecialties();
         for (let i = 0; i < specialtyStore.specialties.length; i++) {
@@ -34,7 +40,9 @@ export default observer(function RegisterDoctorForm() {
         }
     }
 
-    let countries = new Array();
+    let countries = [
+        { key: doctor.personalInfo.country.id, value: doctor.personalInfo.country.id, text: doctor.personalInfo.country.name }
+    ];
     const insertCountries = async () => {
         await countriesStore.loadCountries();
         for (let i = 0; i < countriesStore.countries.length; i++) {
@@ -47,7 +55,9 @@ export default observer(function RegisterDoctorForm() {
         }
     }
 
-    let cities = new Array();
+    let cities = [
+        { key: doctor.personalInfo.city.id, value: doctor.personalInfo.city.id, text: doctor.personalInfo.city.name }
+    ];
     const insertCities = async (countryId: string) => {
         const country = countriesStore.countriesRegistry.get(countryId);
         const selectedCountryCities = country?.cities;
@@ -63,7 +73,9 @@ export default observer(function RegisterDoctorForm() {
         }
     }
 
-    let nationalities = new Array();
+    let nationalities = [
+        { key: doctor.personalInfo.nationality.id, value: doctor.personalInfo.nationality.id, text: doctor.personalInfo.nationality.name}
+    ];
     const insertNationalities = async () => {
         await nationalitiesStore.loadNationalities();
         for (let i = 0; i < nationalitiesStore.nationalities.length; i++) {
@@ -77,20 +89,22 @@ export default observer(function RegisterDoctorForm() {
     }
 
     const registerDoctorDto: any = {
-        firstName: '',
-        lastName: '',
-        userName: '',
-        email: '',
-        passwordHash: '',
-        specialtyId: '',
-        personalNumber: '',
-        dateOfBirth: new Date,
-        gender: '',
-        phoneNumber: '',
-        address: '',
-        cityId: '',
-        nationalityId: '',
-        maritalStatus: '',
+        id: doctor.id,
+        firstName: doctor.firstName,
+        lastName: doctor.lastName,
+        userName: doctor.userName,
+        email: doctor.email,
+        specialtyId: doctor.specialty.id,
+        personalInfoId: doctor.personalInfo.id,
+        personalNumber: doctor.personalInfo.personalNumber,
+        dateOfBirth: doctor.personalInfo.dateOfBirth,
+        gender: doctor.personalInfo.gender,
+        phoneNumber: doctor.personalInfo.phoneNumber,
+        address: doctor.personalInfo.address,
+        countryId: doctor.personalInfo.country.id,
+        cityId: doctor.personalInfo.city.id,
+        nationalityId: doctor.personalInfo.nationality.id,
+        maritalStatus: doctor.personalInfo.maritalStatus,
         error: null
     }
 
@@ -99,16 +113,15 @@ export default observer(function RegisterDoctorForm() {
         lastName: Yup.string().required('Last name is required'),
         email: Yup.string().email().required('A valid email is required'),
         userName: Yup.string().required('Username is required'),
-        passwordHash: Yup.string().required('Password is required').min(8, 'Password must be at least 8 characters'),
         specialtyId: Yup.string().required('Specialty is required'),
         personalNumber: Yup.string().required('Personal number is required'),
-        gender: Yup.string().required('Please choose gender'),
         cityId: Yup.string().required('Pick a city'),
         address: Yup.string().required('Address is required'),
         phoneNumber: Yup.string().required('Enter a phone number').min(9).max(12),
         nationalityId: Yup.string().required('Nationality is required'),
         maritalStatus: Yup.string().required('Marital status is required')
     })
+
     useEffect(() => {
         insertSpecialties();
         insertCountries();
@@ -117,12 +130,12 @@ export default observer(function RegisterDoctorForm() {
 
     return (
         <>
-            <Header as='h1' content='Register new doctor' />
+            <Header as='h1' content='Edit profile information' />
             <Divider />
             <Formik
                 initialValues={registerDoctorDto}
-                onSubmit={(values, { setErrors }) => registerDoctor(values).catch(error =>
-                    setErrors({ error }))}
+                onSubmit={(values, { setErrors }) => updateDoctor(values).catch(error =>
+                setErrors({ error }))}
                 enableReinitialize
                 validationSchema={validationSchema}
             >
@@ -142,33 +155,10 @@ export default observer(function RegisterDoctorForm() {
                                 <MyTextInput name='userName' placeholder='Username' />
                                 <Label content='Email' color='blue' basic />
                                 <MyTextInput name='email' placeholder='Email' />
-                                <Label content='Password' color='blue' basic />
-                                <MyTextInput name='passwordHash' placeholder='Password' type='password' />
                                 <Label content='Doctor specialty' color='blue' basic />
                                 <MySelectInput name='specialtyId' placeholder='Specialty' options={specialties} />
                             </Grid.Column>
                             <Grid.Column width='8'>
-                                <Label content='Personal number' color='blue' basic />
-                                <MyTextInput name='personalNumber' placeholder='Personal number' />
-                                <Label content='Date of birth' icon='calendar' color='blue' basic /><br />
-                                <DateInput
-                                    placeholderText='Date'
-                                    name='dateOfBirth'
-                                    showTimeSelect={false}
-                                    dateFormat='d MMMM, yyyy'
-                                    showYearDropdown
-                                />
-                                <br /><br />
-                                <Label content='Gender' color='blue' basic /><br />
-                                <label>
-                                    <Field type="radio" name="gender" value="Male" />
-                                    Male
-                                </label>
-                                <label style={{ marginLeft: '10px' }}>
-                                    <Field type="radio" name="gender" value="Female" />
-                                    Female
-                                </label>
-                                <br /><br />
                                 <Label content='Country' color='blue' basic /><br />
                                 <Select options={countries} placeholder='Country' name='countryId'
                                     onChange={(values, data) => insertCities((data.value!).toString())} fluid />

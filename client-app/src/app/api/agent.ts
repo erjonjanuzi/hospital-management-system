@@ -134,7 +134,7 @@ const Citys = {
 const Countries = {
     list: () => requests.get<Country[]>('/Country'),
     create: (country: Country) => requests.post<void>('/Country', country),
-    details: (id: any) => requests.get<Country>(`/Country/${id}`),
+    details: (id: string) => requests.get<Country>(`/Country/${id}`),
     delete: (id: any) => axios.delete<void>(`/Country/${id}`),
     update: (country: Country) => axios.put<void>(`/Country/${country.id}`, country)
 }
@@ -190,7 +190,6 @@ const HealthDatas = {
 
 }
 
-
 const Account = {
     current: () => requests.get<User>('/account'),
     login: (user: UserFormValues) => requests.post<User>('/account/login', user),
@@ -211,7 +210,9 @@ const AccountsManager = {
     delete: (id: string) => axios.delete<void>(`/account/${id}`),
     update: (user: AccountDto) => axios.put<void>(`/account/${user.id}`, user),
     register: (user: AccountFormValues) => requests.post('/account/register', user),
-    registerDoctor: (user: RegisterDoctor) => requests.post('account/register/doctor', user)
+    registerDoctor: (user: RegisterDoctor) => requests.post('/account/register/doctor', user),
+    getDoctor: (id: string) => requests.get<DoctorProfile>(`/account/doctor/${id}`),
+    editDoctor: (doctor: any) => requests.put(`/account/doctor/${doctor.id}`, doctor)
 }
 
 const DiagnosisManager = {

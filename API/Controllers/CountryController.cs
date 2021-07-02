@@ -48,6 +48,19 @@ namespace API.Controllers
             return Ok(countries);
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Country>> GetCountry(string Id)
+        {
+            var country = await context.Country.FindAsync(Id);
+
+            if (country == null) return null;
+
+            var cities = context.Cities.Where(x => x.CountryId == country.Id).ToList();
+            country.Cities = cities;
+            
+            return Ok(country);
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCountry(string Id)
         {

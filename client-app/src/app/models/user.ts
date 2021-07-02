@@ -45,13 +45,15 @@ export interface RegisterDoctor {
     email: string;
     passwordHash: string;
     specialtyId: string;
-    personalNumber: string;
-    dateOfBirth: Date;
-    gender: string;
-    phoneNumber: string;
-    address: string;
-    countryId: string;
-    cityId: string;
-    nationalityId: string;
-    maritalStatus: string;
+    personalInfo: {
+        personalNumber: string;
+        dateOfBirth: Date;
+        gender: string;
+        phoneNumber: string;
+        address: string;
+        countryId: string;
+        cityId: string;
+        nationalityId: string;
+        maritalStatus: string;
+    }
 }

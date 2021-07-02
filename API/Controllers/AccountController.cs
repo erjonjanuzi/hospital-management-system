@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.DTO;
 using API.Services;
 using Application.Accounts;
+using AutoMapper;
 using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -24,13 +25,15 @@ namespace API.Controllers
         private readonly SignInManager<AppUser> signInManager;
         private readonly TokenService tokenService;
         private readonly DataContext context;
+        private readonly IMapper mapper;
         public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenService tokenService,
-            DataContext context)
+            DataContext context, IMapper mapper)
         {
             this.tokenService = tokenService;
             this.signInManager = signInManager;
             this.userManager = userManager;
             this.context = context;
+            this.mapper = mapper;
         }
 
         [HttpPost("login")]
@@ -163,6 +166,43 @@ namespace API.Controllers
             }
 
             return BadRequest("Problem registering user");
+        }
+
+        [HttpPut("doctor/{id}")]
+        public async Task<IActionResult> EditDoctor(string Id, Doctor newDoctor)
+        {
+            var existingUser = (Doctor)await userManager.FindByIdAsync(Id);
+
+            if (!newDoctor.Email.Equals(existingUser.Email) && await userManager.FindByEmailAsync(newDoctor.Email) != null)
+                return BadRequest("Email exists");
+            if (!newDoctor.UserName.Equals(existingUser.UserName) && await userManager.Users.AnyAsync(x => x.UserName == newDoctor.UserName))
+                return BadRequest("Username exists");
+
+            PersonalInfo pi = await context.PersonalInfo.FindAsync(newDoctor.PersonalInfoId);
+            existingUser.PersonalInfo = pi;
+
+            existingUser.FirstName = newDoctor.FirstName;
+            existingUser.LastName = newDoctor.LastName;
+            existingUser.UserName = newDoctor.UserName;
+            existingUser.Email = newDoctor.Email;
+            existingUser.SpecialtyId = newDoctor.SpecialtyId;
+            existingUser.PersonalInfo.PersonalNumber = newDoctor.PersonalInfo.PersonalNumber;
+            existingUser.PersonalInfo.DateOfBirth = newDoctor.PersonalInfo.DateOfBirth;
+            existingUser.PersonalInfo.Gender = newDoctor.PersonalInfo.Gender;
+            existingUser.PersonalInfo.PhoneNumber = newDoctor.PersonalInfo.PhoneNumber;
+            existingUser.PersonalInfo.Address = newDoctor.PersonalInfo.Address;
+            existingUser.PersonalInfo.CountryId = newDoctor.PersonalInfo.CountryId;
+            existingUser.PersonalInfo.CityId = newDoctor.PersonalInfo.CityId;
+            existingUser.PersonalInfo.NationalityId = newDoctor.PersonalInfo.NationalityId;
+            existingUser.PersonalInfo.MaritalStatus = newDoctor.PersonalInfo.MaritalStatus;
+
+            var result = await userManager.UpdateAsync(existingUser);
+
+            if (result.Succeeded)
+                return Ok("Doctor updated");
+
+            return BadRequest("Error updating doctor");
+
         }
 
         [HttpGet("doctor/{id}")]
