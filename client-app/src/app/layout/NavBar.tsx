@@ -41,10 +41,7 @@ export default observer(function NavBar() {
     { key: 'patient-profile', name: 'Patient Profile', to: '/patient/patient-profile' },
     { key: 'pharmacy-table', name: 'Online Pharmacy', to: '/patient/pharmacy-table'},
     { key: 'healthDatas', name: 'PHR', to: '/patient/healthDatas'},
-    { key: 'medicalReports', name: 'My Medical Reports', to: '/patient/medicalReports' },
-    { key: 'pharmacy-table', name: 'Online Pharmacy', to: '/patient/pharmacy-table' },
-   
-
+    { key: 'medicalReports', name: 'My Medical Reports', to: '/patient/medicalReports' },   
   ]
 
   return (
