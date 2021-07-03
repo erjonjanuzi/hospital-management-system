@@ -455,9 +455,6 @@ namespace Persistence.Migrations
                     b.Property<Guid>("NationalityId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("PatientUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("PersonalNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -471,8 +468,6 @@ namespace Persistence.Migrations
                     b.HasIndex("CountryId");
 
                     b.HasIndex("NationalityId");
-
-                    b.HasIndex("PatientUserId");
 
                     b.ToTable("PersonalInfo");
                 });
@@ -794,6 +789,12 @@ namespace Persistence.Migrations
                 {
                     b.HasBaseType("Domain.AppUser");
 
+                    b.Property<Guid?>("PersonalInfoId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("PatientUser_PersonalInfoId");
+
+                    b.HasIndex("PersonalInfoId");
+
                     b.HasDiscriminator().HasValue("PatientUser");
                 });
 
@@ -866,10 +867,6 @@ namespace Persistence.Migrations
                         .HasForeignKey("NationalityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Domain.PatientUser", null)
-                        .WithMany("PersonalInfos")
-                        .HasForeignKey("PatientUserId");
 
                     b.Navigation("City");
 
@@ -946,6 +943,15 @@ namespace Persistence.Migrations
                     b.Navigation("Specialty");
                 });
 
+            modelBuilder.Entity("Domain.PatientUser", b =>
+                {
+                    b.HasOne("Domain.PersonalInfo", "PersonalInfo")
+                        .WithMany()
+                        .HasForeignKey("PersonalInfoId");
+
+                    b.Navigation("PersonalInfo");
+                });
+
             modelBuilder.Entity("Domain.Country", b =>
                 {
                     b.Navigation("Cities");
@@ -965,8 +971,6 @@ namespace Persistence.Migrations
                     b.Navigation("Diagnosis");
 
                     b.Navigation("MedicalReports");
-
-                    b.Navigation("PersonalInfos");
                 });
 #pragma warning restore 612, 618
         }

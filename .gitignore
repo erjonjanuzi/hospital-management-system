@@ -450,3 +450,4 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 
 Persistence/Migrations/*
+Persistence/Migrations/DataContextModelSnapshot.cs

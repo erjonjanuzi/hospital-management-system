@@ -18,4 +18,6 @@ export interface PatientProfile {
     lastName: string;
     userName: string;
     email: string;
+    registeredSince: string;
+    personalInfo: PersonalInfo;
 }

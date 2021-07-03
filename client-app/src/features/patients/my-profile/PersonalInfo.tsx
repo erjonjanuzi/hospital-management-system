@@ -1,64 +1,137 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
-import { PersonalInfo } from '../../../app/models/personalInfo';
-import MySelectInput from '../../../app/common/form/MySelectInput';
+import { useEffect } from 'react';
+import { Divider, Grid, Header, Item, Label, Segment, Table } from 'semantic-ui-react';
+import { PatientProfile } from '../../../app/models/profile';
 import { useStore } from '../../../app/stores/store';
-import * as Yup from 'yup';
-import { Card, Divider, Header, Item, ItemDescription, Segment } from 'semantic-ui-react';
-import { ErrorMessage, Form, Formik } from 'formik';
 
-export default observer(function PersonalInfo(){
+// interface Props {
+//     patient: PatientProfile
+// }
 
-    /*const { modalStore, userStore, personalInfoStore } =  useStore();
-    
-    const validationSchema = Yup.object({
-        dateofbirth: Yup.string().required(' Date of birth is requred!'),
-        gender: Yup.string().required(' Gender is requred!'),
-        personalnumber: Yup.string().required(' Personal Number is requred!'),
-    })
+export default function Profile() {
 
-    const maritalStatus = [
-        { key: 'single', value: 'single', text: 'Single' },
-        { key: 'married', value: 'married', text: 'Married' },
-        { key: 'divorced', value: 'divorced', text: 'Divorced' },
-    ]
+    const Patient = {
+        firstName: "Engjell",
+        lastName: "Avdiu",
+        userName: "Engjell Avdiu",
+        email: "engjell@test.com",
+        registeredSince: "01/07/2021",
+        personalNumber: "1244629233",
+        dateOfBirth: "21/04/2001",
+        gender: "Male",
+        phoneNumber: "+38349466692",
+        countryName: "Kosovo",
+        countryId: "XK",
+        cityName: "Mitrovice",
+        cityZip: "40000",
+        address: "Rr. Ferat Dragaj",
+        nationalityName: "Shqipretare",
+        maritalStatus: "Married"
 
-    const personalInfo: PersonalInfo = {
-        id: '',
-        dateofbirth: '',
-        gender: '', 
-        phonenumber: '',
-        height: '',
-        address: '',
-        city: '',
-        country: '',
-        nationality: '',
-        maritalstatus: '',
-        patientsId: ''
-    }*/
+    }
 
-    return(
+    return (
         <>
-        <Header as='h1' content='Personal Information' />
-        <Divider />
-        {/*<Formik 
-            initialValues={personalInfo}
-            validationSchema={validationSchema}
-            onSubmit={(values) => personalInfoStore.editPersonalInfo(values).catch(error => console.log(error))}
-            enableReinitialize
-        />
-
-        <Card>
-            <Segment textAlign='center'>
-                <Item.Header>
-                    Emri
-                </Item.Header>
-
-                {/* <MySelectInput placeholder='maritalstatus' name='maritalstatus' options={maritalStatus} label='What is your marital status ? ' /> 
+            <Segment>
+            <Grid>
+                <Grid.Column width='8'>
+                    <Table basic='very' collapsing >
+                        <Table.Body>
+                        <Table.Row>
+                                <Table.Cell>
+                                    <Label basic content='Firstname' />
+                                </Table.Cell>
+                                <Table.Cell>{Patient?.firstName}</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>
+                                    <Label basic content='Lastname' />
+                                </Table.Cell>
+                                <Table.Cell>{Patient?.lastName}</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>
+                                    <Label basic content='Username' />
+                                </Table.Cell>
+                                <Table.Cell>{Patient?.userName}</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>
+                                    <Label basic content='Email' />
+                                </Table.Cell>
+                                <Table.Cell>{Patient?.email}</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>
+                                    <Label basic content='Registered since' />
+                                </Table.Cell>
+                                <Table.Cell>{Patient?.registeredSince.toString().split("T")[0]}</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table>
+                </Grid.Column>
+                <Grid.Column width='8'>
+                    <Table basic='very' collapsing >
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell>
+                                    <Label basic content='Personal number' />
+                                </Table.Cell>
+                                <Table.Cell>{Patient?.personalNumber}</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>
+                                    <Label basic content='Date of birth' />
+                                </Table.Cell>
+                                <Table.Cell>{Patient?.dateOfBirth.toString().split("T")[0]}</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>
+                                    <Label basic content='Gender' />
+                                </Table.Cell>
+                                <Table.Cell>{Patient?.gender}</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>
+                                    <Label basic content='Phone number' />
+                                </Table.Cell>
+                                <Table.Cell>{Patient?.phoneNumber}</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>
+                                    <Label basic content='Country' />
+                                </Table.Cell>
+                                <Table.Cell>{Patient?.countryName + ', ' + Patient?.countryId}</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>
+                                    <Label basic content='City' />
+                                </Table.Cell>
+                                <Table.Cell>{Patient?.cityName + ', ' + Patient?.cityZip}</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>
+                                    <Label basic content='Address' />
+                                </Table.Cell>
+                                <Table.Cell>{Patient?.address}</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>
+                                    <Label basic content='Nationality' />
+                                </Table.Cell>
+                                <Table.Cell>{Patient?.nationalityName}</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>
+                                    <Label basic content='Marital status' />
+                                </Table.Cell>
+                                <Table.Cell>{Patient?.maritalStatus}</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table>
+                </Grid.Column>
+            </Grid>
             </Segment>
-        </Card>*/}
         </>
-        
-    );
-})
-    
+    )
+}

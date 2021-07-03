@@ -13,7 +13,7 @@ import { BloodBank,BloodBankTable } from "../models/bloodBank";
 import { Appointment } from "../models/appointment";
 import { MedicalReport,MedicalReportDto } from "../models/medicalReport";
 import { Specialty } from "../models/specialty";
-import { DoctorProfile } from "../models/profile";
+import { DoctorProfile, PatientProfile } from "../models/profile";
 import { Room,RoomDto } from "../models/room";
 import { HealthData, HealthDataTable } from "../models/healthData";
 import { PersonalInfo, PersonalInfoDTO } from "../models/personalInfo";
@@ -212,7 +212,9 @@ const AccountsManager = {
     register: (user: AccountFormValues) => requests.post('/account/register', user),
     registerDoctor: (user: RegisterDoctor) => requests.post('/account/register/doctor', user),
     getDoctor: (id: string) => requests.get<DoctorProfile>(`/account/doctor/${id}`),
-    editDoctor: (doctor: any) => requests.put(`/account/doctor/${doctor.id}`, doctor)
+    editDoctor: (doctor: any) => requests.put(`/account/doctor/${doctor.id}`, doctor),
+    getPatient: (id: string) => requests.get<PatientProfile>(`/account/patient/${id}`),
+    editPatient: (patient: any) => requests.put(`/account/patient/${patient.id}`, patient)
 }
 
 const DiagnosisManager = {

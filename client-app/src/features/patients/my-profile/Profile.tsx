@@ -2,7 +2,9 @@ import userEvent from '@testing-library/user-event'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { Card, Container, Divider, Grid, Icon, Image, List, Segment, Tab } from 'semantic-ui-react'
+import PatientStore from '../../../app/stores/patientStore'
 import { useStore } from '../../../app/stores/store'
+import UserStore from '../../../app/stores/userStore'
 import BillingInfo from './BillingInfo'
 import MedicalInfo from './MedicalInfo'
 import PersonalInfo from './PersonalInfo'
@@ -10,15 +12,22 @@ import PersonalInfo from './PersonalInfo'
 
 export default observer(function Profile() {
 
-    const { commonStore, userStore } = useStore()
-    const { user } = userStore;
+    const { accountManagementStore: { loadAccount, selectedAccount },
+    diagnosisStore: { deleteDiagnosis, loadDiagnosisByPatient, selectedDiagnosis }, modalStore,
+    userStore: {user, getUser}
+    } = useStore();
+
+
     useEffect(() => {
-        if (commonStore.token) {
-            userStore.getUser();
-        } else {
-            commonStore.setAppLoaded();
-        }
-    }, [commonStore, userStore])
+        getUser();
+      }, [user, getUser])
+
+    // const { userStore: { user }, profileStore: { loadPatient, selectedPatient: patient }, modalStore } = useStore();
+
+    // useEffect(() => {
+    //     loadPatient(user?.id!);
+    // }, [loadPatient])
+
 
     const staticPatient = {
         // personal information
@@ -41,9 +50,6 @@ export default observer(function Profile() {
 
     }
 
-
-    const { modalStore } = useStore();
-
     const panes = [
         {
             menuItem: { key: 'personal', content: 'Personal' },
@@ -51,7 +57,7 @@ export default observer(function Profile() {
         },
         {
             menuItem: { key: 'medical', content: 'Medical' },
-            render: () => <Tab.Pane><MedicalInfo /></Tab.Pane>,
+            render: () => <Tab.Pane><MedicalInfo id={user?.id!} /></Tab.Pane>,
         },
         {
             menuItem: { key: 'billing', content: 'Billing' },

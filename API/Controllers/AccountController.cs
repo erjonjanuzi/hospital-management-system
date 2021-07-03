@@ -106,7 +106,7 @@ namespace API.Controllers
                     RegisteredSince = DateTime.Now,
                     Diagnosis = null,
                     Analysis = null,
-                    PersonalInfos = null,
+                    PersonalInfo = null,
                     MedicalReports = null
                 };
             }
@@ -121,6 +121,7 @@ namespace API.Controllers
             return BadRequest("Problem registering user");
         }
 
+        //doc routes
         [HttpPost("register/doctor")]
         public async Task<ActionResult<UserDto>> RegisterDoctor(Doctor doctor)
         {
@@ -227,6 +228,72 @@ namespace API.Controllers
 
             return Ok(doctor);
         }
+
+        //patient routes
+        [HttpPut("patient/{id}")]
+        public async Task<IActionResult> EditPatient(string Id, PatientUser newPatientUser)
+        {
+            var existingUser = (PatientUser)await userManager.FindByIdAsync(Id);
+
+            if (!newPatientUser.Email.Equals(existingUser.Email) && await userManager.FindByEmailAsync(newPatientUser.Email) != null)
+                return BadRequest("Email exists");
+            if (!newPatientUser.UserName.Equals(existingUser.UserName) && await userManager.Users.AnyAsync(x => x.UserName == newPatientUser.UserName))
+                return BadRequest("Username exists");
+
+            PersonalInfo pi = await context.PersonalInfo.FindAsync(newPatientUser.PersonalInfoId);
+            existingUser.PersonalInfo = pi;
+
+            existingUser.FirstName = newPatientUser.FirstName;
+            existingUser.LastName = newPatientUser.LastName;
+            existingUser.UserName = newPatientUser.UserName;
+            existingUser.Email = newPatientUser.Email;
+            existingUser.PersonalInfo.PersonalNumber = newPatientUser.PersonalInfo.PersonalNumber;
+            existingUser.PersonalInfo.DateOfBirth = newPatientUser.PersonalInfo.DateOfBirth;
+            existingUser.PersonalInfo.Gender = newPatientUser.PersonalInfo.Gender;
+            existingUser.PersonalInfo.PhoneNumber = newPatientUser.PersonalInfo.PhoneNumber;
+            existingUser.PersonalInfo.Address = newPatientUser.PersonalInfo.Address;
+            existingUser.PersonalInfo.CountryId = newPatientUser.PersonalInfo.CountryId;
+            existingUser.PersonalInfo.CityId = newPatientUser.PersonalInfo.CityId;
+            existingUser.PersonalInfo.NationalityId = newPatientUser.PersonalInfo.NationalityId;
+            existingUser.PersonalInfo.MaritalStatus = newPatientUser.PersonalInfo.MaritalStatus;
+
+            var result = await userManager.UpdateAsync(existingUser);
+
+            if (result.Succeeded)
+                return Ok("Patient updated");
+
+            return BadRequest("Error updating Patient");
+
+        }
+
+        [HttpGet("patient/{id}")]
+        public async Task<ActionResult<Patient>> GetPatient(string Id)
+        {
+            PatientUser patient = (PatientUser)await userManager.Users.FirstOrDefaultAsync(x => x.Id == Id);
+
+            if (patient == null) return null;
+
+            PersonalInfo pi = await context.PersonalInfo.FindAsync(patient.PersonalInfoId);
+            Country country = await context.Country.FindAsync(patient.PersonalInfo.CountryId);
+            Nationality nationality = await context.Nationality.FindAsync(patient.PersonalInfo.NationalityId);
+            City city = await context.Cities.FindAsync(patient.PersonalInfo.CityId);
+
+            pi.Country = country;
+            pi.Nationality = nationality;
+            pi.City = city;
+
+            patient.PersonalInfo = pi;
+            return Ok(patient);
+        }
+
+
+
+
+
+
+
+
+
 
 
         //[Authorize]
