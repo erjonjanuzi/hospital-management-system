@@ -32,7 +32,7 @@ export default observer(function NavBar() {
     { key: 'analysis', name: 'Patient\'s Analysis', to: '/doctor/analysis' },
     { key: 'bloodBank', name: 'Blood Bank Management', to: '/doctor/bloodBank' },
     { key: 'medicalReports', name: 'Medical Reports', to: '/doctor/medicalReports' },
-    { key: 'profile', name: 'My Profile', to: '/doctor/profile' },
+    { key: 'profile', name: 'My Profile', to: '/doctor/profile' }
   ]
 
   const patientLinks = [
@@ -42,6 +42,8 @@ export default observer(function NavBar() {
     { key: 'pharmacy-table', name: 'Online Pharmacy', to: '/patient/pharmacy-table'},
     { key: 'healthDatas', name: 'PHR', to: '/patient/healthDatas'},
     { key: 'medicalReports', name: 'My Medical Reports', to: '/patient/medicalReports' },   
+    { key: 'vaccination', name: 'Vaccination', to: '/patient/vaccination' },
+    { key: 'analysis', name: 'Analysis Result', to: '/patient/patient-analysis' }
   ]
 
   return (

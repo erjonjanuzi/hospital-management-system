@@ -1,7 +1,7 @@
-import { ErrorMessage, Formik } from "formik";
+import { ErrorMessage, Formik, Form, Field } from "formik";
 import { observer } from "mobx-react-lite";
 import React from "react";
-import {Button,Checkbox,Divider,Form,Header,List,Message,Modal,Segment,} from "semantic-ui-react";
+import {Button,Checkbox,Divider,Header,List,Message,Modal,Segment,} from "semantic-ui-react";
 import * as Yup from "yup";
 import MySelectInput from "../../../app/common/form/MySelectInput";
 import MyTextArea from "../../../app/common/form/MyTextArea";
@@ -24,13 +24,13 @@ export default observer(function CreateVaccination() {
     error: null,
   };
 
-  const vaccineRecived = [
-      {key: 'phizer', value: 'pfizer', text: 'Pfizer'},
-      {key: 'moderna', value: 'moderna', text: 'Moderna'},
-      {key: 'johnson', value: 'johnson', text: 'Johnson and Johnson'},
-      {key: 'astra', value: 'astrazeneca', text: 'AstraZeneca'},
-      {key: 'other', value: 'other', text: 'Another Product'}
-  ]
+  // const vaccineRecived = [
+  //     {key: 'phizer', value: 'pfizer', text: 'Pfizer'},
+  //     {key: 'moderna', value: 'moderna', text: 'Moderna'},
+  //     {key: 'johnson', value: 'johnson', text: 'Johnson and Johnson'},
+  //     {key: 'astra', value: 'astrazeneca', text: 'AstraZeneca'},
+  //     {key: 'other', value: 'other', text: 'Another Product'}
+  // ]
 
 
   const wantedVaccine = [
@@ -41,10 +41,12 @@ export default observer(function CreateVaccination() {
     {key: 'other', value: 'Another Product', text: 'Another Product'}
 
 ]
-const allergies = [
-    {key: 'glycon', value: 'Polyethylene glycol (PEG)', text: 'Polyethylene glycol (PEG)'},
-    {key: 'polysorbate', value: 'Polysorbate', text: 'Polysorbate'},
-    {key: 'previous', value: 'A previous dose of COVID-19 vaccine', text: 'A previous dose of COVID-19 vaccine'}
+const option = [
+    {key: '1', value: 'polyethylene glycol', text: 'Polyethylene glycol'},
+    {key: '2', value: 'polysorbate', text: 'polysorbate'},
+    {key: '3', value: 'a previous dose of covid-19 vaccine', text: 'A previous dose of COVID-19 vaccine'},
+    {key: '4', text: 'none', value: 'None' },
+
 ]
 
   return (
@@ -79,24 +81,23 @@ const allergies = [
                 </List.Item>
 
                 <Divider />
-                <MySelectInput label="1. Have you ever received a dose of COVID-19 vaccine?" placeholder="Recevied vaccine" name="recived" options={vaccineRecived!} />
-
+                <Header as='h4'> 1. Have you received the first dose of the vaccine?</Header>
+                        <label>
+                                    <Field type="radio" name="received" value="Yes" />
+                                    Yes
+                                </label>
+                                <label style={{ marginLeft: '10px' }}>
+                                    <Field type="radio" name="received" value="No" />
+                                    No
+                                </label>
                 <Divider />
                 <MySelectInput label="2. Which COVID-19 vaccine do you want to receive?" placeholder="Wanted vaccine" name="vaccine" options={wantedVaccine} />
                 <Divider />
-                <MySelectInput label="3. Have you ever had an allergic reaction to:" placeholder="Allegies" name="allegies" options={allergies} />
+                <Header as='h4'>4.Have you ever had an allergic reaction to:</Header>
+                        <MySelectInput name='allergies' placeholder='allergies' options={option}/>
                 <Divider />
-                {/* <MySelectInput label="4. Select what applys to you" placeholder="Addition info" name="applies" options={info} /> */}
-                <MyTextArea
-                            placeholder='Comment here...'
-                            rows={3}
-                            name='comment'
-                            label='Do you struggle with any chronic diseases'
-                        />
-                {/* <Divider /> */}
-                {/* <MySelectInput label="6. Is this your first or second dosage of the vaccine?" name="dose" placeholder="Dose" options={desc}/>               */}
-
-                     
+                <Header as='h4'>4. Do you struggle with any chronic diseases? </Header>
+                        <MyTextInput name='information'/>            
               </Modal.Content>
             </Segment>
             <Button

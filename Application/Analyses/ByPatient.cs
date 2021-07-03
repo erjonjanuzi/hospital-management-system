@@ -25,10 +25,15 @@ namespace Application.Analyses
                 this.context = context;
             }
 
-            public async Task<Result<Analyse>> Handle(Query request, CancellationToken cancellationToken) 
+            // public async Task<Result<Analyse>> Handle(Query request, CancellationToken cancellationToken) 
+            // {
+            //     var anaysis =  context.Analyses.SingleOrDefault(anaysis => anaysis.patientsId == request.patientsId);
+            //     return Result<Analyse>.Success(anaysis);
+            // }
+            public Task<Result<Analyse>> Handle(Query request, CancellationToken cancellationToken) 
             {
                 var anaysis =  context.Analyses.SingleOrDefault(anaysis => anaysis.patientsId == request.patientsId);
-                return Result<Analyse>.Success(anaysis);
+                return Task.FromResult(Result<Analyse>.Success(anaysis));
             }
 
         }

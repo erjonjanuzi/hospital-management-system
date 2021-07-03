@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 import agent from "../api/agent";
-import { Patient, PatientTable } from "../models/patient";
 import { Vaccination, VaccinationDto } from "../models/vaccination";
 import { store } from "./store";
 
@@ -55,10 +54,14 @@ export default class VaccinationStore {
             }
         }
     }
-     private setVaccine = (vaccine: Vaccination) => {
-        this.vaccineRegistry.set(vaccine.id, vaccine);
-     }
+    
+    // private setVaccine = (vaccine: Vaccination) => {
+    //     this.vaccineRegistry.set(vaccine.id, vaccine);
+    // }
 
+    private setVaccine = (vaccine: Vaccination) => {
+        this.vaccineRegistry.set(vaccine.vaccine, vaccine);
+    }
     private getVaccine = (id: string) => {
         return this.vaccineRegistry.get(id);
     }
@@ -67,45 +70,58 @@ export default class VaccinationStore {
         this.loadingInitial = state;
     }
 
+    // updateVaccine = async (vaccine: Vaccination) => {
+    //     this.loading = true;
+    //     try{
+    //         await agent.Vaccinations.update(vaccine);
+    //         runInAction(() => {
+    //             this.vaccineRegistry.set(vaccine.id, vaccine);
+    //             this.selectedVaccine = vaccine;
+    //             this.editMode = false;
+    //             this.loading = false;
+    //             store.modalStore.closeModal();
+    //         })
+    //     } catch (error) {
+    //         console.log(error);
+    //         runInAction(() => {
+    //             this.loading = false;
+    //         })
+    //     }
+    // }
+
     updateVaccine = async (vaccine: Vaccination) => {
         this.loading = true;
-        try {
+        try{
             await agent.Vaccinations.update(vaccine);
-            runInAction(() => {
-                this.vaccineRegistry.set(vaccine.id, vaccine);
-                this.selectedVaccine = vaccine;
-                this.editMode = false;
-                this.loading = false;
-                store.modalStore.closeModal();
+            runInAction(()=>{
+                this.loadVaccines();
             })
-        } catch (error) {
+            store.modalStore.closeModal();
+        }catch(error) {
             console.log(error);
-            runInAction(() => {
+            runInAction(()=>{
                 this.loading = false;
             })
-        }
+        } 
     }
 
     createVaccination = async (vaccine: VaccinationDto) => {
+        this.loading = true;
         try {
             await agent.Vaccinations.create(vaccine);
             runInAction(() => {
-                this.editMode = false;
-                this.loading = false;
+                this.loadVaccines();
                 store.modalStore.closeModal();
-                toast.success("Vaccine Added Successfully", {
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                })
+                toast.success('Vaccination Form Added Successfully')
             })
-
-        } catch (error) {
+        }catch(error) {
             console.log(error);
-            runInAction(() => {
-                this.loading = false;
-            })
+            runInAction(()=>{
+                this.loading=false;
+            }) 
         }
     }
+
 
     deleteVaccine = async (id: string) => {
         this.loading = true;
@@ -114,7 +130,8 @@ export default class VaccinationStore {
             runInAction(() => {
                 this.vaccineRegistry.delete(id);
                 this.loading = false;
-                
+                store.modalStore.closeModal();
+                window.location.reload();
             })
         } catch(error) {
             console.log(error);

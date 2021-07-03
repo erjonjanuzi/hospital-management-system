@@ -13,7 +13,7 @@ export default observer(function Vaccination() {
     const { loadVaccines, vaccine, vaccineRegistry, deleteVaccine } = vaccinationStore;   
 
     useEffect(() => {
-        if (vaccineRegistry.size <= 1) loadVaccines();
+        if (vaccineRegistry.size <= 0) loadVaccines();
     }, [vaccineRegistry.size, loadVaccines])
 
     return (
@@ -48,7 +48,7 @@ export default observer(function Vaccination() {
                                 <Table.Cell>{vaccine.vaccine}</Table.Cell>
                                 <Table.Cell>{vaccine.date.split('T')[0]}</Table.Cell>
                             <Table.Cell>
-                                      <Button content='View Analyse' icon='edit' basic color='youtube'
+                                      <Button content='View Vaccination' icon='edit' basic color='youtube'
                                     onClick={() => modalStore.openModal(<ViewVaccine id={vaccine.id} />)} 
                                     />                                    
                                 <Button 

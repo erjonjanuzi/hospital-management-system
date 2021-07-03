@@ -1,72 +1,59 @@
-import { Form, Formik } from "formik";
+import { Field, Formik } from "formik";
 import { observer } from "mobx-react-lite";
-import { useEffect } from "react";
-import {
-  Button,
-  Divider,
-  Header,
-  List,
-  Modal,
-  Segment
-} from "semantic-ui-react";
-import MySelectInput from "../../../app/common/form/MySelectInput";
-import MyTextArea from "../../../app/common/form/MyTextArea";
+import React, { useEffect } from 'react';
+import { Button, Divider, Form, Header, List, Modal, Segment } from "semantic-ui-react";
+import * as Yup from 'yup';
 import MyTextInput from "../../../app/common/form/MyTextInput";
 import { useStore } from "../../../app/stores/store";
+import MySelectInput from "../../../app/common/form/MySelectInput";
 
-interface Props {
-  id: string;
+interface Props{
+    id: string
 }
 
-export default observer(function EditVacciantion({ id }: Props) {
-  const {
-    vaccinationStore: { loadVaccine, selectedVaccine, updateVaccine },
-    modalStore,
-  } = useStore();
 
-  useEffect(() => {
-    if (id) loadVaccine(id);
-  }, [id, loadVaccine]);
+export default observer(function EditVacciantion({id}:Props){
 
-  const vaccineRecived = [
-    {key: 'phizer', value: 'pfizer', text: 'Pfizer'},
-    {key: 'moderna', value: 'moderna', text: 'Moderna'},
-    {key: 'johnson', value: 'johnson', text: 'Johnson and Johnson'},
-    {key: 'astra', value: 'astrazeneca', text: 'AstraZeneca'},
-    {key: 'other', value: 'other', text: 'Another Product'}
-]
+    const { vaccinationStore : {loadVaccine,selectedVaccine,updateVaccine},modalStore} =useStore();
+
+    useEffect(() => {
+    if(id)loadVaccine(id);
+    }, [id,loadVaccine]); 
+
+    const validationSchema = Yup.object({
+      //  name: Yup.string().required('Name is required'),
+        
+    })
+    const wantedVaccine = [
+      {key: 'phizer', value: 'Pfizer', text: 'Pfizer'},
+      {key: 'moderna', value: 'Moderna', text: 'Moderna'},
+      {key: 'johnson', value: 'Johnson and Johnson', text: 'Johnson and Johnson'},
+      {key: 'astra', value: 'AstraZeneca', text: 'AstraZeneca'},
+      {key: 'other', value: 'Another Product', text: 'Another Product'}
+  
+  ]
+  const option = [
+      {key: '1', value: 'polyethylene glycol', text: 'Polyethylene glycol'},
+      {key: '2', value: 'polysorbate', text: 'polysorbate'},
+      {key: '3', value: 'a previous dose of covid-19 vaccine', text: 'A previous dose of COVID-19 vaccine'},
+      {key: '4', text: 'none', value: 'None' },
+  
+  ]
 
 
-const wantedVaccine = [
-  {key: 'phizer', value: 'Pfizer', text: 'Pfizer'},
-  {key: 'moderna', value: 'Moderna', text: 'Moderna'},
-  {key: 'johnson', value: 'Johnson and Johnson', text: 'Johnson and Johnson'},
-  {key: 'astra', value: 'AstraZeneca', text: 'AstraZeneca'},
-  {key: 'other', value: 'Another Product', text: 'Another Product'}
-
-]
-const allergies = [
-  {key: 'glycon', value: 'Polyethylene glycol (PEG)', text: 'Polyethylene glycol (PEG)'},
-  {key: 'polysorbate', value: 'Polysorbate', text: 'Polysorbate'},
-  {key: 'previous', value: 'A previous dose of COVID-19 vaccine', text: 'A previous dose of COVID-19 vaccine'}
-]
-
-  return (
-    <>
-      <Header as="h1" content="Edit patient informations" />
-      <Divider />
-      <Formik
-        initialValues={selectedVaccine!}
-        onSubmit={(values) =>
-          updateVaccine(values).catch((error) => console.log(error))
-        }
-        enableReinitialize
-      >
-        {({ handleSubmit, isValid, isSubmitting, dirty }) => (
-          <Form className="ui form" onSubmit={handleSubmit} autoComplete="off">
-            <Header content="Patient details" />
+    return(
+        <>
+            <Header as='h1' content='Edit Vaccination Form ' />
             <Divider />
-            <Segment clearing>
+            <Formik
+                initialValues={selectedVaccine!} 
+                onSubmit={(values) => updateVaccine(values).catch(error => console.log(error))}
+                enableReinitialize
+                validationSchema={validationSchema}
+            >
+                {({ handleSubmit, isValid, isSubmitting, dirty }) => (
+                    <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
+<Segment clearing>
               <Modal.Content>
                 <List.Item>
                     <MyTextInput label="First Name" name="firstName" placeholder="First Name" />
@@ -80,42 +67,33 @@ const allergies = [
                 </List.Item>
 
                 <Divider />
-                <MySelectInput label="1. Have you ever received a dose of COVID-19 vaccine?" placeholder="Recevied vaccine" name="recived" options={vaccineRecived!} />
-
+                <Header as='h4'> 1. Have you received the first dose of the vaccine?</Header>
+                        <label>
+                                    <Field type="radio" name="received" value="Yes" />
+                                    Yes
+                                </label>
+                                <label style={{ marginLeft: '10px' }}>
+                                    <Field type="radio" name="received" value="No" />
+                                    No
+                                </label>
                 <Divider />
                 <MySelectInput label="2. Which COVID-19 vaccine do you want to receive?" placeholder="Wanted vaccine" name="vaccine" options={wantedVaccine} />
                 <Divider />
-                <MySelectInput label="3. Have you ever had an allergic reaction to:" placeholder="Allegies" name="allegies" options={allergies} />
+                <Header as='h4'>4.Have you ever had an allergic reaction to:</Header>
+                        <MySelectInput name='allergies' placeholder='allergies' options={option}/>
                 <Divider />
-                {/* <MySelectInput label="4. Select what applys to you" placeholder="Addition info" name="applies" options={info} /> */}
-                <MyTextArea
-                            placeholder='Comment here...'
-                            rows={3}
-                            name='comment'
-                            label='You can leave a comment here (Optional)'
-                        />
-                {/* <Divider /> */}
-                {/* <MySelectInput label="6. Is this your first or second dosage of the vaccine?" name="dose" placeholder="Dose" options={desc}/>               */}
-
-                     
+                <Header as='h4'>4. Do you struggle with any chronic diseases? </Header>
+                        <MyTextInput name='information'/>            
               </Modal.Content>
             </Segment>
-            <Button
-              disabled={isSubmitting || !dirty || !isValid}
-              loading={isSubmitting}
-              positive
-              type="submit"
-              content="Submit"
-            />
-            <Button
-              basic
-              color="red"
-              content="Cancel"
-              onClick={modalStore.closeModal}
-            />
-          </Form>
-        )}
-      </Formik>
-    </>
-  );
-});
+                        <Divider />
+                        <Button disabled={isSubmitting || !dirty || !isValid}
+                            loading={isSubmitting} positive type='submit' content='Submit'
+                        />
+                        <Button basic color='red' content='Cancel' onClick={modalStore.closeModal} />
+                    </Form>
+                )}
+            </Formik>
+        </>
+    )
+})

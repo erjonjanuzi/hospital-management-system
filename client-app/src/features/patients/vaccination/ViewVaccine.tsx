@@ -46,17 +46,17 @@ theMedCare Hospital</h5>
                   <Item.Header> • {vaccine?.condition} </Item.Header>
               </Item.Content> */}
               <Divider/>
-              <Item.Header>2. Have you ever received a dose of COVID-19 vaccine?If yes, which vaccine product did you receive?</Item.Header>
-              <Item.Header> • I recived the {vaccine?.received} vaccine</Item.Header>
-              {console.log(Error)}
+              <Item.Header>2. Have you ever received a dose of COVID-19 vaccine?</Item.Header>
+              <Item.Header> • {vaccine?.received}</Item.Header>
+              {/* {console.log(Error)} */}
               <Divider/>
               <Item.Header>3. Which COVID-19 vaccine do you want to receive?</Item.Header>
               <Item.Header> • I want to recive the {vaccine?.vaccine} vaccine</Item.Header>
               <Divider/>
-              <Item.Header>4. Have you ever had an allergic reaction?</Item.Header>
-              <Item.Header> • Yes, i had {vaccine?.allergies}</Item.Header>
+              <Item.Header>4. Have you ever had an allergic reaction? If so, to what?</Item.Header>
+              <Item.Header> • {vaccine?.allergies}</Item.Header>
               <Divider/>
-              <Item.Header>5. What applied to you?</Item.Header>
+              <Item.Header>5. Do you struggle with any chronic diseases?</Item.Header>
               <Item.Header> • {vaccine?.information}</Item.Header>
               <Divider/>
               {/* <Item.Header>6. Do you have any chronical diseases?</Item.Header>
