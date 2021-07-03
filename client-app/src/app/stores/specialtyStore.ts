@@ -29,6 +29,29 @@ export default class SpecialtyStore {
         }
     }
 
+    loadSpecialty = async (id: any) => {
+        let specialty = this.getSpecialty(id);
+        if (specialty) {
+            this.selectedSpecialty = specialty;
+            return specialty;
+        } else {
+            try {
+                specialty = await agent.Specialties.details(id);
+                this.setSpecialty(specialty);
+                runInAction(() => {
+                    this.selectedSpecialty = specialty;
+                })
+                return specialty;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+
+    private getSpecialty = (id: any) => {
+        return this.specialtyRegistry.get(id);
+    }
+
     private setSpecialty = (specialty: Specialty) => {
         this.specialtyRegistry.set(specialty.id!, specialty);
     }
@@ -49,6 +72,48 @@ export default class SpecialtyStore {
             })
         } catch (error){
             console.log(error)
+        }
+    }
+
+    deleteSpecialty = async (id: any) => {
+        try {
+            await agent.Specialties.delete(id);
+            runInAction(() => {
+                this.specialtyRegistry.delete(id);
+            });
+            toast.success("Specialty deleted successfully");
+        } catch (error) {
+            console.log(error);
+            toast.error("Error deleting specialty")
+        }
+    }
+
+    editSpecialty = async (specialty: Specialty) => {
+        try {
+            await agent.Specialties.update(specialty);
+
+            runInAction(() => {
+                this.loadSpecialties();
+            })
+
+            toast.info('Specialty updated');
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    createSpecialty = async (specialty: Specialty) => {
+        try {
+            if (specialty == null) return null;
+
+            await agent.Specialties.create(specialty);
+
+            runInAction(() => {
+                this.loadSpecialties();
+            })
+            toast.success('Specialty created successfully');
+        } catch (error) {
+            console.log(error);
         }
     }
 }

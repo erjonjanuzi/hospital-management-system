@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '../../../app/stores/store';
 import { useEffect } from 'react';
 import AppointmentItem from './AppointmentItem';
+import { Header, Icon, Segment } from 'semantic-ui-react';
 
 export default observer(function AllAppointmentsTable() {
     const { appointmentsStore, userStore } = useStore();
@@ -14,9 +15,15 @@ export default observer(function AllAppointmentsTable() {
 
     return (
         <>
-            {appointments.map(appointment => (
-                <AppointmentItem appointment={appointment}/>
-            ))}
+            {appointmentRegistry.size > 0 ?
+                appointments.map(appointment => (
+                    <AppointmentItem appointment={appointment} />
+                )) : <Segment placeholder>
+                    <Header icon>
+                        <Icon name='x' />
+                        You don't have any scheduled appointments yet!
+                    </Header>
+                </Segment>}
         </>
     )
 })

@@ -1,11 +1,12 @@
 import { observer } from 'mobx-react-lite';
-import { Button, Segment, Icon, Header, Popup, Confirm } from "semantic-ui-react";
+import { Button, Segment, Icon, Header, Popup, Confirm, Table } from "semantic-ui-react";
 import { useState } from 'react';
 import { useStore } from '../../../app/stores/store';
 import { useEffect } from 'react';
+import AdminViewAppointment from './AdminViewAppointment';
 
 export default observer(function AppointmentsTable() {
-    const { appointmentsStore } = useStore();
+    const { appointmentsStore, modalStore } = useStore();
     const { loadAppointments, appointmentRegistry, appointments, deleteAppointment } = appointmentsStore;
 
     const [openConfirm, setOpenConfirm] = useState(false);
@@ -20,61 +21,63 @@ export default observer(function AppointmentsTable() {
 
     return (
         <>
-            {appointments.map(appointment => (
-                <Segment.Group>
-                    <Segment>
-                        <span>
-                            <Header content='Status' />
-                            {appointment.status}
-                        </span>
-                    </Segment>
-                    <Segment>
-                        <span>
-                            <Header content='Date and time' />
-                            <Icon name='calendar' color='teal' />{appointment.date.toString().split('T')[0]}
-                            <Icon name='clock' color='teal' />{appointment.date.toString().split('T')[1]}
-                        </span>
-                    </Segment>
-                    <Segment>
-                        <span>
-                            <Header content='Patient' />
-                            {appointment.patient ? appointment.patient.firstName + ' ' + appointment.patient.lastName
-                                : 'Not assigned yet!'}
-                        </span>
-                    </Segment>
-                    <Segment>
-                        <span>
-                            <Header content='Doctor' />
-                            {appointment.doctor ? appointment.doctor?.firstName + ' ' + appointment.doctor?.lastName
-                                : 'Not assigned yet!'}
-                        </span>
-                    </Segment>
-                    <Segment clearing>
-                        <Popup content='Open appointment details' trigger={
-                            <Button
-                                color='teal'
-                                content='View'
-                            />}
-                        />
-                        <Button animated='vertical' color='red' onClick={open}>
-                            <Button.Content hidden>Delete</Button.Content>
-                            <Button.Content visible>
-                                <Icon name='trash' />
-                            </Button.Content>
-                        </Button>
-                    </Segment>
-                    <Confirm
-                        open={openConfirm}
-                        header='Delete appointment'
-                        content='This action cannot be undone. Are you sure?'
-                        cancelButton='Cancel'
-                        confirmButton="Delete"
-                        onCancel={open}
-                        onConfirm={() => deleteAppointment(appointment.id).then(open)}
-                    />
-                </Segment.Group>
+            {appointmentRegistry.size > 0 ?
+                <Table celled>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>Patient</Table.HeaderCell>
+                            <Table.HeaderCell>Date and Time</Table.HeaderCell>
+                            <Table.HeaderCell>Doctor</Table.HeaderCell>
+                            <Table.HeaderCell>Status</Table.HeaderCell>
+                            <Table.HeaderCell>Options</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
 
-            ))}
+                    <Table.Body>
+                        {appointments.map(appointment => (
+                            <>
+                                <Table.Row key={appointment.id}>
+                                    <Table.Cell>{appointment.patient?.firstName + ' ' + appointment.patient?.lastName}</Table.Cell>
+                                    <Table.Cell><Icon name='calendar' color='teal' />{appointment.date.toString().split('T')[0]}
+                                        <Icon name='clock' color='teal' />{appointment.date.toString().split('T')[1]}</Table.Cell>
+                                    <Table.Cell>{appointment.doctor ? appointment.doctor?.firstName + ' ' + appointment.doctor?.lastName
+                                        : 'Not assigned yet!'}</Table.Cell>
+                                    <Table.Cell>{appointment.status}</Table.Cell>
+                                    <Table.Cell>
+                                        <Popup content='Details of this appointment' trigger={
+                                            <Button
+                                                color='teal'
+                                                content='View'
+                                                onClick={() => modalStore.openModal(<AdminViewAppointment id={appointment.id!} />)}
+                                            />}
+                                        />
+                                        <Button animated='vertical' color='red' onClick={open}>
+                                            <Button.Content hidden>Delete</Button.Content>
+                                            <Button.Content visible>
+                                                <Icon name='trash' />
+                                            </Button.Content>
+                                        </Button>
+                                    </Table.Cell>
+                                </Table.Row>
+                                <Confirm
+                                    open={openConfirm}
+                                    header='Delete appointment'
+                                    content='This action cannot be undone. Are you sure?'
+                                    cancelButton='Cancel'
+                                    confirmButton="Delete"
+                                    onCancel={open}
+                                    onConfirm={() => deleteAppointment(appointment.id)}
+                                />
+                            </>
+                        ))}
+                    </Table.Body>
+                </Table>
+                : <Segment placeholder>
+                    <Header icon>
+                        <Icon name='x' color='red' />
+                        There are no appointments yet!
+                    </Header>
+                </Segment>}
         </>
     )
 })

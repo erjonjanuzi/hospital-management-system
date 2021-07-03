@@ -58,6 +58,34 @@ namespace Persistence
             await context.Patients.AddRangeAsync(patients);
             await context.SaveChangesAsync();
 
+            if (context.Specialty.Any()) return;
+            var specialties = new List<Specialty>
+            {
+                new Specialty
+                {
+                    Name = "Allergy and Immunology",
+                    Description = "Specialists in allergy and immunology work with both adult and pediatric patients suffering from allergies and diseases of the respiratory tract or immune system. They may help patients suffering from common diseases such as asthma, food and drug allergies, immune deficiencies, and diseases of the lung. Specialists in allergy and immunology can pursue opportunities in research, education, or clinical practice."
+                },
+                new Specialty
+                {
+                    Name = "Anesthesiology",
+                    Description = "Anesthesiology is the branch of medicine dedicated to pain relief for patients before, during, and after surgery"
+                },
+                new Specialty
+                {
+                    Name = "Dermatology",
+                    Description = "Dermatologists are physicians who treat adult and pediatric patients with disorders of the skin, hair, nails, and adjacent mucous membranes. They diagnose everything from skin cancer, tumors, inflammatory diseases of the skin, and infectious diseases. They also perform skin biopsies and dermatological surgical procedures."
+                },
+                new Specialty
+                {
+                    Name = "Diagnostic Radiology",
+                    Description = "Physicians specializing in diagnostic radiology are trained to diagnose illnesses in patients through the use of x-rays, radioactive substances, sound waves in ultrasounds, or the body’s natural magnetism in magnetic resonance images (MRIs)."
+                }
+            };
+
+            await context.Specialty.AddRangeAsync(specialties);
+            await context.SaveChangesAsync();
+
 
             if (context.Departments.Any()) return;
             

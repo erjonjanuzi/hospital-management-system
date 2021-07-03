@@ -241,6 +241,10 @@ const Appointments = {
 const Specialties = {
     list: () => requests.get<Specialty[]>('/specialty'),
     getDoctorsBySpecialty: (id: any) => requests.get<DoctorProfile[]>(`/Profile/doctorsbyspecialty/${id}`),
+    delete: (id: any) => axios.delete(`/specialty/${id}`),
+    details: (id: any) => requests.get<Specialty>(`/specialty/${id}`),
+    update: (specialty: Specialty) => axios.put<void>(`/specialty/${specialty.id}`, specialty),
+    create: (specialty: Specialty) => axios.post<void>(`/specialty`, specialty)
 }
 
 const PersonalInfos = {

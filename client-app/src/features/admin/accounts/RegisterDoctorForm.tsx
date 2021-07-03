@@ -41,6 +41,7 @@ export default observer(function RegisterDoctorForm() {
             let country = {
                 key: countriesStore.countries[i].id,
                 value: countriesStore.countries[i].id,
+                flag: countriesStore.countries[i].id.toLowerCase(),
                 text: countriesStore.countries[i].name
             };
             countries[i] = country;

@@ -20,18 +20,12 @@ export default observer(function RegisterNewUserForm() {
         error: null
     }
 
-    const roles = [
-        { key: 'admin', value: 'admin', text: 'Admin' },
-        { key: 'doctor', value: 'doctor', text: 'Doctor' }
-    ]
-
     const validationSchema = Yup.object({
         firstName: Yup.string().required('First name is required'),
         lastName: Yup.string().required('Last name is required'),
         email: Yup.string().email().required('A valid email is required'),
         username: Yup.string().required('Username is required'),
         passwordHash: Yup.string().required('Password is required'),
-        role: Yup.string().required('Please pick a role')
     })
 
     return (
@@ -59,9 +53,6 @@ export default observer(function RegisterNewUserForm() {
                         <MyTextInput name='username' placeholder='Username' />
                         <MyTextInput name='email' type='email' placeholder='Email' />
                         <MyTextInput name='passwordHash' type='password' placeholder='Password' />
-                        <Divider />
-                        <Header sub content='Role management' />
-                        <MySelectInput name='role' placeholder='Role' options={roles} />
                         <Divider />
                         <Button disabled={isSubmitting || !dirty || !isValid}
                             loading={isSubmitting} positive type='submit' content='Submit'

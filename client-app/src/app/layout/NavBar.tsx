@@ -16,6 +16,7 @@ export default observer(function NavBar() {
     { key: 'accounts', name: 'Accounts Management', to: '/admin/accounts' },
     { key: 'appointments', name: 'Appointments', to: '/admin/appointments' },
     { key: 'countries', name: 'Countries, Cities and Nationalities', to: '/admin/countries' },
+    { key: 'specialties', name: 'Doctor Specialties', to: '/admin/specialties' },
     { key: 'departments', name: 'Departments', to: '/admin/departments' },
     { key: 'rooms', name: 'Room Management', to: '/admin/rooms' },
     { key: 'pharmacyProducts', name: 'Pharmacy Products', to: '/admin/pharmacyProducts' },

@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Button, Icon, Segment, Header, Divider, Tab, Menu, Label } from "semantic-ui-react";
+import Breadcrumbs from '../../../app/layout/Breadcrumbs';
 import { useStore } from '../../../app/stores/store';
 import AdminAppointmentsTable from './AdminAppointmentsTable';
 import RequestedAppointments from './RequestedAppointments';
@@ -18,7 +19,7 @@ export default observer(function AdminAppointments() {
             menuItem: (
                 <Menu.Item key='pending'>
                     Pending
-                    {appointmentsStore.numberOfPendingAppointments > 0 
+                    {appointmentsStore.numberOfPendingAppointments > 0
                         ? <Label color='red'>{appointmentsStore.numberOfPendingAppointments}</Label>
                         : ''
                     }
@@ -30,9 +31,14 @@ export default observer(function AdminAppointments() {
 
     return (
         <>
-            <Segment>
-                <h1>Hospital Appointments</h1>
-            </Segment>
+            <Segment.Group>
+                <Segment>
+                    <Breadcrumbs />
+                </Segment>
+                <Segment>
+                    <h1>Hospital Appointments</h1>
+                </Segment>
+            </Segment.Group>
             <Tab panes={panes} />
         </>
     )
