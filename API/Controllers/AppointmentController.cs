@@ -53,6 +53,12 @@ namespace API.Controllers
             {
                 a.Patient = (PatientUser)await context.Users.FindAsync(a.PatientId);
                 a.Doctor = (Doctor)await context.Users.FindAsync(a.DoctorId);
+
+                if (a.Doctor != null)
+                {
+                    var personalInfo = await context.PersonalInfo.FindAsync(a.Doctor.PersonalInfoId);
+                    a.Doctor.PersonalInfo = personalInfo;
+                }
             }
 
             return Ok(appointments);
@@ -66,11 +72,14 @@ namespace API.Controllers
             appointment.Patient = (PatientUser)await context.Users.FindAsync(appointment.PatientId);
             appointment.Doctor = (Doctor)await context.Users.FindAsync(appointment.DoctorId);
 
+            var personalInfo = await context.PersonalInfo.FindAsync(appointment.Doctor.PersonalInfoId);
+            appointment.Doctor.PersonalInfo = personalInfo;
+
             return Ok(appointment);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<PatientUser>> GetPatientAppointments(string id)
+        public async Task<ActionResult<List<Appointment>>> GetPatientAppointments(string id)
         {
             var appointments = await context.Appointments
                 .Where(x => x.PatientId == id)
@@ -81,6 +90,33 @@ namespace API.Controllers
             {
                 a.Patient = (PatientUser)await context.Users.FindAsync(a.PatientId);
                 a.Doctor = (Doctor)await context.Users.FindAsync(a.DoctorId);
+
+                if (a.Doctor != null)
+                {
+                    var specialty = await context.Specialty.FindAsync(a.Doctor.SpecialtyId);
+                    a.Doctor.Specialty = specialty;
+
+                    var personalInfo = await context.PersonalInfo.FindAsync(a.Doctor.PersonalInfoId);
+                    a.Doctor.PersonalInfo = personalInfo;
+                }
+            }
+
+            return Ok(appointments);
+        }
+
+        [HttpGet("doctor/{id}")]
+        public async Task<ActionResult<List<Appointment>>> GetDoctorAppointments(string id)
+        {
+            var appointments = await context.Appointments
+                .Where(x => x.DoctorId == id)
+                .ToListAsync();
+
+            foreach (Appointment a in appointments)
+            {
+                a.Patient = (PatientUser)await context.Users.FindAsync(a.PatientId);
+                a.Doctor = (Doctor)await context.Users.FindAsync(a.DoctorId);
+                var personalInfo = await context.PersonalInfo.FindAsync(a.Doctor.PersonalInfoId);
+                a.Doctor.PersonalInfo = personalInfo;
             }
 
             return Ok(appointments);
@@ -123,6 +159,20 @@ namespace API.Controllers
 
             if (appointment == null) return null;
             appointment.Status = "Denied";
+
+            var result = await context.SaveChangesAsync() > 0;
+            if (result)
+                return Ok(appointment);
+            return BadRequest();
+        }
+
+        [HttpPut("markcomplete/{id}")]
+        public async Task<IActionResult> MarkCompleted(Guid id)
+        {
+            var appointment = await context.Appointments.FindAsync(id);
+
+            if (appointment == null) return null;
+            appointment.Status = "Completed";
 
             var result = await context.SaveChangesAsync() > 0;
             if (result)

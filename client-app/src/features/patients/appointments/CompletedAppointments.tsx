@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import ViewAppointment from './ViewAppointment';
 import AppointmentItem from './AppointmentItem';
 
-export default observer(function AllAppointmentsTable() {
+export default observer(function CompletedAppointmentsTable() {
     const { appointmentsStore, userStore, modalStore } = useStore();
     const { loadPatientAppointments, appointmentRegistry, appointments, cancelAppointment } = appointmentsStore;
     const { user } = userStore;

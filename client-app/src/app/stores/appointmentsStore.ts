@@ -47,6 +47,17 @@ export default class AppointmentsStore {
         }
     }
 
+    loadDoctorAppointments = async (id: string) => {
+        try {
+            const appointments = await agent.Appointments.doctorAppointments(id);
+            appointments.forEach(appointment => {
+                this.setAppointment(appointment);
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     private setAppointment = (appointment: Appointment) => {
         this.appointmentRegistry.set(appointment.id!, appointment);
     }
@@ -94,7 +105,7 @@ export default class AppointmentsStore {
             appointment!.doctorId = docId;
 
             await agent.Appointments.assignDoctor(appointment!);
-            
+
             runInAction(() => {
                 this.loadAppointments();
             });
@@ -105,36 +116,53 @@ export default class AppointmentsStore {
         }
     }
 
-    cancelAppointment = async(id: any) => {
+    cancelAppointment = async (id: any) => {
         try {
             const appointment = this.getAppointment(id);
 
-            if(appointment === null) return null;
+            if (appointment === null) return null;
 
             await agent.Appointments.cancelAppointment(id);
-            
+
             runInAction(() => {
                 this.loadAppointments();
             });
             toast.info("Appointment canceled by your request");
-        } catch (error){
+        } catch (error) {
             toast.error('Unexpected error');
         }
     }
 
-    denyAppointment = async(id: any) => {
+    denyAppointment = async (id: any) => {
         try {
             const appointment = this.getAppointment(id);
 
-            if(appointment === null) return null;
+            if (appointment === null) return null;
 
             await agent.Appointments.denyAppointment(id);
-            
+
             runInAction(() => {
                 this.loadAppointments();
             });
             toast.info("Appointment denied");
-        } catch (error){
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    markAsComplete = async (id: any) => {
+        try {
+            const appointment = this.getAppointment(id);
+
+            if (appointment === null) return null;
+
+            await agent.Appointments.markAsComplete(id);
+
+            runInAction(() => {
+                this.loadAppointments();
+            });
+            toast.info("Appointment completed");
+        } catch (error) {
             console.log(error);
         }
     }
@@ -165,104 +193,4 @@ export default class AppointmentsStore {
             console.log(error);
         }
     }
-
-    
-
-    /*loadPatientAccounts = async() => {
-        try {
-            const accounts = await agent.AccountsManager.list();
-            accounts.forEach(account => {
-                this.setPatient(account);
-            })
-            this.loadingInitial = false;
-        } catch (error){
-            console.log(error);
-            this.setLoadingInitial(false);
-        }
-    }
-
-    loadAccount = async (id: string) => {
-        let account = this.getAccount(id);
-        if (account) {
-            this.selectedAccount = account;
-            return account;
-        } else {
-            this.loadingInitial = true;
-            try {
-                account = await agent.AccountsManager.details(id);
-                this.setAccount(account);
-                runInAction(() => {
-                    this.selectedAccount = account;
-                })
-                this.setLoadingInitial(false);
-                return account;
-            } catch (error) {
-                console.log(error);
-                this.setLoadingInitial(false);
-            }
-        }
-    }
-
-    private getAccount = (id: string) => {
-        return this.accountRegistry.get(id);
-    }
-
-    private setAccount = (user: AccountDto) => {
-        this.accountRegistry.set(user.id, user);
-    }
-
-    private setPatient = (user: AccountDto) => {
-        if(user.role === 'patient'){
-            this.accountRegistry.set(user.id, user);
-        }else{
-            console.log("Can't load Patients")
-        }
-    }
-
-    setLoadingInitial = (state: boolean) => {
-        this.loadingInitial = state;
-    }
-
-    deleteAccount = async (id: string) => {
-        this.loading = true;
-        try {
-            await agent.AccountsManager.delete(id);
-            runInAction(() => {
-                this.accountRegistry.delete(id);
-                this.loading = false;
-            })
-            toast.info('User deleted successfully');
-        } catch(error) {
-            console.log(error);
-            runInAction(() => {
-                this.loading = false;
-            })
-        }
-    }
-
-    register = async (creds: AccountFormValues) => {
-        try {
-            await agent.AccountsManager.register(creds);
-            runInAction(() => {
-                this.loadAccounts();
-            })
-            if (creds.role !== 'patient')
-                toast.success('User added successfully');
-            store.modalStore.closeModal();
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    update = async (creds: AccountDto) => {
-        try {
-            await agent.AccountsManager.update(creds);
-            runInAction(() => {
-                this.loadAccounts();
-            })
-            store.modalStore.closeModal();
-        } catch (error) {
-            throw error;
-        }
-    }*/
 }

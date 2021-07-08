@@ -229,12 +229,14 @@ const DiagnosisManager = {
 const Appointments = {
     list: () => requests.get<Appointment[]>('/Appointment'),
     patientAppointments: (id: string) => requests.get<Appointment[]>(`/Appointment/${id}`),
+    doctorAppointments: (id: string) => requests.get<Appointment[]>(`/Appointment/doctor/${id}`),
     create: (appointment: Appointment) => requests.post<void>('/Appointment', appointment),
     details: (id: any) => requests.get<Appointment>(`/Appointment/get/${id}`),
     delete: (id: any) => axios.delete<void>(`/appointment/${id}`),
     assignDoctor: (appointment: Appointment) => axios.put<void>(`/Appointment/assign/${appointment.id}`, appointment),
     cancelAppointment: (id: any) => axios.put<void>(`/Appointment/cancel/${id}`),
     denyAppointment: (id: any) => axios.put<void>(`/appointment/deny/${id}`),
+    markAsComplete: (id: any) => axios.put<void>(`/appointment/markcomplete/${id}`),
     edit: (appointment: Appointment) => axios.put<void>(`/Appointment/edit/${appointment.id}`, appointment)
 }
 

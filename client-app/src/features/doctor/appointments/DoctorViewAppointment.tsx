@@ -8,8 +8,8 @@ interface Props {
   id: string
 }
 
-export default observer(function ViewAppointment({ id }: Props) {
-  const { appointmentsStore: { loadAppointment, selectedAppointment } } = useStore();
+export default observer(function DoctorViewAppointment({ id }: Props) {
+  const { appointmentsStore: { loadAppointment, selectedAppointment, markAsComplete }, modalStore } = useStore();
 
   const [details, setDetails] = useState(false);
 
@@ -26,26 +26,19 @@ export default observer(function ViewAppointment({ id }: Props) {
           <Icon name='user doctor' color='teal' /><span>Doctor</span>
           <Divider />
           <Segment>
-            {selectedAppointment?.doctor ?
+            {selectedAppointment?.patient ?
               <Item>
                 <Item.Image style={{ marginBottom: 3 }} size='tiny' circular src='/assets/user.png' />
                 <Item.Content>
-                  <Item.Header>{selectedAppointment?.doctor?.firstName + ' ' + selectedAppointment?.doctor?.lastName}</Item.Header>
+                  <Item.Header>{selectedAppointment?.patient?.firstName + ' ' + selectedAppointment?.patient?.lastName}</Item.Header>
                 </Item.Content>
                 {details &&
                   <>
                     <Container textAlign='left'>
                       <br />
-                      <span><Label content='Email' />{'  ' + selectedAppointment.doctor.email}</span><br /><br />
-                      <span><Label content='Doctor in the hospital since' />{selectedAppointment.doctor.registeredSince.split("T")[0]}</span><br /><br />
-                      <span><Label content='Specialty' />{selectedAppointment.doctor.specialty.name}</span><br /><br />
-                      <span><Label content='Gender' />{selectedAppointment.doctor.personalInfo.gender}</span><br />
-                    </Container>
-                    <Container textAlign='center'>
-                      <Button.Group>
-                        <Button content='View profile' color='facebook' />
-                        <Button icon='heart outline' color='red' basic />
-                      </Button.Group>
+                      <span><Label content='Email' />{`${selectedAppointment.patient.email}`}</span><br /><br />
+                      <span><Label content='Registered since' />{`${selectedAppointment.patient.registeredSince}`}</span><br /><br />
+                      <span><Label content='Gender' />{'  Male'}</span><br />
                     </Container>
                   </>
                 }
@@ -63,7 +56,7 @@ export default observer(function ViewAppointment({ id }: Props) {
               <Item>
 
                 <Item.Content>
-                  <Item.Header color='red'>Doctor not assigned yet</Item.Header>
+                  <Item.Header color='red'>Patient no longer exists</Item.Header>
                 </Item.Content>
               </Item>
             }
@@ -76,21 +69,13 @@ export default observer(function ViewAppointment({ id }: Props) {
             <Message
               icon='check'
               header='This appointment is scheduled and active'
-              content='Please make sure you arrive at the hospital at least 30 minutes before your scheduled time'
-            />
-          }
-          {selectedAppointment?.status === 'Pending' &&
-            <Message
-              icon='hourglass outline'
-              header='This appointment is under review'
-              content='Please be aware that the chosen date and time can be changed without any notice'
+              content='Once this appointment is completed with the patient, click the Mark as Completed button below'
             />
           }
           <Segment color={selectedAppointment?.status === 'Active'
             || selectedAppointment?.status === 'Completed' ? 'green' : 'red'} inverted>
             {selectedAppointment?.status}
           </Segment>
-          <br />
           <Label content='Date and Time' />
           <Segment.Group>
             <Segment>
@@ -105,14 +90,21 @@ export default observer(function ViewAppointment({ id }: Props) {
             </Segment>
           </Segment.Group>
           <br />
-          <Label content='Reason' />
+          <Label content='Reason for appointment' />
           <Segment>
             {selectedAppointment?.reason}
           </Segment>
-          <Label content='Comment' />
+          <Label content='Comment by patient' />
           <Segment>
             {selectedAppointment?.comment ? selectedAppointment?.comment : 'No comment'}
           </Segment>
+          {selectedAppointment?.status !== 'Completed' &&
+            <Button
+              positive
+              content='Mark as completed'
+              icon='check'
+              onClick={() => markAsComplete(selectedAppointment?.id).catch(error => console.log(error)).then(modalStore.closeModal)} />
+          }
         </Grid.Column>
       </Grid>
     </>
