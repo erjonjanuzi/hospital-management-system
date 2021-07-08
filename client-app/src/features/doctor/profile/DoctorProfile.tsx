@@ -11,7 +11,7 @@ export default observer( function DoctorProfile() {
 
     useEffect(() => {
         loadDoctor(user?.id!);
-    }, [loadDoctor])
+    }, [user])
 
     return (
         <>

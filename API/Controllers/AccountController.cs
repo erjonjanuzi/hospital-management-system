@@ -25,15 +25,13 @@ namespace API.Controllers
         private readonly SignInManager<AppUser> signInManager;
         private readonly TokenService tokenService;
         private readonly DataContext context;
-        private readonly IMapper mapper;
         public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenService tokenService,
-            DataContext context, IMapper mapper)
+            DataContext context)
         {
             this.tokenService = tokenService;
             this.signInManager = signInManager;
             this.userManager = userManager;
             this.context = context;
-            this.mapper = mapper;
         }
 
         [HttpPost("login")]

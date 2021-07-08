@@ -7,9 +7,12 @@ import { useStore } from "../stores/store";
 export default observer(function NavBar() {
   const { userStore: { user, logout, getUser } } = useStore();
 
-  useEffect(() => {
+  /**
+   * Causes bug by sending in infinite requests to update user, this way 
+   useEffect(() => {
     getUser();
   }, [user, getUser])
+  */
 
   const adminLinks = [
     { key: 'dashboard', name: 'Dashboard', to: '/admin/dashboard' },
@@ -21,7 +24,6 @@ export default observer(function NavBar() {
     { key: 'rooms', name: 'Room Management', to: '/admin/rooms' },
     { key: 'pharmacyProducts', name: 'Pharmacy Products', to: '/admin/pharmacyProducts' },
     { key: 'registeredPatients', name: 'Registered Patients', to: '/admin/registeredPatients' },
-    
   ]
 
   const doctorLinks = [
