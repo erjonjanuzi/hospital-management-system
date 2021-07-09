@@ -9,7 +9,8 @@ export default observer(function CompletedAppointments() {
     const { loadDoctorAppointments, appointmentRegistry, appointments } = appointmentsStore;
     const { user } = userStore;
 
-    let completedAppointments: boolean = (appointments.filter(a => a.status === 'Completed')).length > 0;
+    const completedAppointments = appointments.filter(a => a.status === 'Completed')
+    let hasCompletedAppointments: boolean = completedAppointments.length > 0;
 
     useEffect(() => {
         if (appointmentRegistry.size <= 1) loadDoctorAppointments(user?.id!);
@@ -17,8 +18,8 @@ export default observer(function CompletedAppointments() {
 
     return (
         <>
-            {completedAppointments ?
-                appointments.map(appointment => (
+            {hasCompletedAppointments ?
+                completedAppointments.map(appointment => (
                     <DoctorAppointmentItem appointment={appointment} />
                 )) : <Segment placeholder>
                     <Header icon>

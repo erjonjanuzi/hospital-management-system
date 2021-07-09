@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Button, Divider, Grid, Header, Icon, Item, Segment, Label, Container, Message } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
+import PatientProfileCard from "../../admin/appointments/PatientProfileCard";
 
 interface Props {
   id: string
@@ -25,42 +26,7 @@ export default observer(function DoctorViewAppointment({ id }: Props) {
         <Grid.Column width='8' textAlign='center'>
           <Icon name='user doctor' color='teal' /><span>Doctor</span>
           <Divider />
-          <Segment>
-            {selectedAppointment?.patient ?
-              <Item>
-                <Item.Image style={{ marginBottom: 3 }} size='tiny' circular src='/assets/user.png' />
-                <Item.Content>
-                  <Item.Header>{selectedAppointment?.patient?.firstName + ' ' + selectedAppointment?.patient?.lastName}</Item.Header>
-                </Item.Content>
-                {details &&
-                  <>
-                    <Container textAlign='left'>
-                      <br />
-                      <span><Label content='Email' />{`${selectedAppointment.patient.email}`}</span><br /><br />
-                      <span><Label content='Registered since' />{`${selectedAppointment.patient.registeredSince}`}</span><br /><br />
-                      <span><Label content='Gender' />{'  Male'}</span><br />
-                    </Container>
-                  </>
-                }
-                <br />
-                {details ? <Button icon='arrow up' color='facebook' onClick={() => setDetails(false)} />
-                  : <Button animated='vertical' color='facebook' onClick={() => setDetails(true)}>
-                    <Button.Content hidden><Icon name='arrow down' /></Button.Content>
-                    <Button.Content visible>
-                      <span>More</span>
-                    </Button.Content>
-                  </Button>
-                }
-              </Item>
-              :
-              <Item>
-
-                <Item.Content>
-                  <Item.Header color='red'>Patient no longer exists</Item.Header>
-                </Item.Content>
-              </Item>
-            }
-          </Segment>
+          <PatientProfileCard patient={selectedAppointment?.patient!} />
         </Grid.Column>
         <Grid.Column width='8' textAlign='left'>
           <Icon name='info circle' color='teal' /><span>Details</span>
@@ -103,6 +69,7 @@ export default observer(function DoctorViewAppointment({ id }: Props) {
               positive
               content='Mark as completed'
               icon='check'
+              disabled={new Date().getDate() !== new Date(selectedAppointment?.date!).getDate()}
               onClick={() => markAsComplete(selectedAppointment?.id).catch(error => console.log(error)).then(modalStore.closeModal)} />
           }
         </Grid.Column>

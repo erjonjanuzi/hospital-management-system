@@ -65,6 +65,3 @@ export default observer(function AdminAccountsTable() {
         </>
     )
 })
-
-/**<Button content='Create new user' onClick={() => modalStore.openModal(<RegisterNewUserForm />)} />
-                <Button content='Register new doctor' positive icon='user doctor' onClick={() => modalStore.openModal(<RegisterDoctorForm />)} /> */

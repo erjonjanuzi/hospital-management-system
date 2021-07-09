@@ -57,7 +57,13 @@ namespace API.Controllers
                 if (a.Doctor != null)
                 {
                     var personalInfo = await context.PersonalInfo.FindAsync(a.Doctor.PersonalInfoId);
+                    var specialty = await context.Specialty.FindAsync(a.Doctor.SpecialtyId);
+                    a.Doctor.Specialty = specialty;
                     a.Doctor.PersonalInfo = personalInfo;
+                    var country = await context.Country.FindAsync(a.Doctor.PersonalInfo.CountryId);
+                    var city = await context.Cities.FindAsync(a.Doctor.PersonalInfo.CityId);
+                    a.Doctor.PersonalInfo.City = city;
+                    a.Doctor.PersonalInfo.Country = country;
                 }
             }
 
@@ -93,11 +99,14 @@ namespace API.Controllers
 
                 if (a.Doctor != null)
                 {
+                    var personalInfo = await context.PersonalInfo.FindAsync(a.Doctor.PersonalInfoId);
                     var specialty = await context.Specialty.FindAsync(a.Doctor.SpecialtyId);
                     a.Doctor.Specialty = specialty;
-
-                    var personalInfo = await context.PersonalInfo.FindAsync(a.Doctor.PersonalInfoId);
                     a.Doctor.PersonalInfo = personalInfo;
+                    var country = await context.Country.FindAsync(a.Doctor.PersonalInfo.CountryId);
+                    var city = await context.Cities.FindAsync(a.Doctor.PersonalInfo.CityId);
+                    a.Doctor.PersonalInfo.City = city;
+                    a.Doctor.PersonalInfo.Country = country;
                 }
             }
 

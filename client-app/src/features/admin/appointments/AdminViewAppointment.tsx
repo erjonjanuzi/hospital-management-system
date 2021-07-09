@@ -2,7 +2,7 @@ import { Formik, Form } from "formik";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Button, Confirm, Divider, Grid, Header, Icon, Item, Label, Segment } from "semantic-ui-react";
+import { Button, Confirm, Divider, Grid, Header, Icon, Item, Label, Segment, Select } from "semantic-ui-react";
 import MyDateInput from "../../../app/common/form/MyDateInput";
 import MySelectInput from "../../../app/common/form/MySelectInput";
 import { store, useStore } from "../../../app/stores/store";
@@ -38,9 +38,10 @@ export default observer(function ViewAppointment({ id }: Props) {
     }
 
     let doctors = new Array();
-    const getAvailableDoctors = async (id: string) => {
-        await specialtyStore.loadDoctors(id);
-        for (let i = 0; i < specialtyStore.doctors.length; i++){
+    const getAvailableDoctors = async (id: string, date: Date) => {
+        doctors = [];
+        await specialtyStore.loadDoctors(id, date);
+        for (let i = 0; i < specialtyStore.doctors.length; i++) {
             let doctor = {
                 key: specialtyStore.doctors[i].id,
                 value: specialtyStore.doctors[i].id,
@@ -52,8 +53,10 @@ export default observer(function ViewAppointment({ id }: Props) {
     }
 
     useEffect(() => {
-        if (id) loadAppointment(id);
-        insertSpecialties();
+        if (selectedAppointment == undefined) {
+            if (id) loadAppointment(id);
+        }
+        if (specialties.length <= 0) insertSpecialties();
     }, [id, loadAppointment, doctors]);
 
     return (
@@ -139,46 +142,48 @@ export default observer(function ViewAppointment({ id }: Props) {
                     <Segment color='red' inverted>
                         {selectedAppointment?.status}
                     </Segment>
-                    <Button content='Assign doctor' color='green' onClick={() => setForm(true)} />
-                    <Button content='Deny request' color='red' onClick={open} />
+                    <Button content='Assign a doctor' color='green' onClick={() => setForm(true)} />
+                    <Button content='Deny request' basic negative onClick={open} />
                     {form &&
                         <Segment>
                             <Formik
-                                initialValues={{ appointmentId: selectedAppointment?.id, specialtyId: '' }}
-                                onSubmit={(values) => getAvailableDoctors(values.specialtyId)}
-                                enableReinitialize
-                            >
-                                {({ handleSubmit, isValid, isSubmitting, dirty }) => (
-                                    <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
-                                        <MySelectInput placeholder='Specialty' name='specialtyId' options={specialties} label='Browse specialties' />
-                                        <Button disabled={isSubmitting || !dirty || !isValid}
-                                            loading={isSubmitting} positive type='submit' content='Get Available doctors'
-                                        />
-                                        <Button basic color='red' content='Cancel' onClick={() => setForm(false)} />
-                                    </Form>
-                                )}
-                            </Formik>
-                            <br />
-                            {
-                                availableDoctors &&
-                                <Formik
                                 initialValues={{ appointmentId: selectedAppointment?.id, doctorId: '' }}
                                 onSubmit={(values) => assignDoctor(selectedAppointment?.id, values.doctorId)}
                                 enableReinitialize
                             >
                                 {({ handleSubmit, isValid, isSubmitting, dirty }) => (
-                                    
                                     <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
-                                        <MySelectInput placeholder='Doctor' name='doctorId' options={doctors} label='Available doctors' />
-                                        <Button disabled={isSubmitting || !dirty || !isValid}
-                                            loading={isSubmitting} positive type='submit' content='Submit'
+                                        <Select options={specialties} placeholder='Specialty' name='specialtyId'
+                                            onChange={(values, data) =>
+                                                getAvailableDoctors((data.value!).toString(), selectedAppointment?.date!)} fluid 
                                         />
-                                        <Button basic color='red' content='Cancel' onClick={() => setAvailableDoctors(false)} />
+                                        <br />
+                                        {availableDoctors &&
+                                            <>
+                                                <MySelectInput
+                                                    placeholder='Doctor'
+                                                    name='doctorId'
+                                                    options={doctors}
+                                                    label='Available doctors'
+                                                />
+                                                <Button
+                                                    disabled={isSubmitting || !dirty || !isValid}
+                                                    loading={isSubmitting}
+                                                    positive
+                                                    type='submit'
+                                                    content='Submit'
+                                                />
+                                            </>
+                                        }
+                                        <Button basic color='red' content='Cancel' onClick={() => {
+                                            setForm(false);
+                                            setAvailableDoctors(false)
+                                        }} />
                                     </Form>
                                 )}
                             </Formik>
-                            }
-                        </Segment>}
+                        </Segment>
+                    }
                     <Confirm
                         open={openConfirm}
                         header='Deny appointment request'

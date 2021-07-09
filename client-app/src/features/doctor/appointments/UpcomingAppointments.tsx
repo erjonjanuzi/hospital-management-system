@@ -9,9 +9,10 @@ export default observer(function UpcomingAppointments() {
     const { loadDoctorAppointments, appointmentRegistry, appointments } = appointmentsStore;
     const { user } = userStore;
 
-    const date = new Date;
+    const date = new Date();
 
-    let upcomingAppointments: boolean = (appointments.filter(a => a.status === 'Active' && a.date.getDate !== date.getDate)).length > 0;
+    const upcomingAppointments = appointments.filter(a => a.status === 'Active' && new Date(a.date).getDate() !== date.getDate());
+    let hasUpcomingAppointments: boolean = upcomingAppointments.length > 0;
 
     useEffect(() => {
         if (appointmentRegistry.size <= 1) loadDoctorAppointments(user?.id!);
@@ -19,8 +20,8 @@ export default observer(function UpcomingAppointments() {
 
     return (
         <>
-            {upcomingAppointments ?
-                appointments.map(appointment => (
+            {hasUpcomingAppointments ?
+                upcomingAppointments.map(appointment => (
                     <DoctorAppointmentItem appointment={appointment} />
                 )) : <Segment placeholder>
                     <Header icon>

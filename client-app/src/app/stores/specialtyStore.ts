@@ -64,9 +64,10 @@ export default class SpecialtyStore {
         this.doctorRegistry.set(doctor.id, doctor);
     }
 
-    loadDoctors = async (id: any) => {
+    loadDoctors = async (id: any, date: Date) => {
         try {
-            const doctors = await agent.Specialties.getDoctorsBySpecialty(id);
+            this.doctorRegistry.clear();
+            const doctors = await agent.Appointments.getAvailableDoctors(id, date);
             doctors.forEach(doctor => {
                 this.setDoctor(doctor);
             })

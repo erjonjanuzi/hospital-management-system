@@ -214,7 +214,7 @@ const AccountsManager = {
     getDoctor: (id: string) => requests.get<DoctorProfile>(`/account/doctor/${id}`),
     editDoctor: (doctor: any) => requests.put(`/account/doctor/${doctor.id}`, doctor),
     getPatient: (id: string) => requests.get<PatientProfile>(`/account/patient/${id}`),
-    editPatient: (patient: any) => requests.put(`/account/patient/${patient.id}`, patient)
+    editPatient: (patient: any) => requests.put(`/account/patient/${patient.id}`, patient),
 }
 
 const DiagnosisManager = {
@@ -237,12 +237,12 @@ const Appointments = {
     cancelAppointment: (id: any) => axios.put<void>(`/Appointment/cancel/${id}`),
     denyAppointment: (id: any) => axios.put<void>(`/appointment/deny/${id}`),
     markAsComplete: (id: any) => axios.put<void>(`/appointment/markcomplete/${id}`),
-    edit: (appointment: Appointment) => axios.put<void>(`/Appointment/edit/${appointment.id}`, appointment)
+    edit: (appointment: Appointment) => axios.put<void>(`/Appointment/edit/${appointment.id}`, appointment),
+    getAvailableDoctors: (id: any, date: Date) => requests.get<DoctorProfile[]>(`/Profile/availabledoctors/${id}/${date}`),
 }
 
 const Specialties = {
     list: () => requests.get<Specialty[]>('/specialty'),
-    getDoctorsBySpecialty: (id: any) => requests.get<DoctorProfile[]>(`/Profile/doctorsbyspecialty/${id}`),
     delete: (id: any) => axios.delete(`/specialty/${id}`),
     details: (id: any) => requests.get<Specialty>(`/specialty/${id}`),
     update: (specialty: Specialty) => axios.put<void>(`/specialty/${specialty.id}`, specialty),

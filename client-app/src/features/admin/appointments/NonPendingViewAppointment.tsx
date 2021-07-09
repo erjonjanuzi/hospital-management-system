@@ -3,16 +3,18 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Button, Divider, Grid, Header, Icon, Item, Segment, Label, Container, Message } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
-import DoctorProfileCard from "../../admin/appointments/DoctorProfileCard";
+import DoctorProfileCard from "./DoctorProfileCard";
+import PatientProfileCard from "./PatientProfileCard";
 
 interface Props {
   id: string
 }
 
-export default observer(function ViewAppointment({ id }: Props) {
-  const { appointmentsStore: { loadAppointment, selectedAppointment } } = useStore();
+export default observer(function NonPendingViewAppointment({ id }: Props) {
+  const { appointmentsStore: { loadAppointment, selectedAppointment }, modalStore } = useStore();
 
   const [details, setDetails] = useState(false);
+  const [doctorDetails, setDoctorDetails] = useState(false);
 
   useEffect(() => {
     if (id) loadAppointment(id);
@@ -24,8 +26,10 @@ export default observer(function ViewAppointment({ id }: Props) {
       <Divider />
       <Grid>
         <Grid.Column width='8' textAlign='center'>
-          <Icon name='user doctor' color='teal' /><span>Doctor</span>
+          <Icon name='user' color='teal' /><span>Participants</span>
           <Divider />
+          <PatientProfileCard patient={selectedAppointment?.patient!} />
+          <br />
           <DoctorProfileCard doctor={selectedAppointment?.doctor!} />
         </Grid.Column>
         <Grid.Column width='8' textAlign='left'>
@@ -35,21 +39,13 @@ export default observer(function ViewAppointment({ id }: Props) {
             <Message
               icon='check'
               header='This appointment is scheduled and active'
-              content='Please make sure you arrive at the hospital at least 30 minutes before your scheduled time'
-            />
-          }
-          {selectedAppointment?.status === 'Pending' &&
-            <Message
-              icon='hourglass outline'
-              header='This appointment is under review'
-              content='Please be aware that the chosen date and time can be changed without any notice'
+              content='Once this appointment is completed with the patient, click the Mark as Completed button below'
             />
           }
           <Segment color={selectedAppointment?.status === 'Active'
             || selectedAppointment?.status === 'Completed' ? 'green' : 'red'} inverted>
             {selectedAppointment?.status}
           </Segment>
-          <br />
           <Label content='Date and Time' />
           <Segment.Group>
             <Segment>
@@ -64,11 +60,11 @@ export default observer(function ViewAppointment({ id }: Props) {
             </Segment>
           </Segment.Group>
           <br />
-          <Label content='Reason' />
+          <Label content='Reason for appointment' />
           <Segment>
             {selectedAppointment?.reason}
           </Segment>
-          <Label content='Comment' />
+          <Label content='Comment by patient' />
           <Segment>
             {selectedAppointment?.comment ? selectedAppointment?.comment : 'No comment'}
           </Segment>

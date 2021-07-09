@@ -9,11 +9,13 @@ export default observer(function TodayAppointments() {
     const { loadDoctorAppointments, appointmentRegistry, appointments, cancelAppointment } = appointmentsStore;
     const { user } = userStore;
 
+    /**
+     * This constant gets the today date in local time
+     */
     const date = new Date();
-
-    console.log(date.getDate());
-    // to be continued
-    let todayAppointments: boolean = (appointments.filter(a => a.date.getDate == date.getDate)).length > 0;
+    
+    const todayAppointments = appointments.filter(a => new Date(a.date).getDate() == date.getDate() && a.status == 'Active');
+    let hasAppointmentsToday: boolean = todayAppointments.length > 0;
 
     useEffect(() => {
         if (appointmentRegistry.size <= 1) loadDoctorAppointments(user?.id!);
@@ -21,9 +23,8 @@ export default observer(function TodayAppointments() {
 
     return (
         <>
-            {todayAppointments ?
-                appointments.map(appointment => (
-                    console.log('Appointmeit ' + appointment.date.getDate()),
+            {hasAppointmentsToday ?
+                todayAppointments.map(appointment => (
                     <DoctorAppointmentItem appointment={appointment} />
                 )) : <Segment placeholder>
                     <Header icon>

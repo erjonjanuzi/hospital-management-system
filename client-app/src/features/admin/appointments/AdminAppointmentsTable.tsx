@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useStore } from '../../../app/stores/store';
 import { useEffect } from 'react';
 import AdminViewAppointment from './AdminViewAppointment';
+import NonPendingViewAppointment from './NonPendingViewAppointment';
 
 export default observer(function AppointmentsTable() {
     const { appointmentsStore, modalStore } = useStore();
@@ -15,13 +16,15 @@ export default observer(function AppointmentsTable() {
         setOpenConfirm(!openConfirm);
     }
 
+    const nonPendingAppointments = appointments.filter(x => x.status !== 'Pending');
+
     useEffect(() => {
         if (appointmentRegistry.size <= 1) loadAppointments();
     }, [appointmentRegistry.size, loadAppointments])
 
     return (
         <>
-            {appointmentRegistry.size > 0 ?
+            {nonPendingAppointments.length > 0 ?
                 <Table celled>
                     <Table.Header>
                         <Table.Row>
@@ -34,7 +37,7 @@ export default observer(function AppointmentsTable() {
                     </Table.Header>
 
                     <Table.Body>
-                        {appointments.map(appointment => (
+                        {nonPendingAppointments.map(appointment => (
                             <>
                                 <Table.Row key={appointment.id}>
                                     <Table.Cell>{appointment.patient?.firstName + ' ' + appointment.patient?.lastName}</Table.Cell>
@@ -42,13 +45,20 @@ export default observer(function AppointmentsTable() {
                                         <Icon name='clock' color='teal' />{appointment.date.toString().split('T')[1]}</Table.Cell>
                                     <Table.Cell>{appointment.doctor ? appointment.doctor?.firstName + ' ' + appointment.doctor?.lastName
                                         : 'Not assigned yet!'}</Table.Cell>
-                                    <Table.Cell>{appointment.status}</Table.Cell>
+                                    <Table.Cell>{appointment.status === 'Completed' ?
+                                        <>
+                                            <Icon name='check' color='green' />
+                                            <span>{appointment.status}</span>
+                                        </> 
+                                            : 
+                                        <span>{appointment.status}</span>}
+                                    </Table.Cell>
                                     <Table.Cell>
                                         <Popup content='Details of this appointment' trigger={
                                             <Button
                                                 color='teal'
                                                 content='View'
-                                                onClick={() => modalStore.openModal(<AdminViewAppointment id={appointment.id!} />)}
+                                                onClick={() => modalStore.openModal(<NonPendingViewAppointment id={appointment.id!} />)}
                                             />}
                                         />
                                         <Button animated='vertical' color='red' onClick={open}>
