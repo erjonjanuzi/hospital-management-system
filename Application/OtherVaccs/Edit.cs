@@ -7,20 +7,20 @@ using MediatR;
 using FluentValidation;
 using Persistence;
 
-namespace Application.Vaccinations
+namespace Application.OtherVaccs
 {
     public class Edit
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public Vaccination Vaccination { get; set; }
+            public OtherVacc OtherVacc { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
-                RuleFor(x => x.Vaccination).SetValidator(new VaccineValidator());
+                RuleFor(x => x.OtherVacc).SetValidator(new OtherVaccsValidator());
                 
             }
         }
@@ -37,11 +37,11 @@ namespace Application.Vaccinations
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var vaccine = await context.Vaccinations.FindAsync(request.Vaccination.Id);
+                var vaccine = await context.OtherVaccs.FindAsync(request.OtherVacc.Id);
 
                 if (vaccine == null) return null;
 
-                mapper.Map(request.Vaccination, vaccine);
+                mapper.Map(request.OtherVacc, vaccine);
 
                 var result = await context.SaveChangesAsync() > 0;
 

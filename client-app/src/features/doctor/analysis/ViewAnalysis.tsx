@@ -42,7 +42,7 @@ return (
           </Table.Header>
 
           <Table.Body>
-            {/* <Table.Row>
+            <Table.Row>
               <Table.Cell>
                 <Header as="h4">
                   <Header.Content>
@@ -55,7 +55,7 @@ return (
               </Table.Cell>
               <Table.Cell>{analyse?.eritrocite}</Table.Cell>
               <Table.Cell>M: deri 10; F: deri 15</Table.Cell>
-            </Table.Row> */}
+            </Table.Row>
             <Table.Row>
               <Table.Cell>
                 <Header as="h4">
@@ -213,6 +213,8 @@ return (
             content="Delete"
             icon="delete"
             labelPosition="right"
+            onClick={() => deleteAnalyse(id)}
+
           />
         </div>
       </Container>

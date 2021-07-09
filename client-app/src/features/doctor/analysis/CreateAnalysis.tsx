@@ -59,7 +59,7 @@ export default observer(function CreateAnalysis({ id }: Props) {
                         <Segment clearing>
                         <Modal.Content>
                         <Header sub content='Analyse' />
-                        <MyTextInput name='eritrcite' placeholder='Eritrcite' />
+                        <MyTextInput name='eritrocite' placeholder='Eritrocite' />
                         <MyTextInput name='hemoglobina' placeholder='Hemoglobina' />
                         <MyTextInput name='leukocite' placeholder='Leukocite' />
                         <MyTextInput name='hemakrotiti' placeholder='Hemakrotiti' />

@@ -394,6 +394,35 @@ namespace Persistence.Migrations
                     b.ToTable("Nationality");
                 });
 
+            modelBuilder.Entity("Domain.OtherVacc", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Feeling")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Symptoms")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VaccineType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OtherVaccs");
+                });
+
             modelBuilder.Entity("Domain.Patient", b =>
                 {
                     b.Property<Guid>("Id")

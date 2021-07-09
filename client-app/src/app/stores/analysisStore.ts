@@ -146,20 +146,25 @@ export default class AnalysisStore {
     deleteAnalyse = async (id: string) => {
         this.loading = true;
         try {
-            await agent.Analysis.delete(id);
-            runInAction(() => {
-                this.analyseRegistry.delete(id);
-                this.loading = false;
-                store.modalStore.closeModal();
-                window.location.reload();
-            })
-        } catch(error) {
+            // if (window.confirm('Delete?')) {
+                await agent.Analysis.delete(id);
+                runInAction(() => {
+                    this.analyseRegistry.delete(id);
+                    this.loading = false;
+                    store.modalStore.closeModal();
+                    window.location.reload();
+ 
+                })
+                
+            // }
+        } catch (error) {
             console.log(error);
             runInAction(() => {
                 this.loading = false;
             })
         }
     }
+
     private setAnalyse = (analysis: Analyse) => {
         this.analyseRegistry.set(analysis.patientsId, analysis);
     }

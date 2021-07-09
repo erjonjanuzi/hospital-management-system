@@ -1,13 +1,13 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 import agent from "../api/agent";
-import { Vaccination, VaccinationDto } from "../models/vaccination";
+import { OtherVacc, OtherVaccDto } from "../models/vaccs";
 import { store } from "./store";
 
 
-export default class VaccinationStore {
-    vaccineRegistry = new Map<string, Vaccination>();
-    selectedVaccine: Vaccination | undefined = undefined;
+export default class OtherVaccsStore {
+    vaccRegistry = new Map<string, OtherVacc>();
+    selectedOtherVacc: OtherVacc | undefined = undefined;
     editMode = false;
     loading = false;
     loadingInitial = false;
@@ -16,15 +16,15 @@ export default class VaccinationStore {
         makeAutoObservable(this);
     }
 
-    get vaccine() {
-        return Array.from(this.vaccineRegistry.values());
+    get other() {
+        return Array.from(this.vaccRegistry.values());
     }
 
-    loadVaccines = async() => {
+    loadDiffVaccines = async() => {
         try {
-            const vaccine = await agent.Vaccinations.list();
+            const vaccine = await agent.OtherVaccs.list();
             vaccine.forEach(vaccine => {
-                this.setVaccine(vaccine);
+                this.setDiffVaccine(vaccine);
             })
             this.loadingInitial = false;
         } catch (error){
@@ -33,18 +33,18 @@ export default class VaccinationStore {
         }
     }
 
-    loadVaccine = async (id: string) => {
-        let vaccine = this.getVaccine(id);
+    loadDiffVaccine = async (id: string) => {
+        let vaccine = this.getDiffVaccine(id);
         if (vaccine) {
-            this.selectedVaccine = vaccine;
+            this.selectedOtherVacc = vaccine;
             return vaccine;
         } else {
             this.loadingInitial = true;
             try {
-                vaccine = await agent.Vaccinations.details(id);
-                this.setVaccine(vaccine);
+                vaccine = await agent.OtherVaccs.details(id);
+                this.setDiffVaccine(vaccine);
                 runInAction(() => {
-                    this.selectedVaccine = vaccine;
+                    this.selectedOtherVacc = vaccine;
                 })
                 this.setLoadingInitial(false);
                 return vaccine;
@@ -55,23 +55,23 @@ export default class VaccinationStore {
         }
     }
 
-    private setVaccine = (vaccine: Vaccination) => {
-        this.vaccineRegistry.set(vaccine.id, vaccine);
+    private setDiffVaccine = (vaccine: OtherVacc) => {
+        this.vaccRegistry.set(vaccine.id, vaccine);
     }
-    private getVaccine = (id: string) => {
-        return this.vaccineRegistry.get(id);
+    private getDiffVaccine = (id: string) => {
+        return this.vaccRegistry.get(id);
     }
 
     setLoadingInitial = (state: boolean) => {
         this.loadingInitial = state;
     }
 
-    updateVaccine = async (vaccine: Vaccination) => {
+    update = async (vaccine: OtherVacc) => {
         this.loading = true;
         try {
-            await agent.Vaccinations.update(vaccine);
+            await agent.OtherVaccs.update(vaccine);
             runInAction(() => {
-                this.loadVaccines();
+                this.loadDiffVaccines();
             })
         } catch (error) {
             console.log(error);
@@ -83,12 +83,12 @@ export default class VaccinationStore {
         }
     }
 
-    createVaccination = async (vaccine: VaccinationDto) => {
+    create = async (vaccine: OtherVaccDto) => {
         this.loading = true;
         try {
-            await agent.Vaccinations.create(vaccine);
+            await agent.OtherVaccs.create(vaccine);
             runInAction(() => {
-                this.loadVaccines();
+                this.loadDiffVaccines();
                 store.modalStore.closeModal();
                 toast.success('Vaccination Form Added Successfully')
             })
@@ -101,15 +101,14 @@ export default class VaccinationStore {
     }
 
 
-    deleteVaccine = async (id: string) => {
+    deleteDiffVaccine = async (id: string) => {
         this.loading = true;
         try {
-            await agent.Vaccinations.delete(id);
+            await agent.OtherVaccs.delete(id);
             runInAction(() => {
-                this.vaccineRegistry.delete(id);
+                this.vaccRegistry.delete(id);
                 this.loading = false;
                 store.modalStore.closeModal();
-                // window.location.reload();
             })
         } catch(error) {
             console.log(error);

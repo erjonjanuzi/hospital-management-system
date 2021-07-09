@@ -29,7 +29,7 @@ export default observer(function EditAnalysis({ id }: Props) {
 
   return (
     <>
-      <Header as="h1" content="Edit patient informations" />
+      <Header as="h1" content="Edit Analyse Informations" />
       <Divider />
       <Formik
         initialValues={selectedAnalyse!}
@@ -43,7 +43,7 @@ export default observer(function EditAnalysis({ id }: Props) {
            <Segment clearing>
                         <Modal.Content>
                         <Header sub content='Analyse' />
-                        <MyTextInput name='eritrcite' placeholder='Eritrcite' />
+                        <MyTextInput name='eritrocite' placeholder='Eritrocite' />
                         <MyTextInput name='hemoglobina' placeholder='Hemoglobina' />
                         <MyTextInput name='leukocite' placeholder='Leukocite' />
                         <MyTextInput name='hemakrotiti' placeholder='Hemakrotiti' />

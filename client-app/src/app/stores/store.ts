@@ -21,6 +21,7 @@ import NationalityStore from "./nationalitiesStore";
 import PersonalInfoStore from "./personalInfoStore";
 import VaccinationStore from "./vaccinationStore";
 import ProfileStore from "./profileStore";
+import OtherVaccsStore from "./otherVaccsStore";
 
 
 interface Store {
@@ -45,7 +46,8 @@ interface Store {
     nationalitiesStore :NationalityStore;
     personalInfoStore : PersonalInfoStore;
     vaccinationStore : VaccinationStore;
-    profileStore: ProfileStore,
+    profileStore: ProfileStore;
+    otherVaccsStore: OtherVaccsStore;
 }
 
 export const store: Store = {
@@ -70,7 +72,8 @@ export const store: Store = {
     nationalitiesStore : new NationalityStore(),
     personalInfoStore : new PersonalInfoStore(),
     vaccinationStore : new VaccinationStore(),
-    profileStore: new ProfileStore()
+    profileStore: new ProfileStore(),
+    otherVaccsStore: new OtherVaccsStore()
 }
 
 export const StoreContext = createContext(store);

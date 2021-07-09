@@ -1,27 +1,17 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Core;
-using Domain;
-using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.Vaccinations
+namespace Application.OtherVaccs
 {
-    public class Create
+    public class Delete
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public Vaccination Vaccination { get; set; }
-        }
-
-        public class CommandValidator : AbstractValidator<Command>
-        {
-            public CommandValidator()
-            {
-                RuleFor(x => x.Vaccination).SetValidator(new VaccineValidator());
-                
-            }
+            public Guid Id { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -34,11 +24,13 @@ namespace Application.Vaccinations
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                context.Vaccinations.Add(request.Vaccination);
+                var vaccine = await context.OtherVaccs.FindAsync(request.Id);
+
+                context.Remove(vaccine);
 
                 var result = await context.SaveChangesAsync() > 0;
 
-                if (!result) return Result<Unit>.Failure("Failed");
+                if (!result) return Result<Unit>.Failure("Failed to delete");
 
                 return Result<Unit>.Success(Unit.Value);
             }

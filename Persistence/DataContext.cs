@@ -29,11 +29,9 @@ namespace Persistence
         public DbSet<Analyse> Analyses { get; set; }
          public DbSet<RegisterPatient> RegisterPatients { get; set; }
 
-
-
-        //Info Details
         public DbSet<PersonalInfo> PersonalInfo { get; set; }
         public DbSet<Vaccination> Vaccinations { get; set; }
+        public DbSet<OtherVacc> OtherVaccs { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Admin>();

@@ -1,9 +1,10 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
-import { Button, Divider, Grid, Item, Segment } from "semantic-ui-react";
+import { Button, Divider, Grid, Image, Item, Segment } from "semantic-ui-react";
 import modalStore from "../../../app/stores/modalStore";
 import { useStore } from "../../../app/stores/store";
-import EditVaccionation from "./EditVaccionation";
+import EditOtherVaccs from "./EditOtherVaccs";
+import EditVaccionation from "./EditOtherVaccs";
 
 interface Props {
   id: string;
@@ -11,13 +12,13 @@ interface Props {
 
 export default observer(function ViewVaccination({ id }: Props) {
   const {
-    vaccinationStore: { loadVaccine, selectedVaccine: vaccine },
+    otherVaccsStore: { loadDiffVaccine, selectedOtherVacc: vaccine },
     modalStore,
   } = useStore();
 
   useEffect(() => {
-    if (id) loadVaccine(id);
-  }, [id, loadVaccine]);
+    if (id) loadDiffVaccine(id);
+  }, [id, loadDiffVaccine]);
 
   return (
     <>
@@ -30,8 +31,6 @@ export default observer(function ViewVaccination({ id }: Props) {
                 <Item.Header>Lastname: {vaccine?.lastName} </Item.Header>
                 <Item.Header>Age: {vaccine?.age} </Item.Header>
                 <Divider />
-                <Item.Header>Email: {vaccine?.email} </Item.Header>
-                <Item.Header>Date: {vaccine?.date.split("T")[0]} </Item.Header>
                 <Item.Header>
                   Location: MedCare Hospital, Prishtina 10000, St. Mother
                   Teresa, Kosovo
@@ -52,37 +51,22 @@ export default observer(function ViewVaccination({ id }: Props) {
           </Grid.Column>
           <Grid.Column>
             <Item>
-              {/* <Item.Content>
-                  <Item.Header>1. Are you feeling sick today?</Item.Header>
-                  <Item.Header> • {vaccine?.condition} </Item.Header>
-              </Item.Content> */}
+              <Item.Header>
+                1. Are you moderately or severely ill today? 
+              </Item.Header>
+              <Item.Header> • {vaccine?.feeling}</Item.Header>
               <Divider />
               <Item.Header>
-                2. Have you ever received a dose of COVID-19 vaccine?
-              </Item.Header>
-              <Item.Header> • {vaccine?.received}</Item.Header>
-              {/* {console.log(Error)} */}
-              <Divider />
-              <Item.Header>
-                3. Which COVID-19 vaccine do you want to receive?
+              2. Do you have any symptoms?
               </Item.Header>
               <Item.Header>
-                {" "}
-                • I want to recive the {vaccine?.vaccine} vaccine
+                • {vaccine?.symptoms} 
               </Item.Header>
               <Divider />
               <Item.Header>
-                4. Have you ever had an allergic reaction? If so, to what?
+              3. Which vaccine do you want to receive?
               </Item.Header>
-              <Item.Header> • {vaccine?.allergies}</Item.Header>
-              <Divider />
-              <Item.Header>
-                5. Do you struggle with any chronic diseases?
-              </Item.Header>
-              <Item.Header> • {vaccine?.information}</Item.Header>
-              <Divider />
-              {/* <Item.Header>6. Do you have any chronical diseases?</Item.Header>
-              <Item.Header> • {vaccine?.description}</Item.Header> */}
+              <Item.Header> • {vaccine?.vaccineType}</Item.Header>
             </Item>
           </Grid.Column>
         </Grid>
@@ -94,7 +78,7 @@ export default observer(function ViewVaccination({ id }: Props) {
           basic
           color="youtube"
           onClick={() =>
-            modalStore.openModal(<EditVaccionation id={vaccine?.id!} />)
+            modalStore.openModal(<EditOtherVaccs id={vaccine?.id!} />)
           }
         />
         <Button
