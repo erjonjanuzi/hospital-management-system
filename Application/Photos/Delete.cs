@@ -35,12 +35,12 @@ namespace Application.Photos
             {
                 string username = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
 
-                var user = (Doctor) await context.Users.Include(p => ((Doctor)p).Photos)
+                var user = (Doctor) await context.Users.Include(p => ((Doctor)p).Photo)
                     .FirstOrDefaultAsync(x => x.UserName == username);
 
                 if (user == null) return null;
 
-                var photo = user.Photos.FirstOrDefault(x => x.Id == request.Id);
+                var photo = await context.Photos.FindAsync(request.Id);
 
                 if (photo == null) return null;
 
@@ -48,7 +48,7 @@ namespace Application.Photos
 
                 if (result == null) return Result<Unit>.Failure("Problem deleting photo");
 
-                user.Photos.Remove(photo);
+                user.Photo = null;
 
                 user.Image = null;
 

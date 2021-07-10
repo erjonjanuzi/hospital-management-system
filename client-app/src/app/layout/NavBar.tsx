@@ -5,7 +5,7 @@ import { Image, Menu } from "semantic-ui-react";
 import { useStore } from "../stores/store";
 
 export default observer(function NavBar() {
-  const { userStore: { user, logout, getUser } } = useStore();
+  const { userStore: { user, logout } } = useStore();
 
   /**
    * Causes bug by sending in infinite requests to update user, this way 
@@ -59,7 +59,7 @@ export default observer(function NavBar() {
         </div>
       </Menu.Item>
       <Menu.Item style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <Image src={`/assets/user.png`} size="tiny" circular />
+        <Image src={user?.image ||  `/assets/user.png`} size="tiny" circular />
         <h3 style={{ margin: "0 10px", padding: 0 }}>{user?.firstName}</h3>
       </Menu.Item>
       {user?.role === 'admin' && adminLinks.map(link => (

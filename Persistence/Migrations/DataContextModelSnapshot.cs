@@ -547,9 +547,6 @@ namespace Persistence.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("DoctorId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<bool>("IsMain")
                         .HasColumnType("bit");
 
@@ -557,8 +554,6 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DoctorId");
 
                     b.ToTable("Photos");
                 });
@@ -828,10 +823,15 @@ namespace Persistence.Migrations
                     b.Property<Guid>("PersonalInfoId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("PhotoId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<Guid?>("SpecialtyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasIndex("PersonalInfoId");
+
+                    b.HasIndex("PhotoId");
 
                     b.HasIndex("SpecialtyId");
 
@@ -928,13 +928,6 @@ namespace Persistence.Migrations
                     b.Navigation("Nationality");
                 });
 
-            modelBuilder.Entity("Domain.Photo", b =>
-                {
-                    b.HasOne("Domain.Doctor", null)
-                        .WithMany("Photos")
-                        .HasForeignKey("DoctorId");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -994,11 +987,17 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Photo", "Photo")
+                        .WithMany()
+                        .HasForeignKey("PhotoId");
+
                     b.HasOne("Domain.Specialty", "Specialty")
                         .WithMany("Doctors")
                         .HasForeignKey("SpecialtyId");
 
                     b.Navigation("PersonalInfo");
+
+                    b.Navigation("Photo");
 
                     b.Navigation("Specialty");
                 });
@@ -1020,11 +1019,6 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Specialty", b =>
                 {
                     b.Navigation("Doctors");
-                });
-
-            modelBuilder.Entity("Domain.Doctor", b =>
-                {
-                    b.Navigation("Photos");
                 });
 
             modelBuilder.Entity("Domain.PatientUser", b =>
