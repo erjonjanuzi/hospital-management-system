@@ -24,6 +24,8 @@ namespace Domain
         public Specialty Specialty { get; set; }
         public Guid PersonalInfoId { get; set; }
         public PersonalInfo PersonalInfo { get; set; }
+        public string Image { get; set; }
+        public ICollection<Photo> Photos { get; set; }
     }
 
     public class PatientUser : AppUser

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { Button, Segment, Item, Icon, Header, Popup, Grid, Card, Image, Confirm } from "semantic-ui-react";
+import { Button, Segment, Item, Icon, Header, Popup, Grid, Card, Image, Confirm, Label } from "semantic-ui-react";
 import { useState } from 'react';
 import { useStore } from '../../../app/stores/store';
 import { useEffect } from 'react';
@@ -29,12 +29,14 @@ export default observer(function DoctorAppointmentItem({ appointment }: Props) {
                                         <Popup
                                             hoverable
                                             trigger={
-                                                <Item.Image style={{ marginBottom: 3 }} size='mini' circular src='/assets/user.png' />
+                                                <Label style={{marginBottom: 3}} circular color='blue' size='massive' 
+                                                    content={`${appointment.patient.firstName[0]}${appointment.patient.lastName[0]}`} />
                                             }
                                         >
                                             <Popup.Content>
                                                 <Card as={Link}>
-                                                    <Image size='tiny' src='/assets/user.png' />
+                                                <Label style={{marginBottom: 3}} circular color='blue' size='massive' 
+                                                    content={`${appointment.patient.firstName[0]}${appointment.patient.lastName[0]}`} />
                                                     <Card.Content>
                                                         <Card.Header>{appointment.patient.firstName + ' ' + appointment.patient.lastName}</Card.Header>
                                                         <Card.Description>

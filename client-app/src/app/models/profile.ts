@@ -7,6 +7,8 @@ export interface DoctorProfile {
     lastName: string;
     userName: string;
     email: string;
+    image?: string;
+    photos?: Photo[];
     registeredSince: string;
     specialty: Specialty;
     personalInfo: PersonalInfo
@@ -20,4 +22,10 @@ export interface PatientProfile {
     email: string;
     registeredSince: string;
     personalInfo: PersonalInfo;
+}
+
+export interface Photo {
+    id: string;
+    url: string;
+    isMain: boolean;
 }

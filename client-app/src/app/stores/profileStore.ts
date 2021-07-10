@@ -1,60 +1,58 @@
-
 import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 import agent from "../api/agent";
-import { DoctorProfile, PatientProfile } from "../models/profile";
-import { AccountDto, AccountFormValues, RegisterDoctor } from "../models/user";
+import { DoctorProfile, PatientProfile, Photo } from "../models/profile";
 import { store } from "./store";
 
 export default class ProfileStore {
-    selectedDoctor: DoctorProfile | undefined = undefined;    
+    selectedDoctor: DoctorProfile | undefined = undefined;
     selectedPatient: PatientProfile | undefined = undefined;
 
-    constructor(){
+    constructor() {
         makeAutoObservable(this);
     }
 
-    loadDoctor = async(id: string) => {
+    loadDoctor = async (id: string) => {
         try {
             const doctor = await agent.AccountsManager.getDoctor(id);
             if (doctor)
                 this.selectedDoctor = doctor;
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
     }
 
-    loadPatient = async(id: string) => {
-        try{
+    loadPatient = async (id: string) => {
+        try {
             const patient = await agent.AccountsManager.getPatient(id);
             if (patient)
                 this.selectedPatient = patient;
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
     }
 
-    
+
     updateDoctor = async (creds: any) => {
         try {
             const doctor = {
-                "id" : creds.id,
-                "firstName" : creds.firstName,
-                "lastName" : creds.lastName,
-                "email" : creds.email,
-                "userName" : creds.userName,
-                "specialtyId" : creds.specialtyId,
-                "personalInfoId" : creds.personalInfoId,
-                "personalInfo" : {
-                    "personalNumber" : creds.personalNumber,
-                    "dateOfBirth" : creds.dateOfBirth,
-                    "gender" : creds.gender,
-                    "phoneNumber" : creds.phoneNumber,
-                    "address" : creds.address,
-                    "countryId" : creds.countryId,
-                    "cityId" : creds.cityId,
-                    "nationalityId" : creds.nationalityId,
-                    "maritalStatus" : creds.maritalStatus
+                "id": creds.id,
+                "firstName": creds.firstName,
+                "lastName": creds.lastName,
+                "email": creds.email,
+                "userName": creds.userName,
+                "specialtyId": creds.specialtyId,
+                "personalInfoId": creds.personalInfoId,
+                "personalInfo": {
+                    "personalNumber": creds.personalNumber,
+                    "dateOfBirth": creds.dateOfBirth,
+                    "gender": creds.gender,
+                    "phoneNumber": creds.phoneNumber,
+                    "address": creds.address,
+                    "countryId": creds.countryId,
+                    "cityId": creds.cityId,
+                    "nationalityId": creds.nationalityId,
+                    "maritalStatus": creds.maritalStatus
                 }
             };
             await agent.AccountsManager.editDoctor(doctor);
@@ -71,22 +69,22 @@ export default class ProfileStore {
     updatePatient = async (creds: any) => {
         try {
             const patient = {
-                "id" : creds.id,
-                "firstName" : creds.firstName,
-                "lastName" : creds.lastName,
-                "email" : creds.email,
-                "userName" : creds.userName,
-                "personalInfoId" : creds.personalInfoId,
-                "personalInfo" : {
-                    "personalNumber" : creds.personalNumber,
-                    "dateOfBirth" : creds.dateOfBirth,
-                    "gender" : creds.gender,
-                    "phoneNumber" : creds.phoneNumber,
-                    "address" : creds.address,
-                    "countryId" : creds.countryId,
-                    "cityId" : creds.cityId,
-                    "nationalityId" : creds.nationalityId,
-                    "maritalStatus" : creds.maritalStatus
+                "id": creds.id,
+                "firstName": creds.firstName,
+                "lastName": creds.lastName,
+                "email": creds.email,
+                "userName": creds.userName,
+                "personalInfoId": creds.personalInfoId,
+                "personalInfo": {
+                    "personalNumber": creds.personalNumber,
+                    "dateOfBirth": creds.dateOfBirth,
+                    "gender": creds.gender,
+                    "phoneNumber": creds.phoneNumber,
+                    "address": creds.address,
+                    "countryId": creds.countryId,
+                    "cityId": creds.cityId,
+                    "nationalityId": creds.nationalityId,
+                    "maritalStatus": creds.maritalStatus
                 }
             };
             await agent.AccountsManager.editPatient(patient);
@@ -97,6 +95,36 @@ export default class ProfileStore {
             store.modalStore.closeModal();
         } catch (error) {
             throw error;
+        }
+    }
+
+    uploadPhoto = async (file: Blob) => {
+        try {
+            const response = await agent.Profiles.uploadPhoto(file);
+            const photo = response.data;
+            runInAction(() => {
+                this.setImage(photo.url);
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    setImage = (image: string) => {
+        if (this.selectedDoctor) this.selectedDoctor.image = image;
+    }
+
+    deletePhoto = async (id: string) => {
+        try {
+            await agent.Profiles.deletePhoto(id);
+            runInAction(() => {
+                if (this.selectedDoctor) {
+                    this.selectedDoctor.image = undefined;
+                }
+            })
+            toast.success("Photo deleted successfully");
+        } catch (error) {
+            console.log(error);
         }
     }
 }

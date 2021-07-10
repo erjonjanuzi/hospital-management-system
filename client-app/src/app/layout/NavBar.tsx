@@ -59,7 +59,7 @@ export default observer(function NavBar() {
         </div>
       </Menu.Item>
       <Menu.Item style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <Image src="/assets/user.png" size="tiny" circular />
+        <Image src={`/assets/user.png`} size="tiny" circular />
         <h3 style={{ margin: "0 10px", padding: 0 }}>{user?.firstName}</h3>
       </Menu.Item>
       {user?.role === 'admin' && adminLinks.map(link => (
