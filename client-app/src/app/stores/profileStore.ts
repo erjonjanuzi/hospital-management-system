@@ -32,7 +32,6 @@ export default class ProfileStore {
         }
     }
 
-
     updateDoctor = async (creds: any) => {
         try {
             const doctor = {

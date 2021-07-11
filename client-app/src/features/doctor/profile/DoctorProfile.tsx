@@ -38,16 +38,20 @@ export default observer(function DoctorProfile() {
                         <br />
                         {!addPhotoMode ?
                             <>
-                                <Button basic
+                                <Button
+                                    basic={doctor?.image != null}
                                     content={doctor?.image ? 'Edit Photo' : 'Add Photo'}
                                     onClick={() => setAddPhotoMode(true)}
+                                    color='facebook'
+                                    icon={doctor?.image ? 'edit' : 'photo'}
                                 />
-                                <Button
-                                    basic
-                                    color='red'
-                                    icon='trash'
-                                    onClick={() => setOpenConfirm(true)}
-                                />
+                                {doctor?.image &&
+                                    <Button
+                                        basic
+                                        color='red'
+                                        icon='trash'
+                                        onClick={() => setOpenConfirm(true)}
+                                    />}
                             </>
                             : <Button basic
                                 content='Cancel'

@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { Button, Header, Segment, Table } from 'semantic-ui-react';
+import Breadcrumbs from '../../../app/layout/Breadcrumbs';
 import { useStore } from '../../../app/stores/store';
-import Breadcrumbs from '../my-profile/Breadcrumbs';
 import ViewAnalysis from './ViewAnalysis';
 
 
@@ -20,7 +20,14 @@ export default observer(function AnalysisTablePatient() {
 
     return (
         <>
-        <Breadcrumbs></Breadcrumbs>
+        <Segment.Group>
+            <Segment>
+                <Breadcrumbs />
+            </Segment>
+            <Segment>
+                <Header as='h1' content='Analysis' />
+            </Segment>
+        </Segment.Group>
         <Segment>
             <Header content='Analysis' />
             <Header sub content='All patients analysis' />

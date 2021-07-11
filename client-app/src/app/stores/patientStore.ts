@@ -46,7 +46,6 @@ export default class PatientStore {
         }
     }
 
-
     loadPatient = async (id: string) => {
         let patient = this.getPatient(id);
         if (patient) {

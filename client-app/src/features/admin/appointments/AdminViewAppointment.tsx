@@ -6,6 +6,7 @@ import { Button, Confirm, Divider, Grid, Header, Icon, Item, Label, Segment, Sel
 import MyDateInput from "../../../app/common/form/MyDateInput";
 import MySelectInput from "../../../app/common/form/MySelectInput";
 import { store, useStore } from "../../../app/stores/store";
+import PatientProfileCard from "./PatientProfileCard";
 
 interface Props {
     id: string
@@ -67,14 +68,7 @@ export default observer(function ViewAppointment({ id }: Props) {
                 <Grid.Column width='8' textAlign='center'>
                     <Icon name='user' color='teal' /><span>Patient details</span>
                     <Divider />
-                    <Segment>
-                        <Item>
-                            <Item.Image style={{ marginBottom: 3 }} size='tiny' circular src='/assets/user.png' />
-                            <Item.Content>
-                                <Item.Header>{selectedAppointment?.patient?.firstName + ' ' + selectedAppointment?.patient?.lastName}</Item.Header>
-                            </Item.Content>
-                        </Item>
-                    </Segment>
+                    <PatientProfileCard patient={selectedAppointment?.patient!} />
                 </Grid.Column>
                 <Grid.Column width='8' textAlign='left'>
                     <Icon name='info circle' color='teal' /><span>Request details</span>
