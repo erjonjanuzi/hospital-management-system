@@ -72,6 +72,8 @@ export default class VaccinationStore {
             await agent.Vaccinations.update(vaccine);
             runInAction(() => {
                 this.loadVaccines();
+                store.modalStore.closeModal();
+
             })
         } catch (error) {
             console.log(error);

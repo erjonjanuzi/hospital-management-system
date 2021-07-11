@@ -3,21 +3,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.OtherVaccs;
 using Domain;
-using AutoMapper;
-using Persistence;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers 
    {
         public class OtherVaccsController : BaseApiController
    { 
-        private DataContext context { get; }
-        private IMapper mapper { get; }
-        public OtherVaccsController(DataContext context, IMapper mapper)
-        {
-            this.context = context;
-            this.mapper = mapper;
-        }
         [HttpGet]
         public async Task<ActionResult<List<OtherVacc>>> GetDiffVaccinations()
         {
@@ -37,21 +28,11 @@ namespace API.Controllers
         }
 
        [HttpPut("{id}")]
-        public async Task<IActionResult> EditDiffVaccination(OtherVacc newVaccination)
+        public async Task<IActionResult> EditDiffVaccination(Guid id, OtherVacc newVaccination)
         {
-            var vaccine = await context.OtherVaccs.FindAsync(newVaccination.Id);
 
-            if (vaccine == null) return null;
-           
-            vaccine.Feeling = newVaccination.Feeling;
-            vaccine.Symptoms = newVaccination.Symptoms;
-            vaccine.VaccineType = newVaccination.VaccineType;
-
-          var result = await context.SaveChangesAsync() > 0;
-
-            if (result)
-                return Ok(vaccine);
-            return BadRequest();
+            newVaccination.Id=id;
+            return HandleResult(await Mediator.Send(new Edit.Command{OtherVacc = newVaccination}));
         }
 
         [HttpDelete("{id}")]
