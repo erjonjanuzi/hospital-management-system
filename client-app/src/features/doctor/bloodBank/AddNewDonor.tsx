@@ -35,6 +35,7 @@ export default observer(function AddNewDonor() {
     const validationSchema = Yup.object({
         name:Yup.string().required('Name is required'),
         blood:Yup.string().required('Blood Type is required'),
+        age:Yup.string().required('Age is required'),
 
     })
 

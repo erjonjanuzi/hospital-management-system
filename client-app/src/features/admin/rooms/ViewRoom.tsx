@@ -13,7 +13,7 @@ interface Props{
 
 export default observer(function ViewRoom({id} : Props){
 
-    const { roomStore : {loadRoom,selectedRoom,updateRoom},modalStore} =useStore();
+    const { roomStore : {loadRoom,selectedRoom,updateRoom},modalStore,patientStore} =useStore();
 
     useEffect(() => {
     if(id)loadRoom(id);
@@ -31,6 +31,22 @@ export default observer(function ViewRoom({id} : Props){
         { key: '4', text: 'Intensive Treatment Unit', value: 'Intensive Treatment Unit' },
         
       ]
+      let patients = new Array();
+      const insertPatients = async () => {
+          await patientStore.loadPatients();
+          for (let i = 0; i < patientStore.patients.length; i++) {
+              let patient = {
+                  key: patientStore.patients[i].id,
+                  value: patientStore.patients[i].firstName +'  '+ patientStore.patients[i].lastName,
+                  text: patientStore.patients[i].firstName +'  '+ patientStore.patients[i].lastName
+                  
+              };
+              patients[i] = patient;
+          }
+      }
+      useEffect(() => {
+        insertPatients();
+    }, [patients])
       
 
 
@@ -50,7 +66,7 @@ export default observer(function ViewRoom({id} : Props){
                         <MyTextInput name='roomNo' placeholder='Name' />
                         <MySelectInput name='roomType' placeholder='Room Type' options={types} />
 
-                        <MyTextInput name='patient' placeholder='Patient' />
+                        <MySelectInput options={patients} placeholder='Patient' name='patient' />
 
                         <Divider />
                         <Button disabled={isSubmitting || !dirty || !isValid}

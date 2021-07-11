@@ -84,6 +84,11 @@ export default observer(function AddRoom() {
       
     const validationSchema = Yup.object({
         roomNo:Yup.string().required('RoomNo is required'),
+        roomType:Yup.string().required('Room Type is required'),
+        floor:Yup.string().required('Flooe is required'),
+        department:Yup.string().required('Please select the department'),
+        patient:Yup.string().required('Please select the patient'),
+
        
     })
 
