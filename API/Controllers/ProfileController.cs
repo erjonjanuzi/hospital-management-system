@@ -74,5 +74,6 @@ namespace API.Controllers
             
             return Ok(doctors);
         }
+
     }
 }

@@ -37,6 +37,7 @@ import DoctorProfile from '../../features/doctor/profile/DoctorProfile';
 import AnalysisTablePatient from '../../features/patients/patient-analysis/AnalysisTablePatient';
 import Specialties from '../../features/admin/doctor-specialties/Specialties';
 import VaccinationTable from '../../features/patients/AllVaccinations/VaccinationTable';
+import AdminDashboard from '../../features/admin/dashboard/AdminDashboard';
 
 function App() {
   const { commonStore, userStore } = useStore()
@@ -64,6 +65,7 @@ function App() {
             <Container fluid style={{ padding: '20px 20px 0 22vw' }}>
               <Switch>
                 {/* Admin Routes */}
+                <PrivateRoute exact path='/admin' component={AdminDashboard} />
                 <PrivateRoute path='/admin/accounts' component={AdminAccountsTable} />
                 <PrivateRoute path='/admin/departments' component={DepartmentsPage} />
                 <PrivateRoute path='/admin/countries' component={Countries} />

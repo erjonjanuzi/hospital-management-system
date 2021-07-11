@@ -1,6 +1,6 @@
 import React from 'react';
 import { Header, Segment, Tab } from 'semantic-ui-react';
-import Breadcrumbs from '../my-profile/Breadcrumbs';
+import Breadcrumbs from '../../../app/layout/Breadcrumbs';
 import OtherVaccination from '../other-vaccs/OtherVaccination';
 import Vaccination from '../vaccination/Vaccination';
 

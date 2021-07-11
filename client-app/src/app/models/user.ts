@@ -1,3 +1,5 @@
+import { Photo } from "./profile";
+
 export interface User {
     id: string;
     firstName: string;
@@ -5,6 +7,8 @@ export interface User {
     passwordHash: string;
     registeredSince: string;
     userName: string;
+    image?: string;
+    photo?: Photo;
     email: string;
     role: string;
     token: string;

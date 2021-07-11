@@ -32,6 +32,16 @@ export default class AccountManagementStore {
         }
     }
 
+    numberOfAccounts = (role: string) => {
+        let count = 0;
+        if (this.accounts){
+            for (let i = 0; i < this.accounts.length; i++)
+                if (this.accounts[i].role === role)
+                    count++;
+        }
+        return count;
+    }
+
     loadPatientAccounts = async() => {
         try {
             const accounts = await agent.AccountsManager.list();

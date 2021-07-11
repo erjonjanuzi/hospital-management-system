@@ -32,6 +32,7 @@ namespace Persistence
         public DbSet<PersonalInfo> PersonalInfo { get; set; }
         public DbSet<Vaccination> Vaccinations { get; set; }
         public DbSet<OtherVacc> OtherVaccs { get; set; }
+        public DbSet<Photo> Photos { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Admin>();

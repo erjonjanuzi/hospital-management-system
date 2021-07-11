@@ -15,7 +15,7 @@ export default observer(function PatientProfileCard({ patient }: Props) {
         <Segment>
             {patient ?
                 <Item>
-                    <Item.Image style={{ marginBottom: 3 }} size='tiny' circular src='/assets/user.png' />
+                    <Label style={{marginBottom: 3}} circular color='blue' size='massive' content={`${patient.firstName[0]}${patient.lastName[0]}`} />
                     <Item.Content>
                         <Item.Header>{patient?.firstName + ' ' + patient?.lastName}</Item.Header>
                     </Item.Content>

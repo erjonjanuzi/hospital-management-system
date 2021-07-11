@@ -542,6 +542,22 @@ namespace Persistence.Migrations
                     b.ToTable("Pharmacies");
                 });
 
+            modelBuilder.Entity("Domain.Photo", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Photos");
+                });
+
             modelBuilder.Entity("Domain.RegisterPatient", b =>
                 {
                     b.Property<Guid>("Id")
@@ -801,13 +817,21 @@ namespace Persistence.Migrations
                 {
                     b.HasBaseType("Domain.AppUser");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("PersonalInfoId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PhotoId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid?>("SpecialtyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasIndex("PersonalInfoId");
+
+                    b.HasIndex("PhotoId");
 
                     b.HasIndex("SpecialtyId");
 
@@ -963,11 +987,17 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Photo", "Photo")
+                        .WithMany()
+                        .HasForeignKey("PhotoId");
+
                     b.HasOne("Domain.Specialty", "Specialty")
                         .WithMany("Doctors")
                         .HasForeignKey("SpecialtyId");
 
                     b.Navigation("PersonalInfo");
+
+                    b.Navigation("Photo");
 
                     b.Navigation("Specialty");
                 });

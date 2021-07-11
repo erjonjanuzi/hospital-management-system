@@ -2,8 +2,8 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { Button, Header, Segment, Table } from 'semantic-ui-react';
+import Breadcrumbs from '../../../app/layout/Breadcrumbs';
 import { useStore } from '../../../app/stores/store';
-import Breadcrumbs from '../../patients/my-profile/Breadcrumbs';
 import CreateDiagnosis from './CreateDiagnosis';
 import ViewDiagnosis from './ViewDiagnosis';
 
@@ -22,11 +22,15 @@ export default observer(function Diagnosis() {
 
     return (
         <>
-            <Breadcrumbs> </Breadcrumbs>
+            <Segment.Group>
+                <Segment>
+                    <Breadcrumbs />
+                </Segment>
+                <Segment>
+                    <Header as='h1' content='Diagnosis' />
+                </Segment>
+            </Segment.Group>
             <Segment>
-                {/* <Button content='Create new user' onClick={() => modalStore.openModal(<RegisterNewUserForm />)}
-            /> */}
-                <Header content='Diagnosis Management' />
                 <Header sub content='All patietns' />
                 <Table textAlign="center">
                     <Table.Header>

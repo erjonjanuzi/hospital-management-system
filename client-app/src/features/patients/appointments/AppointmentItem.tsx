@@ -40,15 +40,16 @@ export default observer(function AppointmentItem({ appointment }: Props) {
                                         <Popup
                                             hoverable
                                             trigger={
-                                                <Item.Image style={{ marginBottom: 3 }} size='mini' circular src='/assets/user.png' />
+                                                <Item.Image style={{ marginBottom: 3 }} size='mini' circular 
+                                                    src={appointment.doctor.image || '/assets/user.png'} />
                                             }
                                         >
                                             <Popup.Content>
                                                 <Card as={Link}>
-                                                    <Image size='tiny' src='/assets/user.png' />
+                                                    <Image size='tiny' src={appointment.doctor.image || '/assets/user.png'} />
                                                     <Card.Content>
                                                         <Card.Header>{appointment.doctor.firstName + ' ' + appointment.doctor.lastName}</Card.Header>
-                                                        <Card.Description>Demantology</Card.Description>
+                                                        <Card.Description>{appointment.doctor.specialty.name}</Card.Description>
                                                     </Card.Content>
                                                     <Card.Content extra>
                                                         <Button icon='heart outline' basic color='red' />

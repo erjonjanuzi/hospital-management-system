@@ -4,7 +4,7 @@ import { useStore } from '../../../app/stores/store';
 import AddNewDonor from './AddNewDonor';
 import React, { useEffect } from 'react';
 import ViewDonor from './ViewDonor';
-import Breadcrumbs from '../../patients/my-profile/Breadcrumbs';
+import Breadcrumbs from '../../../app/layout/Breadcrumbs';
 
 export default observer(function BloodManagment(){
     const {bloodBankStore,modalStore}=useStore();
@@ -17,7 +17,14 @@ export default observer(function BloodManagment(){
     
     return (
         <>
-        <Breadcrumbs> </Breadcrumbs>
+        <Segment.Group>
+                <Segment>
+                    <Breadcrumbs />
+                </Segment>
+                <Segment>
+                    <Header as='h1' content='Blood bank management' />
+                </Segment>
+            </Segment.Group>
         <Segment>
             <Button content='New Donor' onClick={() => modalStore.openModal(<AddNewDonor/>)}/>
             <Header content='Donors' />

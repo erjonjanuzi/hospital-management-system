@@ -30,19 +30,24 @@ export default observer(function PatientAppointments() {
 
     return (
         <>
-            <Segment>
-                <Breadcrumbs />
-            </Segment>
+            <Segment.Group>
+                <Segment>
+                    <Breadcrumbs />
+                </Segment>
+                <Segment>
+                    <Header as='h1' content='My Appointments' />
+                </Segment>
+            </Segment.Group>
             <Grid >
                 <Grid.Column width='12'>
                     <Tab panes={panes} />
                 </Grid.Column>
                 <Grid.Column width='4'>
-                    <Segment textAlign='center' style={{marginTop: '42px'}}>
-                        <Header as='h3' content='Want to create a new appointment?'/>
+                    <Segment textAlign='center' style={{ marginTop: '42px' }}>
+                        <Header as='h3' content='Want to create a new appointment?' />
                         <span>Schedule your appoinment with a click of a few buttons</span>
                         <br /><br />
-                        <Icon name='stethoscope' size='massive'/>
+                        <Icon name='stethoscope' size='massive' />
                         <br /><br />
                         <Button animated color='teal' onClick={() => modalStore.openModal(<AppointmentForm />)}>
                             <Button.Content visible>New appointment</Button.Content>

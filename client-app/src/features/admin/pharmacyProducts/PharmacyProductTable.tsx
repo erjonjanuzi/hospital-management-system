@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { Button, Header, Icon, Segment, Table } from "semantic-ui-react";
+import Breadcrumbs from "../../../app/layout/Breadcrumbs";
 import { useStore } from "../../../app/stores/store";
 import AddNewProductForm from "./AddNewProductForm";
 import ViewPharmacyProductPage from "./ViewPharmacyProductPage";
@@ -18,6 +19,14 @@ export default observer(function PharmacyProductTable(){
 
     return(
         <>
+        <Segment.Group>
+            <Segment>
+                <Breadcrumbs />
+            </Segment>
+            <Segment>
+                <Header as='h1' content='Pharmacy' />
+            </Segment>
+        </Segment.Group>
         <Segment>
             <Button inverted color='green' content='Add Pharmacy Products' onClick={() => modalStore.openModal(<AddNewProductForm/>)}/>
             <Header as='h1' content='Pharmacy Products' color='green' inverted />

@@ -15,7 +15,7 @@ export default observer(function DoctorProfileCard({ doctor }: Props) {
         <Segment>
             {doctor ?
                 <Item>
-                    <Item.Image style={{ marginBottom: 3 }} size='tiny' circular src='/assets/user.png' />
+                    <Item.Image style={{ marginBottom: 3 }} size='tiny' circular src={doctor.image} />
                     <Item.Content>
                         <Item.Header>{doctor?.firstName + ' ' + doctor?.lastName}</Item.Header>
                     </Item.Content>

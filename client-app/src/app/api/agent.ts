@@ -13,7 +13,7 @@ import { BloodBank,BloodBankTable } from "../models/bloodBank";
 import { Appointment } from "../models/appointment";
 import { MedicalReport,MedicalReportDto } from "../models/medicalReport";
 import { Specialty } from "../models/specialty";
-import { DoctorProfile, PatientProfile } from "../models/profile";
+import { DoctorProfile, PatientProfile, Photo } from "../models/profile";
 import { Room,RoomDto } from "../models/room";
 import { HealthData, HealthDataTable } from "../models/healthData";
 import { PersonalInfo, PersonalInfoDTO } from "../models/personalInfo";
@@ -226,6 +226,17 @@ const AccountsManager = {
     editPatient: (patient: any) => requests.put(`/account/patient/${patient.id}`, patient),
 }
 
+const Profiles = {
+    uploadPhoto: (file: Blob) => {
+        let formData = new FormData();
+        formData.append('File', file);
+        return axios.post<Photo>('photos', formData, {
+            headers: {'Content-type': 'multipart/form-data'}
+        })
+    },
+    deletePhoto: (id: string) => requests.delete(`/photos/${id}`)
+}
+
 const DiagnosisManager = {
     list: () => requests.get<Diagnosis[]>('/diagnosis'),
     delete: (id: string) => axios.delete<void>(`/diagnosis/${id}`),
@@ -287,7 +298,8 @@ const agent = {
     PersonalInfos,
     Vaccinations,
     Specialties,
-    OtherVaccs   
+    OtherVaccs,
+    Profiles 
 }
 
 export default agent;
