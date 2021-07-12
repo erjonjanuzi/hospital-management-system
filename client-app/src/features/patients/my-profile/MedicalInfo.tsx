@@ -1,25 +1,21 @@
+import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
-import { Grid, Header, Label, Segment, Table } from 'semantic-ui-react';
+import { Grid, Header, Item, Label, Segment, Table } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 
 interface Props {
     id: string
 }
-export default function MedicalInfo({ id }: Props) { //
+export default observer(function MedicalInfo({ id }: Props) { //
 
-    const {
-        diagnosisStore: { loadDiagnosisByPatient, selectedDiagnosis }, analysisStore: { selectedAnalyse, loadAnalysisByPatient }
+    const { 
+    diagnosisStore: { loadDiagnosisByPatient, selectedDiagnosis }, 
+    analysisStore: { selectedAnalyse, loadAnalysisByPatient}
     } = useStore();
 
     useEffect(() => {
-        if (id) loadDiagnosisByPatient(id);
-    }, [id, loadDiagnosisByPatient])
-
-    useEffect(() => {
-        if (id) loadAnalysisByPatient(id);
-    }, [id, loadAnalysisByPatient])
-
-    console.log(selectedAnalyse)
+        if (id) loadDiagnosisByPatient(id) && loadAnalysisByPatient(id);
+    }, [id, loadDiagnosisByPatient , loadAnalysisByPatient]);
 
     //dummydata => to be removed
     const Patient = {
@@ -58,77 +54,173 @@ export default function MedicalInfo({ id }: Props) { //
             <Segment>
                 <Grid>
                     <Grid.Column width='8'>
-                        <Table basic='very' collapsing >
-                            <Table.Body>
-                                <Header style={{ marginTop: '15px' }} as='h1' content={"Analysis"} />
-                                <Table.Row>
-                                    <Table.Cell>
-                                        <Label basic content='eritrocite' />
-                                    </Table.Cell>
-                                    <Table.Cell>{selectedAnalyse?.eritrocite}</Table.Cell>
-                                </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell>
-                                        <Label basic content='hemakrotiti' />
-                                    </Table.Cell>
-                                    <Table.Cell>{Patient?.analysis.hemakrotiti}</Table.Cell>
-                                </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell>
-                                        <Label basic content='hemoglobina' />
-                                    </Table.Cell>
-                                    <Table.Cell>{Patient?.analysis.hemoglobina}</Table.Cell>
-                                </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell>
-                                        <Label basic content='kolesteroli' />
-                                    </Table.Cell>
-                                    <Table.Cell>{Patient?.analysis.kolesteroli}</Table.Cell>
-                                </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell>
-                                        <Label basic content='leukocite' />
-                                    </Table.Cell>
-                                    <Table.Cell>{Patient?.analysis.leukocite}</Table.Cell>
-                                </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell>
-                                        <Label basic content='limfocite' />
-                                    </Table.Cell>
-                                    <Table.Cell>{Patient?.analysis.limfocite}</Table.Cell>
-                                </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell>
-                                        <Label basic content='monocite' />
-                                    </Table.Cell>
-                                    <Table.Cell>{Patient?.analysis.monocite}</Table.Cell>
-                                </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell>
-                                        <Label basic content='neutrofile' />
-                                    </Table.Cell>
-                                    <Table.Cell>{Patient?.analysis.neutrofile}</Table.Cell>
-                                </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell>
-                                        <Label basic content='retikulocite' />
-                                    </Table.Cell>
-                                    <Table.Cell>{Patient?.analysis.retikulocite}</Table.Cell>
-                                </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell>
-                                        <Label basic content='tromobocite' />
-                                    </Table.Cell>
-                                    <Table.Cell>{Patient?.analysis.tromobocite}</Table.Cell>
-                                </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell>
-                                        <Label basic content='urea' />
-                                    </Table.Cell>
-                                    <Table.Cell>{Patient?.analysis.urea}</Table.Cell>
-                                </Table.Row>
-                            </Table.Body>
-                        </Table>
+                    <Table basic="very" celled collapsing>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Analysis</Table.HeaderCell>
+              <Table.HeaderCell>Analysis Results</Table.HeaderCell>
+              <Table.HeaderCell>Reference Range</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+
+          <Table.Body>
+            {/* <Table.Row>
+              <Table.Cell>
+                <Header as="h4">
+                  <Header.Content>
+                    Eritrocite
+                    <Header.Subheader>
+                      Sedimentimi i eritrociteve
+                    </Header.Subheader>
+                  </Header.Content>
+                </Header>
+              </Table.Cell>
+              <Table.Cell>{selectedAnalyse?.eritrocite}</Table.Cell>
+              <Table.Cell>M: deri 10; F: deri 15</Table.Cell>
+            </Table.Row> */}
+            <Table.Row>
+              <Table.Cell>
+                <Header as="h4">
+                  <Header.Content>
+                    Hemoglobina
+                    <Header.Subheader>Hemoglobina</Header.Subheader>
+                  </Header.Content>
+                </Header>
+              </Table.Cell>
+              <Table.Cell>{selectedAnalyse?.hemoglobina}</Table.Cell>
+              <Table.Cell>M: 140-280; F: 120-160</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>
+                <Header as="h4">
+                  <Header.Content>
+                    Leukocite
+                    <Header.Subheader>Numri i leukociteve</Header.Subheader>
+                  </Header.Content>
+                </Header>
+              </Table.Cell>
+              <Table.Cell>{selectedAnalyse?.leukocite}</Table.Cell>
+              <Table.Cell>4.8 - 7.0</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>
+                <Header as="h4">
+                  <Header.Content>
+                    Hematokriti
+                    <Header.Subheader>Hematokriti</Header.Subheader>
+                  </Header.Content>
+                </Header>
+              </Table.Cell>
+              <Table.Cell>{selectedAnalyse?.hemakrotiti}</Table.Cell>
+              <Table.Cell>35 - 45</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>
+                <Header as="h4">
+                  <Header.Content>
+                    Trombocite
+                    <Header.Subheader>Numri i trombociteve</Header.Subheader>
+                  </Header.Content>
+                </Header>
+              </Table.Cell>
+              <Table.Cell>{selectedAnalyse?.tromobocite}</Table.Cell>
+              <Table.Cell>140 - 310</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>
+                <Header as="h4">
+                  <Header.Content>
+                    Retikulocite
+                    <Header.Subheader>
+                      Numri i retikulociteve
+                    </Header.Subheader>
+                  </Header.Content>
+                </Header>
+              </Table.Cell>
+              <Table.Cell>{selectedAnalyse?.retikulocite}</Table.Cell>
+              <Table.Cell>5 - 15</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>
+                <Header as="h4">
+                  <Header.Content>
+                    Neutrofile
+                    <Header.Subheader>
+                      Perqindja e neutrofileve
+                    </Header.Subheader>
+                  </Header.Content>
+                </Header>
+              </Table.Cell>
+              <Table.Cell>{selectedAnalyse?.neutrofile}</Table.Cell>
+              <Table.Cell>54 - 62</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>
+                <Header as="h4">
+                  <Header.Content>
+                    Limfocite
+                    <Header.Subheader>
+                      Perqindja e limfociteve
+                    </Header.Subheader>
+                  </Header.Content>
+                </Header>
+              </Table.Cell>
+              <Table.Cell>{selectedAnalyse?.limfocite}</Table.Cell>
+              <Table.Cell>25 - 33</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>
+                <Header as="h4">
+                  <Header.Content>
+                    Monocite
+                    <Header.Subheader>
+                      Perqindja e monociteve
+                    </Header.Subheader>
+                  </Header.Content>
+                </Header>
+              </Table.Cell>
+              <Table.Cell>{selectedAnalyse?.monocite}</Table.Cell>
+              <Table.Cell>3 - 7</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>
+                <Header as="h4">
+                  <Header.Content>
+                    Urea
+                    <Header.Subheader>mmol/L</Header.Subheader>
+                  </Header.Content>
+                </Header>
+              </Table.Cell>
+              <Table.Cell>{selectedAnalyse?.urea}</Table.Cell>
+              <Table.Cell>2.5 - 8.3</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>
+                <Header as="h4">
+                  <Header.Content>
+                    Glukoza
+                    <Header.Subheader>mmol/L</Header.Subheader>
+                  </Header.Content>
+                </Header>
+              </Table.Cell>
+              <Table.Cell>{selectedAnalyse?.glukoza}</Table.Cell>
+              <Table.Cell>3.8 - 6.1</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>
+                <Header as="h4">
+                  <Header.Content>
+                    Kolesteroli
+                    <Header.Subheader>mmol/L</Header.Subheader>
+                  </Header.Content>
+                </Header>
+              </Table.Cell>
+              <Table.Cell>{selectedAnalyse?.kolesteroli}</Table.Cell>
+              <Table.Cell> {"<"} 6.5</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
+
                     </Grid.Column>
 
                     <Grid.Column width='8'>
@@ -197,4 +289,4 @@ export default function MedicalInfo({ id }: Props) { //
             </Segment>
         </>
     )
-}
+})

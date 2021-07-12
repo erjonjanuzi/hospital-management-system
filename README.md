@@ -1,2 +1,0 @@
-# lab-course-project
-testtetst

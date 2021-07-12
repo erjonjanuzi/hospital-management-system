@@ -45,9 +45,8 @@ export default observer(function Profile() {
             <Segment>
                 <Grid  >
                     <Grid.Column width='4'>
-
                         <Card>
-                            <Image src='https://react.semantic-ui.com/images/avatar/large/elliot.jpg' wrapped ui={false} />
+                            <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
                             <Card.Content>
                                 <Card.Header textAlign='center'>
 
