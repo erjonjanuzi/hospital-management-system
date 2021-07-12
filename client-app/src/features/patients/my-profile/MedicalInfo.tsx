@@ -17,7 +17,6 @@ export default observer(function MedicalInfo({ id }: Props) { //
         if (id) loadDiagnosisByPatient(id) && loadAnalysisByPatient(id);
     }, [id, loadDiagnosisByPatient , loadAnalysisByPatient]);
 
-    //dummydata => to be removed
     const Patient = {
         analysis: {
             eritrocite: "4",
@@ -64,20 +63,6 @@ export default observer(function MedicalInfo({ id }: Props) { //
           </Table.Header>
 
           <Table.Body>
-            {/* <Table.Row>
-              <Table.Cell>
-                <Header as="h4">
-                  <Header.Content>
-                    Eritrocite
-                    <Header.Subheader>
-                      Sedimentimi i eritrociteve
-                    </Header.Subheader>
-                  </Header.Content>
-                </Header>
-              </Table.Cell>
-              <Table.Cell>{selectedAnalyse?.eritrocite}</Table.Cell>
-              <Table.Cell>M: deri 10; F: deri 15</Table.Cell>
-            </Table.Row> */}
             <Table.Row>
               <Table.Cell>
                 <Header as="h4">

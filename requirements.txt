@@ -12,3 +12,16 @@ Migrations:
 1. dotnet ef database drop -s API -p Persistence
 2. delete files at ...\Persistence\Migrations
 3. dotnet ef migrations add InitialCreate -p Persistence -s API
+
+
+Admin =>
+    email - admin@test.com
+    passw - Pa$$w0rd
+
+Doctor =>
+    email - engjell@doctor.com
+    passw - Pa$$w0rd
+
+Patient =>
+    email - engjell@patient.com
+    passw - Pa$$w0rd
