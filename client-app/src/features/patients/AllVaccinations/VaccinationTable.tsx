@@ -4,7 +4,7 @@ import Breadcrumbs from '../../../app/layout/Breadcrumbs';
 import OtherVaccination from '../other-vaccs/OtherVaccination';
 import Vaccination from '../vaccination/Vaccination';
 
-export default function VaccinationTable(){
+export default function VaccinationTable() {
     const panes = [
         {
             menuItem: { key: 'covid', content: 'Covid' },

@@ -16,7 +16,7 @@ namespace API
 {
     public class Program
     {
-         public static async Task Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
 
@@ -24,7 +24,7 @@ namespace API
 
             var services = scope.ServiceProvider;
 
-            try 
+            try
             {
                 var context = services.GetRequiredService<DataContext>();
                 var userManager = services.GetRequiredService<UserManager<AppUser>>();

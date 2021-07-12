@@ -7,18 +7,18 @@ import * as Yup from 'yup';
 
 export default observer(function AddNewDepartment() {
 
-    const{departmentStore,modalStore} = useStore();
-    
-    const selectedDepartment ={
-       
-        name : '',
-        capacity:'',
-        description:'',
-        error : null
-        
+    const { departmentStore, modalStore } = useStore();
+
+    const selectedDepartment = {
+
+        name: '',
+        capacity: '',
+        description: '',
+        error: null
+
     }
     const validationSchema = Yup.object({
-        name:Yup.string().required('Name is required'),
+        name: Yup.string().required('Name is required'),
     })
 
     return (
@@ -29,15 +29,15 @@ export default observer(function AddNewDepartment() {
             <Formik
                 initialValues={selectedDepartment}
                 onSubmit={(values, { setErrors }) => departmentStore.createDepartment(values).catch(error =>
-                setErrors({ error }))}
+                    setErrors({ error }))}
                 validationSchema={validationSchema}
                 enableReinitialize
             >
-                {({ handleSubmit, isValid, isSubmitting, dirty,errors }) => (
+                {({ handleSubmit, isValid, isSubmitting, dirty, errors }) => (
                     <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
-                            <ErrorMessage
+                        <ErrorMessage
                             name='error' render={() =>
-                            <Message negative content={errors.error} />}
+                                <Message negative content={errors.error} />}
                         />
                         <Header sub content='details' />
                         <MyTextInput name='name' placeholder='Name' />
@@ -52,7 +52,7 @@ export default observer(function AddNewDepartment() {
                         <Button basic color='red' content='Cancel' onClick={modalStore.closeModal} />
                     </Form>
                 )}
-                
+
             </Formik>
         </>
     )

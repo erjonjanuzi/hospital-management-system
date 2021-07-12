@@ -1,12 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
 import { Button, Divider, Header, Label } from 'semantic-ui-react';
 import * as Yup from 'yup';
 import { useStore } from '../../../app/stores/store';
-import { ErrorMessage, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import MyTextInput from '../../../app/common/form/MyTextInput';
-import { Country } from '../../../app/models/city';
-import ViewCountry from './ViewCountry';
 import { toast } from 'react-toastify';
 
 export default observer(function RegisterCountryForm() {
@@ -22,7 +19,7 @@ export default observer(function RegisterCountryForm() {
             <Header as='h1' content='Add new country' />
             <Divider />
             <Formik
-                initialValues={{id: '', name: ''}}
+                initialValues={{ id: '', name: '' }}
                 onSubmit={values => createCountry(values).catch(error => toast.error(error)).then(modalStore.closeModal)}
                 validationSchema={validationSchema}
                 enableReinitialize

@@ -1,7 +1,4 @@
-import { observer } from 'mobx-react-lite';
-import React from 'react';
 import { Header, Segment, Tab } from 'semantic-ui-react';
-import { useStore } from '../../../app/stores/store';
 import Breadcrumbs from '../../../app/layout/Breadcrumbs';
 import TodayAppointments from './TodayAppointments';
 import CompletedAppointments from './CompletedAppointments';

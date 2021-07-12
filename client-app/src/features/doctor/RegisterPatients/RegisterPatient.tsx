@@ -1,6 +1,5 @@
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../../app/stores/store";
-import * as Yup from 'yup';
 import { Header, Divider, Form, Message, Button, Segment } from "semantic-ui-react";
 import { ErrorMessage, Formik } from "formik";
 import MyTextInput from "../../../app/common/form/MyTextInput";
@@ -10,7 +9,7 @@ import Breadcrumbs from "../../../app/layout/Breadcrumbs";
 
 
 export default observer(function RegisterPatient() {
-    const { registerPatientStore, modalStore } = useStore();
+    const { registerPatientStore } = useStore();
 
     const selectedPharmacy = {
         firstName: '',

@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
-import { useState } from "react";
-import { Button, Divider, Grid, Header, Icon, Item, Segment, Label, Container, Message } from "semantic-ui-react";
+import { Button, Divider, Grid, Header, Icon, Segment, Label, Message } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import PatientProfileCard from "../../admin/appointments/PatientProfileCard";
 
@@ -11,8 +10,6 @@ interface Props {
 
 export default observer(function DoctorViewAppointment({ id }: Props) {
   const { appointmentsStore: { loadAppointment, selectedAppointment, markAsComplete }, modalStore } = useStore();
-
-  const [details, setDetails] = useState(false);
 
   useEffect(() => {
     if (id) loadAppointment(id);

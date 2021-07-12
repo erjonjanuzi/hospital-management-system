@@ -5,7 +5,6 @@ import {
   Button,
   Divider,
   Header,
-  List,
   Modal,
   Segment
 } from "semantic-ui-react";
@@ -18,7 +17,7 @@ interface Props {
 
 export default observer(function EditAnalysis({ id }: Props) {
   const {
-    accountManagementStore: { loadAccount, selectedAccount },
+    accountManagementStore: { loadAccount },
     analysisStore: { loadAnalysis, selectedAnalyse, updateAnalyse },
     modalStore,
   } = useStore();
@@ -40,23 +39,23 @@ export default observer(function EditAnalysis({ id }: Props) {
       >
         {({ handleSubmit, isValid, isSubmitting, dirty }) => (
           <Form className="ui form" onSubmit={handleSubmit} autoComplete="off">
-           <Segment clearing>
-                        <Modal.Content>
-                        <Header sub content='Analyse' />
-                        <MyTextInput name='eritrocite' placeholder='Eritrocite' />
-                        <MyTextInput name='hemoglobina' placeholder='Hemoglobina' />
-                        <MyTextInput name='leukocite' placeholder='Leukocite' />
-                        <MyTextInput name='hemakrotiti' placeholder='Hemakrotiti' />
-                        <MyTextInput name='tromobocite' placeholder='Tromobocite' />
-                        <MyTextInput name='retikulocite' placeholder='Retikulocite' />
-                        <MyTextInput name='neutrofile' placeholder='Neutrofile' />
-                        <MyTextInput name='limfocite' placeholder='Limfocite' />
-                        <MyTextInput name='monocite' placeholder='Monocite' />
-                        <MyTextInput name='urea' placeholder='Urea' />
-                        <MyTextInput name='glukoza' placeholder='Glukoza' />
-                        <MyTextInput name='kolesteroli' placeholder='Kolesteroli' />
-                        </Modal.Content>
-                        </Segment>
+            <Segment clearing>
+              <Modal.Content>
+                <Header sub content='Analyse' />
+                <MyTextInput name='eritrocite' placeholder='Eritrocite' />
+                <MyTextInput name='hemoglobina' placeholder='Hemoglobina' />
+                <MyTextInput name='leukocite' placeholder='Leukocite' />
+                <MyTextInput name='hemakrotiti' placeholder='Hemakrotiti' />
+                <MyTextInput name='tromobocite' placeholder='Tromobocite' />
+                <MyTextInput name='retikulocite' placeholder='Retikulocite' />
+                <MyTextInput name='neutrofile' placeholder='Neutrofile' />
+                <MyTextInput name='limfocite' placeholder='Limfocite' />
+                <MyTextInput name='monocite' placeholder='Monocite' />
+                <MyTextInput name='urea' placeholder='Urea' />
+                <MyTextInput name='glukoza' placeholder='Glukoza' />
+                <MyTextInput name='kolesteroli' placeholder='Kolesteroli' />
+              </Modal.Content>
+            </Segment>
             <Button
               disabled={isSubmitting || !dirty || !isValid}
               loading={isSubmitting}

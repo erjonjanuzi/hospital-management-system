@@ -1,13 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
-import { Button, Grid, Header, Icon, Menu, Segment, Tab, Table } from 'semantic-ui-react';
+import { Button, Table } from 'semantic-ui-react';
 import agent from '../../../app/api/agent';
-import Breadcrumbs from '../../../app/layout/Breadcrumbs';
 import { DoctorProfile } from '../../../app/models/profile';
 import { useStore } from '../../../app/stores/store';
 import EditProfile from '../../doctor/profile/EditProfile';
-import RegisterDoctorForm from './RegisterDoctorForm';
-import RegisterNewUserForm from './RegisterNewUserForm';
 import ViewAccount from './ViewAccount';
 
 interface Props {
@@ -17,7 +14,7 @@ interface Props {
 export default observer(function AccountsTable({ role }: Props) {
     const { accountManagementStore, modalStore } = useStore();
     const { accounts, accountRegistry, loadAccounts, deleteAccount } = accountManagementStore;
-    
+
     let doctor: DoctorProfile | undefined = undefined;
     let getDoctor = async (id: string) => {
         if (id) {

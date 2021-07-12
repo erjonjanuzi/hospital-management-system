@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import { Button, Header, Segment, Table, List } from 'semantic-ui-react';
+import { Button, Header, Segment, List } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 import AddHealthData from './AddHealthData';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import ViewHealthData from './ViewHealthData';
 import Breadcrumbs from '../../../app/layout/Breadcrumbs';
 
@@ -38,62 +38,62 @@ export default observer(function HealthData() {
               <Segment clearing>
                 <List.Item>
                   <List.Header as='h3' >{healthData.medication}</List.Header>
-                            Treated for any medical condition at the present or treated within the past year...
-                           </List.Item>
+                  Treated for any medical condition at the present or treated within the past year...
+                </List.Item>
               </Segment>
               <Segment clearing>
                 <List.Item>
                   <List.Header as='h3'>{healthData.checkup}</List.Header>
-                            Last medical checkup...
-                            </List.Item>
+                  Last medical checkup...
+                </List.Item>
               </Segment>
               <Segment clearing>
                 <List.Item>
                   <List.Header as='h3'>{healthData.drugs}</List.Header>
-                            Taking any medications, non-prescription drugs or herbal supplements of any kind...
-                            </List.Item>
+                  Taking any medications, non-prescription drugs or herbal supplements of any kind...
+                </List.Item>
               </Segment>
               <Segment clearing>
                 <List.Item>
                   <List.Header as='h3'>{healthData.allergies}</List.Header>
-                            Allergies...
-                            </List.Item>
+                  Allergies...
+                </List.Item>
               </Segment>
               <Segment clearing>
                 <List.Item>
                   <List.Header as='h3'>{healthData.injections}</List.Header>
-                            Reaction to any medicines or injections...
-                            </List.Item>
+                  Reaction to any medicines or injections...
+                </List.Item>
               </Segment>
               <Segment clearing>
                 <List.Item>
                   <List.Header as='h3'>{healthData.asthma}</List.Header>
-                            Asthma...
-                            </List.Item>
+                  Asthma...
+                </List.Item>
               </Segment>
               <Segment clearing>
                 <List.Item>
                   <List.Header as='h3'>{healthData.disease}</List.Header>
-                            Hepatitis, jaundice or liver disease...
-                            </List.Item>
+                  Hepatitis, jaundice or liver disease...
+                </List.Item>
               </Segment>
               <Segment clearing>
                 <List.Item>
                   <List.Header as='h3'>{healthData.immune}</List.Header>
-                            Therapies that could affect my immune system...
-                            </List.Item>
+                  Therapies that could affect my immune system...
+                </List.Item>
               </Segment>
               <Segment clearing>
                 <List.Item>
                   <List.Header as='h3'>{healthData.smoke}</List.Header>
-                            Smoke or chew tobacco products...
-                            </List.Item>
+                  Smoke or chew tobacco products...
+                </List.Item>
               </Segment>
               <Segment clearing>
                 <List.Item>
                   <List.Header as='h3'>{healthData.relatives}</List.Header>
-                            Diseases or medical problems that run in my family...
-                            </List.Item>
+                  Diseases or medical problems that run in my family...
+                </List.Item>
               </Segment>
               <Segment clearing>
                 <List.Item>

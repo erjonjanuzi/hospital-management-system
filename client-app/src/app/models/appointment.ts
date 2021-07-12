@@ -9,5 +9,5 @@ export interface Appointment {
     patientId: string;
     doctorId?: string;
     doctor?: DoctorProfile;
-    patient? : PatientProfile;
+    patient?: PatientProfile;
 }

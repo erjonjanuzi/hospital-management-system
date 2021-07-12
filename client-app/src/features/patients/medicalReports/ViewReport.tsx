@@ -1,18 +1,16 @@
-import { Formik } from "formik";
 import { observer } from "mobx-react-lite";
 import { useEffect } from 'react';
-import { Button, Container, Divider, Form, Header } from "semantic-ui-react";
+import { Container, Divider, Header } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 
-interface Props{
-    id : string
+interface Props {
+    id: string
 }
 
-export default observer(function ViewReport({id} : Props){
+export default observer(function ViewReport({ id }: Props) {
 
     const { accountManagementStore: { loadAccount, selectedAccount },
-        medicalReportStore: { updateReport, deleteReport, loadReportsByPatient, selectedReport }, modalStore
-    } = useStore();
+        medicalReportStore: { loadReportsByPatient, selectedReport } } = useStore();
 
     useEffect(() => {
         if (id) loadAccount(id);
@@ -25,14 +23,14 @@ export default observer(function ViewReport({id} : Props){
     const Reports = selectedReport;
     console.log(id);
 
-    return(
+    return (
         <>
-        <div>
+            <div>
                 <Container textAlign='center'>{selectedAccount?.firstName}'s Report</Container>
                 <Container textAlign='justified'>
                     <Divider />
                     <Header sub>First Name:</Header>
-                    <span>{Reports?.firstName}</span> 
+                    <span>{Reports?.firstName}</span>
                     <Header sub>Last Name:</Header>
                     <span>{Reports?.lastName}</span>
                     <Header sub>Age:</Header>

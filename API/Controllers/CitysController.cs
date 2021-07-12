@@ -37,7 +37,6 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCity(City city)
         {
-            //return HandleResult(await Mediator.Send(new Create.Command{ City = city }));
             if (city == null) return null;
 
             context.Cities.Add(city);

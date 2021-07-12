@@ -6,8 +6,8 @@ import Profile from './Profile';
 export default observer(function PatientProfile() {
     return (
         <>
-        <Breadcrumbs></Breadcrumbs>
-        <Profile></Profile>
+            <Breadcrumbs></Breadcrumbs>
+            <Profile></Profile>
         </>
     )
 })

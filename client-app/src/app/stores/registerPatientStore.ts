@@ -1,11 +1,8 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
-import { array } from "yup/lib/locale";
 import agent from "../api/agent";
 import { RegisterPatient, RegisterPatientDto } from "../models/registerPatients";
 import { store } from "./store";
-
-
 
 export default class RegisterPatientStore {
     patientRegistry = new Map<string, RegisterPatient>();
@@ -14,19 +11,19 @@ export default class RegisterPatientStore {
     loading = false;
     loadingInitial = false;
 
-    constructor(){
+    constructor() {
         makeAutoObservable(this);
     }
 
-    get registeredPatients(){
+    get registeredPatients() {
         return Array.from(this.patientRegistry.values());
     }
-    
-    private setRegisteredPatient = ( patient : RegisterPatient) =>{
-        this.patientRegistry.set(patient.id,patient);
+
+    private setRegisteredPatient = (patient: RegisterPatient) => {
+        this.patientRegistry.set(patient.id, patient);
     }
 
-    private getRegisteredPatient = (id : string)=>{
+    private getRegisteredPatient = (id: string) => {
         return this.patientRegistry.get(id);
     }
 
@@ -34,20 +31,20 @@ export default class RegisterPatientStore {
         this.loadingInitial = state;
     }
 
-    loadRegisteredPatients = async() => {
+    loadRegisteredPatients = async () => {
         try {
             const patients = await agent.RegisterPatients.list();
             patients.forEach(patients => {
                 this.setRegisteredPatient(patients);
             })
             this.loadingInitial = false;
-        } catch (error){
+        } catch (error) {
             console.log(error);
             this.setLoadingInitial(false);
         }
     }
 
-    
+
     loadRegisteredPatient = async (id: string) => {
         let patient = this.getRegisteredPatient(id);
         if (patient) {
@@ -112,14 +109,14 @@ export default class RegisterPatientStore {
             runInAction(() => {
                 this.patientRegistry.delete(id);
                 this.loading = false;
-                
+
             })
-        } catch(error) {
+        } catch (error) {
             console.log(error);
             runInAction(() => {
                 this.loading = false;
             })
         }
     }
- 
+
 }

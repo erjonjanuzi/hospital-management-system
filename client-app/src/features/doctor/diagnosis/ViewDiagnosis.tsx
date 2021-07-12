@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Button, Container, Divider, Header } from 'semantic-ui-react';
-import ModalStore from '../../../app/stores/modalStore';
 import { useStore } from '../../../app/stores/store';
 import EditDiagnosis from './EditDiagnosis';
 

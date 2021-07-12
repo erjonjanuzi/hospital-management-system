@@ -1,12 +1,11 @@
 import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
-import { Button, Divider, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react';
+import { Button, Divider, Grid, Header, Label, Table } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
-import { ErrorMessage, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import MyTextInput from '../../../app/common/form/MyTextInput';
-import { toast } from 'react-toastify';
 import MyTextArea from '../../../app/common/form/MyTextArea';
 
 interface Props {
@@ -37,7 +36,7 @@ export default observer(function ViewSpecialty({ id }: Props) {
                     <Formik
                         initialValues={selectedSpecialty!}
                         onSubmit={values => editSpecialty(values).catch(error => console.log(error))
-                        .then(modalStore.closeModal)}
+                            .then(modalStore.closeModal)}
                         validationSchema={validationSchema}
                         enableReinitialize
                     >

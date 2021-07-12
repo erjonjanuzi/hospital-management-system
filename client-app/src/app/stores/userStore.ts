@@ -1,13 +1,13 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { history } from "../..";
 import agent from "../api/agent";
-import { AccountDto, AccountFormValues, User, UserFormValues } from "../models/user";
+import { AccountFormValues, User, UserFormValues } from "../models/user";
 import { store } from "./store";
 
 export default class UserStore {
     user: User | null = null;
 
-    constructor(){
+    constructor() {
         makeAutoObservable(this);
     }
 
@@ -23,7 +23,7 @@ export default class UserStore {
             const path = user.role.toLowerCase();
             history.push(`/${path}`);
             store.modalStore.closeModal();
-        } catch (error){
+        } catch (error) {
             throw error;
         }
     }

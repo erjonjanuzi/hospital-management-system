@@ -1,7 +1,6 @@
 import { City, Country } from "./city";
 import { Nationality } from "./nationality";
 
-//changes made here/////
 export interface PersonalInfo {
     id: string;
     dateOfBirth: string;

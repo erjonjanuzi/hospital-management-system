@@ -35,17 +35,17 @@ namespace Application.Photos
             {
                 string username = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
 
-                var user = (Doctor) await context.Users.Include(p => ((Doctor)p).Photo)
+                var user = (Doctor)await context.Users.Include(p => ((Doctor)p).Photo)
                     .FirstOrDefaultAsync(x => x.UserName == username);
-                
+
                 if (user == null) return null;
 
-                if (user.Image != null) 
+                if (user.Image != null)
                 {
                     var existingPhoto = await context.Photos.FindAsync((user.Image.Split("/")[7]).Split(".")[0]);
                     if (existingPhoto != null)
                         await photoAccessor.DeletePhoto(existingPhoto.Id);
-                } 
+                }
 
                 var photoUploadResult = await photoAccessor.AddPhoto(request.File);
 

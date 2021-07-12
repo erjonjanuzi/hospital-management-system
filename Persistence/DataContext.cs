@@ -15,20 +15,15 @@ namespace Persistence
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Diagnosis> Diagnoses { get; set; }
         public DbSet<Department> Departments { get; set; }
-
         public DbSet<Pharmacy> Pharmacies { get; set; }
         public DbSet<BloodBank> BloodBanks { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Specialty> Specialty { get; set; }
-
         public DbSet<MedicalReport> MedicalReports { get; set; }
         public DbSet<Room> Rooms { get; set; }
-
-         public DbSet<HealthData> HealthDatas { get; set; }
-
+        public DbSet<HealthData> HealthDatas { get; set; }
         public DbSet<Analyse> Analyses { get; set; }
-         public DbSet<RegisterPatient> RegisterPatients { get; set; }
-
+        public DbSet<RegisterPatient> RegisterPatients { get; set; }
         public DbSet<PersonalInfo> PersonalInfo { get; set; }
         public DbSet<Vaccination> Vaccinations { get; set; }
         public DbSet<OtherVacc> OtherVaccs { get; set; }
@@ -46,7 +41,6 @@ namespace Persistence
             builder.Entity<Specialty>();
             builder.Entity<Room>();
             builder.Entity<HealthData>();
-            // builder.Entity<Analyse>();
 
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.

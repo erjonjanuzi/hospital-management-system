@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Segment, Item, Container, Label, Button, Icon, Table } from 'semantic-ui-react';
-import { DoctorProfile, PatientProfile } from '../../../app/models/profile';
+import { PatientProfile } from '../../../app/models/profile';
 
 interface Props {
     patient: PatientProfile
@@ -15,7 +15,7 @@ export default observer(function PatientProfileCard({ patient }: Props) {
         <Segment>
             {patient ?
                 <Item>
-                    <Label style={{marginBottom: 3}} circular color='blue' size='massive' content={`${patient.firstName[0]}${patient.lastName[0]}`} />
+                    <Label style={{ marginBottom: 3 }} circular color='blue' size='massive' content={`${patient.firstName[0]}${patient.lastName[0]}`} />
                     <Item.Content>
                         <Item.Header>{patient?.firstName + ' ' + patient?.lastName}</Item.Header>
                     </Item.Content>

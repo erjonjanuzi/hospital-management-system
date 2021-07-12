@@ -11,8 +11,8 @@ import ViewDiagnosis from './ViewDiagnosis';
 
 export default observer(function Diagnosis() {
 
-    const { patientStore, modalStore,  } = useStore();
-    const { loadPatients, patients, patientRegistry } = patientStore;    
+    const { patientStore, modalStore, } = useStore();
+    const { loadPatients, patients, patientRegistry } = patientStore;
 
     const { diagnosisStore } = useStore();
 
@@ -45,7 +45,7 @@ export default observer(function Diagnosis() {
                     </Table.Header>
                     <Table.Body>
                         {patients.map(patient => (
-                             
+
                             <Table.Row key={patient.id}>
                                 <Table.Cell>{patient.firstName}</Table.Cell>
                                 <Table.Cell>{patient.lastName}</Table.Cell>
@@ -53,13 +53,13 @@ export default observer(function Diagnosis() {
                                 <Table.Cell>{patient.role}</Table.Cell>
                                 <Table.Cell>{patient.registeredSince.split('T')[0]}</Table.Cell>
                                 <Table.Cell>
-                                    <Button 
+                                    <Button
                                         content='View Diagnosis' icon='edit' basic color='youtube'
                                         onClick={() => modalStore.openModal(<ViewDiagnosis id={patient.id} />)} />
-                                    <Button 
+                                    <Button
                                         content='Add Diagnosis' icon='add' basic color='youtube'
                                         onClick={() => modalStore.openModal(<CreateDiagnosis id={patient.id} />)} />
-                                    
+
                                 </Table.Cell>
                             </Table.Row>
                         ))}

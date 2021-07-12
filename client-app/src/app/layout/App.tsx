@@ -70,23 +70,23 @@ function App() {
                 <PrivateRoute path='/admin/accounts' component={AdminAccountsTable} />
                 <PrivateRoute path='/admin/departments' component={DepartmentsPage} />
                 <PrivateRoute path='/admin/countries' component={Countries} />
-                <PrivateRoute path='/admin/pharmacyProducts/' component={PharmacyProductTable}/>
-                <PrivateRoute path='/admin/appointments/' component={AdminAppointments}/>
-                <PrivateRoute path='/admin/rooms/' component={RoomManagement}/>
-                <PrivateRoute path='/admin/registeredPatients/' component={RegisteredPatientsFromDoc}/>
-                <PrivateRoute path='/admin/specialties/' component={Specialties}/>
+                <PrivateRoute path='/admin/pharmacyProducts/' component={PharmacyProductTable} />
+                <PrivateRoute path='/admin/appointments/' component={AdminAppointments} />
+                <PrivateRoute path='/admin/rooms/' component={RoomManagement} />
+                <PrivateRoute path='/admin/registeredPatients/' component={RegisteredPatientsFromDoc} />
+                <PrivateRoute path='/admin/specialties/' component={Specialties} />
 
                 {/* Doctor Routes */}
                 <PrivateRoute exact path='/doctor' component={DoctorDashboard} />
                 <PrivateRoute exact path='/doctor/register-patient' component={RegisterPatient} />
-                <PrivateRoute exact path='/doctor/diagnosis' component={ Diagnosis } />
+                <PrivateRoute exact path='/doctor/diagnosis' component={Diagnosis} />
                 <PrivateRoute exact path='/doctor/patients' component={DoctorPatientsTable} />
                 <PrivateRoute exact path='/doctor/bloodBank' component={BloodManagment} />
                 <PrivateRoute exact path='/doctor/analysis' component={AnalysisTable} />
                 <PrivateRoute exact path='/doctor/medicalReports' component={MedicalReportsTable} />
                 <PrivateRoute exact path='/doctor/appointments' component={DoctorAppointments} />
                 <PrivateRoute exact path='/doctor/profile' component={DoctorProfile} />
-                 
+
                 {/* {Patient Routes} */}
                 <PrivateRoute exact path='/patient' component={PatientDashboard} />
                 <PrivateRoute exact path='/patient/appointments' component={PatientAppointments} />
@@ -108,7 +108,7 @@ function App() {
         )}
       />
     </>
-)
+  )
 }
 
 export default observer(App);

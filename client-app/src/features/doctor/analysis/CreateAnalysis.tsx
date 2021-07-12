@@ -1,8 +1,6 @@
 import { ErrorMessage, Formik } from 'formik';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
 import { Button, Divider, Form, Header, Message, Modal, Segment } from 'semantic-ui-react';
-import * as Yup from 'yup';
 import MyTextInput from '../../../app/common/form/MyTextInput';
 import { useStore } from '../../../app/stores/store';
 
@@ -46,7 +44,7 @@ export default observer(function CreateAnalysis({ id }: Props) {
             <Formik
                 initialValues={selectedAnalyse}
                 onSubmit={(values, { setErrors }) => analysisStore.createAnalyse(values).catch(error =>
-                    setErrors({ error }))} 
+                    setErrors({ error }))}
                 // validationSchema={validationSchema}
                 enableReinitialize
             >
@@ -57,24 +55,24 @@ export default observer(function CreateAnalysis({ id }: Props) {
                                 <Message negative content={errors.error} />}
                         />
                         <Segment clearing>
-                        <Modal.Content>
-                        <Header sub content='Analyse' />
-                        <MyTextInput name='eritrocite' placeholder='Eritrocite' />
-                        <MyTextInput name='hemoglobina' placeholder='Hemoglobina' />
-                        <MyTextInput name='leukocite' placeholder='Leukocite' />
-                        <MyTextInput name='hemakrotiti' placeholder='Hemakrotiti' />
-                        <MyTextInput name='tromobocite' placeholder='Tromobocite' />
-                        <MyTextInput name='retikulocite' placeholder='Retikulocite' />
-                        <MyTextInput name='neutrofile' placeholder='Neutrofile' />
-                        <MyTextInput name='limfocite' placeholder='Limfocite' />
-                        <MyTextInput name='monocite' placeholder='Monocite' />
-                        <MyTextInput name='urea' placeholder='Urea' />
-                        <MyTextInput name='glukoza' placeholder='Glukoza' />
-                        <MyTextInput name='kolesteroli' placeholder='Kolesteroli' />
-                        </Modal.Content>
+                            <Modal.Content>
+                                <Header sub content='Analyse' />
+                                <MyTextInput name='eritrocite' placeholder='Eritrocite' />
+                                <MyTextInput name='hemoglobina' placeholder='Hemoglobina' />
+                                <MyTextInput name='leukocite' placeholder='Leukocite' />
+                                <MyTextInput name='hemakrotiti' placeholder='Hemakrotiti' />
+                                <MyTextInput name='tromobocite' placeholder='Tromobocite' />
+                                <MyTextInput name='retikulocite' placeholder='Retikulocite' />
+                                <MyTextInput name='neutrofile' placeholder='Neutrofile' />
+                                <MyTextInput name='limfocite' placeholder='Limfocite' />
+                                <MyTextInput name='monocite' placeholder='Monocite' />
+                                <MyTextInput name='urea' placeholder='Urea' />
+                                <MyTextInput name='glukoza' placeholder='Glukoza' />
+                                <MyTextInput name='kolesteroli' placeholder='Kolesteroli' />
+                            </Modal.Content>
                         </Segment>
-                        <Button disabled={isSubmitting || !dirty || !isValid  }
-                         loading={isSubmitting} positive type='submit' content='Submit'
+                        <Button disabled={isSubmitting || !dirty || !isValid}
+                            loading={isSubmitting} positive type='submit' content='Submit'
                         />
                         <Button basic color='red' content='Cancel' onClick={modalStore.closeModal} />
                     </Form>

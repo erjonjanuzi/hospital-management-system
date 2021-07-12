@@ -1,10 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import { Button, Header, Segment, Table } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import AddNewReport from './AddNewReport';
 import ViewReport from './ViewReport';
-import medicalReportStore from '../../../app/stores/medicalReportStore';
 import Breadcrumbs from '../../../app/layout/Breadcrumbs';
 
 

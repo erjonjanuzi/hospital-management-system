@@ -1,9 +1,7 @@
 import { observer } from 'mobx-react-lite';
-import { Table, Button, Segment, Label, Item, Icon, Header, Popup, Confirm } from "semantic-ui-react";
-import React from 'react';
+import { Button, Segment, Icon, Header, Popup, Confirm } from "semantic-ui-react";
 import { useStore } from '../../../app/stores/store';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import AdminViewAppointment from './AdminViewAppointment';
 
@@ -22,9 +20,9 @@ export default observer(function RequestedAppointments() {
 
     return (
         <>
-            {appointmentsStore.numberOfPendingAppointments > 0 ? 
-            appointments.map(appointment => (
-                appointment.status === 'Pending' &&
+            {appointmentsStore.numberOfPendingAppointments > 0 ?
+                appointments.map(appointment => (
+                    appointment.status === 'Pending' &&
                     <Segment.Group>
                         <Segment>
                             <span>
@@ -65,12 +63,12 @@ export default observer(function RequestedAppointments() {
                             onConfirm={() => deleteAppointment(appointment.id)}
                         />
                     </Segment.Group>
-            )) : <Segment placeholder>
-            <Header icon>
-                <Icon name='check circle outline' color='green'/>
-                Rest easy! There are currently no pending appointments.
-            </Header>
-        </Segment>}
+                )) : <Segment placeholder>
+                    <Header icon>
+                        <Icon name='check circle outline' color='green' />
+                        Rest easy! There are currently no pending appointments.
+                    </Header>
+                </Segment>}
         </>
     )
 })

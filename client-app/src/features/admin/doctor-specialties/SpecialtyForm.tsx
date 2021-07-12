@@ -1,16 +1,13 @@
 import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { Button, Divider, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react';
+import { Button, Label } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
-import { ErrorMessage, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import MyTextInput from '../../../app/common/form/MyTextInput';
-import { toast } from 'react-toastify';
 import MyTextArea from '../../../app/common/form/MyTextArea';
 
 export default observer(function SpecialtyForm() {
-    const { modalStore, specialtyStore: {createSpecialty} } = useStore();
+    const { modalStore, specialtyStore: { createSpecialty } } = useStore();
 
     const validationSchema = Yup.object({
         name: Yup.string().required('Specialty name is required'),
@@ -20,7 +17,7 @@ export default observer(function SpecialtyForm() {
     return (
         <>
             <Formik
-                initialValues={{name: '', description: '' }}
+                initialValues={{ name: '', description: '' }}
                 onSubmit={values => createSpecialty(values).catch(error => console.log(error)).then(modalStore.closeModal)}
                 validationSchema={validationSchema}
                 enableReinitialize

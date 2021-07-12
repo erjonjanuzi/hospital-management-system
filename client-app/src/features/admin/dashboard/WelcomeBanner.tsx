@@ -15,10 +15,8 @@ export default observer(function WelcomeBanner() {
                 <Icon color='teal' name='calendar alternate outline' />
                 <span>{date.toDateString()}</span>
                 <Icon style={{marginLeft: '10px'}} color='teal' name='clock'/>
-                
+                <Clock ticking={true} format='HH:mm:ss' />
             </Segment>
         </>
     )
 })
-
-//<Clock ticking={true} format='HH:mm:ss' />

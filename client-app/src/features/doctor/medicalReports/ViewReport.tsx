@@ -1,18 +1,17 @@
-import { Formik } from "formik";
 import { observer } from "mobx-react-lite";
 import { useEffect } from 'react';
-import { Button, Container, Divider, Form, Header } from "semantic-ui-react";
+import { Button, Container, Divider, Header } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import EditReport from "./EditReport";
 
-interface Props{
-    id : string
+interface Props {
+    id: string
 }
 
-export default observer(function ViewReport({id} : Props){
+export default observer(function ViewReport({ id }: Props) {
 
     const { accountManagementStore: { loadAccount, selectedAccount },
-        medicalReportStore: { updateReport, deleteReport, loadReportsByPatient, selectedReport }, modalStore
+        medicalReportStore: { deleteReport, loadReportsByPatient, selectedReport }, modalStore
     } = useStore();
 
     useEffect(() => {
@@ -26,14 +25,14 @@ export default observer(function ViewReport({id} : Props){
     const Reports = selectedReport;
     console.log(id);
 
-    return(
+    return (
         <>
-        <div>
+            <div>
                 <Container textAlign='center'>{selectedAccount?.firstName}'s Report</Container>
                 <Container textAlign='justified'>
                     <Divider />
                     <Header sub>First Name:</Header>
-                    <span>{Reports?.firstName}</span> 
+                    <span>{Reports?.firstName}</span>
                     <Header sub>Last Name:</Header>
                     <span>{Reports?.lastName}</span>
                     <Header sub>Age:</Header>
@@ -49,7 +48,7 @@ export default observer(function ViewReport({id} : Props){
                             onClick={() => deleteReport(id)}
                             color='red' content='Delete' icon='delete' labelPosition='right' />
                         <Button
-                            onClick={() => modalStore.openModal(<EditReport id={Reports?.id}/>)}
+                            onClick={() => modalStore.openModal(<EditReport id={Reports?.id} />)}
                             basic color='youtube' content='Edit' icon='edit' labelPosition='right' />
                     </div>
 

@@ -12,8 +12,6 @@ export default observer(function AnalysisTable() {
     const { patientStore, modalStore } = useStore();
     const { loadPatients, patients, patientRegistry } = patientStore;
 
-    const { analysisStore } = useStore();
-
     useEffect(() => {
         if (patientRegistry.size <= 1) loadPatients();
     }, [patientRegistry.size, loadPatients])

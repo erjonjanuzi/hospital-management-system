@@ -20,7 +20,7 @@ export default observer(function RegisterForm() {
         <Formik
             initialValues={{ firstName: '', lastName: '', username: '', email: '', passwordHash: '', role: 'patient', error: null }}
             onSubmit={(values, { setErrors }) => register(values).catch(error =>
-            setErrors({ error }))}
+                setErrors({ error }))}
             validationSchema={validationSchema}
         >
             {({ handleSubmit, isSubmitting, errors, isValid, dirty }) => (

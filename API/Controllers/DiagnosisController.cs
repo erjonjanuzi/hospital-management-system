@@ -29,13 +29,13 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Diagnosis>> GetDiagnosis(Guid id)
         {
-            return HandleResult(await Mediator.Send(new Details.Query{Id = id}));
+            return HandleResult(await Mediator.Send(new Details.Query { Id = id }));
         }
 
         [HttpGet("/api/patient/{patientsId}")]
         public async Task<ActionResult<Diagnosis>> GetDiagnosisByPatient(string patientsId)
         {
-            return HandleResult(await Mediator.Send(new ByPatient.Query{patientsId = patientsId}));
+            return HandleResult(await Mediator.Send(new ByPatient.Query { patientsId = patientsId }));
         }
 
         [HttpPost]
@@ -43,7 +43,7 @@ namespace API.Controllers
         {
             return HandleResult(await Mediator.Send(new Create.Command { Diagnosis = diagnosis }));
         }
-        
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> EditDiagnosis(Diagnosis newDiagnosis)
@@ -57,7 +57,7 @@ namespace API.Controllers
             diagnosis.Type = newDiagnosis.Type;
             diagnosis.Details = newDiagnosis.Details;
             diagnosis.date = newDiagnosis.date;
-            
+
 
             var result = await context.SaveChangesAsync() > 0;
 
@@ -69,7 +69,7 @@ namespace API.Controllers
         [HttpDelete("/api/diagnosis/{patientsId}")]
         public async Task<IActionResult> DeleteDiagnosis(string patientsId)
         {
-            return HandleResult(await Mediator.Send(new Delete.Command{patientsId = patientsId}));
+            return HandleResult(await Mediator.Send(new Delete.Command { patientsId = patientsId }));
         }
     }
 }

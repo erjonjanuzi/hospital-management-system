@@ -1,12 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
 import { useEffect } from 'react';
 import { Button, Divider, Form, Header, Message, Modal, Segment } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 import * as Yup from 'yup';
 import { ErrorMessage, Formik } from 'formik';
 import MyTextInput from '../../../app/common/form/MyTextInput';
-import { values } from 'mobx';
 
 interface Props {
     id: string | undefined;
@@ -15,8 +13,8 @@ interface Props {
 export default observer(function EditDiagnosis({ id }: Props) {
 
     const {
-        accountManagementStore: { loadAccount, selectedAccount },
-        diagnosisStore: { loadDiagnosis, loadDiagnosisByPatient, selectedDiagnosis, updateDiagnosis },
+        accountManagementStore: { loadAccount },
+        diagnosisStore: { loadDiagnosis, selectedDiagnosis, updateDiagnosis },
         modalStore
     } = useStore();
 
@@ -62,24 +60,24 @@ export default observer(function EditDiagnosis({ id }: Props) {
                                 <Message negative content={errors.error} />}
                         />
                         <Segment clearing>
-                        <Modal.Content>
-                        <Header sub content='Diagnosis information' />
-                        <MyTextInput name='title' placeholder='Title' />
-                        <MyTextInput name='type' placeholder='Type' />
-                        <Divider />
+                            <Modal.Content>
+                                <Header sub content='Diagnosis information' />
+                                <MyTextInput name='title' placeholder='Title' />
+                                <MyTextInput name='type' placeholder='Type' />
+                                <Divider />
 
-                        <Header sub content='Details' />
-                        <MyTextInput name='stage' placeholder='Stage' />
-                        <MyTextInput name='details' placeholder='Details' />
+                                <Header sub content='Details' />
+                                <MyTextInput name='stage' placeholder='Stage' />
+                                <MyTextInput name='details' placeholder='Details' />
 
-                        <Divider />
-                        <Header sub content='Date' />
-                        <MyTextInput name='date' type='date' placeholder='Date' />
-                        <Divider />
-                        </Modal.Content>
+                                <Divider />
+                                <Header sub content='Date' />
+                                <MyTextInput name='date' type='date' placeholder='Date' />
+                                <Divider />
+                            </Modal.Content>
                         </Segment>
-                        <Button disabled={isSubmitting || !dirty || !isValid  }
-                         loading={isSubmitting} positive type='submit' content='Submit'
+                        <Button disabled={isSubmitting || !dirty || !isValid}
+                            loading={isSubmitting} positive type='submit' content='Submit'
                         />
                         <Button basic color='red' content='Cancel' onClick={modalStore.closeModal} />
                     </Form>

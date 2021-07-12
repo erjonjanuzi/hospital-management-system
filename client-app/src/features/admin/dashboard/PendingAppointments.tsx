@@ -1,8 +1,7 @@
 import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Header, Icon, Item, Label, Popup, Segment, Table } from 'semantic-ui-react';
-import { Appointment } from '../../../app/models/appointment';
+import { Button, Header, Icon, Label, Segment } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 import AdminViewAppointment from '../appointments/AdminViewAppointment';
 
@@ -53,15 +52,15 @@ export default observer(function PendingAppointments() {
                                 }
                             </>
                         ))}
-                    
+
                     <Button content='All appointments' positive icon='chevron right' as={Link} to='/admin/appointments' />
                 </Segment> :
                 <Segment>
                     <Header as='h2' content='Pending appointments' />
                     <Header icon style={{ margin: '50px 0' }}>
                         <Icon name='check circle outline' color='green' />
-                            Rest easy! There are currently no pending appointments.
-                        </Header>
+                        Rest easy! There are currently no pending appointments.
+                    </Header>
                 </Segment>
             }
         </>

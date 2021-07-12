@@ -37,7 +37,7 @@ namespace API.Controllers
         {
             var specialties = await context.Specialty.ToListAsync();
 
-            if(specialties == null) return null;
+            if (specialties == null) return null;
 
             return Ok(specialties);
         }
@@ -47,7 +47,7 @@ namespace API.Controllers
         {
             var specialty = await context.Specialty.FindAsync(id);
 
-            if(specialty == null) return null;
+            if (specialty == null) return null;
 
             return Ok(specialty);
         }
@@ -57,14 +57,14 @@ namespace API.Controllers
         {
             var specialty = await context.Specialty.FindAsync(id);
 
-            if(specialty == null)
+            if (specialty == null)
                 return BadRequest("Could not find specialty");
-            
+
             context.Specialty.Remove(specialty);
 
             var result = await context.SaveChangesAsync() > 0;
 
-            if(result)
+            if (result)
                 return Ok("Deleted");
             return BadRequest("Error deleting specialty");
         }
@@ -74,14 +74,14 @@ namespace API.Controllers
         {
             var specialty = await context.Specialty.FindAsync(id);
 
-            if(specialty == null)
+            if (specialty == null)
                 return BadRequest("Could not find specialty");
-            
+
             mapper.Map(newSpecialty, specialty);
 
             var result = await context.SaveChangesAsync() > 0;
 
-            if(result)
+            if (result)
                 return Ok("Updated successfully");
             return BadRequest("Error updatinng specialty");
         }
@@ -93,15 +93,15 @@ namespace API.Controllers
 
             if (specialty == null) return null;
 
-            Doctor doctor = (Doctor) await context.Users.FindAsync(doctorId);
+            Doctor doctor = (Doctor)await context.Users.FindAsync(doctorId);
 
             if (doctor == null) return null;
 
-            doctor.Specialty = specialty;  
+            doctor.Specialty = specialty;
 
             var result = await context.SaveChangesAsync() > 0;
-            
-            if(result)
+
+            if (result)
                 return Ok(doctor);
             return BadRequest("Error adding specialty");
         }

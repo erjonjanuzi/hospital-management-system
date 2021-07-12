@@ -1,7 +1,5 @@
-import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
-import { Divider, Grid, Header, Item, Label, Segment, Table } from 'semantic-ui-react';
-import { PatientProfile } from '../../../app/models/profile';
+import { Grid, Header, Label, Segment, Table } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 
 interface Props {
@@ -9,11 +7,10 @@ interface Props {
 }
 export default function MedicalInfo({ id }: Props) { //
 
-    const { 
-    diagnosisStore: { loadDiagnosisByPatient, selectedDiagnosis }, modalStore,
-    analysisStore: { selectedAnalyse, loadAnalysisByPatient}
+    const {
+        diagnosisStore: { loadDiagnosisByPatient, selectedDiagnosis }, analysisStore: { selectedAnalyse, loadAnalysisByPatient }
     } = useStore();
-        
+
     useEffect(() => {
         if (id) loadDiagnosisByPatient(id);
     }, [id, loadDiagnosisByPatient])

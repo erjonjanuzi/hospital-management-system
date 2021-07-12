@@ -7,7 +7,7 @@ interface Props {
     uploadPhoto: (file: Blob) => void;
 }
 
-export default function PhotoUploadWidget({uploadPhoto}: Props) {
+export default function PhotoUploadWidget({ uploadPhoto }: Props) {
     const [files, setFiles] = useState<any>([]);
     const [cropper, setCropper] = useState<Cropper>();
 

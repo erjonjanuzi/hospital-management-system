@@ -5,7 +5,7 @@ import { useStore } from '../../../app/stores/store';
 import RegisterDoctorForm from './RegisterDoctorForm';
 import RegisterNewUserForm from './RegisterNewUserForm';
 
-export default observer( function ChooseAccountScreen() {
+export default observer(function ChooseAccountScreen() {
     const { modalStore } = useStore();
 
     return (
@@ -26,7 +26,7 @@ export default observer( function ChooseAccountScreen() {
                     </Segment>
                 </Grid.Column>
                 <Grid.Column width='5'>
-                <Segment textAlign='center'>
+                    <Segment textAlign='center'>
                         <Header as='h3' content='Doctor' />
                         <Icon name='user doctor' size='massive' />
                         <br /><br />

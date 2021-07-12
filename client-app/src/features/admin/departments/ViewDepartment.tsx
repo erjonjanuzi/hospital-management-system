@@ -6,36 +6,36 @@ import * as Yup from 'yup';
 import MyTextInput from "../../../app/common/form/MyTextInput";
 import { useStore } from "../../../app/stores/store";
 
-interface Props{
+interface Props {
     id: string
 }
 
 
-export default observer(function ViewDepartment({id} : Props){
+export default observer(function ViewDepartment({ id }: Props) {
 
-    const { departmentStore : {loadDepartment,selectedDepartment,updateDepartment},modalStore} =useStore();
+    const { departmentStore: { loadDepartment, selectedDepartment, updateDepartment }, modalStore } = useStore();
 
     useEffect(() => {
-    if(id)loadDepartment(id);
-    }, [id,loadDepartment]); 
+        if (id) loadDepartment(id);
+    }, [id, loadDepartment]);
 
     const validationSchema = Yup.object({
         name: Yup.string().required('Name is required'),
         capacity: Yup.string().required('Capacity is required'),
         description: Yup.string().required('Description is required'),
 
-       
+
 
 
     })
 
 
-    return(
+    return (
         <>
             <Header as='h1' content='Edit Department ' />
             <Divider />
             <Formik
-                initialValues={selectedDepartment!} 
+                initialValues={selectedDepartment!}
                 onSubmit={(values) => updateDepartment(values).catch(error => console.log(error))}
                 enableReinitialize
                 validationSchema={validationSchema}

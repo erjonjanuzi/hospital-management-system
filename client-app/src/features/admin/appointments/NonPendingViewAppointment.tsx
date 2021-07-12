@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
-import { useState } from "react";
-import { Button, Divider, Grid, Header, Icon, Item, Segment, Label, Container, Message } from "semantic-ui-react";
+import { Divider, Grid, Header, Icon, Segment, Label, Message } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import DoctorProfileCard from "./DoctorProfileCard";
 import PatientProfileCard from "./PatientProfileCard";
@@ -11,10 +10,7 @@ interface Props {
 }
 
 export default observer(function NonPendingViewAppointment({ id }: Props) {
-  const { appointmentsStore: { loadAppointment, selectedAppointment }, modalStore } = useStore();
-
-  const [details, setDetails] = useState(false);
-  const [doctorDetails, setDoctorDetails] = useState(false);
+  const { appointmentsStore: { loadAppointment, selectedAppointment } } = useStore();
 
   useEffect(() => {
     if (id) loadAppointment(id);

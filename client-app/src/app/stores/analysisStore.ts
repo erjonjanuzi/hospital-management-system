@@ -9,32 +9,32 @@ import { store } from "./store";
 export default class AnalysisStore {
     analyseRegistry = new Map<string, Analyse>();
     selectedAnalyse: Analyse | undefined = undefined;
-    editMode= false;
+    editMode = false;
     loading = false;
-    loadingInitial= false;
+    loadingInitial = false;
     modalStore = new ModalStore();
 
-    constructor(){
+    constructor() {
         makeAutoObservable(this);
     }
 
-    getAnalyses(){
+    getAnalyses() {
         return Array.from(this.analyseRegistry.values());
     }
 
-    hasAnalysis= async(id: string) => {
+    hasAnalysis = async (id: string) => {
         const analyses = await agent.Analysis.list();
-        analyses.forEach(analyse =>{
-            if(analyse.patientsId === id){
+        analyses.forEach(analyse => {
+            if (analyse.patientsId === id) {
                 console.log("This patient already has an analysis")
                 // this.setAnalyse(analyse);
             }
-            else{
+            else {
                 console.log("This patient does not have an analysis");
             }
         })
     }
-        
+
     loadAnalyses = async () => {
         try {
             const analyses = await agent.Analysis.list();
@@ -103,7 +103,7 @@ export default class AnalysisStore {
                 })
                 return;
             }
-          }
+        }
         try {
             await agent.Analysis.create(analysis);
             runInAction(() => {
@@ -147,15 +147,15 @@ export default class AnalysisStore {
         this.loading = true;
         try {
             // if (window.confirm('Delete?')) {
-                await agent.Analysis.delete(id);
-                runInAction(() => {
-                    this.analyseRegistry.delete(id);
-                    this.loading = false;
-                    store.modalStore.closeModal();
-                    window.location.reload();
- 
-                })
-                
+            await agent.Analysis.delete(id);
+            runInAction(() => {
+                this.analyseRegistry.delete(id);
+                this.loading = false;
+                store.modalStore.closeModal();
+                window.location.reload();
+
+            })
+
             // }
         } catch (error) {
             console.log(error);

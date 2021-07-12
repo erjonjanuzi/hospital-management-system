@@ -1,8 +1,4 @@
-import { observer } from 'mobx-react-lite';
-import { useEffect } from 'react';
-import { Divider, Grid, Header, Item, Label, Segment, Table } from 'semantic-ui-react';
-import { PatientProfile } from '../../../app/models/profile';
-import { useStore } from '../../../app/stores/store';
+import { Grid, Header, Label, Segment, Table } from 'semantic-ui-react';
 
 // interface Props {
 //     patient: PatientProfile

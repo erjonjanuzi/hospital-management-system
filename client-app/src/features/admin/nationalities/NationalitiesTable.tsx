@@ -35,7 +35,7 @@ export default observer(function NationalitiesTable() {
                         <Table.Row key={nationality.id}>
                             <Table.Cell>{nationality.name}</Table.Cell>
                             <Table.Cell>
-                                <Button content='View' color='facebook' 
+                                <Button content='View' color='facebook'
                                     onClick={() => modalStore.openModal(<ViewNationality id={nationality.id!} />)} />
                                 <Popup content='Delete nationality' trigger={
                                     <Button

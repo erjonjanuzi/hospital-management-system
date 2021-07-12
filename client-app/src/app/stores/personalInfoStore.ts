@@ -1,7 +1,6 @@
-import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from "constants";
-import { makeAutoObservable, runInAction } from "mobx";import { toast } from "react-toastify";
+import { makeAutoObservable, runInAction } from "mobx"; import { toast } from "react-toastify";
 import agent from "../api/agent";
-import { PersonalInfo, PersonalInfoDTO } from "../models/personalInfo";
+import { PersonalInfo } from "../models/personalInfo";
 
 export default class PersonalInfoStore {
     personalInfoRegistry = new Map<string, PersonalInfo>();
@@ -16,7 +15,7 @@ export default class PersonalInfoStore {
     }
 
     loadPersonalInfos = async () => {
-        try{
+        try {
             const personalInfo = await agent.PersonalInfos.list();
             personalInfo.forEach(personalInfo => {
                 this.setPersonalInfo(personalInfo);
@@ -38,18 +37,18 @@ export default class PersonalInfoStore {
                 runInAction(() => {
                     this.selectedPersonalInfo = personalInfo;
                 })
-            } catch (error){
+            } catch (error) {
                 console.log(error);
             }
         }
     }
 
     editPersonalInfo = async (peronalInfo: PersonalInfo) => {
-        try{
+        try {
             await agent.PersonalInfos.update(peronalInfo);
             toast.info(' Personal Information Updated');
-            
-        } catch ( error ){
+
+        } catch (error) {
             toast.error(' Personal Info Update Failed! ');
             console.log(error);
         }

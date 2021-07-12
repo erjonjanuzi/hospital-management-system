@@ -3,7 +3,6 @@ import { Button, Segment, Icon, Header, Popup, Confirm, Table } from "semantic-u
 import { useState } from 'react';
 import { useStore } from '../../../app/stores/store';
 import { useEffect } from 'react';
-import AdminViewAppointment from './AdminViewAppointment';
 import NonPendingViewAppointment from './NonPendingViewAppointment';
 
 export default observer(function AppointmentsTable() {
@@ -49,8 +48,8 @@ export default observer(function AppointmentsTable() {
                                         <>
                                             <Icon name='check' color='green' />
                                             <span>{appointment.status}</span>
-                                        </> 
-                                            : 
+                                        </>
+                                        :
                                         <span>{appointment.status}</span>}
                                     </Table.Cell>
                                     <Table.Cell>

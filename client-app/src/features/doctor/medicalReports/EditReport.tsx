@@ -1,12 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
 import { useEffect } from 'react';
 import { Button, Divider, Form, Header, Message, Modal, Segment } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
-import * as Yup from 'yup';
 import { ErrorMessage, Formik } from 'formik';
 import MyTextInput from '../../../app/common/form/MyTextInput';
-import { values } from 'mobx';
 
 interface Props {
     id: string | undefined;
@@ -15,8 +12,8 @@ interface Props {
 export default observer(function EditReport({ id }: Props) {
 
     const {
-        accountManagementStore: { loadAccount, selectedAccount },
-        medicalReportStore: { loadReport, loadReportsByPatient, selectedReport, updateReport },
+        accountManagementStore: { loadAccount },
+        medicalReportStore: { loadReport, selectedReport, updateReport },
         modalStore
     } = useStore();
 
@@ -53,25 +50,25 @@ export default observer(function EditReport({ id }: Props) {
                         />
                         <Segment clearing>
 
-                        <Modal.Content>
+                            <Modal.Content>
 
-                        <MyTextInput name='firstName' placeholder='First Name' label="First Name:"/>
-                        <MyTextInput name='lastName' placeholder='Last Name' label="Last Name:"/>
-                        <Divider />
+                                <MyTextInput name='firstName' placeholder='First Name' label="First Name:" />
+                                <MyTextInput name='lastName' placeholder='Last Name' label="Last Name:" />
+                                <Divider />
 
-                        <MyTextInput name='age' placeholder='Age' label="Age:"/> 
-                        <MyTextInput name='date' type='date' placeholder='Date' label="Date:" />
+                                <MyTextInput name='age' placeholder='Age' label="Age:" />
+                                <MyTextInput name='date' type='date' placeholder='Date' label="Date:" />
 
-                        <Divider />
+                                <Divider />
 
-                        <MyTextInput name='report' placeholder='Report' label="Report:"/>
+                                <MyTextInput name='report' placeholder='Report' label="Report:" />
 
-                        <Divider />
-                        </Modal.Content>
+                                <Divider />
+                            </Modal.Content>
 
                         </Segment>
-                        <Button disabled={isSubmitting || !dirty || !isValid  }
-                         loading={isSubmitting} positive type='submit' content='Submit'
+                        <Button disabled={isSubmitting || !dirty || !isValid}
+                            loading={isSubmitting} positive type='submit' content='Submit'
                         />
                         <Button basic color='red' content='Cancel' onClick={modalStore.closeModal} />
                     </Form>

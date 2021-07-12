@@ -40,7 +40,7 @@ export default observer(function AppointmentItem({ appointment }: Props) {
                                         <Popup
                                             hoverable
                                             trigger={
-                                                <Item.Image style={{ marginBottom: 3 }} size='mini' circular 
+                                                <Item.Image style={{ marginBottom: 3 }} size='mini' circular
                                                     src={appointment.doctor.image || '/assets/user.png'} />
                                             }
                                         >

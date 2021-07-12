@@ -1,19 +1,17 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
 import { Button, Divider, Header, Label } from 'semantic-ui-react';
 import * as Yup from 'yup';
 import { useStore } from '../../../app/stores/store';
-import { ErrorMessage, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import MyTextInput from '../../../app/common/form/MyTextInput';
 import { Country } from '../../../app/models/city';
 import ViewCountry from './ViewCountry';
-import { toast } from 'react-toastify';
 
 interface Props {
     country: Country;
 }
 
-export default observer(function RegisterCityForm({country}: Props) {
+export default observer(function RegisterCityForm({ country }: Props) {
     const { modalStore, countriesStore } = useStore();
     const { createCity } = countriesStore;
 
@@ -27,7 +25,7 @@ export default observer(function RegisterCityForm({country}: Props) {
             <Header as='h1' content={`Add new city in ${country.name}`} />
             <Divider />
             <Formik
-                initialValues={{name: '', zip: '', countryId: country.id}}
+                initialValues={{ name: '', zip: '', countryId: country.id }}
                 onSubmit={values => createCity(values).then(modalStore.closeModal)}
                 validationSchema={validationSchema}
                 enableReinitialize
@@ -43,7 +41,7 @@ export default observer(function RegisterCityForm({country}: Props) {
                         <Button disabled={isSubmitting || !dirty || !isValid}
                             loading={isSubmitting} positive type='submit' content='Submit'
                         />
-                        <Button basic color='red' content='Cancel' 
+                        <Button basic color='red' content='Cancel'
                             onClick={() => modalStore.openModal(<ViewCountry id={country.id} />)} />
                     </Form>
                 )}

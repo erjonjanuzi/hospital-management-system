@@ -40,7 +40,7 @@ namespace API.Controllers
 
             if (nationalities == null)
                 return null;
-            
+
             return Ok(nationalities);
         }
 

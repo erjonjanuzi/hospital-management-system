@@ -35,7 +35,7 @@ namespace Application.Photos
             {
                 string username = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
 
-                var user = (Doctor) await context.Users.Include(p => ((Doctor)p).Photo)
+                var user = (Doctor)await context.Users.Include(p => ((Doctor)p).Photo)
                     .FirstOrDefaultAsync(x => x.UserName == username);
 
                 if (user == null) return null;

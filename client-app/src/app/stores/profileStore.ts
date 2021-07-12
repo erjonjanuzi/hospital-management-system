@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 import agent from "../api/agent";
-import { DoctorProfile, PatientProfile, Photo } from "../models/profile";
+import { DoctorProfile, PatientProfile } from "../models/profile";
 import { store } from "./store";
 
 export default class ProfileStore {

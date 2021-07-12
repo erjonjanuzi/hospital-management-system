@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 using API.DTO;
 using API.Services;
 using Application.Accounts;
-using AutoMapper;
 using Domain;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -71,18 +69,6 @@ namespace API.Controllers
             if (registerDto.Role.ToLower().Equals("admin"))
             {
                 user = new Admin
-                {
-                    FirstName = registerDto.FirstName,
-                    LastName = registerDto.LastName,
-                    UserName = registerDto.Username,
-                    Email = registerDto.Email,
-                    PasswordHash = registerDto.PasswordHash,
-                    RegisteredSince = DateTime.Now
-                };
-            }
-            else if (registerDto.Role.ToLower().Equals("doctor"))
-            {
-                user = new Doctor
                 {
                     FirstName = registerDto.FirstName,
                     LastName = registerDto.LastName,
@@ -284,7 +270,7 @@ namespace API.Controllers
             return Ok(patient);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
@@ -307,14 +293,14 @@ namespace API.Controllers
             };
         }
 
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         [HttpGet("all")]
         public async Task<ActionResult<List<AppUser>>> GetAllUsers()
         {
             return HandleResult(await Mediator.Send(new List.Query()));
         }
 
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         [HttpGet("user/{id}")]
         public async Task<ActionResult<UserDto>> GetUser(string id)
         {
@@ -323,14 +309,14 @@ namespace API.Controllers
             return CreateUserObject(user);
         }
 
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
         }
 
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> EditUser(string id, UserDto userDto)
         {

@@ -14,7 +14,7 @@ namespace Infrastructure.Photos
         private readonly Cloudinary cloudinary;
         public PhotoAccessor(IOptions<CloudinarySettings> config)
         {
-            var account = new Account (
+            var account = new Account(
                 config.Value.CloudName,
                 config.Value.ApiKey,
                 config.Value.ApiSecret
@@ -22,7 +22,7 @@ namespace Infrastructure.Photos
             cloudinary = new Cloudinary(account);
         }
 
-        public async Task<PhotoUploadResult> AddPhoto (IFormFile file)
+        public async Task<PhotoUploadResult> AddPhoto(IFormFile file)
         {
             if (file.Length > 0)
             {

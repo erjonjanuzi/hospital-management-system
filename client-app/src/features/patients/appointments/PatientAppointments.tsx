@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
-import { Button, Icon, Segment, Header, Divider, Tab, Menu, Grid } from "semantic-ui-react";
+import { Button, Icon, Segment, Header, Tab, Grid } from "semantic-ui-react";
 import { useStore } from '../../../app/stores/store';
-import AppointmentsTable from './AllAppointmentsTable';
 import AppointmentForm from './AppointmentForm';
 import Breadcrumbs from '../../../app/layout/Breadcrumbs';
 import AllAppointmentsTable from './AllAppointmentsTable';

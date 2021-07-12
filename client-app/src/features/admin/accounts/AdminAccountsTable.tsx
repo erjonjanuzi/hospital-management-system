@@ -1,17 +1,14 @@
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
-import { Button, Grid, Header, Icon, Menu, Segment, Tab, Table } from 'semantic-ui-react';
+import { Button, Grid, Header, Icon, Segment, Tab } from 'semantic-ui-react';
 import Breadcrumbs from '../../../app/layout/Breadcrumbs';
 import { useStore } from '../../../app/stores/store';
 import AccountsTable from './AccountsTable';
 import ChooseAccountScreen from './ChooseAccountScreen';
-import RegisterDoctorForm from './RegisterDoctorForm';
-import RegisterNewUserForm from './RegisterNewUserForm';
-import ViewAccount from './ViewAccount';
 
 export default observer(function AdminAccountsTable() {
     const { accountManagementStore, modalStore } = useStore();
-    const { accounts, accountRegistry, loadAccounts, deleteAccount } = accountManagementStore;
+    const { accountRegistry, loadAccounts } = accountManagementStore;
 
     useEffect(() => {
         if (accountRegistry.size <= 1) loadAccounts();

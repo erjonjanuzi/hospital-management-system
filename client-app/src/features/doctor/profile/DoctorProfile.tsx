@@ -10,7 +10,6 @@ import EditProfile from './EditProfile';
 export default observer(function DoctorProfile() {
     const { userStore: { user }, profileStore: { loadDoctor, selectedDoctor: doctor, uploadPhoto, deletePhoto }, modalStore } = useStore();
     const [addPhotoMode, setAddPhotoMode] = useState(false);
-    const [target, setTarget] = useState('');
     const [openConfirm, setOpenConfirm] = useState(false);
 
     function handlePhotoUpload(file: Blob) {

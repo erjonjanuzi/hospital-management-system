@@ -55,7 +55,7 @@ export default observer(function HomePage() {
                                 </Grid>
                             </Segment>
                         </>)
-                        || (register &&
+                    || (register &&
                         <>
                             <Segment style={{ minWidth: '30vw', padding: '0 20px' }}>
                                 <Grid >

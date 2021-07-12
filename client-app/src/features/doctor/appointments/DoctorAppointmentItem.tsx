@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import { Button, Segment, Item, Icon, Header, Popup, Grid, Card, Image, Confirm, Label } from "semantic-ui-react";
-import { useState } from 'react';
+import { Button, Segment, Item, Icon, Header, Popup, Grid, Card, Label } from "semantic-ui-react";
 import { useStore } from '../../../app/stores/store';
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Appointment } from '../../../app/models/appointment';
 import DoctorViewAppointment from './DoctorViewAppointment';
@@ -29,14 +27,14 @@ export default observer(function DoctorAppointmentItem({ appointment }: Props) {
                                         <Popup
                                             hoverable
                                             trigger={
-                                                <Label style={{marginBottom: 3}} circular color='blue' size='massive' 
+                                                <Label style={{ marginBottom: 3 }} circular color='blue' size='massive'
                                                     content={`${appointment.patient.firstName[0]}${appointment.patient.lastName[0]}`} />
                                             }
                                         >
                                             <Popup.Content>
                                                 <Card as={Link}>
-                                                <Label style={{marginBottom: 3}} circular color='blue' size='massive' 
-                                                    content={`${appointment.patient.firstName[0]}${appointment.patient.lastName[0]}`} />
+                                                    <Label style={{ marginBottom: 3 }} circular color='blue' size='massive'
+                                                        content={`${appointment.patient.firstName[0]}${appointment.patient.lastName[0]}`} />
                                                     <Card.Content>
                                                         <Card.Header>{appointment.patient.firstName + ' ' + appointment.patient.lastName}</Card.Header>
                                                         <Card.Description>

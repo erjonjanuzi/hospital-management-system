@@ -1,6 +1,5 @@
-import { ErrorMessage, Formik, Form, Field } from "formik";
+import { Formik, Form, Field } from "formik";
 import { observer } from "mobx-react-lite";
-import React from "react";
 import {
   Button,
   Divider,
@@ -15,7 +14,7 @@ import * as Yup from "yup";
 
 
 export default observer(function CreateVaccination() {
-  const { vaccinationStore: {createVaccination}, modalStore } = useStore();
+  const { vaccinationStore: { createVaccination }, modalStore } = useStore();
 
   const selectedVaccine = {
     firstName: "",
@@ -68,70 +67,70 @@ export default observer(function CreateVaccination() {
       <Formik
         initialValues={selectedVaccine}
         onSubmit={values => createVaccination(values).catch(error => console.log(error)).then(modalStore.closeModal)}
-                validationSchema={validationSchema}
-                enableReinitialize
+        validationSchema={validationSchema}
+        enableReinitialize
       >
         {({ handleSubmit, isValid, isSubmitting, dirty, errors }) => (
           <Form className="ui form" onSubmit={handleSubmit} autoComplete="off">
             <Segment clearing>
-                <List.Item>
-                  <MyTextInput
-                    label="First Name"
-                    name="firstName"
-                    placeholder="First Name"
-                  />
-                  <MyTextInput
-                    label="Last Name"
-                    name="lastName"
-                    placeholder="Last Name"
-                  />
-                  <MyTextInput label="Age" name="age" placeholder="Age" />
-                  <Divider />
-                  <MyTextInput name="email" label="Email" type='email' placeholder="Email" />
-                  <MyTextInput
-                    name="date"
-                    label="date"
-                    placeholder="Date"
-                    type="date"
-                  />
-                </List.Item>
+              <List.Item>
+                <MyTextInput
+                  label="First Name"
+                  name="firstName"
+                  placeholder="First Name"
+                />
+                <MyTextInput
+                  label="Last Name"
+                  name="lastName"
+                  placeholder="Last Name"
+                />
+                <MyTextInput label="Age" name="age" placeholder="Age" />
+                <Divider />
+                <MyTextInput name="email" label="Email" type='email' placeholder="Email" />
+                <MyTextInput
+                  name="date"
+                  label="date"
+                  placeholder="Date"
+                  type="date"
+                />
+              </List.Item>
 
-                <Divider />
-                <Header as="h4">
-                  {" "}
-                  1. Have you received the first dose of the vaccine?
-                </Header>
-                <label>
-                  <Field type="radio" name="received" value="Yes" />
-                  Yes
-                </label>
-                <label style={{ marginLeft: "10px" }}>
-                  <Field type="radio" name="received" value="No" />
-                  No
-                </label>
-                <Divider />
-                <Header as="h4">
+              <Divider />
+              <Header as="h4">
+                {" "}
+                1. Have you received the first dose of the vaccine?
+              </Header>
+              <label>
+                <Field type="radio" name="received" value="Yes" />
+                Yes
+              </label>
+              <label style={{ marginLeft: "10px" }}>
+                <Field type="radio" name="received" value="No" />
+                No
+              </label>
+              <Divider />
+              <Header as="h4">
                 2. Which COVID-19 vaccine do you want to receive?
-                </Header>
-                <MySelectInput
-                  placeholder="Wanted vaccine"
-                  name="vaccine"
-                  options={wantedVaccine}
-                />
-                <Divider />
-                <Header as="h4">
-                  3.Have you ever had an allergic reaction to:
-                </Header>
-                <MySelectInput
-                  name="allergies"
-                  placeholder="allergies"
-                  options={option}
-                />
-                <Divider />
-                <Header as="h4">
-                  4. Do you struggle with any chronic diseases?{" "}
-                </Header>
-                <MyTextInput name="information" placeholder='Chronic diseases' />
+              </Header>
+              <MySelectInput
+                placeholder="Wanted vaccine"
+                name="vaccine"
+                options={wantedVaccine}
+              />
+              <Divider />
+              <Header as="h4">
+                3.Have you ever had an allergic reaction to:
+              </Header>
+              <MySelectInput
+                name="allergies"
+                placeholder="allergies"
+                options={option}
+              />
+              <Divider />
+              <Header as="h4">
+                4. Do you struggle with any chronic diseases?{" "}
+              </Header>
+              <MyTextInput name="information" placeholder='Chronic diseases' />
             </Segment>
             <Button
               disabled={isSubmitting || !dirty || !isValid}

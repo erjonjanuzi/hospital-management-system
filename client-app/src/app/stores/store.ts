@@ -25,42 +25,42 @@ import OtherVaccsStore from "./otherVaccsStore";
 
 
 interface Store {
-    registerPatientStore : RegisterPatientStore;
+    registerPatientStore: RegisterPatientStore;
     patientStore: PatientStore;
-    analysisStore: AnalysisStore; 
+    analysisStore: AnalysisStore;
     commonStore: CommonStore;
     userStore: UserStore;
     modalStore: ModalStore;
     accountManagementStore: AccountManagementStore;
-    cityStore : cityStore;
-    pharmacyStore : pharmacyStore;
+    cityStore: cityStore;
+    pharmacyStore: pharmacyStore;
     departmentStore: DepartmentStore;
     diagnosisStore: DiagnosisStore;
     bloodBankStore: BloodBankStore;
     appointmentsStore: AppointmentsStore
-    medicalReportStore : medicalReportStore;
+    medicalReportStore: medicalReportStore;
     specialtyStore: SpecialtyStore
     roomStore: RoomStore;
-    healthDataStore : HealthDataStore;
-    countriesStore : CountriesStore;
-    nationalitiesStore :NationalityStore;
-    personalInfoStore : PersonalInfoStore;
-    vaccinationStore : VaccinationStore;
+    healthDataStore: HealthDataStore;
+    countriesStore: CountriesStore;
+    nationalitiesStore: NationalityStore;
+    personalInfoStore: PersonalInfoStore;
+    vaccinationStore: VaccinationStore;
     profileStore: ProfileStore;
     otherVaccsStore: OtherVaccsStore;
 }
 
 export const store: Store = {
-    registerPatientStore : new RegisterPatientStore(),
-    medicalReportStore : new medicalReportStore(),
+    registerPatientStore: new RegisterPatientStore(),
+    medicalReportStore: new medicalReportStore(),
     pharmacyStore: new pharmacyStore(),
     patientStore: new PatientStore(),
-    analysisStore: new AnalysisStore(), 
+    analysisStore: new AnalysisStore(),
     commonStore: new CommonStore(),
     userStore: new UserStore(),
     modalStore: new ModalStore(),
     accountManagementStore: new AccountManagementStore(),
-    cityStore : new cityStore(),
+    cityStore: new cityStore(),
     departmentStore: new DepartmentStore(),
     bloodBankStore: new BloodBankStore(),
     diagnosisStore: new DiagnosisStore(),
@@ -68,10 +68,10 @@ export const store: Store = {
     specialtyStore: new SpecialtyStore(),
     roomStore: new RoomStore(),
     healthDataStore: new HealthDataStore(),
-    countriesStore :new CountriesStore(),
-    nationalitiesStore : new NationalityStore(),
-    personalInfoStore : new PersonalInfoStore(),
-    vaccinationStore : new VaccinationStore(),
+    countriesStore: new CountriesStore(),
+    nationalitiesStore: new NationalityStore(),
+    personalInfoStore: new PersonalInfoStore(),
+    vaccinationStore: new VaccinationStore(),
     profileStore: new ProfileStore(),
     otherVaccsStore: new OtherVaccsStore()
 }

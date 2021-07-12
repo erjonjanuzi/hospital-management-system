@@ -1,8 +1,7 @@
-import { ErrorMessage, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import { observer } from 'mobx-react-lite';
-import { Button, Card, Divider, Header, Item, Label, Message, Segment } from 'semantic-ui-react';
+import { Button, Card, Divider, Header, Item, Message, Segment } from 'semantic-ui-react';
 import MySelectInput from '../../../app/common/form/MySelectInput';
-import MyTextInput from '../../../app/common/form/MyTextInput';
 import MyDateInput from '../../../app/common/form/MyDateInput';
 import { useStore } from '../../../app/stores/store';
 import * as Yup from 'yup';
@@ -39,7 +38,7 @@ export default observer(function AppointmentForm() {
         comment: '',
         patientId: userStore.user?.id!,
     }
- 
+
     return (
         <>
             <Header as='h1' content='New Appointment' />

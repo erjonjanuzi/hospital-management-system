@@ -1,10 +1,8 @@
 import { observer } from "mobx-react-lite";
-import React, { useEffect } from "react";
-import { Button, Divider, Grid, Image, Item, Segment } from "semantic-ui-react";
-import modalStore from "../../../app/stores/modalStore";
+import { useEffect } from "react";
+import { Button, Divider, Grid, Item, Segment } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import EditOtherVaccs from "./EditOtherVaccs";
-import EditVaccionation from "./EditOtherVaccs";
 
 interface Props {
   id: string;
@@ -52,19 +50,19 @@ export default observer(function ViewVaccination({ id }: Props) {
           <Grid.Column>
             <Item>
               <Item.Header>
-                1. Are you moderately or severely ill today? 
+                1. Are you moderately or severely ill today?
               </Item.Header>
               <Item.Header> • {vaccine?.feeling}</Item.Header>
               <Divider />
               <Item.Header>
-              2. Do you have any symptoms?
+                2. Do you have any symptoms?
               </Item.Header>
               <Item.Header>
-                • {vaccine?.symptoms} 
+                • {vaccine?.symptoms}
               </Item.Header>
               <Divider />
               <Item.Header>
-              3. Which vaccine do you want to receive?
+                3. Which vaccine do you want to receive?
               </Item.Header>
               <Item.Header> • {vaccine?.vaccineType}</Item.Header>
             </Item>

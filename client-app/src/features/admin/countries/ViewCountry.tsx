@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { Button, Divider, Header, Icon, Label, Segment, Table } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 import RegisterCityForm from './RegisterCityForm';
-import { ErrorMessage, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import MyTextInput from '../../../app/common/form/MyTextInput';
 import { toast } from 'react-toastify';
@@ -30,7 +30,7 @@ export default observer(function ViewCountry({ id }: Props) {
         zip: Yup.string().required('Zip code is required')
     })
 
-    function handleCityEdit(id: string){
+    function handleCityEdit(id: string) {
         if (id) loadCity(id);
         setCityEdit(true);
     }

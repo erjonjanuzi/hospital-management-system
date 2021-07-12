@@ -1,6 +1,6 @@
 import { ErrorMessage, Form, Formik } from 'formik';
 import { observer } from 'mobx-react-lite';
-import { Button, Divider, Header, Message ,Dropdown} from 'semantic-ui-react';
+import { Button, Divider, Header, Message } from 'semantic-ui-react';
 import MySelectInput from '../../../app/common/form/MySelectInput';
 import MyTextInput from '../../../app/common/form/MyTextInput';
 import { useStore } from '../../../app/stores/store';
@@ -8,21 +8,21 @@ import * as Yup from 'yup';
 
 export default observer(function AddNewDonor() {
 
-    const{bloodBankStore,modalStore} = useStore();
-    
-    const selectedBloodBank ={
-       
-        name : '',
-        blood:'',
-        age:'',
-        email:'',
-        mobile:'',
-        error : null
-        
+    const { bloodBankStore, modalStore } = useStore();
+
+    const selectedBloodBank = {
+
+        name: '',
+        blood: '',
+        age: '',
+        email: '',
+        mobile: '',
+        error: null
+
     }
 
     const groups = [
-        { key: 'A+', text: 'A+', value:'A+'  },
+        { key: 'A+', text: 'A+', value: 'A+' },
         { key: 'A-', text: 'A-', value: 'A-' },
         { key: 'B+', text: 'B+', value: 'B+' },
         { key: 'B-', text: 'B-', value: 'B-' },
@@ -30,12 +30,12 @@ export default observer(function AddNewDonor() {
         { key: 'AB-', text: 'AB-', value: 'AB-' },
         { key: '0+', text: '0+', value: '0+' },
         { key: '0-', text: '0-', value: '0-' },
-      ]
-      
+    ]
+
     const validationSchema = Yup.object({
-        name:Yup.string().required('Name is required'),
-        blood:Yup.string().required('Blood Type is required'),
-        age:Yup.string().required('Age is required'),
+        name: Yup.string().required('Name is required'),
+        blood: Yup.string().required('Blood Type is required'),
+        age: Yup.string().required('Age is required'),
 
     })
 
@@ -47,15 +47,15 @@ export default observer(function AddNewDonor() {
             <Formik
                 initialValues={selectedBloodBank}
                 onSubmit={(values, { setErrors }) => bloodBankStore.createBloodBank(values).catch(error =>
-                setErrors({ error }))}
+                    setErrors({ error }))}
                 validationSchema={validationSchema}
                 enableReinitialize
             >
-                {({ handleSubmit, isValid, isSubmitting, dirty,errors }) => (
+                {({ handleSubmit, isValid, isSubmitting, dirty, errors }) => (
                     <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
-                            <ErrorMessage
+                        <ErrorMessage
                             name='error' render={() =>
-                            <Message negative content={errors.error} />}
+                                <Message negative content={errors.error} />}
                         />
                         <Header sub content='details' />
                         <MyTextInput name='name' placeholder='Name' />
@@ -71,7 +71,7 @@ export default observer(function AddNewDonor() {
                         <Button basic color='red' content='Cancel' onClick={modalStore.closeModal} />
                     </Form>
                 )}
-                
+
             </Formik>
         </>
     )

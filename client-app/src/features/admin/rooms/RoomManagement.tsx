@@ -9,8 +9,8 @@ import Breadcrumbs from '../../../app/layout/Breadcrumbs';
 export default observer(function RoomManagement() {
     const { roomStore, departmentStore, patientStore, modalStore } = useStore();
     const { rooms, roomRegistry, loadRooms, deleteRoom } = roomStore
-    const { departments, departmentRegistry, loadDepartments, deleteDepartment } = departmentStore
-    const { patients, patientRegistry, GresaLoadPatients, selectedPatient } = patientStore;
+    const { departmentRegistry, loadDepartments } = departmentStore
+    const { patientRegistry, GresaLoadPatients } = patientStore;
 
 
     useEffect(() => {

@@ -1,14 +1,11 @@
-import { observer } from 'mobx-react-lite';
-import { useEffect } from 'react';
-import { Divider, Grid, Header, Item, Label, Segment, Table } from 'semantic-ui-react';
+import { Divider, Grid, Header, Label, Table } from 'semantic-ui-react';
 import { DoctorProfile } from '../../../app/models/profile';
-import { useStore } from '../../../app/stores/store';
 
 interface Props {
     doctor: DoctorProfile
 }
 
-export default function DoctorProfileDetails({doctor}: Props) {
+export default function DoctorProfileDetails({ doctor }: Props) {
 
 
     return (

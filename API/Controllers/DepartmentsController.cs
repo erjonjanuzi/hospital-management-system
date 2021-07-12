@@ -22,30 +22,30 @@ namespace API.Controllers
 
         public async Task<ActionResult<Department>> GetDepartment(Guid id)
         {
-            return HandleResult(await Mediator.Send(new Details.Query{Id=id}));
+            return HandleResult(await Mediator.Send(new Details.Query { Id = id }));
         }
 
 
         [HttpPost]
         public async Task<IActionResult> CreateDepartment(Department department)
         {
-            return HandleResult(await Mediator.Send(new Create.Command{ Department = department }));
+            return HandleResult(await Mediator.Send(new Create.Command { Department = department }));
         }
 
 
         [HttpPut("{id}")]
 
-        public async Task<IActionResult> EditDepartment(Guid id,Department newDepartment)
+        public async Task<IActionResult> EditDepartment(Guid id, Department newDepartment)
         {
-            newDepartment.Id=id;
-            return HandleResult(await Mediator.Send(new Edit.Command {Department = newDepartment}));
+            newDepartment.Id = id;
+            return HandleResult(await Mediator.Send(new Edit.Command { Department = newDepartment }));
         }
 
         [HttpDelete("{id}")]
 
-        public async Task<IActionResult>DeleteDepartment(Guid id)
+        public async Task<IActionResult> DeleteDepartment(Guid id)
         {
-            return HandleResult(await Mediator.Send(new Delete.Command{Id=id}));
+            return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
         }
 
     }

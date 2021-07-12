@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,11 +12,9 @@ namespace API.Controllers
     public class AppointmentController : BaseApiController
     {
         private DataContext context { get; }
-        private IMapper mapper { get; }
-        public AppointmentController(DataContext context, IMapper mapper)
+        public AppointmentController(DataContext context)
         {
             this.context = context;
-            this.mapper = mapper;
         }
 
         [HttpPost]

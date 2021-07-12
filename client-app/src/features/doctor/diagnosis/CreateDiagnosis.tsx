@@ -39,7 +39,7 @@ export default observer(function CreateDiagnosis({ id }: Props) {
             <Formik
                 initialValues={selectedDiagnosis}
                 onSubmit={(values, { setErrors }) => diagnosisStore.createDiagnosis(values).catch(error =>
-                    setErrors({ error }))} 
+                    setErrors({ error }))}
                 validationSchema={validationSchema}
                 enableReinitialize
             >
@@ -50,24 +50,24 @@ export default observer(function CreateDiagnosis({ id }: Props) {
                                 <Message negative content={errors.error} />}
                         />
                         <Segment clearing>
-                        <Modal.Content>
-                        <Header sub content='Diagnosis information' />
-                        <MyTextInput name='title' placeholder='Title' />
-                        <MyTextInput name='type' placeholder='Type' />
-                        <Divider />
+                            <Modal.Content>
+                                <Header sub content='Diagnosis information' />
+                                <MyTextInput name='title' placeholder='Title' />
+                                <MyTextInput name='type' placeholder='Type' />
+                                <Divider />
 
-                        <Header sub content='Details' />
-                        <MyTextInput name='stage' placeholder='Stage' />
-                        <MyTextInput name='details' placeholder='Details' />
+                                <Header sub content='Details' />
+                                <MyTextInput name='stage' placeholder='Stage' />
+                                <MyTextInput name='details' placeholder='Details' />
 
-                        <Divider />
-                        <Header sub content='Date' />
-                        <MyTextInput name='date' type='date' placeholder='Date' />
-                        <Divider />
-                        </Modal.Content>
+                                <Divider />
+                                <Header sub content='Date' />
+                                <MyTextInput name='date' type='date' placeholder='Date' />
+                                <Divider />
+                            </Modal.Content>
                         </Segment>
-                        <Button disabled={isSubmitting || !dirty || !isValid  }
-                         loading={isSubmitting} positive type='submit' content='Submit'
+                        <Button disabled={isSubmitting || !dirty || !isValid}
+                            loading={isSubmitting} positive type='submit' content='Submit'
                         />
                         <Button basic color='red' content='Cancel' onClick={modalStore.closeModal} />
                     </Form>

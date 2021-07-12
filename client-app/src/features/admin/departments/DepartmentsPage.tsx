@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import { Button, Header, Segment, Table, Card, CardHeader, CardDescription, Item, Divider } from 'semantic-ui-react';
+import { Button, Header, Segment, Card, Item } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 import AddNewDepartment from './AddNewDepartment';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import ViewDepartment from './ViewDepartment';
 import Breadcrumbs from '../../../app/layout/Breadcrumbs';
 

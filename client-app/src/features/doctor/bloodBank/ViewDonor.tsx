@@ -6,34 +6,34 @@ import * as Yup from 'yup';
 import MyTextInput from "../../../app/common/form/MyTextInput";
 import { useStore } from "../../../app/stores/store";
 
-interface Props{
+interface Props {
     id: string
 }
 
 
-export default observer(function ViewDonor({id} : Props){
+export default observer(function ViewDonor({ id }: Props) {
 
-    const { bloodBankStore : {loadBloodBank,selectedBloodBank,updateBloodBank},modalStore} =useStore();
+    const { bloodBankStore: { loadBloodBank, selectedBloodBank, updateBloodBank }, modalStore } = useStore();
 
     useEffect(() => {
-    if(id)loadBloodBank(id);
-    }, [id,loadBloodBank]); 
+        if (id) loadBloodBank(id);
+    }, [id, loadBloodBank]);
 
     const validationSchema = Yup.object({
         name: Yup.string().required('Name is required'),
-        
-       
+
+
 
 
     })
 
 
-    return(
+    return (
         <>
             <Header as='h1' content='Edit Donor ' />
             <Divider />
             <Formik
-                initialValues={selectedBloodBank!} 
+                initialValues={selectedBloodBank!}
                 onSubmit={(values) => updateBloodBank(values).catch(error => console.log(error))}
                 enableReinitialize
                 validationSchema={validationSchema}

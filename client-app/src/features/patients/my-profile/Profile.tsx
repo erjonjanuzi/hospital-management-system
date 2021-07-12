@@ -1,10 +1,7 @@
-import userEvent from '@testing-library/user-event'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
-import { Card, Container, Divider, Grid, Icon, Image, List, Segment, Tab } from 'semantic-ui-react'
-import PatientStore from '../../../app/stores/patientStore'
+import { useEffect } from 'react'
+import { Card, Grid, Icon, Image, Segment, Tab } from 'semantic-ui-react'
 import { useStore } from '../../../app/stores/store'
-import UserStore from '../../../app/stores/userStore'
 import BillingInfo from './BillingInfo'
 import MedicalInfo from './MedicalInfo'
 import PersonalInfo from './PersonalInfo'
@@ -12,15 +9,13 @@ import PersonalInfo from './PersonalInfo'
 
 export default observer(function Profile() {
 
-    const { accountManagementStore: { loadAccount, selectedAccount },
-    diagnosisStore: { deleteDiagnosis, loadDiagnosisByPatient, selectedDiagnosis }, modalStore,
-    userStore: {user, getUser}
+    const { userStore: { user, getUser }
     } = useStore();
 
 
     useEffect(() => {
         getUser();
-      }, [user, getUser])
+    }, [user, getUser])
 
     // const { userStore: { user }, profileStore: { loadPatient, selectedPatient: patient }, modalStore } = useStore();
 
@@ -29,26 +24,6 @@ export default observer(function Profile() {
     // }, [loadPatient])
 
 
-    const staticPatient = {
-        // personal information
-        fullName: "Engjëll Avdiu",
-        date: "21 April 2001",
-        gender: "Male",
-        phoneNumber: "+383 (0)49 466 692",
-
-        // medical information
-        medicalId: "192047219",
-        height: "188 cm",
-        bloodType: "0(poz)",
-        medicalCon: "High Blood Pressure",
-
-        //billing information
-        firstName: "Engjëll",
-        lastName: "Avdiu",
-        address: "Str. Ferat Dragaj, Mitrovice, 40000",
-        state: "Kosovo"
-
-    }
 
     const panes = [
         {

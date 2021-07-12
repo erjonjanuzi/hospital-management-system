@@ -38,7 +38,7 @@ namespace API.Controllers
                     var appointments = await context.Appointments
                         .Where(a => a.DoctorId == doctor.Id)
                         .ToListAsync();
-                    
+
                     foreach (Appointment a in appointments)
                     {
                         if (a.Date.Day == date.Day && a.Date.Hour == date.Hour)
@@ -54,7 +54,7 @@ namespace API.Controllers
 
             return Ok(doctors);
         }
-        
+
         [HttpGet("{doctors}")]
         public async Task<ActionResult<List<Doctor>>> GetDoctorProfiles()
         {
@@ -64,14 +64,15 @@ namespace API.Controllers
 
             foreach (AppUser u in users)
             {
-                if (u is Doctor){
+                if (u is Doctor)
+                {
                     Doctor doctor = (Doctor)u;
                     var specialty = await context.Specialty.FindAsync(doctor.SpecialtyId);
                     doctor.Specialty = specialty;
                     doctors.Add(doctor);
                 }
             }
-            
+
             return Ok(doctors);
         }
 

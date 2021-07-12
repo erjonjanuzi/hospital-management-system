@@ -1,14 +1,12 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { observer } from 'mobx-react-lite';
-import { Button, Divider, Grid, Header, Input, Label, Message, Radio, Select } from 'semantic-ui-react';
+import { Button, Divider, Grid, Header, Label, Message, Select } from 'semantic-ui-react';
 import MySelectInput from '../../../app/common/form/MySelectInput';
 import MyTextInput from '../../../app/common/form/MyTextInput';
 import { useStore } from '../../../app/stores/store';
 import * as Yup from 'yup';
-import { RegisterDoctor } from '../../../app/models/user';
 import { useEffect } from 'react';
 import DateInput from '../../../app/common/form/DateInput';
-import { useState } from 'react';
 
 
 export default observer(function RegisterDoctorForm() {

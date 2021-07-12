@@ -2,7 +2,7 @@ import { Formik, Form } from "formik";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Button, Confirm, Divider, Grid, Header, Icon, Item, Label, Segment, Select } from "semantic-ui-react";
+import { Button, Confirm, Divider, Grid, Header, Icon, Label, Segment, Select } from "semantic-ui-react";
 import MyDateInput from "../../../app/common/form/MyDateInput";
 import MySelectInput from "../../../app/common/form/MySelectInput";
 import { store, useStore } from "../../../app/stores/store";
@@ -13,8 +13,8 @@ interface Props {
 }
 
 export default observer(function ViewAppointment({ id }: Props) {
-    const { modalStore, appointmentsStore: { loadAppointment, selectedAppointment, assignDoctor,
-        denyAppointment }, accountManagementStore, specialtyStore } = useStore();
+    const { appointmentsStore: { loadAppointment, selectedAppointment, assignDoctor,
+        denyAppointment }, specialtyStore } = useStore();
 
     const [form, setForm] = useState(false);
     const [openConfirm, setOpenConfirm] = useState(false);
@@ -149,7 +149,7 @@ export default observer(function ViewAppointment({ id }: Props) {
                                     <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
                                         <Select options={specialties} placeholder='Specialty' name='specialtyId'
                                             onChange={(values, data) =>
-                                                getAvailableDoctors((data.value!).toString(), selectedAppointment?.date!)} fluid 
+                                                getAvailableDoctors((data.value!).toString(), selectedAppointment?.date!)} fluid
                                         />
                                         <br />
                                         {availableDoctors &&

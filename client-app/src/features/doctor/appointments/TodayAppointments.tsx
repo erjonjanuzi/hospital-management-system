@@ -6,14 +6,14 @@ import DoctorAppointmentItem from './DoctorAppointmentItem';
 
 export default observer(function TodayAppointments() {
     const { appointmentsStore, userStore } = useStore();
-    const { loadDoctorAppointments, appointmentRegistry, appointments, cancelAppointment } = appointmentsStore;
+    const { loadDoctorAppointments, appointmentRegistry, appointments } = appointmentsStore;
     const { user } = userStore;
 
     /**
      * This constant gets the today date in local time
      */
     const date = new Date();
-    
+
     const todayAppointments = appointments.filter(a => new Date(a.date).getDate() == date.getDate() && a.status == 'Active');
     let hasAppointmentsToday: boolean = todayAppointments.length > 0;
 

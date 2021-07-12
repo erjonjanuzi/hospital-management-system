@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 import agent from "../api/agent";
 import { Nationality } from "../models/nationality";
-import { DoctorProfile } from "../models/profile";
 
 export default class NationalityStore {
     nationalitiesRegistry = new Map<string, Nationality>();
@@ -54,7 +53,7 @@ export default class NationalityStore {
         return this.nationalitiesRegistry.get(id);
     }
 
-    createNationality= async (nationality: Nationality) => {
+    createNationality = async (nationality: Nationality) => {
         try {
             if (nationality == null) return null;
 

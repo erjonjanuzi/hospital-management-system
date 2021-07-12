@@ -6,15 +6,15 @@ import { City, Country } from "../models/city"
 import { store } from "../stores/store";
 import { User, UserFormValues, AccountDto, AccountFormValues, RegisterDoctor } from "../models/user";
 import { Diagnosis, DiagnosisDto } from "../models/diagnosis";
-import { Department,DepartmentTable } from "../models/department";
+import { Department, DepartmentTable } from "../models/department";
 import { Analyse, AnalyseDto } from "../models/analyse";
 import { Pharmacy, PharmacyDto } from "../models/pharmacy";
-import { BloodBank,BloodBankTable } from "../models/bloodBank";
+import { BloodBank, BloodBankTable } from "../models/bloodBank";
 import { Appointment } from "../models/appointment";
-import { MedicalReport,MedicalReportDto } from "../models/medicalReport";
+import { MedicalReport, MedicalReportDto } from "../models/medicalReport";
 import { Specialty } from "../models/specialty";
 import { DoctorProfile, PatientProfile, Photo } from "../models/profile";
-import { Room,RoomDto } from "../models/room";
+import { Room, RoomDto } from "../models/room";
 import { HealthData, HealthDataTable } from "../models/healthData";
 import { PersonalInfo, PersonalInfoDTO } from "../models/personalInfo";
 import { Nationality } from "../models/nationality";
@@ -114,20 +114,20 @@ const OtherVaccs = {
     delete: (id: string) => axios.delete<void>(`/othervaccs/${id}`)
 }
 
-const Pharmacies ={
-    list : () => requests.get<Pharmacy[]>('/pharmacies'),
-    details : (id: string) => requests.get<Pharmacy>(`/pharmacies/${id}`),
-    delete :(id: string) => axios.delete<void>(`/pharmacies/${id}`),
-    create : (pharmacy : PharmacyDto) => requests.post<void>('/pharmacies/',pharmacy),
-    update : (pharmacy : Pharmacy) => axios.put<void>(`/pharmacies/${pharmacy.id}`,pharmacy)
+const Pharmacies = {
+    list: () => requests.get<Pharmacy[]>('/pharmacies'),
+    details: (id: string) => requests.get<Pharmacy>(`/pharmacies/${id}`),
+    delete: (id: string) => axios.delete<void>(`/pharmacies/${id}`),
+    create: (pharmacy: PharmacyDto) => requests.post<void>('/pharmacies/', pharmacy),
+    update: (pharmacy: Pharmacy) => axios.put<void>(`/pharmacies/${pharmacy.id}`, pharmacy)
 }
 
-const MedicalReports ={
-    list : () => requests.get<MedicalReport[]>('/medicalreports'),
-    details : (id : string) => requests.get<MedicalReport>(`/medicalreports/${id}`),
-    delete :(id: string) => axios.delete<void>(`/medicalreports/${id}`),
-    create : (medicalReport : MedicalReportDto) => requests.post<void>('/medicalreports/',medicalReport),
-    update : (medicalReport : MedicalReport) => axios.put<void>(`/medicalreports/${medicalReport.id}`,medicalReport),
+const MedicalReports = {
+    list: () => requests.get<MedicalReport[]>('/medicalreports'),
+    details: (id: string) => requests.get<MedicalReport>(`/medicalreports/${id}`),
+    delete: (id: string) => axios.delete<void>(`/medicalreports/${id}`),
+    create: (medicalReport: MedicalReportDto) => requests.post<void>('/medicalreports/', medicalReport),
+    update: (medicalReport: MedicalReport) => axios.put<void>(`/medicalreports/${medicalReport.id}`, medicalReport),
     ByPatient: (patientsId: string) => requests.get<MedicalReport>(`/patientReports/${patientsId}`)
 
 }
@@ -231,7 +231,7 @@ const Profiles = {
         let formData = new FormData();
         formData.append('File', file);
         return axios.post<Photo>('photos', formData, {
-            headers: {'Content-type': 'multipart/form-data'}
+            headers: { 'Content-type': 'multipart/form-data' }
         })
     },
     deletePhoto: (id: string) => requests.delete(`/photos/${id}`)
@@ -279,7 +279,7 @@ const PersonalInfos = {
 
 const agent = {
     MedicalReports,
-    RegisterPatients, 
+    RegisterPatients,
     Pharmacies,
     Analysis,
     DiagnosisManager,
@@ -299,7 +299,7 @@ const agent = {
     Vaccinations,
     Specialties,
     OtherVaccs,
-    Profiles 
+    Profiles
 }
 
 export default agent;

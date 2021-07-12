@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import agent from "../api/agent";
 import { DoctorProfile } from "../models/profile";
 import { Specialty } from "../models/specialty";
-import { store } from "./store";
 
 export default class SpecialtyStore {
     specialtyRegistry = new Map<string, Specialty>();
@@ -71,7 +70,7 @@ export default class SpecialtyStore {
             doctors.forEach(doctor => {
                 this.setDoctor(doctor);
             })
-        } catch (error){
+        } catch (error) {
             console.log(error)
         }
     }

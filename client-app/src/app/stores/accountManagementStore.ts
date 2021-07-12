@@ -1,17 +1,17 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 import agent from "../api/agent";
-import { AccountDto, AccountFormValues, RegisterDoctor } from "../models/user";
+import { AccountDto, AccountFormValues } from "../models/user";
 import { store } from "./store";
 
 export default class AccountManagementStore {
     accountRegistry = new Map<string, AccountDto>();
-    selectedAccount: AccountDto | undefined = undefined;    
+    selectedAccount: AccountDto | undefined = undefined;
     editMode = false;
     loading = false;
     loadingInitial = false;
 
-    constructor(){
+    constructor() {
         makeAutoObservable(this);
     }
 
@@ -19,14 +19,14 @@ export default class AccountManagementStore {
         return Array.from(this.accountRegistry.values());
     }
 
-    loadAccounts = async() => {
+    loadAccounts = async () => {
         try {
             const accounts = await agent.AccountsManager.list();
             accounts.forEach(account => {
                 this.setAccount(account);
             })
             this.loadingInitial = false;
-        } catch (error){
+        } catch (error) {
             console.log(error);
             this.setLoadingInitial(false);
         }
@@ -34,7 +34,7 @@ export default class AccountManagementStore {
 
     numberOfAccounts = (role: string) => {
         let count = 0;
-        if (this.accounts){
+        if (this.accounts) {
             for (let i = 0; i < this.accounts.length; i++)
                 if (this.accounts[i].role === role)
                     count++;
@@ -42,14 +42,14 @@ export default class AccountManagementStore {
         return count;
     }
 
-    loadPatientAccounts = async() => {
+    loadPatientAccounts = async () => {
         try {
             const accounts = await agent.AccountsManager.list();
             accounts.forEach(account => {
                 this.setPatient(account);
             })
             this.loadingInitial = false;
-        } catch (error){
+        } catch (error) {
             console.log(error);
             this.setLoadingInitial(false);
         }
@@ -86,9 +86,9 @@ export default class AccountManagementStore {
     }
 
     private setPatient = (user: AccountDto) => {
-        if(user.role === 'patient'){
+        if (user.role === 'patient') {
             this.accountRegistry.set(user.id, user);
-        }else{
+        } else {
             console.log("Can't load Patients")
         }
     }
@@ -106,7 +106,7 @@ export default class AccountManagementStore {
                 this.loading = false;
             })
             toast.info('User deleted successfully');
-        } catch(error) {
+        } catch (error) {
             console.log(error);
             runInAction(() => {
                 this.loading = false;
@@ -145,22 +145,22 @@ export default class AccountManagementStore {
             const city = await agent.Citys.details(creds.cityId);
             const country = await agent.Countries.details(city.countryId);
             const doctor = {
-                "firstName" : creds.firstName,
-                "lastName" : creds.lastName,
-                "email" : creds.email,
-                "userName" : creds.userName,
-                "passwordHash" : creds.passwordHash,
-                "specialtyId" : creds.specialtyId,
-                "personalInfo" : {
-                    "personalNumber" : creds.personalNumber,
-                    "dateOfBirth" : creds.dateOfBirth,
-                    "gender" : creds.gender,
-                    "phoneNumber" : creds.phoneNumber,
-                    "address" : creds.address,
-                    "countryId" : country.id,
-                    "cityId" : creds.cityId,
-                    "nationalityId" : creds.nationalityId,
-                    "maritalStatus" : creds.maritalStatus
+                "firstName": creds.firstName,
+                "lastName": creds.lastName,
+                "email": creds.email,
+                "userName": creds.userName,
+                "passwordHash": creds.passwordHash,
+                "specialtyId": creds.specialtyId,
+                "personalInfo": {
+                    "personalNumber": creds.personalNumber,
+                    "dateOfBirth": creds.dateOfBirth,
+                    "gender": creds.gender,
+                    "phoneNumber": creds.phoneNumber,
+                    "address": creds.address,
+                    "countryId": country.id,
+                    "cityId": creds.cityId,
+                    "nationalityId": creds.nationalityId,
+                    "maritalStatus": creds.maritalStatus
                 }
             };
             await agent.AccountsManager.registerDoctor(doctor);
@@ -179,22 +179,22 @@ export default class AccountManagementStore {
             const city = await agent.Citys.details(creds.cityId);
             const country = await agent.Countries.details(city.countryId);
             const doctor = {
-                "firstName" : creds.firstName,
-                "lastName" : creds.lastName,
-                "email" : creds.email,
-                "userName" : creds.userName,
-                "passwordHash" : creds.passwordHash,
-                "specialtyId" : creds.specialtyId,
-                "personalInfo" : {
-                    "personalNumber" : creds.personalNumber,
-                    "dateOfBirth" : creds.dateOfBirth,
-                    "gender" : creds.gender,
-                    "phoneNumber" : creds.phoneNumber,
-                    "address" : creds.address,
-                    "countryId" : country.id,
-                    "cityId" : creds.cityId,
-                    "nationalityId" : creds.nationalityId,
-                    "maritalStatus" : creds.maritalStatus
+                "firstName": creds.firstName,
+                "lastName": creds.lastName,
+                "email": creds.email,
+                "userName": creds.userName,
+                "passwordHash": creds.passwordHash,
+                "specialtyId": creds.specialtyId,
+                "personalInfo": {
+                    "personalNumber": creds.personalNumber,
+                    "dateOfBirth": creds.dateOfBirth,
+                    "gender": creds.gender,
+                    "phoneNumber": creds.phoneNumber,
+                    "address": creds.address,
+                    "countryId": country.id,
+                    "cityId": creds.cityId,
+                    "nationalityId": creds.nationalityId,
+                    "maritalStatus": creds.maritalStatus
                 }
             };
             await agent.AccountsManager.registerDoctor(doctor);

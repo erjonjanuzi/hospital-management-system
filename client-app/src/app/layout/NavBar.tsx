@@ -5,10 +5,10 @@ import { Image, Label, Menu } from "semantic-ui-react";
 import { useStore } from "../stores/store";
 
 export default observer(function NavBar() {
-  const { userStore: { user, logout }, profileStore: {selectedDoctor: doctor, loadDoctor} } = useStore();
+  const { userStore: { user, logout }, profileStore: { selectedDoctor: doctor, loadDoctor } } = useStore();
 
   useEffect(() => {
-    if(user && user.role === 'doctor') loadDoctor(user.id);
+    if (user && user.role === 'doctor') loadDoctor(user.id);
   }, [user, loadDoctor])
 
   const adminLinks = [
@@ -38,9 +38,9 @@ export default observer(function NavBar() {
   const patientLinks = [
     { key: 'dashboard', name: 'Dashboard', to: '/patient' },
     { key: 'appointments', name: 'Appointments', to: '/patient/appointments' },
-    { key: 'pharmacy-table', name: 'Online Pharmacy', to: '/patient/pharmacy-table'},
-    { key: 'healthDatas', name: 'PHR', to: '/patient/healthDatas'},
-    { key: 'medicalReports', name: 'My Medical Reports', to: '/patient/medicalReports' },   
+    { key: 'pharmacy-table', name: 'Online Pharmacy', to: '/patient/pharmacy-table' },
+    { key: 'healthDatas', name: 'PHR', to: '/patient/healthDatas' },
+    { key: 'medicalReports', name: 'My Medical Reports', to: '/patient/medicalReports' },
     { key: 'analysis', name: 'Analysis Result', to: '/patient/patient-analysis' },
     { key: 'vaccinations', name: 'Vaccinations', to: '/patient/vaccinations' },
     { key: 'patient-profile', name: 'My Profile', to: '/patient/patient-profile' },
@@ -55,9 +55,9 @@ export default observer(function NavBar() {
         </div>
       </Menu.Item>
       <Menu.Item style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        {user?.role === 'doctor' ? 
-          <Image src={doctor?.image ||  `/assets/user.png`} size="tiny" circular /> : 
-          <Label style={{marginBottom: 3}} circular color='blue' size='massive' content={`${user?.firstName[0]}${user?.lastName[0]}`} />
+        {user?.role === 'doctor' ?
+          <Image src={doctor?.image || `/assets/user.png`} size="tiny" circular /> :
+          <Label style={{ marginBottom: 3 }} circular color='blue' size='massive' content={`${user?.firstName[0]}${user?.lastName[0]}`} />
         }
         <h3 style={{ margin: "0 10px", padding: 0 }}>{user?.firstName + ' ' + user?.lastName}</h3>
       </Menu.Item>

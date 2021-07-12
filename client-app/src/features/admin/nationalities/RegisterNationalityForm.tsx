@@ -17,7 +17,7 @@ export default observer(function RegisterNationalityForm() {
             <Header as='h1' content='Add new nationality' />
             <Divider />
             <Formik
-                initialValues={{name: ''}}
+                initialValues={{ name: '' }}
                 onSubmit={values => createNationality(values).catch(error => console.log(error)).then(modalStore.closeModal)}
                 validationSchema={validationSchema}
                 enableReinitialize
