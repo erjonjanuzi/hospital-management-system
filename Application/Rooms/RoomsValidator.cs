@@ -8,6 +8,7 @@ namespace Application.Rooms
         public RoomsValidator()
         {
             RuleFor(x => x.RoomNo).NotEmpty();
+            RuleFor(x => x.RoomType).NotEmpty();
             RuleFor(x => x.Patient).NotEmpty();
         }
     

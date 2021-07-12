@@ -37,7 +37,7 @@ export default observer(function RoomManagement() {
                 </Segment>
             </Segment.Group>
             <Segment>
-                <Button content='New Room' onClick={() => modalStore.openModal(<AddRoom />)} />
+                <Button color='green' content='New Room' onClick={() => modalStore.openModal(<AddRoom />)} />
                 <Table textAlign="center">
                     <Table.Header>
                         <Table.Row>
@@ -60,7 +60,7 @@ export default observer(function RoomManagement() {
                                 <Table.Cell>{room.patient}</Table.Cell>
 
                                 <Table.Cell>
-                                    <Button content='Edit' icon='edit' basic color='youtube'
+                                    <Button icon='edit' color='blue'
                                         onClick={() => modalStore.openModal(<ViewRoom id={room.id} />)}
                                     />
                                     <Button icon='delete' color='red'

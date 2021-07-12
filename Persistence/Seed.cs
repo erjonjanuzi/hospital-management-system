@@ -95,7 +95,7 @@ namespace Persistence
                 {
                     Name = "Cardiology",
                     Capacity = "22/100",
-                    Description="test",
+                    Description="Diagnoses and treats heart diseases.These include ischaemic heart diseases such as myocardial infarcts and angina."
                 }
             };
 
