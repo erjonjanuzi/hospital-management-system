@@ -7,14 +7,23 @@ import ViewRoom from './ViewRoom';
 import Breadcrumbs from '../../../app/layout/Breadcrumbs';
 
 export default observer(function RoomManagement() {
-    const { roomStore,modalStore } = useStore();
+    const { roomStore, departmentStore, patientStore, modalStore } = useStore();
     const { rooms, roomRegistry, loadRooms, deleteRoom } = roomStore
+    const { departments, departmentRegistry, loadDepartments, deleteDepartment } = departmentStore
+    const { patients, patientRegistry, GresaLoadPatients, selectedPatient } = patientStore;
+
 
     useEffect(() => {
         if (roomRegistry.size <= 0) loadRooms();
     }, [roomRegistry.size, loadRooms])
 
+    useEffect(() => {
+        if (departmentRegistry.size <= 0) loadDepartments();
+    }, [departmentRegistry.size, loadDepartments])
 
+    useEffect(() => {
+        if (patientRegistry.size <= 1) GresaLoadPatients();
+    }, [patientRegistry.size, GresaLoadPatients])
 
 
     return (
@@ -28,7 +37,7 @@ export default observer(function RoomManagement() {
                 </Segment>
             </Segment.Group>
             <Segment>
-                <Button content='New Room'  color='green' onClick={() => modalStore.openModal(<AddRoom />)} />
+                <Button content='New Room' onClick={() => modalStore.openModal(<AddRoom />)} />
                 <Table textAlign="center">
                     <Table.Header>
                         <Table.Row>
@@ -51,7 +60,7 @@ export default observer(function RoomManagement() {
                                 <Table.Cell>{room.patient}</Table.Cell>
 
                                 <Table.Cell>
-                                    <Button icon='edit' color='blue'
+                                    <Button content='Edit' icon='edit' basic color='youtube'
                                         onClick={() => modalStore.openModal(<ViewRoom id={room.id} />)}
                                     />
                                     <Button icon='delete' color='red'

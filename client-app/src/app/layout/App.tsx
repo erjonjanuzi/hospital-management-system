@@ -38,6 +38,7 @@ import AnalysisTablePatient from '../../features/patients/patient-analysis/Analy
 import Specialties from '../../features/admin/doctor-specialties/Specialties';
 import VaccinationTable from '../../features/patients/AllVaccinations/VaccinationTable';
 import AdminDashboard from '../../features/admin/dashboard/AdminDashboard';
+import DoctorDashboard from '../../features/doctor/dashboard/DoctorDashboard';
 
 function App() {
   const { commonStore, userStore } = useStore()
@@ -76,6 +77,7 @@ function App() {
                 <PrivateRoute path='/admin/specialties/' component={Specialties}/>
 
                 {/* Doctor Routes */}
+                <PrivateRoute exact path='/doctor' component={DoctorDashboard} />
                 <PrivateRoute exact path='/doctor/register-patient' component={RegisterPatient} />
                 <PrivateRoute exact path='/doctor/diagnosis' component={ Diagnosis } />
                 <PrivateRoute exact path='/doctor/patients' component={DoctorPatientsTable} />
@@ -86,7 +88,7 @@ function App() {
                 <PrivateRoute exact path='/doctor/profile' component={DoctorProfile} />
                  
                 {/* {Patient Routes} */}
-                <PrivateRoute exact path='/patient/dashboard' component={PatientDashboard} />
+                <PrivateRoute exact path='/patient' component={PatientDashboard} />
                 <PrivateRoute exact path='/patient/appointments' component={PatientAppointments} />
                 <PrivateRoute exact path='/patient/patient-profile' component={PatientProfile} />
                 <PrivateRoute exact path='/patient/pharmacy-table' component={PharmacyTable} />

@@ -24,7 +24,7 @@ export default observer(function NavBar() {
   ]
 
   const doctorLinks = [
-    { key: 'dashboard', name: 'Dashboard', to: '/doctor/dashboard' },
+    { key: 'dashboard', name: 'Dashboard', to: '/doctor' },
     { key: 'appointments', name: 'Appointments', to: '/doctor/appointments' },
     { key: 'patients', name: 'Patients', to: '/doctor/patients' },
     { key: 'register-patient', name: 'Register Patients', to: '/doctor/register-patient' },
@@ -36,7 +36,7 @@ export default observer(function NavBar() {
   ]
 
   const patientLinks = [
-    { key: 'dashboard', name: 'Dashboard', to: '/patient/dashboard' },
+    { key: 'dashboard', name: 'Dashboard', to: '/patient' },
     { key: 'appointments', name: 'Appointments', to: '/patient/appointments' },
     { key: 'pharmacy-table', name: 'Online Pharmacy', to: '/patient/pharmacy-table'},
     { key: 'healthDatas', name: 'PHR', to: '/patient/healthDatas'},

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Vaccinations;
 using Domain;
+using AutoMapper;
+using Persistence;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -10,7 +12,13 @@ namespace API.Controllers
 {
     public class VaccinationController : BaseApiController
    {
-
+        private DataContext context { get; }
+        private IMapper mapper { get; }
+        public VaccinationController(DataContext context, IMapper mapper)
+        {
+            this.context = context;
+            this.mapper = mapper;
+        }
         [HttpGet]
         public async Task<ActionResult<List<Vaccination>>> GetVaccinations()
         {
@@ -30,10 +38,27 @@ namespace API.Controllers
         }
 
        [HttpPut("{id}")]
-        public async Task<IActionResult> EditVaccination(Guid id, Vaccination newVaccination)
+        public async Task<IActionResult> EditVaccination(Vaccination newVaccination)
         {
-            newVaccination.Id=id;
-            return HandleResult(await Mediator.Send(new Edit.Command{Vaccination= newVaccination}));
+            var vaccine = await context.Vaccinations.FindAsync(newVaccination.Id);
+
+            if (vaccine == null) return null;
+           
+            vaccine.FirstName = newVaccination.FirstName;
+            vaccine.LastName = newVaccination.LastName;
+            vaccine.Age = newVaccination.Age;
+            vaccine.Email = newVaccination.Email;
+            vaccine.Date = newVaccination.Date;
+            vaccine.Received = newVaccination.Received;
+            vaccine.Vaccine = newVaccination.Vaccine;
+            vaccine.Allergies = newVaccination.Allergies;
+            vaccine.Information = newVaccination.Information;
+
+          var result = await context.SaveChangesAsync() > 0;
+
+            if (result)
+                return Ok(vaccine);
+            return BadRequest();
         }
 
         [HttpDelete("{id}")]

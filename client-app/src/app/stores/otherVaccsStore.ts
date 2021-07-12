@@ -72,7 +72,6 @@ export default class OtherVaccsStore {
             await agent.OtherVaccs.update(vaccine);
             runInAction(() => {
                 this.loadDiffVaccines();
-                store.modalStore.closeModal();
             })
         } catch (error) {
             console.log(error);

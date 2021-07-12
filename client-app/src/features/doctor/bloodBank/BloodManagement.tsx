@@ -51,7 +51,7 @@ export default observer(function BloodManagment(){
                                     <Table.Cell>{bloodBank.mobile}</Table.Cell>
 
                                     <Table.Cell>
-                                    <Button icon='edit' color='blue'
+                                    <Button content='Edit' icon='edit' basic color='youtube'
                                     onClick={() => modalStore.openModal(<ViewDonor id={bloodBank.id}/>)}
                                     />
                                     <Button icon='delete' color='red'

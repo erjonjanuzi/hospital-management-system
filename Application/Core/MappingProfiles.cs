@@ -20,9 +20,6 @@ namespace Application.Core
             CreateMap<Specialty, Specialty>();
             CreateMap<Room, Room>();
             CreateMap<HealthData, HealthData>();
-            CreateMap<Vaccination, Vaccination>();
-            CreateMap<OtherVacc, OtherVacc>();
-            CreateMap<Analyse, Analyse>();
         }
     }
 }

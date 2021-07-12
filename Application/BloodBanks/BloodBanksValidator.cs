@@ -8,7 +8,6 @@ namespace Application.BloodBanks
         public BloodBanksValidator()
         {
             RuleFor(x => x.Name).NotEmpty();
-            RuleFor(x => x.Age).NotEmpty();
             RuleFor(x => x.Blood).NotEmpty();
         }
     

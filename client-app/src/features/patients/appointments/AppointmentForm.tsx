@@ -18,18 +18,18 @@ export default observer(function AppointmentForm() {
     })
 
     const medicalReasons = [
-        { key: 'chest', value: 'chestpain', text: 'Chest Pain' },
-        { key: 'abdominal', value: 'abdominalpain', text: 'Abdominal Pain' },
-        { key: 'toothaches', value: 'toothaches', text: 'Toothaches' },
-        { key: 'brokenbones', value: 'brokenbones', text: 'Broken Bones and Sprains' },
-        { key: 'respiratory', value: 'respiratory', text: 'Respiratory infections' },
-        { key: 'contusions', value: 'contusions', text: 'Contusions and Cuts' },
-        { key: 'back', value: 'backpain', text: 'Back Pain' },
-        { key: 'skin', value: 'skin', text: 'Skin Infections' },
-        { key: 'objects', value: 'foreignobjects', text: 'Foreign objects in the body' },
-        { key: 'headaches', value: 'headaches', text: 'Headaches' },
-        { key: 'checkup', value: 'checkup', text: 'General Medical Checkup' },
-        { key: 'other', value: 'other', text: 'Other' }
+        { key: 'chest', value: 'Chest Pain', text: 'Chest Pain' },
+        { key: 'abdominal', value: 'Abdominal Pain', text: 'Abdominal Pain' },
+        { key: 'toothaches', value: 'Toothaches', text: 'Toothaches' },
+        { key: 'brokenbones', value: 'Broken Bones and Sprains', text: 'Broken Bones and Sprains' },
+        { key: 'respiratory', value: 'Respiratory infections', text: 'Respiratory infections' },
+        { key: 'contusions', value: 'Contusions and Cuts', text: 'Contusions and Cuts' },
+        { key: 'back', value: 'Back Pain', text: 'Back Pain' },
+        { key: 'skin', value: 'Skin Infections', text: 'Skin Infections' },
+        { key: 'objects', value: 'Foreign objects in the body', text: 'Foreign objects in the body' },
+        { key: 'headaches', value: 'Headaches', text: 'Headaches' },
+        { key: 'checkup', value: 'General Medical Checkup', text: 'General Medical Checkup' },
+        { key: 'other', value: 'Other', text: 'Other' }
     ]
 
     const appointment: Appointment = {
