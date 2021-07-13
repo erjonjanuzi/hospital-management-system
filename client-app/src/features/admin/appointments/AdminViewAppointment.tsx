@@ -46,7 +46,7 @@ export default observer(function ViewAppointment({ id }: Props) {
             let doctor = {
                 key: specialtyStore.doctors[i].id,
                 value: specialtyStore.doctors[i].id,
-                text: specialtyStore.doctors[i].firstName + ' ' + specialtyStore.doctors[i].firstName
+                text: specialtyStore.doctors[i].firstName + ' ' + specialtyStore.doctors[i].lastName
             }
             doctors[i] = doctor;
         }
