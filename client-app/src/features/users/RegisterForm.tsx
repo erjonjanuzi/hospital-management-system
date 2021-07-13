@@ -1,6 +1,6 @@
 import { Formik, Form, ErrorMessage } from 'formik';
 import { observer } from 'mobx-react-lite';
-import { Button, Message } from 'semantic-ui-react';
+import { Button, Label, Message, Segment } from 'semantic-ui-react';
 import * as Yup from 'yup';
 import MyTextInput from '../../app/common/form/MyTextInput';
 import { useStore } from '../../app/stores/store';
@@ -29,14 +29,22 @@ export default observer(function RegisterForm() {
                         name='error' render={() =>
                             <Message negative content={errors.error} />}
                     />
-                    <MyTextInput name='firstName' placeholder='First name' />
-                    <MyTextInput name='lastName' placeholder='Last name' />
-                    <MyTextInput name='username' placeholder='Username' />
-                    <MyTextInput name='email' type='email' placeholder='Email' />
-                    <MyTextInput name='passwordHash' placeholder='Password' type='password' />
-                    <Button disabled={!isValid || !dirty || isSubmitting}
-                        loading={isSubmitting} positive content='Register' type='submit' fluid
-                    />
+                    <Segment textAlign='left' basic>
+                        <Label basic content='First name' />
+                        <MyTextInput name='firstName' placeholder='First name' />
+                        <Label basic content='Last name' />
+                        <MyTextInput name='lastName' placeholder='Last name' />
+                        <Label basic content='Username' />
+                        <MyTextInput name='username' placeholder='Username' />
+                        <Label basic content='Email' />
+                        <MyTextInput name='email' type='email' placeholder='Email' />
+                        <Label basic content='Password' />
+                        <MyTextInput name='passwordHash' placeholder='Password' type='password' />
+
+                        <Button disabled={!isValid || !dirty || isSubmitting}
+                            loading={isSubmitting} positive content='Register' type='submit' fluid
+                        />
+                    </Segment>
                 </Form>
             )}
         </Formik>

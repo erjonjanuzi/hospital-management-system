@@ -153,6 +153,76 @@ namespace API.Controllers
             return BadRequest("Problem registering user");
         }
 
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<UserDto>> GetCurrentUser()
+        {
+            var user = await userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+
+            return CreateUserObject(user);
+        }
+
+        private UserDto CreateUserObject(AppUser user)
+        {
+            return new UserDto
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Token = tokenService.CreateToken(user),
+                Username = user.UserName,
+                Role = user.Role
+            };
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet("all")]
+        public async Task<ActionResult<List<AppUser>>> GetAllUsers()
+        {
+            return HandleResult(await Mediator.Send(new List.Query()));
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet("user/{id}")]
+        public async Task<ActionResult<UserDto>> GetUser(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+
+            return CreateUserObject(user);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditUser(string id, UserDto userDto)
+        {
+            var existingUser = await userManager.FindByIdAsync(id);
+
+            if (!userDto.Email.Equals(existingUser.Email) && await userManager.FindByEmailAsync(userDto.Email) != null)
+                return BadRequest("Email exists");
+            if (!userDto.Username.Equals(existingUser.UserName) && await userManager.Users.AnyAsync(x => x.UserName == userDto.Username))
+                return BadRequest("Username exists");
+
+            existingUser.FirstName = userDto.FirstName;
+            existingUser.LastName = userDto.LastName;
+            existingUser.UserName = userDto.Username;
+            existingUser.Email = userDto.Email;
+
+            var result = await userManager.UpdateAsync(existingUser);
+
+            if (result.Succeeded)
+                return Ok("user updated");
+
+            return BadRequest(userDto);
+        }
+
         [HttpPut("doctor/{id}")]
         public async Task<IActionResult> EditDoctor(string Id, Doctor newDoctor)
         {
@@ -268,76 +338,6 @@ namespace API.Controllers
 
             patient.PersonalInfo = pi;
             return Ok(patient);
-        }
-
-        [Authorize]
-        [HttpGet]
-        public async Task<ActionResult<UserDto>> GetCurrentUser()
-        {
-            var user = await userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
-
-            return CreateUserObject(user);
-        }
-
-        private UserDto CreateUserObject(AppUser user)
-        {
-            return new UserDto
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                Token = tokenService.CreateToken(user),
-                Username = user.UserName,
-                Role = user.Role
-            };
-        }
-
-        [Authorize(Roles = "admin")]
-        [HttpGet("all")]
-        public async Task<ActionResult<List<AppUser>>> GetAllUsers()
-        {
-            return HandleResult(await Mediator.Send(new List.Query()));
-        }
-
-        [Authorize(Roles = "admin")]
-        [HttpGet("user/{id}")]
-        public async Task<ActionResult<UserDto>> GetUser(string id)
-        {
-            var user = await userManager.FindByIdAsync(id);
-
-            return CreateUserObject(user);
-        }
-
-        [Authorize(Roles = "admin")]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(string id)
-        {
-            return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
-        }
-
-        [Authorize(Roles = "admin")]
-        [HttpPut("{id}")]
-        public async Task<IActionResult> EditUser(string id, UserDto userDto)
-        {
-            var existingUser = await userManager.FindByIdAsync(id);
-
-            if (!userDto.Email.Equals(existingUser.Email) && await userManager.FindByEmailAsync(userDto.Email) != null)
-                return BadRequest("Email exists");
-            if (!userDto.Username.Equals(existingUser.UserName) && await userManager.Users.AnyAsync(x => x.UserName == userDto.Username))
-                return BadRequest("Username exists");
-
-            existingUser.FirstName = userDto.FirstName;
-            existingUser.LastName = userDto.LastName;
-            existingUser.UserName = userDto.Username;
-            existingUser.Email = userDto.Email;
-
-            var result = await userManager.UpdateAsync(existingUser);
-
-            if (result.Succeeded)
-                return Ok("user updated");
-
-            return BadRequest(userDto);
         }
 
     }

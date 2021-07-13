@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +11,9 @@ namespace API.Controllers
     public class CountryController : BaseApiController
     {
         private readonly DataContext context;
-        private readonly IMapper mapper;
-        public CountryController(DataContext context, IMapper mapper)
+        public CountryController(DataContext context)
         {
             this.context = context;
-            this.mapper = mapper;
         }
 
         [HttpPost]
@@ -62,12 +59,19 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCountry(string Id)
+        public async Task<ActionResult<Country>> DeleteCountry(string Id)
         {
             var country = await context.Country.FindAsync(Id);
 
             if (country == null) return null;
+        
+            var cities = await context.Cities.Where(x => x.CountryId == country.Id).ToListAsync();
 
+            foreach(City c in cities)
+            {
+                context.Cities.Remove(c);
+            }
+            
             context.Country.Remove(country);
 
             var result = await context.SaveChangesAsync() > 0;
@@ -84,7 +88,9 @@ namespace API.Controllers
 
             if (country == null) return null;
 
-            mapper.Map(newCountry, country);
+            //mapper.Map(newCountry, country);
+            country.Id = newCountry.Id;
+            country.Name = newCountry.Name;
 
             var result = await context.SaveChangesAsync() > 0;
 

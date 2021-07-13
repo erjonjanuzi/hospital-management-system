@@ -14,7 +14,7 @@ export default observer(function RegisterNewUserForm() {
         email: '',
         username: '',
         passwordHash: '',
-        role: '',
+        role: 'admin',
         patientsId: "",
         error: null
     }

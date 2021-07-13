@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +11,9 @@ namespace API.Controllers
     public class NationalityController : BaseApiController
     {
         private readonly DataContext context;
-        private readonly IMapper mapper;
-        public NationalityController(DataContext context, IMapper mapper)
+        public NationalityController(DataContext context)
         {
             this.context = context;
-            this.mapper = mapper;
         }
 
         [HttpPost]
@@ -61,7 +58,7 @@ namespace API.Controllers
 
             if (nationality == null) return null;
 
-            mapper.Map(newNationality, nationality);
+            nationality.Name = newNationality.Name;
 
             var result = await context.SaveChangesAsync() > 0;
 
